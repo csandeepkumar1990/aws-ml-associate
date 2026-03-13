@@ -1173,6 +1173,41 @@
         </ul>
       </div>
 
+      <!-- PT6-01 -->
+      <div class="kcard" data-tags="pipeline data inference" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">🆕</span><span class="kcard-title">AWS Batch, CDK &amp; CodeArtifact (PT-6)</span><span class="kcard-src">PT-6 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>AWS Batch</strong> — managed batch scheduler; auto-provisions EC2 Spot for large ML training jobs; handles retries; <span class="yes">Spot = up to 90% savings</span></li>
+          <li><strong>AWS CDK</strong> — IaC in Python/TS; programmatically define SageMaker training jobs with right instance type; integrates into CI/CD</li>
+          <li><strong>AWS CodeArtifact</strong> — versioned PyPI/npm/Maven repo; ensures consistent ML library deps across dev/train/inference; integrates with CodeBuild</li>
+          <li><strong>AWS Chatbot</strong> — connects CloudWatch alarms + SNS to Slack/Chime; real-time ML job alerts in team channels</li>
+          <li><span class="no">✗ Lambda for batch ML</span> — 15 min limit, memory-constrained; use AWS Batch instead</li>
+        </ul>
+      </div>
+
+      <!-- PT6-02 -->
+      <div class="kcard" data-tags="data inference monitoring" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">🗄️</span><span class="kcard-title">ElastiCache, Neptune &amp; S3 Select (PT-6)</span><span class="kcard-src">PT-6 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>ElastiCache</strong> — in-memory cache (Redis/Memcached); caches features or inference results; cuts real-time prediction latency; <span class="no">NOT</span> a primary DB or model optimizer</li>
+          <li><strong>Amazon Neptune</strong> — graph DB; Property Graph (Gremlin) + RDF (SPARQL); models social/fraud networks as nodes + edges; powers graph features for ML</li>
+          <li><strong>S3 Select</strong> — SQL expressions on S3 objects; retrieve only needed columns/rows; reduces data transfer up to 400×; speeds ML training iterations</li>
+          <li><strong>Kinesis Video Streams</strong> — managed video ingestion; automated fragmentation + indexing for downstream ML; integrates with Rekognition</li>
+        </ul>
+      </div>
+
+      <!-- PT6-03 -->
+      <div class="kcard" data-tags="pipeline monitoring" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">🔍</span><span class="kcard-title">X-Ray, MWAA &amp; SQS Patterns (PT-6)</span><span class="kcard-src">PT-6 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>AWS X-Ray</strong> — distributed tracing; identifies network latency + bottlenecks in ML inference pipelines; visualizes service maps; <span class="no">NOT</span> an auto-scaler or encryptor</li>
+          <li><strong>Amazon MWAA</strong> — managed Apache Airflow; orchestrates ML pipeline steps; integrate with CodePipeline for CI/CD; reduces ops overhead vs self-hosted Airflow</li>
+          <li><strong>SQS + Lambda</strong> — decouple ML data ingestion from preprocessing; Lambda auto-scales on SQS trigger; serverless and fault-tolerant for variable data volumes</li>
+          <li><strong>Word Embeddings</strong> — Word2Vec/GloVe; dense semantic vectors; improve RNN text classifier generalization to unseen docs without changing model architecture</li>
+          <li><strong>Redshift Concurrency Scaling</strong> — auto-adds transient capacity during query spikes; no downtime; ideal for ML feature engineering workloads</li>
+        </ul>
+      </div>
+
     </div><!-- /kgrid -->
   </div><!-- /panel-keywords -->
 
@@ -1485,6 +1520,34 @@
         <div class="crow"><span class="cl">Churn model</span><span class="cr">L2 (usage, billing, calls all contribute)</span></div>
       </div>
 
+      <div class="ctable">
+        <div class="ctable-head">Monitoring Tool Selector (PT-6)</div>
+        <div class="crow"><span class="cl">CloudWatch</span><span class="cr">Metrics, alarms, logs for AWS resources</span></div>
+        <div class="crow"><span class="cl">CloudTrail</span><span class="cr yes">API call audit trail — who did what, when</span></div>
+        <div class="crow"><span class="cl">AWS X-Ray</span><span class="cr">Request tracing — latency, bottlenecks, service map</span></div>
+        <div class="crow"><span class="cl">DevOps Guru</span><span class="cr yes">ML-powered anomaly detection + remediation</span></div>
+        <div class="crow"><span class="cl">Model Monitor</span><span class="cr yes">ML-specific: data drift, bias drift, accuracy</span></div>
+        <div class="crow"><span class="cl">Macie</span><span class="cr">S3 PII discovery and classification</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Notification &amp; Alerting Services (PT-6)</div>
+        <div class="crow"><span class="cl">Amazon SNS</span><span class="cr yes">Pub/sub → email, SMS, Lambda, HTTP; real-time ML job alerts</span></div>
+        <div class="crow"><span class="cl">Amazon SQS</span><span class="cr">Message queue; decouples producers from consumers; not pub/sub</span></div>
+        <div class="crow"><span class="cl">AWS Chatbot</span><span class="cr yes">SNS/CloudWatch → Slack/Chime; interactive AWS commands from chat</span></div>
+        <div class="crow"><span class="cl">Amazon SES</span><span class="cr no">Email only; not for real-time pipeline alerts</span></div>
+        <div class="crow"><span class="cl">CloudWatch Events</span><span class="cr">Detects resource state changes; routes to targets via EventBridge</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">ML CI/CD Pipeline Sequence (PT-6)</div>
+        <div class="crow"><span class="cl">Step 1</span><span class="cr yes">Data Validation — verify quality before training</span></div>
+        <div class="crow"><span class="cl">Step 2</span><span class="cr yes">Model Training — train on validated data</span></div>
+        <div class="crow"><span class="cl">Step 3</span><span class="cr yes">Automated Testing — evaluate model performance</span></div>
+        <div class="crow"><span class="cl">Step 4</span><span class="cr yes">Production Deployment — deploy only after tests pass</span></div>
+        <div class="crow"><span class="cl">Wrong order</span><span class="cr no">Deploy before validate/test = data quality bugs in prod</span></div>
+      </div>
+
   </div><!-- /panel-compare -->
 
 </div><!-- /container -->
@@ -1500,13 +1563,13 @@ function showTab(id){
 
 // ─── DATA: ONLY NEW SESSION KEYWORDS ───
 const categories=[
-  {name:"SageMaker Core Services",  count:43, color:"#7c5cfc"},
-  {name:"ML Concepts & Algorithms", count:34, color:"#00e5c0"},
-  {name:"Data Engineering",         count:30, color:"#ffd166"},
-  {name:"Deployment Strategies",    count:25, color:"#ff6b6b"},
-  {name:"Security & IAM",           count:19, color:"#a78bfa"},
-  {name:"Model Monitoring & Drift", count:18, color:"#34d399"},
-  {name:"AWS AI Services (NLP)",    count:18, color:"#60a5fa"},
+  {name:"SageMaker Core Services",  count:46, color:"#7c5cfc"},
+  {name:"ML Concepts & Algorithms", count:36, color:"#00e5c0"},
+  {name:"Data Engineering",         count:34, color:"#ffd166"},
+  {name:"Deployment Strategies",    count:28, color:"#ff6b6b"},
+  {name:"Security & IAM",           count:22, color:"#a78bfa"},
+  {name:"Model Monitoring & Drift", count:20, color:"#34d399"},
+  {name:"AWS AI Services (NLP)",    count:20, color:"#60a5fa"},
   {name:"Generative AI (Bedrock)",  count:12, color:"#fb923c"},
   {name:"Cost & FinOps",            count:11, color:"#ff9f43"},
 ];
@@ -1804,16 +1867,16 @@ const tableData=[
   {id:82, name:"K-Means vs KNN",                   what:"K-Means = unsupervised clustering (no labels needed); KNN = supervised classification using K nearest labeled training points"},
   {id:83, name:"Logistic Regression",              what:"Linear model for binary classification; interpretable; low compute; use as baseline before moving to complex models"},
   {id:84, name:"DynamoDB composite key + GSI",     what:"Partition + sort key enables efficient fraud transaction lookups; GSI adds alternate query patterns without restructuring data"},
-  {id:85, name:"QuickSight Parameters + Controls", what:"BI tool for visual dashboards and reports; parameterize with dropdowns/sliders for dynamic filtering; NOT intended for data transformation workflows in ML pipelines — use Data Wrangler or Glue for that"},
+  {id:85, name:"QuickSight Parameters + Controls", what:"BI tool for visual dashboards and reports; parameterize with dropdowns/sliders for dynamic filtering; Row-Level Security (RLS) restricts which data rows each user sees based on IAM role/attribute — critical for compliance with regulated data; NOT intended for data transformation workflows in ML pipelines — use Data Wrangler or Glue for that"},
   {id:86, name:"AWS Compute Optimizer",            what:"Analyzes CloudWatch metrics; recommends rightsizing for EC2, Lambda, ECS, EBS to reduce cost and over-provisioning"},
-  {id:87, name:"Amazon Polly Lexicons",            what:"Text-to-speech service; Lexicons customize pronunciation of domain-specific terms (e.g., medical, brand names)"},
+  {id:87, name:"Amazon Polly Lexicons",            what:"Text-to-speech service; Lexicons customize pronunciation of domain-specific terms (e.g., medical, brand names); data prep critical: validate punctuation/grammar (controls intonation/pauses) and convert numbers to text equivalents before synthesis; combine with CloudFront to cache generated audio at edge locations for low-latency multi-region delivery"},
   {id:88, name:"Amazon Transcribe",                what:"Speech-to-text; custom vocabulary improves accuracy for domain jargon; custom language models for specialized content"},
   {id:89, name:"SageMaker Script Mode",            what:"Run custom PyTorch/TF/sklearn training scripts in AWS-managed containers; entry_point file defines training logic"},
   {id:90, name:"AWS Inferentia ml.inf1",           what:"AWS custom inference chip; up to 70% cost reduction vs GPU for high-throughput, low-latency production inference"},
   {id:91, name:"EDA first",                        what:"Exploratory Data Analysis before modeling: examine class distribution, outliers, correlations, missing values on small datasets"},
   {id:92, name:"RAG + Fine-tuning LLM",            what:"RAG = retrieval for current/external facts without retraining; Fine-tuning = bake domain knowledge into model weights"},
-  {id:93, name:"Rekognition Custom + Moderation",  what:"Custom Labels trains on your labeled images for domain-specific detection; Moderation Labels flags unsafe/adult content"},
-  {id:94, name:"AWS CodeDeploy rolling update",    what:"Deploys updated app to EC2 fleet in batches; minimizes downtime; configurable batch size and wait time between batches"},
+  {id:93, name:"Rekognition Custom + Moderation",  what:"Custom Labels trains on your labeled images for domain-specific detection; Moderation Labels flags unsafe/adult content; Face Search compares faces against a stored collection (watchlist) in real time — ideal for security surveillance and access control"},
+  {id:94, name:"AWS CodeDeploy rolling update",    what:"Deploys updated app to EC2 fleet in batches; minimizes downtime; configurable batch size and wait time between batches; automatic rollback reverts to last successful deployment on failure — eliminates manual intervention and reduces downtime in ML model update pipelines"},
   {id:95, name:"Kinesis Streams + Lambda (IoT)",   what:"Kinesis ingests high-throughput event streams; Lambda reads each shard, processes records, routes to downstream storage"},
   {id:96, name:"p4d instances A100 GPU",           what:"AWS highest-performance GPU instances (8× A100); used for large-scale genomic or multi-modal deep learning training"},
   {id:97, name:"Trusted Advisor / Cost Explorer",  what:"Trusted Advisor = best-practice checks (security, cost, limits); Cost Explorer = analyze/forecast spend with filtering"},
@@ -1864,7 +1927,7 @@ const tableData=[
   {id:142,name:"Model Pruning + Quantization (edge)", what:"Prune redundant neurons; quantize float32 → int8; deploy via IoT Greengrass/SageMaker Edge Manager for real-time edge inference"},
   {id:143,name:"Amazon DevOps Guru",               what:"ML-powered service that auto-detects operational anomalies in EC2/RDS/SageMaker and suggests actionable remediation steps"},
   {id:144,name:"CodePipeline + CodeBuild + SageMaker", what:"CodePipeline orchestrates CI/CD; CodeBuild compiles and tests; SageMaker retrains and deploys model on code/data commit"},
-  {id:145,name:"Lookout for Vision/Equipment + retrain pipeline",  what:"Lookout for Vision detects visual defects; Lookout for Equipment detects machine anomalies; both trigger automated retraining pipelines via EventBridge"},
+  {id:145,name:"Lookout for Vision/Equipment/Metrics + retrain pipeline",  what:"Lookout for Vision detects visual defects; Lookout for Equipment detects machine anomalies from sensor data (use separate datasets per machine type); Lookout for Metrics detects anomalies in business metrics (e.g., e-commerce sales spikes — train on multi-year historical data for seasonal patterns); all trigger automated retraining pipelines via EventBridge"},
   {id:146,name:"Amazon Textract + Step Functions (doc process)",   what:"Textract extracts text/tables/forms from documents; Step Functions orchestrates multi-step document processing workflows with error handling"},
   {id:147,name:"Comprehend Medical + Lambda (NLP healthcare)",     what:"Comprehend Medical extracts clinical entities (drugs, conditions, dosages) from free text; Lambda triggers processing on new documents"},
   {id:148,name:"Cognito + API Gateway (secure ML API auth)",       what:"Cognito provides user identity/auth; API Gateway enforces JWT token validation before requests reach ML inference endpoints"},
@@ -1897,6 +1960,21 @@ const tableData=[
   {id:175,name:"Training Loss",                    what:"Metric representing the model's error on training data during each epoch of learning; decreasing training loss means the model is fitting the training data; used alongside validation loss to diagnose overfitting or underfitting"},
   {id:176,name:"Validation Loss",                  what:"Metric used to evaluate the model's generalization ability on a held-out validation dataset not seen during training; if validation loss rises while training loss falls, the model is overfitting; drives early stopping decisions"},
   {id:177,name:"Loss Curve",                       what:"Visual plot of training and validation loss values across epochs; both curves decreasing together = healthy training; training loss low + validation loss high = overfitting; both losses high = underfitting; monitored in SageMaker Debugger"},
+  {id:178,name:"Word Embeddings (Word2Vec/GloVe)", what:"Dense vector representations capturing semantic and syntactic relationships between words; improve RNN text classifier generalization to unseen documents; enhance feature representation without changing model architecture; use pre-trained embeddings or train custom embeddings in SageMaker"},
+  {id:179,name:"Redshift Concurrency Scaling",     what:"Automatically adds transient cluster capacity during query volume spikes; maintains consistent low-latency performance without manual resize or downtime; charged per second of concurrency scaling usage; ideal for ML feature engineering workloads with variable query loads"},
+  {id:180,name:"AWS Chatbot",                      what:"Integrates CloudWatch alarms and SNS notifications directly into Slack channels or Amazon Chime; enables real-time ML pipeline alerts (training job success/failure) without switching context; supports interactive AWS commands from Slack"},
+  {id:181,name:"AWS X-Ray",                        what:"Distributed request tracing across microservices; visualizes service maps; identifies network latency, bottlenecks, and slow components in ML inference pipelines; does NOT handle encryption (use KMS) or auto-scaling (use Auto Scaling)"},
+  {id:182,name:"Amazon ElastiCache",               what:"Fully managed in-memory cache (Redis or Memcached); stores frequently accessed inference results or feature vectors in RAM; reduces backend database load and cuts real-time prediction latency; does not replace primary DB or optimize model computation"},
+  {id:183,name:"AWS Batch",                        what:"Fully managed batch computing service; automatically provisions EC2 Spot or On-Demand instances based on job requirements; ideal for high-volume ML training jobs that tolerate interruption; use Spot Instances for up to 90% cost savings; handles retries and scheduling automatically"},
+  {id:184,name:"AWS CDK",                          what:"Infrastructure as Code using Python/TypeScript/Java; programmatically provision SageMaker training jobs with specific instance types to match computational needs (GPU for deep learning, CPU for simpler models); integrates into CI/CD pipelines for repeatable ML infrastructure"},
+  {id:185,name:"Amazon Kinesis Video Streams",     what:"Fully managed video ingestion and storage service; automated fragmentation and indexing of video data enables efficient downstream ML processing and retrieval; integrates with Rekognition for real-time analysis; auto-manages scaling for data ingestion rate"},
+  {id:186,name:"Amazon SQS + Lambda (ML pipeline)",what:"SQS decouples high-volume data ingestion from preprocessing; Lambda triggered by SQS messages auto-scales serverlessly for variable loads; SQS provides reliable queuing and retry on failure; preferred pattern for event-driven ML data pipelines over EC2 or RDS"},
+  {id:187,name:"Amazon Neptune",                   what:"Fully managed graph database; supports Property Graph (Gremlin queries) and RDF (SPARQL); stores complex entity relationships (social networks, fraud rings, supply chains); enables graph-based feature engineering for ML models — e.g., mutual connections, community scores"},
+  {id:188,name:"CloudFront + ML Caching",          what:"Amazon CloudFront CDN caches inference results or pre-generated content (e.g., Polly audio) at global edge locations; reduces latency for geographically distributed users; combine with SageMaker endpoints for customer churn or recommendation models with repeated queries"},
+  {id:189,name:"Amazon MWAA (Managed Airflow)",    what:"Fully managed Apache Airflow for orchestrating complex ML workflows; integrate with AWS CodePipeline for automated CI/CD of ML models; schedules preprocessing → training → evaluation → deployment; preferred over self-managed Airflow for reduced operational overhead"},
+  {id:190,name:"Amazon S3 Select",                 what:"SQL-like expressions to retrieve only specific rows/columns from S3 objects (CSV, JSON, Parquet); reduces data transferred to compute by up to 400×; speeds up ML training iterations on large datasets without downloading entire files; cheaper than full S3 GET"},
+  {id:191,name:"AWS CodeArtifact",                 what:"Fully managed artifact repository; stores, versions, and shares Python (PyPI), npm, Maven packages; secures ML library dependencies across teams; integrates with CodeBuild so SageMaker training jobs pull consistent library versions; prevents dependency drift between environments"},
+  {id:192,name:"Amazon RDS + IAM for ML",          what:"Use IAM roles with least-privilege policies to restrict access to RDS instances holding ML training data; prevents hardcoded credentials; pair with AWS Secrets Manager for automatic credential rotation; Multi-AZ improves availability but does NOT restrict data access"},
 ];
 
 
