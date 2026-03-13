@@ -1971,7 +1971,7 @@ allKeywords.forEach(kw=>{
 const tbody=document.getElementById('coverage-table');
 tableData.forEach(row=>{
   const tr=document.createElement('tr');
-  tr.innerHTML=`<td style="color:var(--muted);font-size:11px">${String(row.id).padStart(2,'0')}</td><td style="font-weight:600">${row.name}</td><td style="color:var(--muted)">${row.what}</td>`;
+  tr.innerHTML=`<td style="color:var(--muted);font-size:11px">${String(row.id).padStart(2,'0')}</td><td style="font-weight:600">${row.name}</td><td>${row.what}</td>`;
   tbody.appendChild(tr);
 });
 
