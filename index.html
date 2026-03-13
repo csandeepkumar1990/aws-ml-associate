@@ -224,7 +224,7 @@
       </table>
     </div>
 
-    <div class="footer-note">✦ New Session · 65 Questions · Abhishek Singh · Stephane Maarek · Marlon Anesi ✦</div>
+    <div class="footer-note">✦ PT-1 + PT-2 + PT-3 + PT-4 · 260 Questions · Abhishek Singh · Stephane Maarek · Marlon Anesi ✦</div>
   </div>
 
   <!-- ══════════════════════════ PANEL 2 — KEYWORD CARDS ══════════════════════════ -->
@@ -1021,6 +1021,166 @@
         </ul>
       </div>
 
+
+      <!-- PT4-01 -->
+      <div class="kcard" data-tags="inference pipeline" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">⚡</span><span class="kcard-title">SageMaker Endpoint Auto Scaling</span><span class="kcard-src">PT-4 · 7×</span></div>
+        <ul class="kw">
+          <li><strong>Auto Scaling policy</strong> — scale in/out on <span class="chip">InvocationsPerInstance</span>; no manual instance management</li>
+          <li><strong>Best for</strong>: variable real-time workloads (fraud detection, recommendations, churn prediction)</li>
+          <li><span class="yes">✓ SageMaker RT Endpoint</span> — low latency + auto-scale; purpose-built for ML inference</li>
+          <li><span class="no">✗ EC2 Auto Scaling</span> — requires manual setup; no ML-specific optimizations</li>
+          <li><span class="no">✗ Lambda</span> — 15-min limit; not for large, persistent inference workloads</li>
+          <li><strong>Healthcare / finance</strong> — deploy within VPC for compliance; HIPAA-eligible</li>
+          <li><strong>Combine with</strong> Production Variants for A/B testing while auto-scaling</li>
+        </ul>
+      </div>
+
+      <!-- PT4-02 -->
+      <div class="kcard" data-tags="pipeline" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">🔔</span><span class="kcard-title">Amazon EventBridge (Event-Driven ML)</span><span class="kcard-src">PT-4 · 6×</span></div>
+        <ul class="kw">
+          <li><strong>Event bus</strong> — routes events from S3/API/ML predictions to targets (Lambda, Step Functions, SNS)</li>
+          <li><strong>ML workflow trigger</strong>: S3 data arrives → EventBridge → triggers Step Functions → SageMaker retrains</li>
+          <li><strong>Prediction routing</strong>: fraud flagged → EventBridge rule → Lambda freezes account; legitimate → DynamoDB log</li>
+          <li><span class="yes">✓ EventBridge</span> — rule-based filtering, decoupled, central event router</li>
+          <li><span class="no">✗ SQS</span> — message queuing only; no native event routing to orchestration services</li>
+          <li><span class="no">✗ Lambda alone</span> — executes code but needs an event source like EventBridge</li>
+          <li><strong>Best pattern</strong>: EventBridge + Step Functions = detect data + orchestrate full ML pipeline</li>
+        </ul>
+      </div>
+
+      <!-- PT4-03 -->
+      <div class="kcard" data-tags="pipeline" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">🗺️</span><span class="kcard-title">Step Functions Orchestration (PT-4)</span><span class="kcard-src">PT-4 · 6×</span></div>
+        <ul class="kw">
+          <li><strong>Use cases</strong>: Lookout for Vision + DynamoDB, Rekognition tagging, MTurk HITL, Textract doc pipeline</li>
+          <li><strong>MTurk + Step Functions</strong> — allocate tasks → collect results → reassign incomplete; Lambda for logic</li>
+          <li><strong>Lookout for Equipment retrain</strong>: S3 event → Lambda preprocess → Step Functions → model retrain</li>
+          <li><strong>vs Lambda alone</strong>: Lambda executes; Step Functions <em>orchestrates sequences</em> with error handling + retries</li>
+          <li><strong>Textract pipeline</strong>: S3 → Step Functions → Textract extract → Lambda transform → DynamoDB store</li>
+          <li><span class="no">✗ Step Functions for simple routing</span> — use EventBridge instead</li>
+        </ul>
+      </div>
+
+      <!-- PT4-04 -->
+      <div class="kcard" data-tags="pipeline inference" style="--c:var(--accent3)">
+        <div class="kcard-head"><span class="kcard-icon">λ</span><span class="kcard-title">Lambda Serverless ML Patterns (PT-4)</span><span class="kcard-src">PT-4 · 6×</span></div>
+        <ul class="kw">
+          <li><strong>S3 event → Lambda</strong>: ObjectCreated → invoke AI service → store result (Translate, Comprehend Medical, Rekognition)</li>
+          <li><strong>Polly TTS</strong>: API Gateway → Lambda → Amazon Polly → S3 audio; auto-scales, zero servers</li>
+          <li><strong>Kinesis → Lambda → Redshift</strong>: serverless streaming transform; scales automatically; charge per invocation</li>
+          <li><strong>Lex + Lambda</strong>: real-time chatbot logic, monitored via CloudWatch Logs</li>
+          <li><span class="yes">✓ Lambda strengths</span>: event-driven, zero idle cost, auto-scaling</li>
+          <li><span class="no">✗ Lambda limits</span>: 15-min max, memory; NOT for hosting large ML models</li>
+        </ul>
+      </div>
+
+      <!-- PT4-05 -->
+      <div class="kcard" data-tags="security" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">🏥</span><span class="kcard-title">Healthcare Security: KMS + HealthLake</span><span class="kcard-src">PT-4 · 5×</span></div>
+        <ul class="kw">
+          <li><strong>AWS HealthLake + KMS</strong> — SSE with KMS managed keys encrypts PHI at rest; meets HIPAA</li>
+          <li><strong>KMS vs alternatives</strong>: Macie = S3 PII discovery; CloudTrail = API audit; VPC = network isolation — none encrypt HealthLake directly</li>
+          <li><strong>SageMaker + KMS</strong> — encrypt training data (S3), model artifacts, EBS volumes, endpoint traffic</li>
+          <li><strong>A2I + KMS</strong> — human review workflows: KMS manages keys for stored sensitive documents</li>
+          <li><strong>Lake Formation + Athena + KMS</strong>: governance + serverless SQL + encryption for secure data lakes</li>
+          <li><span class="no">✗ VPC isolation alone</span> — network security only; does NOT encrypt HealthLake data</li>
+        </ul>
+      </div>
+
+      <!-- PT4-06 -->
+      <div class="kcard" data-tags="training mlconcepts" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">🧠</span><span class="kcard-title">Transfer Learning (Clinical / Vision)</span><span class="kcard-src">PT-4 · 5×</span></div>
+        <ul class="kw">
+          <li><strong>What it does</strong> — reuses pre-trained weights (ResNet, VGGNet, BERT); fine-tune last layers on smaller domain data</li>
+          <li><strong>Ideal when</strong>: limited labeled data, fast-changing domain (clinical guidelines), complex images (varied lighting)</li>
+          <li><strong>Clinical use</strong>: new guidelines → fine-tune existing model; faster than full retrain; less data needed</li>
+          <li><strong>Vision use</strong>: ResNet-50 fine-tune on surveillance images; balance accuracy vs compute cost</li>
+          <li><span class="yes">✓ vs full retrain</span>: faster convergence, lower compute, less overfitting risk on small datasets</li>
+          <li><span class="no">✗ Ensemble methods</span> — combine predictions but don't adapt to domain changes as efficiently</li>
+        </ul>
+      </div>
+
+      <!-- PT4-07 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">🌳</span><span class="kcard-title">Ensemble Methods Deep-Dive (PT-4)</span><span class="kcard-src">PT-4 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>Boosting</strong> — sequential; each model corrects prior errors; reduces <span class="yes">both bias AND variance</span>; XGBoost/AdaBoost</li>
+          <li><strong>Bagging</strong> — parallel independent models on bootstrap subsets; reduces <span class="yes">variance only</span>; Random Forest</li>
+          <li><strong>Random Forest</strong> — efficient, handles correlated features; + feature selection + periodic retraining = predictive maintenance</li>
+          <li><strong>L2 (Ridge)</strong> — correlated features (churn): shrink all coefficients evenly; none zeroed</li>
+          <li><strong>L1 (Lasso)</strong> — sparse high-dimensional data: forces some weights to zero → feature selection</li>
+          <li><span class="chip">Cross-validation</span> + model simplification = best fix for overfitting in recommendation systems</li>
+        </ul>
+      </div>
+
+      <!-- PT4-08 -->
+      <div class="kcard" data-tags="mlconcepts inference" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">✂️</span><span class="kcard-title">Edge ML: Pruning + Quantization</span><span class="kcard-src">PT-4 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>Pruning</strong> — remove redundant neurons/layers; reduces model size + inference time</li>
+          <li><strong>Quantization</strong> — 32-bit float → 8-bit int; drastic memory/compute reduction</li>
+          <li><strong>Workflow</strong>: train in cloud (SageMaker GPU) → optimize (Neo compile, prune, quantize) → deploy (IoT Greengrass / SageMaker Edge Manager)</li>
+          <li><strong>Predictive maintenance on edge</strong>: factory sensors → local inference → alert without internet dependency</li>
+          <li><span class="no">✗ Full model on edge</span> — compute/memory constraints; always optimize first</li>
+          <li><span class="no">✗ Cloud-only inference</span> — latency + connectivity issues for real-time edge use cases</li>
+        </ul>
+      </div>
+
+      <!-- PT4-09 -->
+      <div class="kcard" data-tags="monitoring inference" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">🔀</span><span class="kcard-title">A/B Testing &amp; Safe Deployment (PT-4)</span><span class="kcard-src">PT-4 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>Method</strong>: route controlled % of live traffic to new model; compare detection rate + false positives</li>
+          <li><strong>SageMaker</strong>: configure production variants (e.g., 80% existing / 20% new model)</li>
+          <li><strong>Monitor via</strong>: CloudWatch metrics + CloudTrail API logs for compliance audit</li>
+          <li><span class="yes">✓ vs simulation</span> — simulation uses historical data; A/B captures real-world dynamic patterns</li>
+          <li><span class="no">✗ Immediate full rollout</span> — risky if model has defects; no rollback safety</li>
+          <li><strong>Fraud detection</strong>: route live transactions; promote winning model after statistically significant results</li>
+        </ul>
+      </div>
+
+      <!-- PT4-10 -->
+      <div class="kcard" data-tags="monitoring" style="--c:var(--accent3)">
+        <div class="kcard-head"><span class="kcard-icon">🤖</span><span class="kcard-title">Amazon DevOps Guru</span><span class="kcard-src">PT-4 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>What it is</strong> — ML-powered observability: auto-detects anomalies, identifies root cause, provides remediation steps</li>
+          <li><strong>Covers</strong>: EC2, RDS, SageMaker; detects CPU spikes, slow DB queries, auto-scaling failures</li>
+          <li><span class="yes">✓ DevOps Guru</span> — proactive ML-driven issue detection + guided remediation</li>
+          <li><span class="no">✗ CloudWatch</span> — metrics/alarms only; manual threshold config; reactive</li>
+          <li><span class="no">✗ CloudTrail</span> — API audit logging only; no anomaly detection</li>
+          <li><span class="no">✗ Macie</span> — PII discovery in S3; not operational infrastructure monitoring</li>
+          <li><strong>MLOps</strong>: catches issues before they affect inference quality; reduces MTTR</li>
+        </ul>
+      </div>
+
+      <!-- PT4-11 -->
+      <div class="kcard" data-tags="pipeline data" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">🔤</span><span class="kcard-title">Serverless AI Service Pipelines (PT-4)</span><span class="kcard-src">PT-4 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>Translation</strong>: S3 upload → Lambda (ObjectCreated) → Amazon Translate → results to S3; minimal ops</li>
+          <li><strong>Comprehend Medical</strong>: clinical text in S3 → S3 event → Lambda → extract entities → DynamoDB store</li>
+          <li><strong>Textract doc pipeline</strong>: S3 → Step Functions → Textract extract → Lambda transform → DynamoDB</li>
+          <li><strong>Rekognition tagging</strong>: S3 → Step Functions → Rekognition DetectLabels → results to DynamoDB</li>
+          <li><span class="no">✗ Batch / EC2</span> — for all above, event-driven serverless beats batch + infrastructure</li>
+          <li><strong>Shared pattern</strong>: <span class="chip">storage trigger → compute → AI service → storage</span></li>
+        </ul>
+      </div>
+
+      <!-- PT4-12 -->
+      <div class="kcard" data-tags="data" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">📋</span><span class="kcard-title">Parquet + Athena Query Optimization</span><span class="kcard-src">PT-4 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>Parquet</strong> — columnar format; Athena reads only queried columns → 10-30× less data scanned → lower cost + faster</li>
+          <li><strong>Kinesis Firehose</strong> — auto-converts JSON streams to Parquet before S3 landing; fully managed</li>
+          <li><strong>Partitioning</strong> — by date/region (e.g., /year/month/day/); Athena skips irrelevant partitions entirely</li>
+          <li><span class="yes">✓ Columnar + compressed</span> — best Athena performance; Snappy or Gzip within Parquet</li>
+          <li><span class="no">✗ Raw JSON/CSV</span> — full table scan; high cost; slow queries</li>
+          <li><span class="no">✗ Compression alone</span> — reduces storage but no columnar scan pruning benefit</li>
+        </ul>
+      </div>
+
     </div><!-- /kgrid -->
   </div><!-- /panel-keywords -->
 
@@ -1319,6 +1479,42 @@
         <div class="crow"><span class="cl no">✗ Lambda cold start</span><span class="cr no">Use Provisioned Concurrency to mitigate</span></div>
       </div>
 
+
+      <div class="ctable">
+        <div class="ctable-head">EventBridge vs Lambda vs Step Functions</div>
+        <div class="crow"><span class="cl">EventBridge</span><span class="cr">Route / filter events between services</span></div>
+        <div class="crow"><span class="cl">Lambda</span><span class="cr">Execute code in response to events</span></div>
+        <div class="crow"><span class="cl">Step Functions</span><span class="cr">Orchestrate multi-step workflows + retries</span></div>
+        <div class="crow"><span class="cl">Best combo</span><span class="cr">EventBridge detects → Step Functions orchestrates → Lambda executes</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Deployment Method by Workload (PT-4)</div>
+        <div class="crow"><span class="cl">Real-time recommendations</span><span class="cr yes">SageMaker Endpoint + Auto Scaling</span></div>
+        <div class="crow"><span class="cl">Nightly batch churn</span><span class="cr">EC2 instances (batch, cost-effective)</span></div>
+        <div class="crow"><span class="cl">Dynamic pricing</span><span class="cr yes">Lambda (event-driven, near-real-time)</span></div>
+        <div class="crow"><span class="cl no">✗ Lambda for churn</span><span class="cr no">Batch + memory limits; use EC2</span></div>
+        <div class="crow"><span class="cl no">✗ SageMaker for pricing</span><span class="cr no">Over-engineered; Lambda is simpler</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Serverless AI Service Patterns (PT-4)</div>
+        <div class="crow"><span class="cl">Amazon Translate</span><span class="cr">Lambda + S3 events → multilingual docs</span></div>
+        <div class="crow"><span class="cl">Comprehend Medical</span><span class="cr">Lambda + S3 events → entity extraction</span></div>
+        <div class="crow"><span class="cl">Amazon Textract</span><span class="cr">Step Functions + Lambda → document forms</span></div>
+        <div class="crow"><span class="cl">Rekognition Tags</span><span class="cr">Step Functions + S3 → bulk image labeling</span></div>
+        <div class="crow"><span class="cl">Amazon Polly</span><span class="cr">Lambda + API Gateway → real-time TTS</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">L1 vs L2 Regularization (PT-4)</div>
+        <div class="crow"><span class="cl">L1 (Lasso)</span><span class="cr yes">Zeroes out weights → feature selection</span></div>
+        <div class="crow"><span class="cl">L2 (Ridge)</span><span class="cr">Shrinks all evenly → reduces variance</span></div>
+        <div class="crow"><span class="cl">Correlated features</span><span class="cr yes">Use L2 — preserves all correlated inputs</span></div>
+        <div class="crow"><span class="cl">High-dimensional sparse</span><span class="cr yes">Use L1 — remove irrelevant features</span></div>
+        <div class="crow"><span class="cl">Churn model</span><span class="cr">L2 (usage, billing, calls all contribute)</span></div>
+      </div>
+
   </div><!-- /panel-compare -->
 
 </div><!-- /container -->
@@ -1351,15 +1547,15 @@ function setTag(tag,btn){
 
 // ─── DATA: ONLY NEW SESSION KEYWORDS ───
 const categories=[
-  {name:"SageMaker Core Services",  count:38, color:"#7c5cfc"},
-  {name:"ML Concepts & Algorithms", count:29, color:"#00e5c0"},
-  {name:"Data Engineering",         count:25, color:"#ffd166"},
-  {name:"Deployment Strategies",    count:19, color:"#ff6b6b"},
-  {name:"Security & IAM",           count:16, color:"#a78bfa"},
-  {name:"Model Monitoring & Drift", count:14, color:"#34d399"},
-  {name:"AWS AI Services (NLP)",    count:14, color:"#60a5fa"},
-  {name:"Generative AI (Bedrock)",  count:11, color:"#fb923c"},
-  {name:"Cost & FinOps",            count:9,  color:"#ff9f43"},
+  {name:"SageMaker Core Services",  count:43, color:"#7c5cfc"},
+  {name:"ML Concepts & Algorithms", count:34, color:"#00e5c0"},
+  {name:"Data Engineering",         count:30, color:"#ffd166"},
+  {name:"Deployment Strategies",    count:25, color:"#ff6b6b"},
+  {name:"Security & IAM",           count:19, color:"#a78bfa"},
+  {name:"Model Monitoring & Drift", count:18, color:"#34d399"},
+  {name:"AWS AI Services (NLP)",    count:18, color:"#60a5fa"},
+  {name:"Generative AI (Bedrock)",  count:12, color:"#fb923c"},
+  {name:"Cost & FinOps",            count:11, color:"#ff9f43"},
 ];
 const totalKeywords=categories.reduce((a,b)=>a+b.count,0);
 
@@ -1515,6 +1711,32 @@ const allKeywords=[
   {name:"Amazon Translate Batch",   tier:"tier4"},
   {name:"DynamoDB + Personalize",   tier:"tier4"},
   {name:"SageMaker Neo Compile",    tier:"tier4"},
+  // ── PT-4 additions ──
+  {name:"SageMaker Endpoint Auto-scale", tier:"tier1"},
+  {name:"EventBridge Event Routing",tier:"tier1"},
+  {name:"Transfer Learning (ResNet)",tier:"tier1"},
+  {name:"Boosting (bias+variance)", tier:"tier1"},
+  {name:"Lambda Serverless Pattern",tier:"tier2"},
+  {name:"Step Functions HITL",      tier:"tier2"},
+  {name:"AWS HealthLake + KMS",     tier:"tier2"},
+  {name:"Amazon DevOps Guru",       tier:"tier2"},
+  {name:"Parquet + Athena Query",   tier:"tier2"},
+  {name:"A/B Testing (SageMaker)",  tier:"tier2"},
+  {name:"L2 Ridge (correlated)",    tier:"tier2"},
+  {name:"Edge Pruning+Quantize",    tier:"tier2"},
+  {name:"Comprehend Medical",       tier:"tier3"},
+  {name:"Amazon Textract",          tier:"tier3"},
+  {name:"Amazon Translate",         tier:"tier3"},
+  {name:"Cognito + API Gateway",    tier:"tier3"},
+  {name:"DataSync + Transfer Family",tier:"tier3"},
+  {name:"Lookout for Equipment",    tier:"tier3"},
+  {name:"Lookout for Vision",       tier:"tier3"},
+  {name:"Random Forest + Retrain",  tier:"tier3"},
+  {name:"Lake Formation + Athena",  tier:"tier4"},
+  {name:"CodePipeline+CodeBuild ML",tier:"tier4"},
+  {name:"Pipe Mode + P3/G4 GPU",    tier:"tier4"},
+  {name:"Cross-validation",         tier:"tier4"},
+  {name:"SageMaker Model Monitor",  tier:"tier4"},
 ];
 
 const tableData=[
@@ -1645,6 +1867,32 @@ const tableData=[
   {id:123,name:"CloudTrail multi-region + data events",            cat:"Security & IAM",    mentions:3,  priority:"med"},
   {id:124,name:"SageMaker Neo compile + hardware optimization",    cat:"SageMaker Core",    mentions:2,  priority:"low"},
   {id:125,name:"DynamoDB + Personalize (real-time recommend)",     cat:"Data Engineering",  mentions:2,  priority:"low"},
+  // ── PT-4 ──
+  {id:126,name:"SageMaker Endpoint + Auto Scaling (real-time)",    cat:"Deployment",        mentions:7,  priority:"high"},
+  {id:127,name:"EventBridge event-driven ML routing",              cat:"Deployment",        mentions:6,  priority:"high"},
+  {id:128,name:"AWS Lambda serverless ML pipeline patterns",       cat:"Deployment",        mentions:6,  priority:"high"},
+  {id:129,name:"Step Functions workflow orchestration (PT-4)",     cat:"Deployment",        mentions:6,  priority:"high"},
+  {id:130,name:"CloudWatch monitoring + alerting (PT-4)",          cat:"Monitoring",        mentions:6,  priority:"high"},
+  {id:131,name:"Transfer Learning (ResNet/VGGNet fine-tune)",      cat:"ML Concepts",       mentions:5,  priority:"high"},
+  {id:132,name:"KMS encryption + AWS HealthLake (PHI/HIPAA)",      cat:"Security & IAM",    mentions:5,  priority:"high"},
+  {id:133,name:"SageMaker Real-Time Inference + VPC",              cat:"Deployment",        mentions:5,  priority:"high"},
+  {id:134,name:"Kinesis + Lambda + DynamoDB (streaming pattern)",  cat:"Data Engineering",  mentions:4,  priority:"med"},
+  {id:135,name:"AWS Glue ETL → S3 → SageMaker (from RDS)",        cat:"Data Engineering",  mentions:4,  priority:"med"},
+  {id:136,name:"Random Forest + Feature Selection + Retraining",   cat:"ML Concepts",       mentions:4,  priority:"med"},
+  {id:137,name:"L2 Regularization (Ridge — reduce variance)",      cat:"ML Concepts",       mentions:4,  priority:"med"},
+  {id:138,name:"Boosting (reduce bias AND variance — XGBoost)",    cat:"ML Concepts",       mentions:4,  priority:"med"},
+  {id:139,name:"Parquet columnar format + Athena optimization",    cat:"Data Engineering",  mentions:3,  priority:"med"},
+  {id:140,name:"Lake Formation + Athena + KMS (secure data lake)", cat:"Data Engineering",  mentions:3,  priority:"med"},
+  {id:141,name:"A/B Testing (production variant safe rollout)",    cat:"Deployment",        mentions:3,  priority:"med"},
+  {id:142,name:"Model Pruning + Quantization (edge deployment)",   cat:"ML Concepts",       mentions:3,  priority:"med"},
+  {id:143,name:"Amazon DevOps Guru (ML-powered observability)",    cat:"Monitoring",        mentions:3,  priority:"med"},
+  {id:144,name:"CodePipeline + CodeBuild + SageMaker CI/CD",       cat:"Deployment",        mentions:3,  priority:"med"},
+  {id:145,name:"Lookout for Vision/Equipment + retrain pipeline",  cat:"AWS AI Services",   mentions:3,  priority:"med"},
+  {id:146,name:"Amazon Textract + Step Functions (doc process)",   cat:"AWS AI Services",   mentions:2,  priority:"low"},
+  {id:147,name:"Comprehend Medical + Lambda (NLP healthcare)",     cat:"AWS AI Services",   mentions:2,  priority:"low"},
+  {id:148,name:"Cognito + API Gateway (secure ML API auth)",       cat:"Security & IAM",    mentions:2,  priority:"low"},
+  {id:149,name:"DataSync + Transfer Family (Kendra data sync)",    cat:"Data Engineering",  mentions:2,  priority:"low"},
+  {id:150,name:"Apache Flink managed + Kinesis (IoT streaming)",   cat:"Data Engineering",  mentions:2,  priority:"low"},
 ];
 
 // ─── COUNTERS ───
@@ -1653,10 +1901,10 @@ function animateCount(el,target){
   const t=setInterval(()=>{s=Math.min(s+step,target);el.textContent=Math.floor(s);if(s>=target)clearInterval(t);},16);
 }
 window.addEventListener('load',()=>{
-  animateCount(document.getElementById('n-keywords'),125);
+  animateCount(document.getElementById('n-keywords'),150);
   animateCount(document.getElementById('n-categories'),9);
-  animateCount(document.getElementById('n-questions'),195);
-  animateCount(document.getElementById('n-cards'),62);
+  animateCount(document.getElementById('n-questions'),260);
+  animateCount(document.getElementById('n-cards'),74);
 });
 
 // ─── CATEGORY CARDS ───
@@ -1699,7 +1947,7 @@ function buildDonut(){
   const text=document.createElementNS('http://www.w3.org/2000/svg','text');
   text.setAttribute('x',cx);text.setAttribute('y',cy-6);text.setAttribute('text-anchor','middle');
   text.setAttribute('fill','#e8e8f0');text.setAttribute('font-size','22');text.setAttribute('font-family','Syne,sans-serif');text.setAttribute('font-weight','800');
-  text.textContent='175';svg.appendChild(text);
+  text.textContent='210';svg.appendChild(text);
   const sub=document.createElementNS('http://www.w3.org/2000/svg','text');
   sub.setAttribute('x',cx);sub.setAttribute('y',cy+12);sub.setAttribute('text-anchor','middle');
   sub.setAttribute('fill','#6b6b8a');sub.setAttribute('font-size','9');sub.setAttribute('font-family','JetBrains Mono,monospace');
