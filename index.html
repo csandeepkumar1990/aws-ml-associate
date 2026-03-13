@@ -31,12 +31,8 @@
   body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,92,252,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,92,252,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
   .container{max-width:1360px;margin:0 auto;padding:44px 24px;position:relative;z-index:1;}
 
-  /* NAV TABS */
-  .nav-tabs{display:flex;gap:6px;margin-bottom:40px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:8px;animation:fadeDown 0.6s ease both;position:relative;z-index:1;}
-  .tab-btn{flex:1;min-width:120px;background:transparent;border:none;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:10px 16px;border-radius:8px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
-  .tab-btn:hover{color:var(--text);background:rgba(124,92,252,0.1);}
-  .tab-btn.active{background:var(--accent1);color:#fff;font-weight:600;}
-  .panel{display:none;} .panel.active{display:block;}
+  .panel{display:block;}
+  .panel-divider{border:none;border-top:2px solid var(--border);margin:60px 0;opacity:0.5;}
 
   /* HEADER */
   header{text-align:center;margin-bottom:52px;animation:fadeDown 0.8s ease both;}
@@ -234,14 +230,8 @@
     <div class="gsearch-dropdown" id="gDropdown"></div>
   </div>
 
-  <div class="nav-tabs">
-    <button class="tab-btn active" onclick="showTab('analytics',this)">📊 Analytics Dashboard</button>
-    <button class="tab-btn" onclick="showTab('keywords',this)">🗂 Keyword Cards</button>
-    <button class="tab-btn" onclick="showTab('compare',this)">⚡ Quick Compare Tables</button>
-  </div>
-
   <!-- ══════════════════════════ PANEL 1 — ANALYTICS ══════════════════════════ -->
-  <div class="panel active" id="panel-analytics">
+  <div class="panel" id="panel-analytics">
 
     <div class="hero-stats">
       <div class="stat-card" style="--c:var(--accent1)"><div class="stat-number" id="n-keywords">0</div><div class="stat-label">Keywords Extracted</div></div>
@@ -264,7 +254,9 @@
     <div class="footer-note">✦ PT-1 + PT-2 + PT-3 + PT-4 · 260 Questions · Abhishek Singh · Stephane Maarek · Marlon Anesi ✦</div>
   </div>
 
+  <hr class="panel-divider">
   <!-- ══════════════════════════ PANEL 2 — KEYWORD CARDS ══════════════════════════ -->
+  <p class="section-title" id="anchor-keywords">🗂 Keyword Cards</p>
   <div class="panel" id="panel-keywords">
     <div class="controls">
       <input class="search-box" id="search" placeholder="🔍  Search keywords, services, concepts..." oninput="doFilter()">
@@ -1221,7 +1213,9 @@
     </div><!-- /kgrid -->
   </div><!-- /panel-keywords -->
 
+  <hr class="panel-divider">
   <!-- ══════════════════════════ PANEL 3 — QUICK COMPARE ══════════════════════════ -->
+  <p class="section-title" id="anchor-compare">⚡ Quick Compare Tables</p>
   <div class="panel" id="panel-compare">
     <div class="ctable-grid">
 
@@ -1557,12 +1551,11 @@
 </div><!-- /container -->
 
 <script>
-// ─── TAB SWITCHING ───
-function showTab(id,btn){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('panel-'+id).classList.add('active');
-  btn.classList.add('active');
+// ─── SCROLL TO SECTION (tabs replaced by single page) ───
+function showTab(id){
+  const anchor={analytics:'panel-analytics',keywords:'anchor-keywords',compare:'anchor-compare'}[id];
+  const el=document.getElementById(anchor||'panel-'+id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 // ─── KEYWORD FILTER ───
@@ -1815,7 +1808,7 @@ const tableData=[
   {id:8,  name:"SageMaker Warm Pools",             what:"Retains provisioned instances after training completes; reduces subsequent job startup time significantly"},
   {id:9,  name:"IAM Roles / Resource-based Policy",what:"Roles grant permissions to AWS services/users; resource-based policies enable cross-account access without credential sharing"},
   {id:10, name:"Feature Engineering",              what:"Split composite fields, one-hot encode categoricals, bin or standardize numerics before feeding model training"},
-  {id:11, name:"SageMaker Data Wrangler",          what:"Visual data prep: balance classes, mask PII, normalize, remove outliers, impute missing; outputs to S3 or Feature Store"},
+  {id:11, name:"SageMaker Data Wrangler",          what:"Visual low-code tool inside SageMaker Studio for data exploration, cleaning, transformation, and analysis; balance classes, mask PII, normalize, remove outliers, impute missing; outputs to S3 or Feature Store"},
   {id:12, name:"Amazon Bedrock",                   what:"Fully managed GenAI service; access foundation models (Anthropic, Meta, Amazon Titan) via API; no infra management"},
   {id:13, name:"Stacking / Bagging / Boosting",    what:"Stacking = meta-model over diverse learners; Bagging = parallel, reduces variance (Random Forest); Boosting = sequential, reduces bias+variance"},
   {id:14, name:"Blue/Green + Canary + Shadow",     what:"Blue/Green = full fleet flip; Canary = small % first; Shadow = logs only, never returned to caller; all enable safe rollout"},
@@ -1844,7 +1837,7 @@ const tableData=[
   {id:37, name:"Defense-in-Depth (GenAI)",         what:"Layered GenAI security: input validation, prompt guardrails, output filtering, IAM least privilege, audit logging"},
   {id:38, name:"A2I / Manual approval steps",      what:"Amazon A2I routes uncertain predictions to human reviewers; SageMaker Pipeline conditional step for manual approval gates"},
   {id:39, name:"Inferentia / Trainium",            what:"AWS custom chips: Inferentia (ml.inf1) = low-latency, cost-efficient inference; Trainium = cost-efficient deep learning training"},
-  {id:40, name:"SageMaker Autopilot",              what:"AutoML: automatically selects algorithm, engineers features, tunes HPO, and produces an explainability report"},
+  {id:40, name:"SageMaker Autopilot",              what:"AutoML: automatically selects algorithm, engineers features, tunes HPO, and produces an explainability report; does NOT provide a visual interface for manual data transformation — use Data Wrangler for that"},
   {id:41, name:"K-Means / RNN / PCA / Logistic Reg", what:"K-Means = unsupervised clustering; RNN = sequence modeling; PCA = dimensionality reduction; Logistic Reg = binary classification baseline"},
   {id:42, name:"CloudWatch Alarms → SNS",          what:"Define metric thresholds; breach triggers alarm; SNS delivers notification or invokes Lambda for automated remediation"},
   {id:43, name:"Canvas / Apache Parquet",          what:"Canvas = no-code ML for business users; Parquet = columnar storage format that speeds up Athena queries and reduces scan cost"},
@@ -1852,12 +1845,12 @@ const tableData=[
   {id:45, name:"SageMaker Clarify (bias/SHAP)",    what:"Measures DPPL/DI bias pre and post training; explains individual predictions via SHAP; global explanations via PDP"},
   {id:46, name:"Recall vs Precision",              what:"Recall = catch all positives (critical for healthcare/fraud); Precision = minimize false alarms (spam); F1 balances both"},
   {id:47, name:"Data Wrangler (mask/normalize)",   what:"Visual tool in SageMaker Studio to mask PII, normalize numerics, handle class imbalance, join datasets"},
-  {id:48, name:"EMR + Apache Spark",               what:"Managed Hadoop/Spark cluster; distributed ETL on terabyte-scale data; use G.1X Glue workers for lighter tasks instead"},
+  {id:48, name:"EMR + Apache Spark",               what:"Managed cluster platform for big data workloads using Spark/Hadoop; requires advanced programming (Scala/Python) and infrastructure knowledge; NOT a low-code ML tool — use Data Wrangler for visual ML prep, Glue for serverless ETL"},
   {id:49, name:"L1/L2 Regularization",             what:"L1 (Lasso) zeroes out irrelevant features → feature selection; L2 (Ridge) shrinks all evenly → reduces variance, keeps correlated features"},
   {id:50, name:"CloudWatch + SageMaker Auto-scaling", what:"CloudWatch metric (InvocationsPerInstance) triggers scaling policy; endpoint scales in/out automatically based on real traffic"},
   {id:51, name:"Data Drift vs Model Drift",        what:"Data drift = input feature distribution changes; model drift = prediction accuracy degrades over time; both require retraining"},
   {id:52, name:"SageMaker JumpStart",              what:"Low/no-code foundation model hub; fine-tune LLMs, CNNs with minimal code; supports text, vision, and multimodal models"},
-  {id:53, name:"SageMaker Canvas (no-code ML)",    what:"Point-and-click ML for business analysts; no code required; connects to S3, Redshift; produces predictions and explainability"},
+  {id:53, name:"SageMaker Canvas (no-code ML)",    what:"No-code interface for business users to build ML models without programming; focuses on automated modeling NOT manual data wrangling/transformation; connects to S3, Redshift; produces predictions and explainability"},
   {id:54, name:"AWS Budgets + Resource Tagging",   what:"Budgets set spend thresholds with SNS alerts; resource tags enable per-team/project cost allocation and tracking"},
   {id:55, name:"One-hot Encoding / Z-score",       what:"One-hot = convert categorical to binary columns; Z-score standardization = subtract mean, divide by std; both prep data for ML"},
   {id:56, name:"IAM least privilege / explicit deny", what:"Grant only minimum required permissions; explicit Deny in policy overrides any Allow; use roles not long-lived access keys"},
@@ -1872,7 +1865,7 @@ const tableData=[
   {id:65, name:"SageMaker Production Variants",    what:"Deploy multiple model versions on one endpoint; split traffic by relative weights (not percentages); used for A/B testing"},
   {id:66, name:"VPC Endpoint + S3 PrivateLink",    what:"Access S3/SageMaker from within VPC without traversing public internet; required for compliance and network isolation"},
   {id:67, name:"AWS CloudTrail",                   what:"Records all API calls with user, time, source IP; multi-region trail; enables compliance auditing and security investigations"},
-  {id:68, name:"Amazon Athena",                    what:"Serverless SQL query on S3 data; pay per TB scanned; use Parquet + partitions + CTAS to minimize cost and latency"},
+  {id:68, name:"Amazon Athena",                    what:"Serverless SQL query on S3 data; pay per TB scanned; use Parquet + partitions + CTAS to minimize cost and latency; NOT designed for visual ML-specific data preparation — use Data Wrangler for ML-focused transformations"},
   {id:69, name:"S3 EventBridge + Lambda trigger",  what:"S3 ObjectCreated event → EventBridge rule routes → Lambda or Step Functions starts downstream ML pipeline automatically"},
   {id:70, name:"Amazon Comprehend",                what:"Managed NLP: extracts entities, key phrases, sentiment, PII, syntax; no ML expertise needed; supports custom classifiers"},
   {id:71, name:"AWS Glue DataBrew",                what:"No-code visual data prep: remove outliers, standardize columns, impute nulls, encode categoricals; 250+ built-in transforms"},
@@ -1889,7 +1882,7 @@ const tableData=[
   {id:82, name:"K-Means vs KNN",                   what:"K-Means = unsupervised clustering (no labels needed); KNN = supervised classification using K nearest labeled training points"},
   {id:83, name:"Logistic Regression",              what:"Linear model for binary classification; interpretable; low compute; use as baseline before moving to complex models"},
   {id:84, name:"DynamoDB composite key + GSI",     what:"Partition + sort key enables efficient fraud transaction lookups; GSI adds alternate query patterns without restructuring data"},
-  {id:85, name:"QuickSight Parameters + Controls", what:"Parameterize dashboards for dynamic filtering; controls (dropdowns, sliders) bind to parameters to drive visual updates"},
+  {id:85, name:"QuickSight Parameters + Controls", what:"BI tool for visual dashboards and reports; parameterize with dropdowns/sliders for dynamic filtering; NOT intended for data transformation workflows in ML pipelines — use Data Wrangler or Glue for that"},
   {id:86, name:"AWS Compute Optimizer",            what:"Analyzes CloudWatch metrics; recommends rightsizing for EC2, Lambda, ECS, EBS to reduce cost and over-provisioning"},
   {id:87, name:"Amazon Polly Lexicons",            what:"Text-to-speech service; Lexicons customize pronunciation of domain-specific terms (e.g., medical, brand names)"},
   {id:88, name:"Amazon Transcribe",                what:"Speech-to-text; custom vocabulary improves accuracy for domain jargon; custom language models for specialized content"},
@@ -2033,25 +2026,22 @@ setTimeout(()=>{document.querySelectorAll('[data-width]').forEach(bar=>{bar.styl
   const hint    = document.getElementById('gHint');
   let activeIdx = -1;
   let results   = [];
-  let gsActive  = false; // true when a result has been selected & content is filtered
+  let gsActive  = false;
 
-  // ── Build index ──
+  // ── Build search index ──
   const index = [];
-
   tableData.forEach(row=>{
     index.push({ name:row.name, preview:row.what, tab:'analytics', tabLabel:'Analytics' });
   });
-
   document.querySelectorAll('.kcard').forEach(card=>{
-    const title = card.querySelector('.kcard-title')?.textContent.trim()||'';
-    const body  = Array.from(card.querySelectorAll('.kw li')).map(li=>li.textContent).join(' ');
-    if(title) index.push({ name:title, preview:body.substring(0,90), tab:'keywords', tabLabel:'Keywords', el:card });
+    const title=card.querySelector('.kcard-title')?.textContent.trim()||'';
+    const body=Array.from(card.querySelectorAll('.kw li')).map(li=>li.textContent).join(' ');
+    if(title) index.push({ name:title, preview:body.substring(0,90), tab:'keywords', tabLabel:'Keywords' });
   });
-
   document.querySelectorAll('.ctable').forEach(ct=>{
-    const title = ct.querySelector('.ctable-head')?.textContent.trim()||'';
-    const body  = Array.from(ct.querySelectorAll('.crow')).map(r=>r.textContent).join(' ');
-    if(title) index.push({ name:title, preview:body.substring(0,90), tab:'compare', tabLabel:'Compare', el:ct });
+    const title=ct.querySelector('.ctable-head')?.textContent.trim()||'';
+    const body=Array.from(ct.querySelectorAll('.crow')).map(r=>r.textContent).join(' ');
+    if(title) index.push({ name:title, preview:body.substring(0,90), tab:'compare', tabLabel:'Compare' });
   });
 
   // ── Helpers ──
@@ -2060,60 +2050,63 @@ setTimeout(()=>{document.querySelectorAll('[data-width]').forEach(bar=>{bar.styl
     if(!q) return text;
     return text.replace(new RegExp('('+esc(q)+')','gi'),'<span class="gsearch-match">$1</span>');
   }
-
   function search(q){
     if(!q) return [];
     const lq=q.toLowerCase();
     return index.filter(r=>r.name.toLowerCase().includes(lq)||r.preview.toLowerCase().includes(lq)).slice(0,20);
   }
 
-  // ── Restore all content to its default state ──
+  // ── Reset: show ALL content across all tabs ──
   function resetAll(){
-    // Analytics: show all rows
-    document.querySelectorAll('#coverage-table tr').forEach(tr=>{
-      tr.classList.remove('hidden','gs-highlight');
-    });
-    // Keywords: clear search box & show all cards
-    const kInput=document.getElementById('search');
-    if(kInput){ kInput.value=''; doFilter(); }
-    // Compare: show all ctables
+    document.querySelectorAll('#coverage-table tr').forEach(tr=>tr.classList.remove('hidden','gs-highlight'));
+    document.querySelectorAll('.kcard').forEach(c=>c.classList.remove('hidden'));
     document.querySelectorAll('.ctable').forEach(ct=>ct.classList.remove('hidden'));
+    const kInput=document.getElementById('search');
+    if(kInput) kInput.value='';
+    activeTag='all';
+    document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
+    const allBtn=document.querySelector('.f-btn[onclick*="all"]');
+    if(allBtn) allBtn.classList.add('active');
     gsActive=false;
   }
 
-  // ── Apply filter for selected result ──
+  // ── Apply filter: show ONLY matching content in the correct tab ──
   function applyFilter(r){
+    // 1. Reset everything first
     resetAll();
-    const tabBtn=document.querySelector(`.tab-btn[onclick*="${r.tab}"]`);
-    if(tabBtn) showTab(r.tab,tabBtn);
+    // 2. Scroll to the right section
+    showTab(r.tab);
 
+    // 3. Filter content in that tab using fresh DOM queries
     if(r.tab==='analytics'){
-      const rows=document.querySelectorAll('#coverage-table tr');
       let found=null;
-      rows.forEach(tr=>{
+      document.querySelectorAll('#coverage-table tr').forEach(tr=>{
         const nameCell=tr.cells?.[1];
-        if(nameCell && nameCell.textContent.trim()===r.name){
-          tr.classList.add('gs-highlight'); found=tr;
-        } else {
-          tr.classList.add('hidden');
-        }
+        const match=nameCell && nameCell.textContent.trim()===r.name;
+        tr.classList.toggle('hidden',!match);
+        if(match){ tr.classList.add('gs-highlight'); found=tr; }
       });
-      if(found) setTimeout(()=>found.scrollIntoView({behavior:'smooth',block:'center'}),120);
+      if(found) setTimeout(()=>found.scrollIntoView({behavior:'smooth',block:'center'}),150);
     }
     else if(r.tab==='keywords'){
-      // hide all cards first, then show only matching
-      document.querySelectorAll('.kcard').forEach(c=>c.classList.add('hidden'));
-      if(r.el){
-        r.el.classList.remove('hidden');
-        setTimeout(()=>r.el.scrollIntoView({behavior:'smooth',block:'center'}),150);
-      }
+      let found=null;
+      document.querySelectorAll('.kcard').forEach(c=>{
+        const title=c.querySelector('.kcard-title')?.textContent.trim()||'';
+        const match=title===r.name;
+        c.classList.toggle('hidden',!match);
+        if(match) found=c;
+      });
+      if(found) setTimeout(()=>found.scrollIntoView({behavior:'smooth',block:'center'}),150);
     }
     else if(r.tab==='compare'){
-      document.querySelectorAll('.ctable').forEach(ct=>ct.classList.add('hidden'));
-      if(r.el){
-        r.el.classList.remove('hidden');
-        setTimeout(()=>r.el.scrollIntoView({behavior:'smooth',block:'center'}),150);
-      }
+      let found=null;
+      document.querySelectorAll('.ctable').forEach(ct=>{
+        const title=ct.querySelector('.ctable-head')?.textContent.trim()||'';
+        const match=title===r.name;
+        ct.classList.toggle('hidden',!match);
+        if(match) found=ct;
+      });
+      if(found) setTimeout(()=>found.scrollIntoView({behavior:'smooth',block:'center'}),150);
     }
     gsActive=true;
   }
@@ -2142,30 +2135,23 @@ setTimeout(()=>{document.querySelectorAll('[data-width]').forEach(bar=>{bar.styl
 
   function goTo(idx){
     const r=results[idx]; if(!r) return;
-    input.value=r.name;
-    clearBtn.style.display='block';
-    hint.textContent='';
-    applyFilter(r);
-    close();
+    input.value=r.name; clearBtn.style.display='block'; hint.textContent='';
+    applyFilter(r); close();
   }
-
   function close(){ dropdown.classList.remove('open'); activeIdx=-1; }
 
   function gsClear(){
     input.value=''; clearBtn.style.display='none'; hint.textContent='';
-    dropdown.classList.remove('open');
-    resetAll();
-    input.focus();
+    dropdown.classList.remove('open'); resetAll(); input.focus();
   }
   window.gsClear=gsClear;
 
   input.addEventListener('input',()=>{
     const q=input.value.trim();
     clearBtn.style.display=q?'block':'none';
-    if(gsActive && !q){ resetAll(); }
+    if(gsActive && !q) resetAll();
     render(q);
   });
-
   input.addEventListener('keydown',e=>{
     if(!dropdown.classList.contains('open')) return;
     const items=dropdown.querySelectorAll('.gsearch-item');
@@ -2176,7 +2162,6 @@ setTimeout(()=>{document.querySelectorAll('[data-width]').forEach(bar=>{bar.styl
     items.forEach((el,i)=>el.classList.toggle('gsi-active',i===activeIdx));
     if(activeIdx>=0) items[activeIdx].scrollIntoView({block:'nearest'});
   });
-
   document.addEventListener('click',e=>{ if(!e.target.closest('.gsearch-wrap')) close(); });
 })();
 </script>
