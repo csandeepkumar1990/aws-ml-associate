@@ -1956,36 +1956,14 @@ window.addEventListener('load', function(){
     gsActive=false;
   }
 
-  // ── Apply filter: filter ALL sections by the selected term ──
+  // ── Apply filter on autocomplete selection ──
   function applyFilter(r){
-    resetAll();
-    const lq = r.name.toLowerCase();
-
-    // 1. Analytics table — filter rows by name or description containing the term
+    filterAll(r.name);
+    // highlight the exact matched analytics row
     document.querySelectorAll('#coverage-table tr').forEach(tr=>{
-      const nameCell = tr.cells?.[1];
-      const whatCell = tr.cells?.[2];
-      const match = (nameCell && nameCell.textContent.toLowerCase().includes(lq)) ||
-                    (whatCell && whatCell.textContent.toLowerCase().includes(lq));
-      tr.classList.toggle('hidden', !match);
-      if(match && nameCell && nameCell.textContent.trim()===r.name) tr.classList.add('gs-highlight');
+      if(tr.cells?.[1]?.textContent.trim()===r.name) tr.classList.add('gs-highlight');
     });
-
-    // 2. Keyword cards — filter by title or body content containing the term
-    document.querySelectorAll('.kcard').forEach(c=>{
-      const text = c.textContent.toLowerCase();
-      c.classList.toggle('hidden', !text.includes(lq));
-    });
-
-    // 3. Compare tables — filter by title or row content containing the term
-    document.querySelectorAll('.ctable').forEach(ct=>{
-      const text = ct.textContent.toLowerCase();
-      ct.classList.toggle('hidden', !text.includes(lq));
-    });
-
-    // 4. Scroll to the section the selected result belongs to
-    setTimeout(()=> showTab(r.tab), 100);
-    gsActive=true;
+    setTimeout(()=>showTab(r.tab),100);
   }
 
   // ── Render dropdown ──
@@ -2021,10 +1999,26 @@ window.addEventListener('load', function(){
   }
   window.gsClear=gsClear;
 
+  function filterAll(q){
+    if(!q){ resetAll(); return; }
+    const lq=q.toLowerCase();
+    document.querySelectorAll('#coverage-table tr').forEach(tr=>{
+      const text=(tr.cells?.[1]?.textContent||'')+(tr.cells?.[2]?.textContent||'');
+      tr.classList.toggle('hidden',!text.toLowerCase().includes(lq));
+    });
+    document.querySelectorAll('.kcard').forEach(c=>{
+      c.classList.toggle('hidden',!c.textContent.toLowerCase().includes(lq));
+    });
+    document.querySelectorAll('.ctable').forEach(ct=>{
+      ct.classList.toggle('hidden',!ct.textContent.toLowerCase().includes(lq));
+    });
+    gsActive=true;
+  }
+
   input.addEventListener('input',()=>{
     const q=input.value.trim();
     clearBtn.style.display=q?'block':'none';
-    if(gsActive && !q) resetAll();
+    filterAll(q);
     render(q);
   });
   input.addEventListener('keydown',e=>{
