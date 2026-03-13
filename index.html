@@ -331,7 +331,7 @@
           <li><strong>Bayesian Optimization</strong> — uses prior trial results; best for complex models with large search space; switch to this if Random Search trials are not converging</li>
           <li><strong>Hyperband</strong> — early-stops underperforming trials; fastest for large search spaces</li>
           <li><strong>Random Search</strong> — good when only a few hyperparameters are important</li>
-          <li><strong>Grid Search</strong> — exhaustive, most computationally expensive</li>
+          <li><strong>Grid Search</strong> — <em>exhaustive search</em>; tries every combination of <em>predefined</em> hyperparameter values → <em>complete coverage</em> guaranteed, but cost scales exponentially (<em>computationally expensive</em>)</li>
           <li>When trials don't converge: narrow the range of critical hyperparameters AND switch strategy to Bayesian</li>
         </ul>
       </div>
