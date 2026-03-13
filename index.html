@@ -198,28 +198,13 @@
       <div class="stat-card" style="--c:var(--accent3)"><div class="stat-number" id="n-cards">0</div><div class="stat-label">Keyword Cards</div></div>
     </div>
 
-    <p class="section-title">Category Breakdown</p>
-    <div class="categories-grid" id="cat-grid"></div>
-
-    <p class="section-title">Category Share</p>
-    <div class="donut-wrap">
-      <svg class="donut" width="180" height="180" viewBox="0 0 180 180" id="donut-svg"></svg>
-      <div class="donut-legend" id="donut-legend"></div>
-    </div>
-
-    <p class="section-title">Frequency Map — Most Repeated Concepts</p>
-    <div class="freq-grid">
-      <div class="freq-panel"><h3>⚡ Top Keywords by Mention Count</h3><div id="freq-list-left"></div></div>
-      <div class="freq-panel"><h3>🎯 Exam Weight by Topic</h3><div id="freq-list-right"></div></div>
-    </div>
-
     <p class="section-title">All Keywords · Size = Frequency</p>
     <div class="bubble-wrap" id="bubble-wrap"></div>
 
-    <p class="section-title">Full Coverage Table</p>
+    <p class="section-title">Keyword / Concept Reference</p>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>#</th><th>Keyword / Concept</th><th>Category</th><th>Mentions</th><th>Priority</th></tr></thead>
+        <thead><tr><th>#</th><th>Keyword / Concept</th><th>What It Does</th></tr></thead>
         <tbody id="coverage-table"></tbody>
       </table>
     </div>
@@ -1740,159 +1725,156 @@ const allKeywords=[
 ];
 
 const tableData=[
-  {id:1, name:"SageMaker Pipelines (CI/CD + Orchestration)", cat:"SageMaker Core",   mentions:12, priority:"high"},
-  {id:2, name:"SageMaker Clarify + CDD",                     cat:"SageMaker Core",   mentions:10, priority:"high"},
-  {id:3, name:"Data Drift / Concept Drift",                  cat:"Monitoring",       mentions:9,  priority:"high"},
-  {id:4, name:"XGBoost (fraud, imbalanced data)",            cat:"ML Concepts",      mentions:9,  priority:"high"},
-  {id:5, name:"Overfitting / Dropout / Early Stopping",      cat:"ML Concepts",      mentions:8,  priority:"high"},
-  {id:6, name:"AWS Glue Crawlers + FindMatches",             cat:"Data Engineering", mentions:8,  priority:"high"},
-  {id:7, name:"SageMaker Model Registry + Collections",      cat:"SageMaker Core",   mentions:7,  priority:"high"},
-  {id:8, name:"SageMaker Warm Pools",                        cat:"SageMaker Core",   mentions:6,  priority:"high"},
-  {id:9, name:"IAM Roles / Resource-based Policy",           cat:"Security & IAM",   mentions:6,  priority:"high"},
-  {id:10,name:"Feature Engineering (split/encode/bin)",      cat:"ML Concepts",      mentions:6,  priority:"high"},
-  {id:11,name:"SageMaker Data Wrangler (balance/corrupt)",   cat:"SageMaker Core",   mentions:6,  priority:"high"},
-  {id:12,name:"Amazon Bedrock",                              cat:"Generative AI",    mentions:5,  priority:"med"},
-  {id:13,name:"Stacking / Bagging / Boosting",               cat:"ML Concepts",      mentions:5,  priority:"med"},
-  {id:14,name:"Blue/Green + Canary + Shadow",                cat:"Deployment",       mentions:5,  priority:"med"},
-  {id:15,name:"SHAP Values / PDP",                           cat:"SageMaker Core",   mentions:5,  priority:"med"},
-  {id:16,name:"Athena CTAS + Partitioning",                  cat:"Data Engineering", mentions:5,  priority:"med"},
-  {id:17,name:"Lake Formation + LF-Tags",                    cat:"Data Engineering", mentions:4,  priority:"med"},
-  {id:18,name:"Managed Spot Training",                       cat:"SageMaker Core",   mentions:4,  priority:"med"},
-  {id:19,name:"HPO (Bayesian / Hyperband / Random)",         cat:"ML Concepts",      mentions:4,  priority:"med"},
-  {id:20,name:"Comprehend ImportModel (cross-account)",      cat:"AI Services",      mentions:4,  priority:"med"},
-  {id:21,name:"AUC / ROC / F1 / Confusion Matrix",          cat:"ML Concepts",      mentions:4,  priority:"med"},
-  {id:22,name:"MAE / RMSE",                                  cat:"ML Concepts",      mentions:3,  priority:"med"},
-  {id:23,name:"RAG / Embedding / Token / Prompt",            cat:"Generative AI",    mentions:3,  priority:"med"},
-  {id:24,name:"CloudFormation Nested Stacks",                cat:"Security & IAM",   mentions:3,  priority:"med"},
-  {id:25,name:"BYOC / ECR / Script Mode",                    cat:"SageMaker Core",   mentions:3,  priority:"med"},
-  {id:26,name:"Serverless / Multi-Model Inference",          cat:"Deployment",       mentions:3,  priority:"med"},
-  {id:27,name:"Random Cut Forest (anomaly, IoT)",            cat:"ML Concepts",      mentions:3,  priority:"med"},
-  {id:28,name:"Feature Store (3→2→1 order)",                 cat:"SageMaker Core",   mentions:3,  priority:"med"},
-  {id:29,name:"EKS (GenAI scalability)",                     cat:"Deployment",       mentions:2,  priority:"low"},
-  {id:30,name:"JumpStart fine-tuning",                       cat:"SageMaker Core",   mentions:2,  priority:"low"},
-  {id:31,name:"Auto-scaling target tracking",                cat:"Deployment",       mentions:2,  priority:"low"},
-  {id:32,name:"NACL / Security Groups / WAF",                cat:"Security & IAM",   mentions:2,  priority:"low"},
-  {id:33,name:"SageMaker Debugger",                          cat:"SageMaker Core",   mentions:2,  priority:"low"},
-  {id:34,name:"Rekognition Custom Labels",                   cat:"AI Services",      mentions:2,  priority:"low"},
-  {id:35,name:"Pipe input mode (Terabyte datasets)",         cat:"Data Engineering", mentions:2,  priority:"low"},
-  {id:36,name:"Spot Instances (2-hr weekly jobs)",           cat:"Security & IAM",   mentions:2,  priority:"low"},
-  {id:37,name:"Defense-in-Depth (GenAI)",                    cat:"Generative AI",    mentions:2,  priority:"low"},
-  {id:38,name:"A2I / Manual approval steps",                 cat:"SageMaker Core",   mentions:2,  priority:"low"},
-  {id:39,name:"Inferentia / Trainium",                       cat:"SageMaker Core",   mentions:1,  priority:"low"},
-  {id:40,name:"SageMaker Autopilot",                         cat:"SageMaker Core",   mentions:1,  priority:"low"},
-  {id:41,name:"K-Means / RNN / PCA / Logistic Reg",         cat:"ML Concepts",      mentions:1,  priority:"low"},
-  {id:42,name:"CloudWatch alarms → SNS",                     cat:"Monitoring",       mentions:1,  priority:"low"},
-  {id:43,name:"Canvas / Apache Parquet",                     cat:"SageMaker Core",   mentions:1,  priority:"low"},
-  // ── PT-2 ──
-  {id:44,name:"SageMaker Model Monitor (drift/alerts)",        cat:"Monitoring",        mentions:8,  priority:"high"},
-  {id:45,name:"SageMaker Clarify (bias/SHAP/fairness)",        cat:"SageMaker Core",    mentions:7,  priority:"high"},
-  {id:46,name:"Recall vs Precision (imbalanced datasets)",     cat:"ML Concepts",       mentions:7,  priority:"high"},
-  {id:47,name:"SageMaker Data Wrangler (mask/normalize)",      cat:"SageMaker Core",    mentions:6,  priority:"high"},
-  {id:48,name:"Amazon EMR + Apache Spark (distributed ETL)",   cat:"Data Engineering",  mentions:6,  priority:"high"},
-  {id:49,name:"Overfitting: L1/L2 / XGBoost max_depth",       cat:"ML Concepts",       mentions:6,  priority:"high"},
-  {id:50,name:"CloudWatch Alarms + SageMaker Auto-scaling",    cat:"Monitoring",        mentions:6,  priority:"high"},
-  {id:51,name:"Data Drift vs Model Drift (definitions)",       cat:"Monitoring",        mentions:6,  priority:"high"},
-  {id:52,name:"SageMaker JumpStart (LCNC fine-tuning)",        cat:"SageMaker Core",    mentions:5,  priority:"high"},
-  {id:53,name:"SageMaker Canvas (no-code ML)",                 cat:"SageMaker Core",    mentions:5,  priority:"high"},
-  {id:54,name:"AWS Budgets + Resource Tagging (cost alerts)",  cat:"Cost & FinOps",     mentions:5,  priority:"high"},
-  {id:55,name:"Feature Engineering (one-hot/z-score recipe)",  cat:"ML Concepts",       mentions:5,  priority:"high"},
-  {id:56,name:"IAM policies (least privilege / explicit deny)", cat:"Security & IAM",    mentions:5,  priority:"high"},
-  {id:57,name:"SageMaker Model Registry (pharma versioning)",  cat:"SageMaker Core",    mentions:5,  priority:"high"},
-  {id:58,name:"SageMaker Serverless Inference (infrequent)",   cat:"Deployment",        mentions:5,  priority:"high"},
-  {id:59,name:"AWS Lake Formation LF-Tags (fine-grained)",     cat:"Data Engineering",  mentions:5,  priority:"med"},
-  {id:60,name:"SageMaker Feature Store → Data Wrangler",       cat:"SageMaker Core",    mentions:4,  priority:"med"},
-  {id:61,name:"Amazon Kendra (semantic search on S3)",         cat:"AWS AI Services",   mentions:4,  priority:"med"},
-  {id:62,name:"DeepAR (time-series forecasting)",              cat:"ML Concepts",       mentions:4,  priority:"med"},
-  {id:63,name:"Amazon Bedrock (temperature / top-K tuning)",   cat:"Generative AI",     mentions:4,  priority:"med"},
-  {id:64,name:"ECR image scanning + lifecycle policies",       cat:"Deployment",        mentions:4,  priority:"med"},
-  {id:65,name:"SageMaker Production Variants (A/B 20%)",       cat:"Deployment",        mentions:4,  priority:"med"},
-  {id:66,name:"VPC Endpoint + S3 PrivateLink (no internet)",   cat:"Security & IAM",    mentions:4,  priority:"med"},
-  {id:67,name:"AWS CloudTrail (API audit logging)",            cat:"Security & IAM",    mentions:4,  priority:"med"},
-  {id:68,name:"Amazon Athena (serverless SQL on S3)",          cat:"Data Engineering",  mentions:4,  priority:"med"},
-  {id:69,name:"S3 EventBridge + Lambda → pipeline trigger",    cat:"Deployment",        mentions:4,  priority:"med"},
-  {id:70,name:"Amazon Comprehend (NLP / sentiment)",           cat:"AWS AI Services",   mentions:4,  priority:"med"},
-  {id:71,name:"AWS Glue DataBrew (outlier/standardize)",       cat:"Data Engineering",  mentions:4,  priority:"med"},
-  {id:72,name:"Redshift Dynamic Data Masking (PII)",           cat:"Security & IAM",    mentions:4,  priority:"med"},
-  {id:73,name:"Spot/On-demand/Reserved instance strategy",     cat:"Cost & FinOps",     mentions:4,  priority:"med"},
-  {id:74,name:"Amazon EKS + HPA (containerized ML scale)",     cat:"Deployment",        mentions:3,  priority:"med"},
-  {id:75,name:"AWS Secrets Manager + rotation Lambda",         cat:"Security & IAM",    mentions:3,  priority:"med"},
-  {id:76,name:"NACL explicit deny (subnet-level block)",       cat:"Security & IAM",    mentions:3,  priority:"med"},
-  {id:77,name:"Amazon FSx for Lustre (S3 I/O latency fix)",   cat:"Data Engineering",  mentions:3,  priority:"med"},
-  {id:78,name:"SageMaker Batch Transform (offline S3)",        cat:"SageMaker Core",    mentions:3,  priority:"med"},
-  {id:79,name:"AWS Macie + Lambda (PII removal from S3)",      cat:"Security & IAM",    mentions:3,  priority:"med"},
-  {id:80,name:"Bias-Variance Trade-off (simpler=high bias)",   cat:"ML Concepts",       mentions:3,  priority:"med"},
-  {id:81,name:"Confusion Matrix / AUC / F1 (imbalanced eval)", cat:"ML Concepts",       mentions:3,  priority:"med"},
-  {id:82,name:"K-Means (unsupervised) vs KNN (supervised)",    cat:"ML Concepts",       mentions:3,  priority:"med"},
-  {id:83,name:"Logistic Regression (binary classification)",   cat:"ML Concepts",       mentions:3,  priority:"med"},
-  {id:84,name:"DynamoDB composite key + GSI (fraud txn)",      cat:"Data Engineering",  mentions:3,  priority:"med"},
-  {id:85,name:"QuickSight Parameters + Controls (filtering)",  cat:"Monitoring",        mentions:3,  priority:"med"},
-  {id:86,name:"AWS Compute Optimizer (rightsizing)",           cat:"Cost & FinOps",     mentions:3,  priority:"med"},
-  {id:87,name:"Amazon Polly Lexicons (custom TTS)",            cat:"AWS AI Services",   mentions:3,  priority:"med"},
-  {id:88,name:"Amazon Transcribe custom vocabulary",           cat:"AWS AI Services",   mentions:3,  priority:"med"},
-  {id:89,name:"SageMaker Script Mode (BYOC PyTorch/TF)",       cat:"SageMaker Core",    mentions:3,  priority:"med"},
-  {id:90,name:"AWS Inferentia ml.inf1 (low-latency serving)",  cat:"Deployment",        mentions:3,  priority:"med"},
-  {id:91,name:"EDA first (small imbalanced datasets)",         cat:"ML Concepts",       mentions:3,  priority:"med"},
-  {id:92,name:"RAG + Fine-tuning LLM (chatbot consistency)",   cat:"Generative AI",     mentions:3,  priority:"med"},
-  {id:93,name:"Amazon Rekognition Custom Labels + Moderation", cat:"AWS AI Services",   mentions:3,  priority:"med"},
-  {id:94,name:"AWS CodeDeploy rolling update (EC2 fleet)",     cat:"Deployment",        mentions:2,  priority:"low"},
-  {id:95,name:"Amazon Kinesis Streams + Lambda (IoT stream)",  cat:"Data Engineering",  mentions:2,  priority:"low"},
-  {id:96,name:"p4d instances A100 GPU (genomic DL training)",  cat:"Deployment",        mentions:2,  priority:"low"},
-  {id:97,name:"AWS Trusted Advisor / Cost Explorer",           cat:"Cost & FinOps",     mentions:2,  priority:"low"},
-  {id:98,name:"Redshift ML cross-account S3 VPC endpoint",     cat:"Data Engineering",  mentions:2,  priority:"low"},
-  {id:99,name:"CloudFormation + SageMaker IaC (scalable)",     cat:"Deployment",        mentions:2,  priority:"low"},
-  {id:100,name:"Managed Spot Training + Checkpointing",        cat:"SageMaker Core",    mentions:2,  priority:"low"},
-  {id:101,name:"FSx for NetApp ONTAP → copy to S3 first",      cat:"Data Engineering",  mentions:2,  priority:"low"},
-  // ── PT-3 ──
-  {id:102,name:"Clarify Pre/Post-Training Bias Metrics (DPPL/DI)", cat:"SageMaker Core",    mentions:7,  priority:"high"},
-  {id:103,name:"Step Functions Parallel States (multi-model)",     cat:"Deployment",        mentions:6,  priority:"high"},
-  {id:104,name:"Rekognition DetectLabels vs ModerationLabels",     cat:"AWS AI Services",   mentions:6,  priority:"high"},
-  {id:105,name:"Model Pruning + Quantization (SageMaker Neo)",     cat:"ML Concepts",       mentions:6,  priority:"high"},
-  {id:106,name:"Kinesis Data Analytics + Apache Flink",            cat:"Data Engineering",  mentions:5,  priority:"high"},
-  {id:107,name:"SageMaker Production Variants (weight ratios)",    cat:"Deployment",        mentions:5,  priority:"high"},
-  {id:108,name:"Target Tracking (SageMakerVariantInvocations)",    cat:"SageMaker Core",    mentions:5,  priority:"high"},
-  {id:109,name:"ECR Private + CodePipeline MLOps flow",            cat:"Deployment",        mentions:5,  priority:"high"},
-  {id:110,name:"Redshift COPY + VACUUM + Spectrum",                cat:"Data Engineering",  mentions:5,  priority:"high"},
-  {id:111,name:"Lambda + API Gateway serverless inference",        cat:"Deployment",        mentions:5,  priority:"high"},
-  {id:112,name:"Amazon Personalize (USER_PERSONALIZATION recipe)", cat:"AWS AI Services",   mentions:4,  priority:"med"},
-  {id:113,name:"Amazon Textract AnalyzeDocument (forms+tables)",   cat:"AWS AI Services",   mentions:4,  priority:"med"},
-  {id:114,name:"ECS Fargate + Target Tracking Auto Scaling",       cat:"Deployment",        mentions:4,  priority:"med"},
-  {id:115,name:"GANs + VAEs (generative + synthetic data aug)",    cat:"Generative AI",     mentions:4,  priority:"med"},
-  {id:116,name:"KMS key rotation (365-day, least privilege)",      cat:"Security & IAM",    mentions:4,  priority:"med"},
-  {id:117,name:"Glue Dynamic Frames G.1X/G.2X worker types",      cat:"Data Engineering",  mentions:4,  priority:"med"},
-  {id:118,name:"VPC Security Groups (stateful, inbound rules)",    cat:"Security & IAM",    mentions:4,  priority:"med"},
-  {id:119,name:"CodeBuild buildspec.yml + S3 artifacts",           cat:"Deployment",        mentions:3,  priority:"med"},
-  {id:120,name:"EFS General Purpose + Bursting Throughput",        cat:"Data Engineering",  mentions:3,  priority:"med"},
-  {id:121,name:"Amazon Translate Batch (S3→S3 async)",             cat:"AWS AI Services",   mentions:3,  priority:"med"},
-  {id:122,name:"Linear Learner baseline (L1/L2 built-in)",         cat:"ML Concepts",       mentions:3,  priority:"med"},
-  {id:123,name:"CloudTrail multi-region + data events",            cat:"Security & IAM",    mentions:3,  priority:"med"},
-  {id:124,name:"SageMaker Neo compile + hardware optimization",    cat:"SageMaker Core",    mentions:2,  priority:"low"},
-  {id:125,name:"DynamoDB + Personalize (real-time recommend)",     cat:"Data Engineering",  mentions:2,  priority:"low"},
-  // ── PT-4 ──
-  {id:126,name:"SageMaker Endpoint + Auto Scaling (real-time)",    cat:"Deployment",        mentions:7,  priority:"high"},
-  {id:127,name:"EventBridge event-driven ML routing",              cat:"Deployment",        mentions:6,  priority:"high"},
-  {id:128,name:"AWS Lambda serverless ML pipeline patterns",       cat:"Deployment",        mentions:6,  priority:"high"},
-  {id:129,name:"Step Functions workflow orchestration (PT-4)",     cat:"Deployment",        mentions:6,  priority:"high"},
-  {id:130,name:"CloudWatch monitoring + alerting (PT-4)",          cat:"Monitoring",        mentions:6,  priority:"high"},
-  {id:131,name:"Transfer Learning (ResNet/VGGNet fine-tune)",      cat:"ML Concepts",       mentions:5,  priority:"high"},
-  {id:132,name:"KMS encryption + AWS HealthLake (PHI/HIPAA)",      cat:"Security & IAM",    mentions:5,  priority:"high"},
-  {id:133,name:"SageMaker Real-Time Inference + VPC",              cat:"Deployment",        mentions:5,  priority:"high"},
-  {id:134,name:"Kinesis + Lambda + DynamoDB (streaming pattern)",  cat:"Data Engineering",  mentions:4,  priority:"med"},
-  {id:135,name:"AWS Glue ETL → S3 → SageMaker (from RDS)",        cat:"Data Engineering",  mentions:4,  priority:"med"},
-  {id:136,name:"Random Forest + Feature Selection + Retraining",   cat:"ML Concepts",       mentions:4,  priority:"med"},
-  {id:137,name:"L2 Regularization (Ridge — reduce variance)",      cat:"ML Concepts",       mentions:4,  priority:"med"},
-  {id:138,name:"Boosting (reduce bias AND variance — XGBoost)",    cat:"ML Concepts",       mentions:4,  priority:"med"},
-  {id:139,name:"Parquet columnar format + Athena optimization",    cat:"Data Engineering",  mentions:3,  priority:"med"},
-  {id:140,name:"Lake Formation + Athena + KMS (secure data lake)", cat:"Data Engineering",  mentions:3,  priority:"med"},
-  {id:141,name:"A/B Testing (production variant safe rollout)",    cat:"Deployment",        mentions:3,  priority:"med"},
-  {id:142,name:"Model Pruning + Quantization (edge deployment)",   cat:"ML Concepts",       mentions:3,  priority:"med"},
-  {id:143,name:"Amazon DevOps Guru (ML-powered observability)",    cat:"Monitoring",        mentions:3,  priority:"med"},
-  {id:144,name:"CodePipeline + CodeBuild + SageMaker CI/CD",       cat:"Deployment",        mentions:3,  priority:"med"},
-  {id:145,name:"Lookout for Vision/Equipment + retrain pipeline",  cat:"AWS AI Services",   mentions:3,  priority:"med"},
-  {id:146,name:"Amazon Textract + Step Functions (doc process)",   cat:"AWS AI Services",   mentions:2,  priority:"low"},
-  {id:147,name:"Comprehend Medical + Lambda (NLP healthcare)",     cat:"AWS AI Services",   mentions:2,  priority:"low"},
-  {id:148,name:"Cognito + API Gateway (secure ML API auth)",       cat:"Security & IAM",    mentions:2,  priority:"low"},
-  {id:149,name:"DataSync + Transfer Family (Kendra data sync)",    cat:"Data Engineering",  mentions:2,  priority:"low"},
-  {id:150,name:"Apache Flink managed + Kinesis (IoT streaming)",   cat:"Data Engineering",  mentions:2,  priority:"low"},
+  {id:1,  name:"SageMaker Pipelines",              what:"End-to-end ML workflow DAG: data → train → tune → deploy; supports CI/CD, conditional steps, callback steps"},
+  {id:2,  name:"SageMaker Clarify + CDD",          what:"Detects pre/post-training bias (DPPL, DI, CDD); explains predictions with SHAP values and PDP"},
+  {id:3,  name:"Data Drift / Concept Drift",       what:"Data drift = input distribution changes; concept drift = feature-target relationship changes; both degrade model accuracy"},
+  {id:4,  name:"XGBoost",                          what:"Gradient-boosted trees; handles imbalanced data via scale_pos_weight; best general-purpose algorithm for tabular data"},
+  {id:5,  name:"Overfitting / Dropout / Early Stopping", what:"Model memorizes training noise; fix with dropout layers, early stopping, L1/L2 regularization, or simpler architecture"},
+  {id:6,  name:"AWS Glue Crawlers + FindMatches",  what:"Crawlers infer schema from S3/RDS automatically; FindMatches deduplicates records using ML matching"},
+  {id:7,  name:"SageMaker Model Registry",         what:"Versions and tracks model artifacts; Collections group model groups; cross-account access via resource-based policy"},
+  {id:8,  name:"SageMaker Warm Pools",             what:"Retains provisioned instances after training completes; reduces subsequent job startup time significantly"},
+  {id:9,  name:"IAM Roles / Resource-based Policy",what:"Roles grant permissions to AWS services/users; resource-based policies enable cross-account access without credential sharing"},
+  {id:10, name:"Feature Engineering",              what:"Split composite fields, one-hot encode categoricals, bin or standardize numerics before feeding model training"},
+  {id:11, name:"SageMaker Data Wrangler",          what:"Visual data prep: balance classes, mask PII, normalize, remove outliers, impute missing; outputs to S3 or Feature Store"},
+  {id:12, name:"Amazon Bedrock",                   what:"Fully managed GenAI service; access foundation models (Anthropic, Meta, Amazon Titan) via API; no infra management"},
+  {id:13, name:"Stacking / Bagging / Boosting",    what:"Stacking = meta-model over diverse learners; Bagging = parallel, reduces variance (Random Forest); Boosting = sequential, reduces bias+variance"},
+  {id:14, name:"Blue/Green + Canary + Shadow",     what:"Blue/Green = full fleet flip; Canary = small % first; Shadow = logs only, never returned to caller; all enable safe rollout"},
+  {id:15, name:"SHAP Values / PDP",                what:"SHAP = local per-instance feature contribution; PDP = global marginal effect across entire dataset; both from SageMaker Clarify"},
+  {id:16, name:"Athena CTAS + Partitioning",       what:"CTAS saves query results as new table; partition by date/region so Athena skips irrelevant data and reduces scan cost"},
+  {id:17, name:"Lake Formation + LF-Tags",         what:"Fine-grained column/row-level access control via attribute tags; governs data lake without duplicating data"},
+  {id:18, name:"Managed Spot Training",            what:"Uses interruptible EC2 Spot capacity; up to 90% cost saving; must enable checkpointing to S3 to resume after interruption"},
+  {id:19, name:"HPO — Bayesian / Hyperband / Random", what:"Bayesian = learns from prior trials; Hyperband = fastest, early-stops poor runs; Random = independent samples, few key params"},
+  {id:20, name:"Comprehend ImportModel (cross-account)", what:"Deploy custom NLP model trained in one AWS account into another account using model ARN; no re-training needed"},
+  {id:21, name:"AUC / ROC / F1 / Confusion Matrix",what:"AUC = overall rank quality; ROC = TPR vs FPR curve; F1 = harmonic mean of P+R; Confusion Matrix = TP/FP/TN/FN breakdown"},
+  {id:22, name:"MAE / RMSE",                       what:"Regression metrics: MAE = average absolute error; RMSE = penalizes large errors more; use RMSE when outliers matter"},
+  {id:23, name:"RAG / Embedding / Token / Prompt", what:"RAG = retrieval-augmented generation for current facts; Embedding = vector representation; Token = text unit; Prompt = input instruction"},
+  {id:24, name:"CloudFormation Nested Stacks",     what:"Modularize IaC by splitting large templates into reusable child stacks; parent stack references children via stack resource"},
+  {id:25, name:"BYOC / ECR / Script Mode",         what:"BYOC = bring your own Docker container; push to ECR; Script Mode = custom training script in managed SageMaker container"},
+  {id:26, name:"Serverless / Multi-Model Inference",what:"Serverless = pay-per-invocation, scales to zero, cold start acceptable; Multi-Model = many models on one instance, cost saving"},
+  {id:27, name:"Random Cut Forest",                what:"Unsupervised anomaly detection; identifies outliers in IoT time-series; built-in SageMaker algorithm; no labels required"},
+  {id:28, name:"Feature Store (3→2→1 order)",      what:"Centralized reusable features: Step 3 = setup feature group, Step 2 = load data, Step 1 = prepare training dataset"},
+  {id:29, name:"EKS (GenAI scalability)",          what:"Kubernetes-managed containers; HPA auto-scales pods based on CPU/custom metrics; used for GenAI inference at scale"},
+  {id:30, name:"JumpStart fine-tuning",            what:"Pre-built model hub in SageMaker Studio; browse and one-click fine-tune foundation models with minimal code"},
+  {id:31, name:"Auto-scaling target tracking",     what:"Scales endpoint instances to maintain a target metric (e.g., InvocationsPerInstance); reacts automatically to traffic changes"},
+  {id:32, name:"NACL / Security Groups / WAF",     what:"NACL = stateless subnet firewall; SG = stateful instance firewall; WAF = HTTP-layer protection against web exploits"},
+  {id:33, name:"SageMaker Debugger",               what:"Captures training tensors in real time; detects vanishing gradients, overfitting, poor initialization without modifying training code"},
+  {id:34, name:"Rekognition Custom Labels",        what:"Fine-tune Rekognition on your own labeled image dataset; outputs custom object/scene classification labels"},
+  {id:35, name:"Pipe input mode",                  what:"Streams training data from S3 directly into the container; eliminates full dataset download; essential for terabyte-scale jobs"},
+  {id:36, name:"Spot Instances",                   what:"Interruptible EC2 capacity at up to 90% discount; use for fault-tolerant batch training or HPO jobs with checkpointing"},
+  {id:37, name:"Defense-in-Depth (GenAI)",         what:"Layered GenAI security: input validation, prompt guardrails, output filtering, IAM least privilege, audit logging"},
+  {id:38, name:"A2I / Manual approval steps",      what:"Amazon A2I routes uncertain predictions to human reviewers; SageMaker Pipeline conditional step for manual approval gates"},
+  {id:39, name:"Inferentia / Trainium",            what:"AWS custom chips: Inferentia (ml.inf1) = low-latency, cost-efficient inference; Trainium = cost-efficient deep learning training"},
+  {id:40, name:"SageMaker Autopilot",              what:"AutoML: automatically selects algorithm, engineers features, tunes HPO, and produces an explainability report"},
+  {id:41, name:"K-Means / RNN / PCA / Logistic Reg", what:"K-Means = unsupervised clustering; RNN = sequence modeling; PCA = dimensionality reduction; Logistic Reg = binary classification baseline"},
+  {id:42, name:"CloudWatch Alarms → SNS",          what:"Define metric thresholds; breach triggers alarm; SNS delivers notification or invokes Lambda for automated remediation"},
+  {id:43, name:"Canvas / Apache Parquet",          what:"Canvas = no-code ML for business users; Parquet = columnar storage format that speeds up Athena queries and reduces scan cost"},
+  {id:44, name:"SageMaker Model Monitor",          what:"Continuously compares live inference data to baseline statistics; alerts on data quality drift, model drift, or bias shift"},
+  {id:45, name:"SageMaker Clarify (bias/SHAP)",    what:"Measures DPPL/DI bias pre and post training; explains individual predictions via SHAP; global explanations via PDP"},
+  {id:46, name:"Recall vs Precision",              what:"Recall = catch all positives (critical for healthcare/fraud); Precision = minimize false alarms (spam); F1 balances both"},
+  {id:47, name:"Data Wrangler (mask/normalize)",   what:"Visual tool in SageMaker Studio to mask PII, normalize numerics, handle class imbalance, join datasets"},
+  {id:48, name:"EMR + Apache Spark",               what:"Managed Hadoop/Spark cluster; distributed ETL on terabyte-scale data; use G.1X Glue workers for lighter tasks instead"},
+  {id:49, name:"L1/L2 Regularization",             what:"L1 (Lasso) zeroes out irrelevant features → feature selection; L2 (Ridge) shrinks all evenly → reduces variance, keeps correlated features"},
+  {id:50, name:"CloudWatch + SageMaker Auto-scaling", what:"CloudWatch metric (InvocationsPerInstance) triggers scaling policy; endpoint scales in/out automatically based on real traffic"},
+  {id:51, name:"Data Drift vs Model Drift",        what:"Data drift = input feature distribution changes; model drift = prediction accuracy degrades over time; both require retraining"},
+  {id:52, name:"SageMaker JumpStart",              what:"Low/no-code foundation model hub; fine-tune LLMs, CNNs with minimal code; supports text, vision, and multimodal models"},
+  {id:53, name:"SageMaker Canvas (no-code ML)",    what:"Point-and-click ML for business analysts; no code required; connects to S3, Redshift; produces predictions and explainability"},
+  {id:54, name:"AWS Budgets + Resource Tagging",   what:"Budgets set spend thresholds with SNS alerts; resource tags enable per-team/project cost allocation and tracking"},
+  {id:55, name:"One-hot Encoding / Z-score",       what:"One-hot = convert categorical to binary columns; Z-score standardization = subtract mean, divide by std; both prep data for ML"},
+  {id:56, name:"IAM least privilege / explicit deny", what:"Grant only minimum required permissions; explicit Deny in policy overrides any Allow; use roles not long-lived access keys"},
+  {id:57, name:"Model Registry (versioning)",      what:"Store, version, and approve/reject model artifacts; approval workflow before prod deployment; supports cross-account sharing"},
+  {id:58, name:"SageMaker Serverless Inference",   what:"Pay-per-invocation, scales to zero when idle; cold start acceptable for infrequent workloads; ≤4MB payload, ≤60s timeout"},
+  {id:59, name:"Lake Formation LF-Tags",           what:"Attribute-based access control; tag data columns/rows; attach permission policies to tags; no data duplication needed"},
+  {id:60, name:"Feature Store → Data Wrangler",    what:"Feature Store = centralized reusable feature repository; Data Wrangler preps and ingests features into the store"},
+  {id:61, name:"Amazon Kendra",                    what:"ML-powered enterprise semantic search; understands natural language queries; indexes S3, SharePoint, Confluence, RDS"},
+  {id:62, name:"DeepAR (time-series forecasting)", what:"RNN-based built-in SageMaker algorithm; trains on multiple related time-series simultaneously; generates probabilistic forecasts"},
+  {id:63, name:"Bedrock temperature / top-K",      what:"Temperature controls output randomness (higher = more creative); top-K limits candidate token pool; tune for consistency vs diversity"},
+  {id:64, name:"ECR image scanning + lifecycle",   what:"Automated CVE vulnerability scanning on container push; lifecycle policies auto-expire old image tags to save storage cost"},
+  {id:65, name:"SageMaker Production Variants",    what:"Deploy multiple model versions on one endpoint; split traffic by relative weights (not percentages); used for A/B testing"},
+  {id:66, name:"VPC Endpoint + S3 PrivateLink",    what:"Access S3/SageMaker from within VPC without traversing public internet; required for compliance and network isolation"},
+  {id:67, name:"AWS CloudTrail",                   what:"Records all API calls with user, time, source IP; multi-region trail; enables compliance auditing and security investigations"},
+  {id:68, name:"Amazon Athena",                    what:"Serverless SQL query on S3 data; pay per TB scanned; use Parquet + partitions + CTAS to minimize cost and latency"},
+  {id:69, name:"S3 EventBridge + Lambda trigger",  what:"S3 ObjectCreated event → EventBridge rule routes → Lambda or Step Functions starts downstream ML pipeline automatically"},
+  {id:70, name:"Amazon Comprehend",                what:"Managed NLP: extracts entities, key phrases, sentiment, PII, syntax; no ML expertise needed; supports custom classifiers"},
+  {id:71, name:"AWS Glue DataBrew",                what:"No-code visual data prep: remove outliers, standardize columns, impute nulls, encode categoricals; 250+ built-in transforms"},
+  {id:72, name:"Redshift Dynamic Data Masking",    what:"Masks sensitive columns at query time based on IAM role; no data duplication; original data unchanged in storage"},
+  {id:73, name:"Spot / On-demand / Reserved",      what:"Spot = batch/HPO (cheapest, interruptible); On-demand = real-time inference (reliable); Reserved = predictable long-running workloads"},
+  {id:74, name:"Amazon EKS + HPA",                what:"Kubernetes cluster for containerized ML; HPA auto-scales pods on CPU/memory/custom metrics; used for GenAI inference scale"},
+  {id:75, name:"AWS Secrets Manager",              what:"Securely stores DB passwords, API keys; auto-rotates credentials via Lambda on schedule; eliminates hardcoded secrets"},
+  {id:76, name:"NACL explicit deny",               what:"Stateless subnet-level rule; explicit deny blocks specific IP/CIDR ranges; evaluated before Security Groups"},
+  {id:77, name:"Amazon FSx for Lustre",            what:"High-performance parallel file system linked to S3; eliminates I/O bottleneck when training on large datasets"},
+  {id:78, name:"SageMaker Batch Transform",        what:"Run offline inference on entire S3 dataset; no persistent endpoint; ideal for nightly scoring; results saved back to S3"},
+  {id:79, name:"AWS Macie + Lambda (PII)",         what:"Macie automatically discovers and classifies PII in S3; Lambda invoked to anonymize or remove flagged sensitive records"},
+  {id:80, name:"Bias-Variance Trade-off",          what:"High bias = underfitting (too simple); high variance = overfitting (too complex); regularization and cross-validation balance both"},
+  {id:81, name:"Confusion Matrix / AUC / F1",      what:"Matrix shows TP/FP/TN/FN; AUC measures overall ranking quality; F1 = harmonic mean of Precision and Recall for imbalanced data"},
+  {id:82, name:"K-Means vs KNN",                   what:"K-Means = unsupervised clustering (no labels needed); KNN = supervised classification using K nearest labeled training points"},
+  {id:83, name:"Logistic Regression",              what:"Linear model for binary classification; interpretable; low compute; use as baseline before moving to complex models"},
+  {id:84, name:"DynamoDB composite key + GSI",     what:"Partition + sort key enables efficient fraud transaction lookups; GSI adds alternate query patterns without restructuring data"},
+  {id:85, name:"QuickSight Parameters + Controls", what:"Parameterize dashboards for dynamic filtering; controls (dropdowns, sliders) bind to parameters to drive visual updates"},
+  {id:86, name:"AWS Compute Optimizer",            what:"Analyzes CloudWatch metrics; recommends rightsizing for EC2, Lambda, ECS, EBS to reduce cost and over-provisioning"},
+  {id:87, name:"Amazon Polly Lexicons",            what:"Text-to-speech service; Lexicons customize pronunciation of domain-specific terms (e.g., medical, brand names)"},
+  {id:88, name:"Amazon Transcribe",                what:"Speech-to-text; custom vocabulary improves accuracy for domain jargon; custom language models for specialized content"},
+  {id:89, name:"SageMaker Script Mode",            what:"Run custom PyTorch/TF/sklearn training scripts in AWS-managed containers; entry_point file defines training logic"},
+  {id:90, name:"AWS Inferentia ml.inf1",           what:"AWS custom inference chip; up to 70% cost reduction vs GPU for high-throughput, low-latency production inference"},
+  {id:91, name:"EDA first",                        what:"Exploratory Data Analysis before modeling: examine class distribution, outliers, correlations, missing values on small datasets"},
+  {id:92, name:"RAG + Fine-tuning LLM",            what:"RAG = retrieval for current/external facts without retraining; Fine-tuning = bake domain knowledge into model weights"},
+  {id:93, name:"Rekognition Custom + Moderation",  what:"Custom Labels trains on your labeled images for domain-specific detection; Moderation Labels flags unsafe/adult content"},
+  {id:94, name:"AWS CodeDeploy rolling update",    what:"Deploys updated app to EC2 fleet in batches; minimizes downtime; configurable batch size and wait time between batches"},
+  {id:95, name:"Kinesis Streams + Lambda (IoT)",   what:"Kinesis ingests high-throughput event streams; Lambda reads each shard, processes records, routes to downstream storage"},
+  {id:96, name:"p4d instances A100 GPU",           what:"AWS highest-performance GPU instances (8× A100); used for large-scale genomic or multi-modal deep learning training"},
+  {id:97, name:"Trusted Advisor / Cost Explorer",  what:"Trusted Advisor = best-practice checks (security, cost, limits); Cost Explorer = analyze/forecast spend with filtering"},
+  {id:98, name:"Redshift ML + VPC endpoint",       what:"Train SQL-invocable ML models inside Redshift using SageMaker; VPC endpoint secures cross-account S3 data access"},
+  {id:99, name:"CloudFormation + SageMaker IaC",   what:"Define Model → EndpointConfig → Endpoint as CloudFormation resources; repeatable, version-controlled infrastructure"},
+  {id:100,name:"Managed Spot + Checkpointing",     what:"Spot training saves checkpoint to S3 at intervals; job resumes from last checkpoint after Spot interruption"},
+  {id:101,name:"FSx for NetApp ONTAP",             what:"NetApp ONTAP on AWS cannot directly link to SageMaker training; must first copy data from ONTAP to S3"},
+  {id:102,name:"Clarify DPPL/DI Bias Metrics",     what:"DPPL = Demographic Parity difference Pre-training; DI = Disparate Impact post-training; both measure group-level prediction fairness"},
+  {id:103,name:"Step Functions Parallel States",   what:"Fan-out multiple training or evaluation branches simultaneously; all branches run concurrently; waits for all to complete"},
+  {id:104,name:"Rekognition DetectLabels vs Moderation", what:"DetectLabels = identify objects, scenes, activities in image; ModerationLabels = detect explicit, suggestive, or violent content"},
+  {id:105,name:"Model Pruning + Quantization",     what:"Pruning removes redundant neurons; quantization reduces float32 → int8 precision; both shrink model for edge deployment"},
+  {id:106,name:"Kinesis Analytics + Apache Flink", what:"Managed Apache Flink for stateful real-time stream processing; SQL or Java/Python; windowed aggregations on IoT/log data"},
+  {id:107,name:"Production Variants weight ratios",what:"Traffic split by relative weights (e.g., 80:20 = A gets 80%, B gets 20%); weights are relative, not absolute percentages"},
+  {id:108,name:"Target Tracking Scaling",          what:"Auto-scaling policy that maintains SageMakerVariantInvocationsPerInstance at target; adds/removes instances automatically"},
+  {id:109,name:"ECR Private + CodePipeline",       what:"ECR stores versioned container images; CodePipeline detects commit → CodeBuild builds image → SageMaker retrains/deploys"},
+  {id:110,name:"Redshift COPY / VACUUM / Spectrum",what:"COPY = bulk load from S3 (fastest); VACUUM = reclaim deleted row space; Spectrum = query S3 directly without loading"},
+  {id:111,name:"Lambda + API Gateway inference",   what:"API Gateway exposes REST endpoint → Lambda invokes SageMaker endpoint; lightweight serverless inference wrapper"},
+  {id:112,name:"Amazon Personalize",               what:"Managed recommendation service; USER_PERSONALIZATION recipe for per-user real-time recommendations; no ML expertise needed"},
+  {id:113,name:"Textract AnalyzeDocument",         what:"OCR + structure understanding; extracts key-value pairs (forms) and tables from scanned PDFs and images automatically"},
+  {id:114,name:"ECS Fargate + Target Tracking",    what:"Serverless containers (no EC2 to manage); Target Tracking auto-scales task count based on CPU, memory, or custom metric"},
+  {id:115,name:"GANs + VAEs (synthetic data)",     what:"GANs = generator vs discriminator creates realistic synthetic data; VAEs = latent space sampling; both augment limited datasets"},
+  {id:116,name:"KMS key rotation",                 what:"Automatic annual key rotation via AWS KMS; combine with least-privilege IAM policies and audit via CloudTrail"},
+  {id:117,name:"Glue Dynamic Frames G.1X / G.2X",  what:"G.025X = crawlers only; G.1X = memory-optimized ETL; G.2X = heavy joins/skewed data; choose based on data complexity"},
+  {id:118,name:"VPC Security Groups (stateful)",   what:"Stateful: return traffic auto-allowed; only define inbound rules; scoped to instance level; referenced by ID not CIDR"},
+  {id:119,name:"CodeBuild buildspec.yml",          what:"YAML build specification: install deps, pre_build, build, post_build phases; artifacts uploaded to S3 for pipeline stages"},
+  {id:120,name:"EFS General Purpose + Bursting",   what:"Shared elastic file system for SageMaker notebooks; Bursting throughput scales with amount of data stored; no provisioning"},
+  {id:121,name:"Amazon Translate Batch",           what:"Async batch translation of documents from S3 to S3; no Lambda needed; handles large volumes cost-effectively"},
+  {id:122,name:"Linear Learner baseline",          what:"Built-in SageMaker algorithm; linear/logistic regression with L1 (l1) and L2 (wd) regularization hyperparameters; fast baseline"},
+  {id:123,name:"CloudTrail multi-region + data events", what:"Single trail captures API activity across all regions; data events log S3 object reads/writes and Lambda invocations"},
+  {id:124,name:"SageMaker Neo compile",            what:"Compiles trained model for specific target hardware (ARM, x86, GPU, Inferentia); improves inference speed and reduces latency"},
+  {id:125,name:"DynamoDB + Personalize",           what:"DynamoDB stores real-time user interaction events fed into Amazon Personalize for low-latency personalized recommendations"},
+  {id:126,name:"SageMaker Endpoint + Auto Scaling",what:"Managed HTTPS endpoint auto-scales on InvocationsPerInstance; purpose-built for low-latency ML inference at variable load"},
+  {id:127,name:"EventBridge event-driven ML",      what:"Routes S3/API/prediction events to Lambda, Step Functions, or SNS via configurable rules; decouples ML pipeline components"},
+  {id:128,name:"Lambda serverless ML patterns",    what:"S3-triggered serverless pipelines: invoke Translate, Comprehend Medical, Polly, Rekognition; zero idle cost; scales automatically"},
+  {id:129,name:"Step Functions orchestration",     what:"Sequences ingest → preprocess → train → deploy steps with built-in retries, error handling, and state management"},
+  {id:130,name:"CloudWatch monitoring/alerting",   what:"Collects SageMaker endpoint metrics and logs; alarms trigger SNS notification or Lambda auto-remediation on threshold breach"},
+  {id:131,name:"Transfer Learning (ResNet/VGGNet)",what:"Reuse pre-trained CNN weights; freeze early layers; fine-tune final layers on smaller domain dataset; faster, less data needed"},
+  {id:132,name:"KMS + AWS HealthLake (HIPAA)",     what:"Server-side encryption with KMS customer-managed keys encrypts PHI at rest in HealthLake; required for HIPAA compliance"},
+  {id:133,name:"SageMaker Real-Time Inference + VPC", what:"Deploy model endpoint inside VPC with no public internet; required for regulated healthcare/finance workloads"},
+  {id:134,name:"Kinesis + Lambda + DynamoDB",      what:"Kinesis ingests stream → Lambda transforms records → DynamoDB stores for low-latency access by downstream applications"},
+  {id:135,name:"Glue ETL → S3 → SageMaker",       what:"Glue crawls RDS schema → ETL job transforms data → stores to S3 → SageMaker training reads; decouples DB from ML load"},
+  {id:136,name:"Random Forest + Retraining",       what:"Ensemble of decision trees; feature selection reduces noise and compute; periodic retraining adapts to concept drift"},
+  {id:137,name:"L2 Ridge Regularization",          what:"Adds squared weight penalty to loss; shrinks all coefficients proportionally; best when features are correlated and all contribute"},
+  {id:138,name:"Boosting (XGBoost / AdaBoost)",    what:"Sequential weak learners: each corrects prior errors; reduces both bias AND variance; best all-round algorithm for structured data"},
+  {id:139,name:"Parquet + Athena optimization",    what:"Columnar format allows Athena to scan only queried columns; reduces scanned data by 10-30×; combine with partitioning for best results"},
+  {id:140,name:"Lake Formation + Athena + KMS",    what:"Lake Formation governs column/row access → Athena queries S3 with SQL → KMS encrypts all data at rest; full secure data lake"},
+  {id:141,name:"A/B Testing safe rollout",         what:"Route controlled % of live traffic to new model variant; compare detection rate and false positives before full promotion"},
+  {id:142,name:"Model Pruning + Quantization (edge)", what:"Prune redundant neurons; quantize float32 → int8; deploy via IoT Greengrass/SageMaker Edge Manager for real-time edge inference"},
+  {id:143,name:"Amazon DevOps Guru",               what:"ML-powered service that auto-detects operational anomalies in EC2/RDS/SageMaker and suggests actionable remediation steps"},
+  {id:144,name:"CodePipeline + CodeBuild + SageMaker", what:"CodePipeline orchestrates CI/CD; CodeBuild compiles and tests; SageMaker retrains and deploys model on code/data commit"},
+  {id:145,name:"Lookout for Vision/Equipment + retrain pipeline",  what:"Lookout for Vision detects visual defects; Lookout for Equipment detects machine anomalies; both trigger automated retraining pipelines via EventBridge"},
+  {id:146,name:"Amazon Textract + Step Functions (doc process)",   what:"Textract extracts text/tables/forms from documents; Step Functions orchestrates multi-step document processing workflows with error handling"},
+  {id:147,name:"Comprehend Medical + Lambda (NLP healthcare)",     what:"Comprehend Medical extracts clinical entities (drugs, conditions, dosages) from free text; Lambda triggers processing on new documents"},
+  {id:148,name:"Cognito + API Gateway (secure ML API auth)",       what:"Cognito provides user identity/auth; API Gateway enforces JWT token validation before requests reach ML inference endpoints"},
+  {id:149,name:"DataSync + Transfer Family (Kendra data sync)",    what:"DataSync automates data movement between on-prem and S3; Transfer Family provides SFTP/FTP; both feed Kendra knowledge base ingestion"},
+  {id:150,name:"Apache Flink managed + Kinesis (IoT streaming)",   what:"Managed Flink (Kinesis Data Analytics) processes high-throughput IoT streams with sub-second latency; Kinesis buffers and delivers to Flink"},
 ];
 
 // ─── COUNTERS ───
@@ -1907,68 +1889,6 @@ window.addEventListener('load',()=>{
   animateCount(document.getElementById('n-cards'),74);
 });
 
-// ─── CATEGORY CARDS ───
-const catGrid=document.getElementById('cat-grid');
-const maxCat=Math.max(...categories.map(c=>c.count));
-categories.forEach(cat=>{
-  const pct=Math.round((cat.count/totalKeywords)*100);
-  const barPct=Math.round((cat.count/maxCat)*100);
-  const div=document.createElement('div');div.className='cat-card';
-  div.innerHTML=`<div class="cat-header"><span class="cat-name">${cat.name}</span><span class="cat-count">${cat.count} keywords · ${pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="--fill-color:${cat.color}" data-width="${barPct}"></div></div>`;
-  catGrid.appendChild(div);
-});
-
-// ─── DONUT ───
-function buildDonut(){
-  const svg=document.getElementById('donut-svg');
-  const legend=document.getElementById('donut-legend');
-  const cx=90,cy=90,r=70,inner=45;
-  const total=categories.reduce((a,b)=>a+b.count,0);
-  let angle=-90;
-  categories.forEach(cat=>{
-    const slice=(cat.count/total)*360;
-    const s=(angle*Math.PI)/180,e=((angle+slice)*Math.PI)/180;
-    const x1=cx+r*Math.cos(s),y1=cy+r*Math.sin(s),x2=cx+r*Math.cos(e),y2=cy+r*Math.sin(e);
-    const ix1=cx+inner*Math.cos(s),iy1=cy+inner*Math.sin(s),ix2=cx+inner*Math.cos(e),iy2=cy+inner*Math.sin(e);
-    const large=slice>180?1:0;
-    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-    path.setAttribute('d',`M ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} L ${ix2} ${iy2} A ${inner} ${inner} 0 ${large} 0 ${ix1} ${iy1} Z`);
-    path.setAttribute('fill',cat.color);path.setAttribute('opacity','0.85');
-    path.style.transition='opacity 0.2s';
-    path.addEventListener('mouseenter',()=>path.setAttribute('opacity','1'));
-    path.addEventListener('mouseleave',()=>path.setAttribute('opacity','0.85'));
-    svg.appendChild(path);
-    const pct=Math.round((cat.count/total)*100);
-    const li=document.createElement('div');li.className='legend-item';
-    li.innerHTML=`<div class="legend-dot" style="background:${cat.color}"></div><span class="legend-text">${cat.name}</span><span class="legend-pct">${pct}%</span>`;
-    legend.appendChild(li);
-    angle+=slice;
-  });
-  const text=document.createElementNS('http://www.w3.org/2000/svg','text');
-  text.setAttribute('x',cx);text.setAttribute('y',cy-6);text.setAttribute('text-anchor','middle');
-  text.setAttribute('fill','#e8e8f0');text.setAttribute('font-size','22');text.setAttribute('font-family','Syne,sans-serif');text.setAttribute('font-weight','800');
-  text.textContent='210';svg.appendChild(text);
-  const sub=document.createElementNS('http://www.w3.org/2000/svg','text');
-  sub.setAttribute('x',cx);sub.setAttribute('y',cy+12);sub.setAttribute('text-anchor','middle');
-  sub.setAttribute('fill','#6b6b8a');sub.setAttribute('font-size','9');sub.setAttribute('font-family','JetBrains Mono,monospace');
-  sub.textContent='KEYWORDS';svg.appendChild(sub);
-}
-buildDonut();
-
-// ─── FREQ BARS ───
-const maxFreq=freqKeywords[0].count;
-const leftList=document.getElementById('freq-list-left');
-freqKeywords.forEach(kw=>{
-  const pct=Math.round((kw.count/maxFreq)*100);
-  leftList.innerHTML+=`<div class="freq-row"><span class="freq-label">${kw.name}</span><div class="freq-bar-wrap"><div class="freq-bar-fill" data-width="${pct}"></div></div><span class="freq-val">${kw.count}</span></div>`;
-});
-const maxWeight=topicWeights[0].pct;
-const rightList=document.getElementById('freq-list-right');
-topicWeights.forEach(tw=>{
-  const pct=Math.round((tw.pct/maxWeight)*100);
-  rightList.innerHTML+=`<div class="freq-row"><span class="freq-label">${tw.name}</span><div class="freq-bar-wrap"><div class="freq-bar-fill" data-width="${pct}" style="background:linear-gradient(90deg,#ffd166,#ff6b6b)"></div></div><span class="freq-val">${tw.pct}%</span></div>`;
-});
-
 // ─── BUBBLES ───
 const bubbleWrap=document.getElementById('bubble-wrap');
 allKeywords.sort(()=>Math.random()-0.4);
@@ -1979,10 +1899,9 @@ allKeywords.forEach(kw=>{
 
 // ─── TABLE ───
 const tbody=document.getElementById('coverage-table');
-const pc={high:'#00e5c0',med:'#ffd166',low:'#ff6b6b'};
 tableData.forEach(row=>{
   const tr=document.createElement('tr');
-  tr.innerHTML=`<td style="color:var(--muted);font-size:11px">${String(row.id).padStart(2,'0')}</td><td><span class="dot" style="background:${pc[row.priority]}"></span>${row.name}</td><td style="color:var(--muted)">${row.cat}</td><td style="color:var(--accent1);font-weight:600">${row.mentions}×</td><td><span class="badge ${row.priority}">${row.priority.toUpperCase()}</span></td>`;
+  tr.innerHTML=`<td style="color:var(--muted);font-size:11px">${String(row.id).padStart(2,'0')}</td><td style="font-weight:600">${row.name}</td><td style="color:var(--muted)">${row.what}</td>`;
   tbody.appendChild(tr);
 });
 
