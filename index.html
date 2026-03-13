@@ -1,1 +1,1755 @@
-sdasdas
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS ML Engineer — Marlon Anesi PT-1 Keywords</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0f; --surface:#12121a; --card:#1a1a26; --border:#2a2a3d;
+    --accent1:#7c5cfc; --accent2:#00e5c0; --accent3:#ff6b6b; --accent4:#ffd166;
+    --accent5:#ff9f43; --accent6:#48dbfb; --text:#e8e8f0; --muted:#6b6b8a;
+    --glow:rgba(124,92,252,0.2);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,92,252,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,92,252,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+  .container{max-width:1360px;margin:0 auto;padding:44px 24px;position:relative;z-index:1;}
+
+  /* NAV TABS */
+  .nav-tabs{display:flex;gap:6px;margin-bottom:40px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:8px;animation:fadeDown 0.6s ease both;}
+  .tab-btn{flex:1;min-width:120px;background:transparent;border:none;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:10px 16px;border-radius:8px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:rgba(124,92,252,0.1);}
+  .tab-btn.active{background:var(--accent1);color:#fff;font-weight:600;}
+  .panel{display:none;} .panel.active{display:block;}
+
+  /* HEADER */
+  header{text-align:center;margin-bottom:52px;animation:fadeDown 0.8s ease both;}
+  .tag{display:inline-block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);border:1px solid var(--accent2);padding:4px 14px;border-radius:20px;margin-bottom:20px;opacity:0.8;}
+  h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,#fff 30%,var(--accent1) 70%,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:12px;}
+  .subtitle{color:var(--muted);font-size:12px;letter-spacing:1px;}
+
+  /* STATS */
+  .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:44px;animation:fadeUp 0.8s 0.2s ease both;}
+  .stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 20px;text-align:center;position:relative;overflow:hidden;}
+  .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--c,var(--accent1));}
+  .stat-number{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;color:var(--c,var(--accent1));}
+  .stat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+
+  /* SECTION TITLE */
+  .section-title{font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent1);margin-bottom:20px;margin-top:44px;display:flex;align-items:center;gap:10px;}
+  .section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  /* CATEGORY CARDS */
+  .categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:44px;animation:fadeUp 0.8s 0.3s ease both;}
+  .cat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;}
+  .cat-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .cat-name{font-size:12px;font-weight:600;color:var(--text);}
+  .cat-count{font-size:10px;background:rgba(124,92,252,0.15);color:var(--accent1);border:1px solid rgba(124,92,252,0.3);padding:2px 10px;border-radius:20px;}
+  .progress-bar{height:6px;background:var(--border);border-radius:10px;overflow:hidden;}
+  .progress-fill{height:100%;border-radius:10px;background:var(--fill-color);transition:width 1.5s cubic-bezier(0.34,1.56,0.64,1);width:0;}
+
+  /* DONUT */
+  .donut-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;display:flex;gap:40px;align-items:center;flex-wrap:wrap;margin-bottom:44px;animation:fadeUp 0.8s 0.35s ease both;}
+  svg.donut{flex-shrink:0;}
+  .donut-legend{flex:1;min-width:200px;}
+  .legend-item{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+  .legend-text{font-size:12px;color:var(--text);}
+  .legend-pct{margin-left:auto;font-size:12px;color:var(--muted);}
+
+  /* FREQ BARS */
+  .freq-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:44px;animation:fadeUp 0.8s 0.4s ease both;}
+  .freq-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;}
+  .freq-panel h3{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:20px;color:var(--accent2);letter-spacing:1px;}
+  .freq-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+  .freq-label{font-size:11px;color:var(--text);width:170px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .freq-bar-wrap{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+  .freq-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent1),var(--accent2));transition:width 1.8s cubic-bezier(0.34,1.56,0.64,1);width:0;}
+  .freq-val{font-size:11px;color:var(--accent1);width:32px;text-align:right;flex-shrink:0;}
+
+  /* BUBBLES */
+  .bubble-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px;animation:fadeUp 0.8s 0.5s ease both;}
+  .bubble{font-size:11px;padding:6px 14px;border-radius:20px;border:1px solid;cursor:default;transition:transform 0.2s,box-shadow 0.2s;white-space:nowrap;}
+  .bubble:hover{transform:scale(1.08);box-shadow:0 4px 20px rgba(0,0,0,0.3);}
+  .bubble.tier1{background:rgba(124,92,252,0.15);border-color:var(--accent1);color:var(--accent1);font-weight:600;font-size:13px;}
+  .bubble.tier2{background:rgba(0,229,192,0.10);border-color:var(--accent2);color:var(--accent2);font-size:12px;}
+  .bubble.tier3{background:rgba(255,209,102,0.10);border-color:var(--accent4);color:var(--accent4);}
+  .bubble.tier4{background:rgba(255,107,107,0.10);border-color:var(--accent3);color:var(--accent3);font-size:10px;}
+
+  /* TABLE */
+  .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:44px;animation:fadeUp 0.8s 0.6s ease both;}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:rgba(124,92,252,0.1);border-bottom:1px solid var(--border);}
+  th{padding:14px 20px;text-align:left;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent1);font-weight:600;}
+  td{padding:12px 20px;font-size:12px;border-bottom:1px solid rgba(42,42,61,0.5);vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:rgba(124,92,252,0.04);}
+  .badge{display:inline-block;font-size:10px;padding:2px 10px;border-radius:10px;font-weight:600;}
+  .badge.high{background:rgba(0,229,192,0.12);color:var(--accent2);border:1px solid rgba(0,229,192,0.3);}
+  .badge.med{background:rgba(255,209,102,0.12);color:var(--accent4);border:1px solid rgba(255,209,102,0.3);}
+  .badge.low{background:rgba(255,107,107,0.12);color:var(--accent3);border:1px solid rgba(255,107,107,0.3);}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px;vertical-align:middle;}
+
+  /* KEYWORD CARDS */
+  .controls{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap;align-items:center;}
+  .search-box{flex:1;min-width:240px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border-color 0.2s;}
+  .search-box:focus{border-color:var(--accent1);}
+  .search-box::placeholder{color:var(--muted);}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;}
+  .f-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all 0.2s;}
+  .f-btn:hover,.f-btn.active{background:var(--accent1);color:#fff;border-color:var(--accent1);}
+
+  .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:20px;align-items:start;}
+  .kcard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 24px;position:relative;overflow:hidden;opacity:0;transform:translateY(20px);animation:slideUp 0.5s ease forwards;transition:border-color 0.2s,box-shadow 0.2s;}
+  .kcard:hover{border-color:var(--c,var(--accent1));box-shadow:0 0 24px var(--glow);}
+  .kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c,var(--accent1)),transparent);}
+  .kcard-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+  .kcard-icon{font-size:1.1rem;}
+  .kcard-title{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;color:var(--c,var(--accent1));}
+  .kcard-src{margin-left:auto;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:2px 8px;border-radius:20px;}
+  .kw{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .kw li{font-size:11.5px;line-height:1.6;padding-left:16px;position:relative;color:#c8c8d8;}
+  .kw li::before{content:'▸';position:absolute;left:0;color:var(--c,var(--accent1));font-size:9px;top:3px;}
+  .kw strong{color:var(--text);font-weight:600;}
+  .kw .yes{color:var(--accent2);font-weight:600;}
+  .kw .no{color:var(--accent3);font-weight:600;}
+  .kw .chip{display:inline-block;font-size:9px;padding:1px 7px;border-radius:4px;background:rgba(124,92,252,0.2);color:var(--accent1);border:1px solid rgba(124,92,252,0.3);white-space:nowrap;font-weight:600;}
+  .kw .chip.g{background:rgba(0,229,192,0.1);color:var(--accent2);border-color:rgba(0,229,192,0.3);}
+  .kw .chip.r{background:rgba(255,107,107,0.1);color:var(--accent3);border-color:rgba(255,107,107,0.3);}
+  .kw .chip.y{background:rgba(255,209,102,0.1);color:var(--accent4);border-color:rgba(255,209,102,0.3);}
+
+  /* COMPARE TABLES */
+  .ctable-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;}
+  .ctable{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  .ctable-head{background:var(--surface);padding:10px 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent2);border-bottom:1px solid var(--border);}
+  .crow{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 16px;gap:12px;border-bottom:1px solid rgba(42,42,61,0.6);font-size:11px;}
+  .crow:last-child{border-bottom:none;}
+  .crow .cl{font-weight:600;color:var(--text);min-width:130px;}
+  .crow .cr{color:var(--muted);text-align:right;flex:1;}
+  .crow .cr.yes{color:var(--accent2);}
+  .crow .cr.no{color:var(--accent3);}
+
+  /* ANIMATIONS */
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes slideUp{to{opacity:1;transform:translateY(0)}}
+
+  .kcard:nth-child(1){animation-delay:.05s}.kcard:nth-child(2){animation-delay:.10s}
+  .kcard:nth-child(3){animation-delay:.15s}.kcard:nth-child(4){animation-delay:.20s}
+  .kcard:nth-child(5){animation-delay:.25s}.kcard:nth-child(6){animation-delay:.30s}
+  .kcard:nth-child(7){animation-delay:.35s}.kcard:nth-child(8){animation-delay:.40s}
+  .kcard:nth-child(9){animation-delay:.45s}.kcard:nth-child(10){animation-delay:.50s}
+  .kcard:nth-child(11){animation-delay:.55s}.kcard:nth-child(12){animation-delay:.60s}
+  .kcard:nth-child(13){animation-delay:.65s}.kcard:nth-child(14){animation-delay:.70s}
+  .kcard:nth-child(15){animation-delay:.75s}.kcard:nth-child(16){animation-delay:.80s}
+  .kcard:nth-child(17){animation-delay:.85s}.kcard:nth-child(18){animation-delay:.90s}
+  .kcard:nth-child(19){animation-delay:.95s}.kcard:nth-child(20){animation-delay:1.00s}
+  .kcard:nth-child(21){animation-delay:1.05s}.kcard:nth-child(22){animation-delay:1.10s}
+  .kcard:nth-child(23){animation-delay:1.15s}.kcard:nth-child(24){animation-delay:1.20s}
+  .kcard:nth-child(25){animation-delay:1.25s}.kcard:nth-child(26){animation-delay:1.30s}
+  .kcard:nth-child(27){animation-delay:1.35s}.kcard:nth-child(28){animation-delay:1.40s}
+  .kcard:nth-child(29){animation-delay:1.45s}.kcard:nth-child(30){animation-delay:1.50s}
+  .kcard:nth-child(31){animation-delay:1.55s}.kcard:nth-child(32){animation-delay:1.60s}
+  .kcard:nth-child(33){animation-delay:1.65s}.kcard:nth-child(34){animation-delay:1.70s}
+  .kcard:nth-child(35){animation-delay:1.75s}.kcard:nth-child(36){animation-delay:1.80s}
+  .kcard:nth-child(37){animation-delay:1.85s}.kcard:nth-child(38){animation-delay:1.90s}
+  .kcard:nth-child(39){animation-delay:1.95s}.kcard:nth-child(40){animation-delay:2.00s}
+  .kcard:nth-child(41){animation-delay:2.05s}.kcard:nth-child(42){animation-delay:2.10s}
+  .kcard:nth-child(43){animation-delay:2.15s}.kcard:nth-child(44){animation-delay:2.20s}
+  .kcard:nth-child(45){animation-delay:2.25s}.kcard:nth-child(46){animation-delay:2.30s}
+  .kcard:nth-child(47){animation-delay:2.35s}.kcard:nth-child(48){animation-delay:2.40s}
+  .kcard:nth-child(49){animation-delay:2.45s}.kcard:nth-child(50){animation-delay:2.50s}
+  .kcard:nth-child(51){animation-delay:2.55s}.kcard:nth-child(52){animation-delay:2.60s}
+  .kcard:nth-child(53){animation-delay:2.65s}.kcard:nth-child(54){animation-delay:2.70s}
+  .kcard:nth-child(55){animation-delay:2.75s}.kcard:nth-child(56){animation-delay:2.80s}
+  .kcard:nth-child(57){animation-delay:2.85s}.kcard:nth-child(58){animation-delay:2.90s}
+  .kcard:nth-child(59){animation-delay:2.95s}.kcard:nth-child(60){animation-delay:3.00s}
+  .kcard:nth-child(61){animation-delay:3.05s}.kcard:nth-child(62){animation-delay:3.10s}
+
+  .hidden{display:none!important;}
+  .footer-note{text-align:center;color:var(--muted);font-size:11px;padding:20px 0;border-top:1px solid var(--border);letter-spacing:1px;margin-top:40px;}
+  @media(max-width:768px){.hero-stats{grid-template-columns:repeat(2,1fr)}.freq-grid{grid-template-columns:1fr}.nav-tabs{flex-direction:column}h1{font-size:2rem}}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="tag">AWS MLA-C01 · PT-1 + PT-2 · 130 Questions</div>
+    <h1>ML Engineer Keywords<br>PT-1 &amp; PT-2 Reference</h1>
+    <p class="subtitle">Marlon Anesi · Practice Test 1 + Practice Test 2 · 130 questions analyzed</p>
+  </header>
+
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('analytics',this)">📊 Analytics Dashboard</button>
+    <button class="tab-btn" onclick="showTab('keywords',this)">🗂 Keyword Cards</button>
+    <button class="tab-btn" onclick="showTab('compare',this)">⚡ Quick Compare Tables</button>
+  </div>
+
+  <!-- ══════════════════════════ PANEL 1 — ANALYTICS ══════════════════════════ -->
+  <div class="panel active" id="panel-analytics">
+
+    <div class="hero-stats">
+      <div class="stat-card" style="--c:var(--accent1)"><div class="stat-number" id="n-keywords">0</div><div class="stat-label">Keywords Extracted</div></div>
+      <div class="stat-card" style="--c:var(--accent2)"><div class="stat-number" id="n-categories">0</div><div class="stat-label">Topic Categories</div></div>
+      <div class="stat-card" style="--c:var(--accent4)"><div class="stat-number" id="n-questions">0</div><div class="stat-label">Questions Covered</div></div>
+      <div class="stat-card" style="--c:var(--accent3)"><div class="stat-number" id="n-cards">0</div><div class="stat-label">Keyword Cards</div></div>
+    </div>
+
+    <p class="section-title">Category Breakdown</p>
+    <div class="categories-grid" id="cat-grid"></div>
+
+    <p class="section-title">Category Share</p>
+    <div class="donut-wrap">
+      <svg class="donut" width="180" height="180" viewBox="0 0 180 180" id="donut-svg"></svg>
+      <div class="donut-legend" id="donut-legend"></div>
+    </div>
+
+    <p class="section-title">Frequency Map — Most Repeated Concepts</p>
+    <div class="freq-grid">
+      <div class="freq-panel"><h3>⚡ Top Keywords by Mention Count</h3><div id="freq-list-left"></div></div>
+      <div class="freq-panel"><h3>🎯 Exam Weight by Topic</h3><div id="freq-list-right"></div></div>
+    </div>
+
+    <p class="section-title">All Keywords · Size = Frequency</p>
+    <div class="bubble-wrap" id="bubble-wrap"></div>
+
+    <p class="section-title">Full Coverage Table</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Keyword / Concept</th><th>Category</th><th>Mentions</th><th>Priority</th></tr></thead>
+        <tbody id="coverage-table"></tbody>
+      </table>
+    </div>
+
+    <div class="footer-note">✦ New Session · 65 Questions · Abhishek Singh · Stephane Maarek · Marlon Anesi ✦</div>
+  </div>
+
+  <!-- ══════════════════════════ PANEL 2 — KEYWORD CARDS ══════════════════════════ -->
+  <div class="panel" id="panel-keywords">
+    <div class="controls">
+      <input class="search-box" id="search" placeholder="🔍  Search keywords, services, concepts..." oninput="doFilter()">
+      <div class="filters">
+        <button class="f-btn active" onclick="setTag('all',this)">All</button>
+        <button class="f-btn" onclick="setTag('pipeline',this)">Pipelines</button>
+        <button class="f-btn" onclick="setTag('inference',this)">Inference</button>
+        <button class="f-btn" onclick="setTag('training',this)">Training</button>
+        <button class="f-btn" onclick="setTag('data',this)">Data</button>
+        <button class="f-btn" onclick="setTag('mlconcepts',this)">ML Concepts</button>
+        <button class="f-btn" onclick="setTag('monitoring',this)">Monitoring</button>
+        <button class="f-btn" onclick="setTag('security',this)">Security/Cost</button>
+        <button class="f-btn" onclick="setTag('genai',this)">GenAI</button>
+      </div>
+    </div>
+    <div class="kgrid" id="kgrid">
+
+      <!-- 1 -->
+      <div class="kcard" data-tags="pipeline training" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">⚙️</span><span class="kcard-title">SageMaker Pipelines</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Best for</strong> end-to-end ML: data processing → training → tuning → deployment; scalable, reliable, automated</li>
+          <li><strong>CI/CD trigger order</strong>: <span class="chip g">S3 upload → S3 event notification (step 2) → SageMaker retrains (step 4) → deploy to endpoint (step 3)</span></li>
+          <li><span class="no">✗ S3 Lifecycle rules</span> cannot start CodePipeline / SageMaker Pipeline</li>
+          <li><span class="no">✗ Model Monitor</span> ≠ deployment target in the pipeline</li>
+          <li><strong>Callback steps</strong> — wait for Glue jobs to finish; retrieve outputs from S3 with LEAST overhead</li>
+          <li><strong>Conditional steps</strong> — manual approval gate before production deployment</li>
+          <li><strong>DAG</strong> — visualize workflow as directed acyclic graph; useful for complex dependency tracking</li>
+          <li><strong>Lineage Tracking</strong> — pairs with Pipelines for pharma/regulatory audits</li>
+        </ul>
+      </div>
+
+      <!-- 2 -->
+      <div class="kcard" data-tags="monitoring" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">📡</span><span class="kcard-title">Model Monitor &amp; Drift</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Data drift</strong> — input distribution changes over time → Model Monitor tracks it; retrain on latest data</li>
+          <li><strong>Concept drift</strong> — relationship between input features and target changes (e.g., fraud patterns); causes accuracy drop despite no model change</li>
+          <li><strong>Model drift</strong> — model's assumptions become outdated → periodic retrain + model versioning</li>
+          <li>Combined fix: <span class="yes">continuous statistical monitoring with alerts</span> + <span class="yes">retrain on recent data</span></li>
+          <li><strong>CloudWatch</strong> — monitor API call metrics on SageMaker endpoints; alarm → SNS notification on threshold breach</li>
+        </ul>
+      </div>
+
+      <!-- 3 -->
+      <div class="kcard" data-tags="monitoring" style="--c:var(--accent3)">
+        <div class="kcard-head"><span class="kcard-icon">⚖️</span><span class="kcard-title">SageMaker Clarify</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>CDD (Conditional Demographic Disparity)</strong> — disparity in positive prediction rates across demographic groups conditioned on a feature like income; detects bias invisible in overall outcomes</li>
+          <li><strong>On-demand bias detection</strong> — analyzes captured inference data from deployed real-time endpoints</li>
+          <li><strong>SHAP values</strong> — local explanation: contribution of each feature to a specific prediction instance</li>
+          <li><strong>PDP (Partial Dependence Plots)</strong> — global explanation: marginal effect of feature across entire dataset</li>
+          <li>Use SHAP for individual loan/approval decisions; use PDP for overall model behavior understanding</li>
+          <li><span class="no">✗ Model Monitor</span> = drift detection, NOT bias analysis</li>
+          <li><strong>Feature importance</strong> — use Clarify to evaluate domain-specific features for credit risk improvement</li>
+        </ul>
+      </div>
+
+      <!-- 4 -->
+      <div class="kcard" data-tags="pipeline" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">📦</span><span class="kcard-title">SageMaker Model Registry</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Collections</strong> — group existing model groups into high-level categories (fraud, risk, segmentation); <span class="yes">non-disruptive, does not move artifacts</span></li>
+          <li><strong>Cross-account access</strong> — attach resource-based policy to Registry; grants other AWS accounts access</li>
+          <li><strong>Model groups</strong> — manage versions + deployments with minimal operational overhead</li>
+          <li><strong>Metadata captured</strong>: data sources, hyperparameters, training code, artifacts</li>
+          <li>Best for: versioning, repeatability, auditability in regulated industries (pharma, finance)</li>
+          <li><span class="no">✗ Tags</span> — metadata only, not hierarchical structure for grouping</li>
+          <li><span class="no">✗ Experiments</span> — tracks runs/trials; NOT a governance or approval tool</li>
+        </ul>
+      </div>
+
+      <!-- 5 -->
+      <div class="kcard" data-tags="inference pipeline" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">🚦</span><span class="kcard-title">Deployment Strategies</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Canary release</strong> — small % of traffic to new model fleet as safety guardrail; monitor then expand</li>
+          <li><strong>Blue/Green</strong> — full parallel fleet; baking period; CloudWatch alarm triggers automatic rollback to blue</li>
+          <li><strong>A/B Testing (Production Variants)</strong> — relative weight ratios (weight 20 ≠ 20% of traffic)</li>
+          <li><strong>Shadow Testing</strong> — copy of live traffic sent to new model; responses logged only, <span class="no">NOT returned to caller</span></li>
+          <li><strong>Auto-scaling (target tracking)</strong> — adjusts instance count based on CPU utilization or invocations per instance; maintains steady performance during spikes</li>
+          <li><strong>Real-time hosting + auto-scaling</strong> — best for recommendation engine during peak shopping seasons</li>
+        </ul>
+      </div>
+
+      <!-- 6 -->
+      <div class="kcard" data-tags="inference" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">🚀</span><span class="kcard-title">Inference Modes</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Real-Time</strong> — persistent endpoint, low-latency, auto-scaling; ≤6 MB payload, ≤60 sec; best for product recommendations</li>
+          <li><strong>Serverless</strong> — auto-scales, pay-per-use; handles infrequent spikes; minimizes cost during low traffic; cold starts possible; ≤4 MB, ≤60 sec</li>
+          <li><strong>Multi-Model Endpoint</strong> — multiple models on single instance; dynamic load/unload; cost savings for route optimization</li>
+          <li><strong>Async Inference</strong> — ≤1 GB, up to 1 hr; scales to zero; <span class="no">NOT for strict real-time</span></li>
+          <li><strong>Batch Transform</strong> — offline bulk from S3; <span class="no">NOT for real-time</span></li>
+          <li><strong>Inference Recommender</strong> — load-tests across instance types → recommends cost/performance balance</li>
+        </ul>
+      </div>
+
+      <!-- 7 -->
+      <div class="kcard" data-tags="training" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">🔁</span><span class="kcard-title">Training Optimization</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>SageMaker Warm Pools</strong> — reuses provisioned training instances between back-to-back jobs; reduces startup time for iterative HPT runs</li>
+          <li><span class="no">✗ Managed Spot Training</span> — cost savings only, not faster startup</li>
+          <li><span class="no">✗ Training Compiler</span> — optimizes training ops, not instance startup time</li>
+          <li><strong>Managed Spot Training</strong> — up to 90% cost reduction; S3 checkpoints for automatic retry on interruption</li>
+          <li><strong>Oscillating loss</strong> → <span class="yes">reduce learning rate</span>; too high = overshooting loss minima, creates oscillation with SGD</li>
+          <li><strong>Checkpoints to S3</strong> — enables resume after Spot instance interruption</li>
+        </ul>
+      </div>
+
+      <!-- 8 -->
+      <div class="kcard" data-tags="training mlconcepts" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">🎛️</span><span class="kcard-title">Hyperparameter Tuning (HPO)</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Bayesian Optimization</strong> — uses prior trial results; best for complex models with large search space; switch to this if Random Search trials are not converging</li>
+          <li><strong>Hyperband</strong> — early-stops underperforming trials; fastest for large search spaces</li>
+          <li><strong>Random Search</strong> — good when only a few hyperparameters are important</li>
+          <li><strong>Grid Search</strong> — exhaustive, most computationally expensive</li>
+          <li>When trials don't converge: narrow the range of critical hyperparameters AND switch strategy to Bayesian</li>
+        </ul>
+      </div>
+
+      <!-- 9 -->
+      <div class="kcard" data-tags="training" style="--c:var(--accent3)">
+        <div class="kcard-head"><span class="kcard-icon">🐳</span><span class="kcard-title">BYOC &amp; Script Mode</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>BYOC steps</strong>: Build custom Docker image → push to <span class="chip">Amazon ECR</span> → use SageMaker Script Mode to execute training script inside container</li>
+          <li><span class="no">✗ Docker Hub</span> — not AWS-native; always use ECR for SageMaker integration</li>
+          <li><strong>Script Mode</strong> — custom .py entry point within a pre-built framework container; no full Docker management required</li>
+          <li>Supports <strong>requirements.txt</strong> for additional Python packages</li>
+          <li>Best approach for migrating existing TensorFlow/PyTorch scripts with minimal code changes</li>
+        </ul>
+      </div>
+
+      <!-- 10 -->
+      <div class="kcard" data-tags="training security" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">💻</span><span class="kcard-title">EC2 Purchasing Options</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Spot instances</strong> — interruption-tolerant batch jobs; e.g., 2-hr Saturday-night aggregation jobs; substantial cost savings</li>
+          <li><strong>On-Demand</strong> — flexible, no commitment; best for sporadic training needing significant compute</li>
+          <li><strong>Reserved</strong> — 1 or 3 yr commitments; <span class="no">NOT available as 6-month</span></li>
+          <li><strong>Dedicated Hosts</strong> — compliance, software licensing requirements</li>
+          <li><span class="chip">Inferentia</span> — DL &amp; GenAI inference (high throughput) | <span class="chip">Trainium</span> — DL training for 100B+ parameter models</li>
+        </ul>
+      </div>
+
+      <!-- 11 -->
+      <div class="kcard" data-tags="data" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">🔧</span><span class="kcard-title">SageMaker Data Wrangler</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Balance data operation</strong> — oversample minority class (e.g., high-risk patients, churned customers) to resolve class imbalance</li>
+          <li><strong>Corrupt image transform</strong> — simulates variations in lighting and image quality; robust model training for different warehouse locations</li>
+          <li><strong>One-hot encoding</strong> — transform categorical features: city, region, membership tier</li>
+          <li><strong>Standardization</strong> — normalize numerical features: building_size, purchase frequency, session duration</li>
+          <li><strong>Feature splitting</strong> — split compound features: building_type_year → type + year</li>
+          <li><strong>Pipe input mode</strong> — stream data directly from S3; no local storage needed; ideal for terabyte-scale image datasets</li>
+          <li><strong>Best for</strong>: data selection, cleansing, exploration, visualization in single visual interface</li>
+          <li><span class="no">✗ DataBrew</span> — no native class balancing transform</li>
+        </ul>
+      </div>
+
+      <!-- 12 -->
+      <div class="kcard" data-tags="data" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">🗄️</span><span class="kcard-title">Glue, DataBrew &amp; Athena</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Glue Crawlers</strong> — auto-infer schema from S3 CSV files → populate Data Catalog (step 1)</li>
+          <li><strong>Glue DataBrew</strong> — visual no-code data cleaning &amp; feature engineering (step 5)</li>
+          <li><strong>Correct 3-step order</strong>: <span class="chip g">1 (Crawlers) → 5 (DataBrew) → 3 (Store to S3)</span></li>
+          <li><strong>Glue FindMatches</strong> — ML-based fuzzy duplicate detection; handles exact + near-duplicate records; minimal code; LEAST operational overhead</li>
+          <li><strong>Athena CTAS + partitioning</strong> — partition by observation date column; ad-hoc efficient queries on S3 CSV; partition pruning = faster + cheaper</li>
+          <li><strong>Callback step in Pipelines</strong> — integrates Glue jobs into SageMaker Pipelines; waits then retrieves outputs from S3</li>
+          <li><strong>Lake Formation</strong> — aggregate S3 + on-premises PostgreSQL; LF-Tags for column/row-level access control</li>
+        </ul>
+      </div>
+
+      <!-- 13 -->
+      <div class="kcard" data-tags="data" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">🗃️</span><span class="kcard-title">SageMaker Feature Store</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Correct creation order</strong>: <span class="chip g">3 → 2 → 1</span></li>
+          <li>Step 3 — Set up feature group to organize and store features</li>
+          <li>Step 2 — Load feature data into the store</li>
+          <li>Step 1 — Prepare training dataset by accessing features from store</li>
+          <li><strong>Online store</strong> — real-time low-latency feature serving (inference)</li>
+          <li><strong>Offline store</strong> — batch access for training jobs</li>
+          <li>Ensures consistency and reusability of features across training and inference workflows</li>
+        </ul>
+      </div>
+
+      <!-- 14 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">📐</span><span class="kcard-title">Algorithm Selection</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>XGBoost</strong> — handles class imbalance via weighted classes + regularization; custom objective for precision &amp; recall; best for fraud detection</li>
+          <li><strong>Random Cut Forest (RCF)</strong> — unsupervised anomaly detection in sensor/IoT time-series; detects impending equipment failures</li>
+          <li><strong>Linear Learner</strong> — handles class imbalance + feature interdependencies; built-in; LEAST operational effort for churn prediction</li>
+          <li><strong>Logistic regression</strong> — binary classification (default/no-default)</li>
+          <li><strong>K-Means</strong> — unsupervised clustering (customer segmentation) <span class="no">≠ KNN</span></li>
+          <li><strong>RNN</strong> — recurrent neural network; time-series forecasting (electricity demand)</li>
+          <li><strong>PCA</strong> — dimensionality reduction; feature extraction</li>
+        </ul>
+      </div>
+
+      <!-- 15 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent3)">
+        <div class="kcard-head"><span class="kcard-icon">🎯</span><span class="kcard-title">Ensemble Methods</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Stacking</strong> — use predictions from logistic regression + decision tree + SVM as inputs to meta-model (random forest); best for combining diverse model types</li>
+          <li><strong>Bagging</strong> — same model on different data subsets; reduces variance</li>
+          <li><strong>AdaBoost</strong> — adaptive weight adjustment on misclassified samples</li>
+          <li><strong>Gradient Boosting</strong> — sequential residual correction</li>
+          <li><strong>XGBoost</strong> — regularized extreme gradient boosting; weighted classes; MOST SUITABLE for imbalanced fraud data</li>
+        </ul>
+      </div>
+
+      <!-- 16 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">🧠</span><span class="kcard-title">Overfitting &amp; Regularization</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Signs</strong>: model improves on validation in early epochs then degrades after certain epoch count</li>
+          <li><strong>Dropout layers</strong> — randomly zero out neurons during training; prevents co-adaptation (overfitting)</li>
+          <li><strong>Early stopping</strong> — halt training once validation loss stops improving; prevents further overfitting</li>
+          <li><strong>Data augmentation</strong> — increase diversity of training data (rotations, flips, crops)</li>
+          <li><strong>Ensembling</strong> — averaging predictions from multiple models reduces variance</li>
+          <li>Combined: dropout + early stopping = MOST LIKELY to mitigate neural network overfitting on medical images</li>
+        </ul>
+      </div>
+
+      <!-- 17 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">📊</span><span class="kcard-title">Evaluation Metrics</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>MAE (Mean Absolute Error)</strong> — for continuous output like delivery hours; interpretable, robust to outliers</li>
+          <li><strong>RMSE</strong> — penalizes large prediction errors more heavily</li>
+          <li><strong>AUC ≈ 1.0</strong> — excellent discriminatory power (defaulters vs non-defaulters)</li>
+          <li><strong>AUC ≈ 0.5</strong> — random/no discrimination power | <strong>AUC ≈ 0</strong> — inverted predictions</li>
+          <li><strong>ROC + AUC</strong> — best for binary classification with class imbalance (10% defaulters)</li>
+          <li><strong>Precision + Recall</strong> — evaluate ability to find positives while controlling false positives/negatives</li>
+          <li><strong>Confusion matrix</strong> — TP, FP, TN, FN; foundation for precision, recall, F1 calculation</li>
+        </ul>
+      </div>
+
+      <!-- 18 -->
+      <div class="kcard" data-tags="mlconcepts data" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">⚗️</span><span class="kcard-title">Feature Engineering</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Feature splitting</strong> — building_type_year → building_type + year_constructed</li>
+          <li><strong>One-hot encoding</strong> — city (categorical with many values)</li>
+          <li><strong>Standardization</strong> — building_size (continuous numerical feature)</li>
+          <li><strong>Binning</strong> — group continuous values into discrete ranges</li>
+          <li><strong>EDA first</strong> — understand distribution, missing values, class imbalance (5% disease positive) before deciding ML feasibility with only 1,000 records</li>
+          <li><strong>Stratified split</strong> — preserves class distribution; critical for imbalanced data</li>
+        </ul>
+      </div>
+
+      <!-- 19 -->
+      <div class="kcard" data-tags="mlconcepts monitoring" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">🔍</span><span class="kcard-title">Explainability &amp; Transparency</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Benefits of transparent models</strong>: foster trust and confidence in predictions; facilitate easier debugging and optimization</li>
+          <li><strong>SHAP values</strong> — local: quantifies contribution of each feature for a specific customer's prediction (loan approval/rejection)</li>
+          <li><strong>PDP</strong> — global: shows marginal effect of feature on predictions across entire dataset</li>
+          <li><strong>SageMaker Debugger</strong> — addresses overfitting, saturated activations, vanishing gradients during training</li>
+          <li><span class="no">✗ Debugger Profiler</span> — resource utilization metrics only; NOT training quality</li>
+          <li><strong>Lineage Tracking + Pipelines</strong> — DAG for workflows + full audit trail for regulatory compliance</li>
+        </ul>
+      </div>
+
+      <!-- 20 -->
+      <div class="kcard" data-tags="genai" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">🤖</span><span class="kcard-title">GenAI &amp; Amazon Bedrock</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Amazon Bedrock</strong> — managed foundational models from third-party providers; product descriptions, marketing copy, sentiment analysis; seamless AWS integration</li>
+          <li><strong>Temperature ↓ + Top-K ↓</strong> — deterministic, consistent responses</li>
+          <li><strong>Temperature ↑ + Top-K ↑</strong> — creative, random responses</li>
+          <li><strong>RAG</strong> — combines external retrieval with generation; accurate, relevant responses; <span class="no">does NOT change weights</span></li>
+          <li><strong>Embedding</strong> (1-B) — numerical vector representation of text in high-dimensional space</li>
+          <li><strong>Token</strong> (2-D) — units of text (words/subwords/chars) processed by LLM</li>
+          <li><strong>RAG</strong> (3-A) — retrieval + generation for accuracy | <strong>Temperature</strong> (4-E) — controls randomness | <strong>Prompt</strong> (5-C) — guides output</li>
+          <li><strong>Defense-in-depth</strong> — input validation + access controls + continuous monitoring; multiple layers essential</li>
+        </ul>
+      </div>
+
+      <!-- 21 -->
+      <div class="kcard" data-tags="genai" style="--c:var(--accent3)">
+        <div class="kcard-head"><span class="kcard-icon">🗣️</span><span class="kcard-title">Comprehend &amp; NLP Services</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Comprehend ImportModel API</strong> — cross-account model sharing (Account A → Account B); configure resource-based IAM policy in the <em>source</em> account (Account A)</li>
+          <li><strong>JumpStart fine-tuning</strong> — deploy pre-trained NLP model + built-in fine-tuning with custom labeled dataset; minimal development effort; sentiment analysis for customer reviews</li>
+          <li><strong>Fine-tuning CHANGES weights</strong> — <span class="yes">unlike RAG or prompt engineering</span></li>
+          <li><strong>Rekognition Custom Labels</strong> — business-specific object detection (damaged vs undamaged products)</li>
+        </ul>
+      </div>
+
+      <!-- 22 -->
+      <div class="kcard" data-tags="security" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">🔐</span><span class="kcard-title">Security &amp; Access Control</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Single IAM role</strong> — attach to ALL SageMaker notebook instances; centralized, consistent S3 permissions; eliminates duplication</li>
+          <li><strong>Resource-based IAM policy</strong> — enables cross-account access (Comprehend ImportModel, Model Registry)</li>
+          <li><strong>Lake Formation LF-Tags</strong> — fine-grained column/row-level permissions; integrates with Athena for governed access</li>
+          <li><strong>NACL</strong> — subnet-level; supports DENY rules (block specific IPs)</li>
+          <li><strong>Security Groups</strong> — instance-level; stateful; ALLOW only (no explicit deny)</li>
+          <li><strong>WAF</strong> — web application traffic filtering only</li>
+        </ul>
+      </div>
+
+      <!-- 23 -->
+      <div class="kcard" data-tags="security pipeline" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">🏗️</span><span class="kcard-title">CloudFormation &amp; IaC</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Nested stacks</strong> — modular IaC for SageMaker + EC2 + RDS; outputs from one stack as inputs to another stack</li>
+          <li><strong>Resource creation order</strong>: <span class="chip g">AWS::SageMaker::Model → EndpointConfig → Endpoint</span></li>
+          <li><strong>EKS</strong> — containerized microservices; MOST SUITABLE for generative AI with high scalability requirements</li>
+          <li><strong>ECS</strong> — batch processing workloads; <span class="no">NOT for real-time low-latency ML</span></li>
+          <li><strong>Lambda</strong> — event-driven, lightweight; <span class="no">NOT suitable for large ML model serving</span></li>
+          <li><strong>SageMaker real-time endpoints</strong> — best for low-latency + auto-scaling + managed infrastructure</li>
+        </ul>
+      </div>
+
+      <!-- 24 -->
+      <div class="kcard" data-tags="security" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">💰</span><span class="kcard-title">Cost Optimization</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Multi-model endpoint</strong> — deploy multiple route-optimization models on single instance; share resources; reduce costs</li>
+          <li><strong>Auto-scaling + medium instances</strong> — dynamically balance cost and performance based on real-time demand</li>
+          <li><strong>Serverless inference</strong> — minimize cost during low-traffic periods (beta phase image recognition)</li>
+          <li><strong>Spot instances</strong> — for 2-hr weekly batch jobs that tolerate interruption (Saturday night aggregation)</li>
+          <li><strong>SageMaker Pipelines</strong> — orchestrate end-to-end; scalable, automated, low operational overhead for startups</li>
+          <li><strong>SageMaker endpoints + auto-scaling</strong> — recommended ML infrastructure pattern for cost-effective scalability</li>
+        </ul>
+      </div>
+
+      <!-- 25 -->
+      <div class="kcard" data-tags="training" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">🧩</span><span class="kcard-title">AutoML &amp; No-Code Tools</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>SageMaker Autopilot</strong> — AutoML: auto preprocessing + model selection + HPT; generates readable Jupyter notebooks; <span class="no">≠ model versioning tool</span></li>
+          <li><strong>JumpStart</strong> — pre-built models + fine-tuning; fine-tuning changes weights; supports HPT</li>
+          <li><strong>Canvas</strong> — no-code ML for business analysts; preferred format: Apache Parquet</li>
+          <li><strong>A2I (Augmented AI)</strong> — human review workflows for low-confidence ML predictions; <span class="no">≠ Ground Truth (labeling)</span></li>
+          <li><strong>Manual approval (Conditional step)</strong> — governance gate in SageMaker Pipelines before production deploy</li>
+        </ul>
+      </div>
+
+      <!-- 26 -->
+      <div class="kcard" data-tags="data" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">📥</span><span class="kcard-title">Data Sources &amp; Storage</span><span class="kcard-src">New Session</span></div>
+        <ul class="kw">
+          <li><strong>Pipe input mode</strong> — stream 10 million high-res images (terabytes) from S3; start processing immediately; no local storage</li>
+          <li><strong>Lake Formation</strong> — aggregate training data from S3 + on-premises PostgreSQL; centrally manage access</li>
+          <li><strong>Athena CTAS + partitioning</strong> — partition weather sensor CSV by observation date; efficient ad-hoc queries with LEAST operational overhead</li>
+          <li><strong>Glue Crawlers → DataBrew → S3</strong> — correct 3-step order for schema inference + cleaning + storage</li>
+          <li><strong>On-premises PostgreSQL integration</strong> — Lake Formation aggregates; Data Wrangler connects for one-hot encoding + standardization</li>
+        </ul>
+      </div>
+
+
+      <!-- PT-2 CARDS ─────────────────────────── -->
+
+      <!-- PT2-01 -->
+      <div class="kcard" data-tags="monitor" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">📡</span><span class="kcard-title">SageMaker Model Monitor</span><span class="kcard-src">PT-2 · 8×</span></div>
+        <ul class="kw">
+          <li><strong>Data drift</strong> — input distribution shifts from training baseline; auto-detected vs baseline</li>
+          <li><strong>Model drift</strong> — model performance decays over time; trigger: retrain pipeline</li>
+          <li>Integrates with <strong>CloudWatch Alarms → SNS → retrain</strong></li>
+          <li><span class="no">≠ Clarify</span> — Clarify = bias/explainability; Monitor = drift/performance</li>
+          <li><span class="no">≠ manual review</span> — Monitor provides automated, continuous monitoring</li>
+        </ul>
+      </div>
+
+      <!-- PT2-02 -->
+      <div class="kcard" data-tags="sagemaker" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">⚖️</span><span class="kcard-title">SageMaker Clarify (PT-2)</span><span class="kcard-src">PT-2 · 7×</span></div>
+        <ul class="kw">
+          <li><strong>Bias detection</strong> in training data AND predictions (pre-training + post-training)</li>
+          <li><strong>SHAP feature attributions</strong> — why did this individual prediction occur?</li>
+          <li><strong>PDP (Partial Dependence Plots)</strong> — how does one feature affect ALL predictions?</li>
+          <li>Used for regulatory compliance: <strong>finance, healthcare, hiring</strong></li>
+          <li><span class="no">≠ Model Monitor</span> — Clarify ≠ drift; Monitor ≠ bias</li>
+        </ul>
+      </div>
+
+      <!-- PT2-03 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">🎯</span><span class="kcard-title">Recall vs Precision (PT-2)</span><span class="kcard-src">PT-2 · 7×</span></div>
+        <ul class="kw">
+          <li><strong>Recall</strong> — of all actual positives, how many caught? minimize <strong>false negatives</strong></li>
+          <li><strong>Precision</strong> — of predicted positives, how many correct? minimize <strong>false positives</strong></li>
+          <li><span class="chip g">Healthcare / fraud</span> → prioritize Recall (missing = dangerous)</li>
+          <li><span class="chip y">Loan denial</span> → balance Precision + Recall</li>
+          <li>Imbalanced datasets: prefer <strong>AUC-ROC or F1</strong> over accuracy</li>
+        </ul>
+      </div>
+
+      <!-- PT2-04 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent3)">
+        <div class="kcard-head"><span class="kcard-icon">📉</span><span class="kcard-title">Overfitting: L1 / L2 / XGBoost</span><span class="kcard-src">PT-2 · 6×</span></div>
+        <ul class="kw">
+          <li><strong>L1 (Lasso)</strong> — shrinks some coefficients to <strong>zero → feature selection / elimination</strong></li>
+          <li><strong>L2 (Ridge)</strong> — shrinks all evenly, none to zero; smooths but keeps all features</li>
+          <li><strong>XGBoost overfit fix</strong> — reduce <code>max_depth</code> (limits tree complexity)</li>
+          <li>Deep learning overfit fix: <strong>Dropout + Early Stopping</strong></li>
+          <li><span class="chip g">Use L1</span> when you want automatic irrelevant feature elimination</li>
+        </ul>
+      </div>
+
+      <!-- PT2-05 -->
+      <div class="kcard" data-tags="data" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">⚡</span><span class="kcard-title">Amazon EMR + Apache Spark</span><span class="kcard-src">PT-2 · 6×</span></div>
+        <ul class="kw">
+          <li>Best for <strong>large-scale distributed preprocessing</strong> — IoT, logs, multi-source datasets</li>
+          <li>Full Spark control: <strong>executors, memory, partitioning</strong> — no abstraction ceiling</li>
+          <li>Integrates with <strong>SageMaker Studio</strong> for seamless ML pipelines</li>
+          <li><span class="no">≠ Glue</span> — Glue abstracts Spark (less control for complex preprocessing)</li>
+          <li><span class="no">≠ Athena</span> — Athena = ad-hoc SQL queries, not heavy ETL</li>
+        </ul>
+      </div>
+
+      <!-- PT2-06 -->
+      <div class="kcard" data-tags="monitor" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">📊</span><span class="kcard-title">Data Drift vs Model Drift</span><span class="kcard-src">PT-2 · 6×</span></div>
+        <ul class="kw">
+          <li><strong>Data drift</strong> — input feature distribution changes (e.g. seasonal patterns shift)</li>
+          <li><strong>Model drift / concept drift</strong> — relationship between inputs + outputs changes</li>
+          <li>Tool: <strong>SageMaker Model Monitor</strong> — detects both; CloudWatch Alarms on violations</li>
+          <li>Response: <span class="chip g">retrain model</span> on new data when drift detected</li>
+          <li><span class="no">≠ model drift</span> ≠ infrastructure latency issues (use CloudWatch for those)</li>
+        </ul>
+      </div>
+
+      <!-- PT2-07 -->
+      <div class="kcard" data-tags="monitor" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">📈</span><span class="kcard-title">CloudWatch + Auto-scaling</span><span class="kcard-src">PT-2 · 6×</span></div>
+        <ul class="kw">
+          <li><strong>CloudWatch Alarms</strong> on SageMaker metrics: InvocationLatency, Errors, ModelLatency</li>
+          <li>Trigger <strong>auto-scaling policies</strong> on SageMaker endpoints (scale in/out)</li>
+          <li><strong>QuickSight → CloudWatch</strong> — real-time dashboard for non-technical stakeholders</li>
+          <li><strong>CloudWatch Logs + Alarms</strong> — troubleshoot latency spikes, timeouts, dropped requests</li>
+          <li><span class="chip g">Use scaling on invocation metrics</span> during peak traffic periods</li>
+        </ul>
+      </div>
+
+      <!-- PT2-08 -->
+      <div class="kcard" data-tags="security" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">🔒</span><span class="kcard-title">Security: IAM / NACL / VPC</span><span class="kcard-src">PT-2 · 5×</span></div>
+        <ul class="kw">
+          <li><strong>IAM policy</strong> — Allow specific actions + explicit Deny others (least privilege)</li>
+          <li><strong>NACL</strong> — subnet-level; stateless; use explicit Deny to block malicious IPs</li>
+          <li><strong>VPC Endpoint (PrivateLink)</strong> — SageMaker → S3 without public internet</li>
+          <li><strong>Redshift Dynamic Data Masking (DDM)</strong> — mask PII at query time, no data duplication</li>
+          <li><strong>AWS CloudTrail</strong> — log all SageMaker API calls for compliance audit</li>
+        </ul>
+      </div>
+
+      <!-- PT2-09 -->
+      <div class="kcard" data-tags="sagemaker" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">🏷️</span><span class="kcard-title">SageMaker Model Registry (PT-2)</span><span class="kcard-src">PT-2 · 5×</span></div>
+        <ul class="kw">
+          <li>Version control for <strong>trained models</strong> — track lineage, metadata, approval status</li>
+          <li>Required for <strong>regulated industries</strong>: pharma, healthcare compliance audits</li>
+          <li>Integrates with <strong>SageMaker Pipelines</strong> — auto-register on successful training run</li>
+          <li><span class="no">≠ Autopilot</span> — Autopilot = AutoML; Registry = versioning + governance</li>
+          <li><span class="chip g">Model approval workflow</span> — pending → approved → deployed</li>
+        </ul>
+      </div>
+
+      <!-- PT2-10 -->
+      <div class="kcard" data-tags="deploy" style="--c:var(--accent3)">
+        <div class="kcard-head"><span class="kcard-icon">🚀</span><span class="kcard-title">Deployment: Triggers + Strategies</span><span class="kcard-src">PT-2 · 5×</span></div>
+        <ul class="kw">
+          <li><strong>S3 Event Notifications → Lambda</strong> OR <strong>EventBridge rule → SageMaker pipeline</strong> (both valid triggers)</li>
+          <li><strong>SageMaker Serverless Inference</strong> — daily short jobs (90-min), no persistent infra, cost-effective</li>
+          <li><strong>Production Variants</strong> — route 20% traffic to new model (A/B online validation)</li>
+          <li><strong>CodeDeploy rolling update</strong> — deploy to EC2 fleet, minimal downtime, easy rollback</li>
+          <li><strong>Batch Transform</strong> — containerized offline S3 inference, fully managed</li>
+        </ul>
+      </div>
+
+      <!-- PT2-11 -->
+      <div class="kcard" data-tags="sagemaker data" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">🧹</span><span class="kcard-title">Data Wrangler + Feature Store (PT-2)</span><span class="kcard-src">PT-2 · 5×</span></div>
+        <ul class="kw">
+          <li><strong>Mask PII</strong>, handle outliers, balance classes — low-code in Data Wrangler</li>
+          <li><strong>Export normalization recipe</strong> — reuse exact same z-score params at inference (not recalculate)</li>
+          <li><strong>Feature Store</strong> — centralized storage after Wrangler processing; online + offline</li>
+          <li>Healthcare pipeline: <strong>Wrangler → Feature Store → training</strong></li>
+          <li><span class="no">≠ EMR</span> — Wrangler not for terabyte-scale distributed jobs</li>
+        </ul>
+      </div>
+
+      <!-- PT2-12 -->
+      <div class="kcard" data-tags="data security" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">🌊</span><span class="kcard-title">AWS AI Services (PT-2)</span><span class="kcard-src">PT-2 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>Kendra</strong> — semantic search over S3 articles; understands natural language queries</li>
+          <li><strong>Comprehend</strong> — NLP: sentiment, entity, topic extraction from customer feedback text</li>
+          <li><strong>Transcribe</strong> — auto-transcribe audio + custom vocabulary for domain-specific terms</li>
+          <li><strong>Polly + Lexicons</strong> — text-to-speech with custom pronunciation dictionary</li>
+          <li><strong>Rekognition</strong> — Custom Labels (product tagging) + DetectModerationLabels (content moderation)</li>
+        </ul>
+      </div>
+
+      <!-- PT2-13 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">🧠</span><span class="kcard-title">ML Algorithms (PT-2)</span><span class="kcard-src">PT-2 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>DeepAR</strong> — probabilistic forecasting for time-series sensor/maintenance data</li>
+          <li><strong>Logistic Regression</strong> — binary classification (long-term support prediction)</li>
+          <li><strong>K-Means</strong> = unsupervised clustering; <strong>KNN</strong> = supervised classification <span class="no">(not same)</span></li>
+          <li><strong>Bias-Variance</strong> — simpler model = high bias/underfit; complex = high variance/overfit</li>
+          <li>EDA first on small/imbalanced datasets before choosing algorithm</li>
+        </ul>
+      </div>
+
+      <!-- PT2-14 -->
+      <div class="kcard" data-tags="security" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">💰</span><span class="kcard-title">Cost &amp; FinOps (PT-2)</span><span class="kcard-src">PT-2 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>AWS Budgets + Tags</strong> — tag SageMaker Studio domain; set cost alert threshold</li>
+          <li><strong>Reserved instances</strong> — batch retraining (predictable, stable workloads)</li>
+          <li><strong>Spot instances</strong> — HPT jobs (fault-tolerant, interruptible)</li>
+          <li><strong>On-demand instances</strong> — real-time inference (cannot tolerate interruption)</li>
+          <li><strong>Compute Optimizer</strong> — identify underutilized EC2/ECS/EBS with minimal dev effort</li>
+        </ul>
+      </div>
+
+      <!-- PT3-01 -->
+      <div class="kcard" data-tags="mlconcepts monitoring" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">⚖️</span><span class="kcard-title">Clarify Bias Metrics (PT-3)</span><span class="kcard-src">PT-3 · 5×</span></div>
+        <ul class="kw">
+          <li><strong>Pre-training metrics</strong> — DPPL (Difference in Positive Proportions in Labels), DI (Disparate Impact), CI (Class Imbalance)</li>
+          <li><strong>Post-training metrics</strong> — DCOVA, AD (Accuracy Difference), conditional outcomes on deployed model</li>
+          <li>SageMaker Pipelines: add <strong>ClarifyCheckStep</strong> before model registration</li>
+          <li><span class="chip y">pre-training</span> measure label skew in raw data</li>
+          <li><span class="chip g">post-training</span> measure bias in model predictions</li>
+        </ul>
+      </div>
+
+      <!-- PT3-02 -->
+      <div class="kcard" data-tags="pipeline" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">🔀</span><span class="kcard-title">Step Functions Parallel (PT-3)</span><span class="kcard-src">PT-3 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>Parallel state</strong> — fan-out concurrent branches; results merged on join</li>
+          <li>Use for running multiple SageMaker training jobs simultaneously</li>
+          <li><strong>Map state</strong> — same logic iterated over each array element</li>
+          <li><span class="no">✗ Sequential states</span> — one at a time, no concurrency</li>
+          <li>Integrates via <strong>resource: arn:aws:states:::sagemaker:createTrainingJob</strong></li>
+        </ul>
+      </div>
+
+      <!-- PT3-03 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">👁️</span><span class="kcard-title">Rekognition API Selector (PT-3)</span><span class="kcard-src">PT-3 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>DetectLabels</strong> — general object / scene detection (tags)</li>
+          <li><strong>DetectModerationLabels</strong> — unsafe / explicit content filtering</li>
+          <li><strong>CompareFaces</strong> — verify identity from two images</li>
+          <li><strong>Custom Labels</strong> — domain-specific trained classifier (own dataset)</li>
+          <li><span class="no">✗ DetectLabels ≠ moderation</span> — always use ModerationLabels for content safety</li>
+        </ul>
+      </div>
+
+      <!-- PT3-04 -->
+      <div class="kcard" data-tags="inference mlconcepts" style="--c:var(--accent3)">
+        <div class="kcard-head"><span class="kcard-icon">🗜️</span><span class="kcard-title">Model Compression (PT-3)</span><span class="kcard-src">PT-3 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>Pruning</strong> — remove low-magnitude weights/neurons; reduces model size</li>
+          <li><strong>Quantization</strong> — reduce precision FP32 → INT8; faster inference, smaller footprint</li>
+          <li><strong>Knowledge Distillation</strong> — train small "student" model from large "teacher"</li>
+          <li><strong>SageMaker Neo</strong> — compile + optimize for target hardware (Inf1, ARM)</li>
+          <li><span class="no">✗ Not early stopping</span> — compression ≠ regularization technique</li>
+        </ul>
+      </div>
+
+      <!-- PT3-05 -->
+      <div class="kcard" data-tags="pipeline data" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">🌊</span><span class="kcard-title">Kinesis Analytics + Flink (PT-3)</span><span class="kcard-src">PT-3 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>Kinesis Data Analytics</strong> — real-time SQL queries on data streams</li>
+          <li><strong>Apache Flink</strong> — stateful stream processing, sliding window aggregations</li>
+          <li>Use for real-time feature engineering before ML inference</li>
+          <li><span class="no">✗ Kinesis Firehose</span> — batch delivery to S3/Redshift, NOT real-time SQL</li>
+          <li><span class="no">✗ Kinesis Streams alone</span> — no processing logic; needs consumer</li>
+        </ul>
+      </div>
+
+      <!-- PT3-06 -->
+      <div class="kcard" data-tags="mlconcepts genai" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">🎯</span><span class="kcard-title">Amazon Personalize (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>Managed recommendation engine</strong> — collaborative filtering, no ML expertise needed</li>
+          <li><strong>USER_PERSONALIZATION</strong> recipe — personalized product/content recommendations</li>
+          <li><strong>RELATED_ITEMS</strong> recipe — "customers also viewed" style</li>
+          <li>Real-time events via <strong>PutEvents API</strong> → GetRecommendations</li>
+          <li>Pair with <strong>DynamoDB</strong> for fast key-value item metadata lookups</li>
+        </ul>
+      </div>
+
+      <!-- PT3-07 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">📄</span><span class="kcard-title">Amazon Textract (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>AnalyzeDocument</strong> — extract structured forms + tables from PDFs/images</li>
+          <li><strong>DetectDocumentText</strong> — raw OCR text extraction (no layout understanding)</li>
+          <li><strong>Queries API</strong> — ask natural language questions about document content</li>
+          <li><strong>AnalyzeExpense</strong> — extract structured data from invoices/receipts</li>
+          <li><span class="no">✗ Comprehend ≠ Textract</span> — Comprehend = NLP on text, not document layout</li>
+        </ul>
+      </div>
+
+      <!-- PT3-08 -->
+      <div class="kcard" data-tags="inference pipeline" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">🐳</span><span class="kcard-title">ECS Fargate Auto Scaling (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>Fargate</strong> — serverless containers; no EC2 fleet management</li>
+          <li><strong>Target Tracking</strong> — scale on CPU%, memory%, or custom CW metric</li>
+          <li>Application Auto Scaling → ECS Service Auto Scaling</li>
+          <li>ECS = AWS-native scheduler; <strong>EKS = Kubernetes</strong> (prefer for complex orchestration)</li>
+          <li><span class="no">✗ Service Auto Scaling ≠ EC2 Auto Scaling</span> — different resource types</li>
+        </ul>
+      </div>
+
+      <!-- PT3-09 -->
+      <div class="kcard" data-tags="genai mlconcepts" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">🎨</span><span class="kcard-title">Generative Models (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>GAN</strong> — Generator + Discriminator adversarial training; synthesizes data</li>
+          <li><strong>VAE</strong> — Variational Autoencoder; latent space sampling, data augmentation</li>
+          <li><strong>Diffusion</strong> — iterative denoising; basis of DALL-E, Stable Diffusion</li>
+          <li>Use GANs/VAEs to generate synthetic training data for rare classes</li>
+          <li><span class="no">✗ Not discriminative</span> — generative ≠ classification models</li>
+        </ul>
+      </div>
+
+      <!-- PT3-10 -->
+      <div class="kcard" data-tags="security" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">🔑</span><span class="kcard-title">KMS Key Rotation (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>Automatic rotation</strong> — every 365 days for customer-managed keys (CMK)</li>
+          <li><strong>On-demand rotation</strong> — RotateKeyOnDemand API (immediate)</li>
+          <li>Least privilege: grant only <strong>kms:Decrypt</strong> + <strong>kms:GenerateDataKey</strong></li>
+          <li>SSE-KMS: encrypt S3 training data + SageMaker model artifacts at rest</li>
+          <li><span class="no">✗ Rotation ≠ re-encrypting existing data</span> — new data encrypted with new key version</li>
+        </ul>
+      </div>
+
+      <!-- PT3-11 -->
+      <div class="kcard" data-tags="pipeline data" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">💾</span><span class="kcard-title">EFS for SageMaker (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>General Purpose mode</strong> — default, low-latency random-access file I/O</li>
+          <li><strong>Bursting Throughput</strong> — auto-scales with storage size (baseline + burst credits)</li>
+          <li><strong>Provisioned Throughput</strong> — fixed throughput independent of size (predictable high I/O)</li>
+          <li>Shared filesystem: mount across multiple SageMaker training instances simultaneously</li>
+          <li><span class="no">✗ EFS ≠ S3</span> — EFS = POSIX filesystem; use when code expects file paths</li>
+        </ul>
+      </div>
+
+      <!-- PT3-12 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent3)">
+        <div class="kcard-head"><span class="kcard-icon">🌐</span><span class="kcard-title">Amazon Translate (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>Batch translation</strong> — S3 input folder → async processing → S3 output</li>
+          <li><strong>Real-time</strong> — TranslateText API for single strings (synchronous)</li>
+          <li><strong>Custom Terminology</strong> — domain-specific word mappings (brand names, product terms)</li>
+          <li><strong>Active Custom Translation (ACT)</strong> — feed parallel corpus for continuous improvement</li>
+          <li><span class="no">✗ Batch ≠ streaming</span> — use Batch for large document sets; real-time for UX</li>
+        </ul>
+      </div>
+
+      <!-- PT3-13 -->
+      <div class="kcard" data-tags="inference pipeline" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">⚡</span><span class="kcard-title">Lambda Serverless Inference (PT-3)</span><span class="kcard-src">PT-3 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>Pattern</strong> — API Gateway → Lambda → SageMaker InvokeEndpoint</li>
+          <li><strong>Cold start</strong> — use Provisioned Concurrency for latency-sensitive paths</li>
+          <li>Max 15 min timeout: not suitable for long-running batch jobs</li>
+          <li>Layer or container: package model + dependencies for self-contained inference</li>
+          <li><span class="no">✗ Lambda for heavy compute</span> — use SageMaker endpoint for large models</li>
+        </ul>
+      </div>
+
+      <!-- PT3-14 -->
+      <div class="kcard" data-tags="pipeline" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">🔨</span><span class="kcard-title">CodeBuild CI/CD (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>buildspec.yml</strong> — phases: install → pre_build → build → post_build</li>
+          <li>Artifacts: upload model/container to S3 or ECR after build phase</li>
+          <li>CloudFormation deploy: <code>aws cloudformation deploy</code> in post_build</li>
+          <li><strong>CodePipeline</strong>: Source (ECR/S3/CodeCommit) → Build → Deploy stages</li>
+          <li><span class="no">✗ CodeBuild ≠ CodeDeploy</span> — CodeBuild = compile/test; CodeDeploy = rollout</li>
+        </ul>
+      </div>
+
+      <!-- PT3-15 -->
+      <div class="kcard" data-tags="data" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">🏢</span><span class="kcard-title">Redshift Operations (PT-3)</span><span class="kcard-src">PT-3 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>COPY</strong> — bulk load from S3; fastest ingestion method (parallel)</li>
+          <li><strong>Spectrum</strong> — query S3 data lake directly without loading into Redshift</li>
+          <li><strong>VACUUM</strong> — reclaim disk space + re-sort rows after DELETE/UPDATE</li>
+          <li><strong>ANALYZE</strong> — update table statistics for query optimizer accuracy</li>
+          <li><span class="no">✗ Row-by-row INSERT</span> — always use COPY for bulk loads; INSERT is slow</li>
+        </ul>
+      </div>
+
+      <!-- PT3-16 -->
+      <div class="kcard" data-tags="inference monitoring" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">🧪</span><span class="kcard-title">Production Variants A/B (PT-3)</span><span class="kcard-src">PT-3 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>InitialVariantWeight</strong> — relative weights, NOT absolute percentages</li>
+          <li>weight:20 + weight:80 = <strong>20% / 80%</strong> split (proportional)</li>
+          <li>CloudWatch: <strong>InvocationsByVariant</strong> metric per variant name</li>
+          <li>Promote winner: update endpoint config to 100% winning variant</li>
+          <li><span class="no">✗ Shadow ≠ A/B</span> — shadow logs but doesn't serve response to caller</li>
+        </ul>
+      </div>
+
+      <!-- PT3-17 -->
+      <div class="kcard" data-tags="security" style="--c:var(--accent4)">
+        <div class="kcard-head"><span class="kcard-icon">🛡️</span><span class="kcard-title">VPC Security Groups (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>Stateful</strong> — return traffic automatically allowed; no outbound rule needed for response</li>
+          <li>Rules: allow-only (no explicit deny); default = deny all inbound</li>
+          <li>Reference another SG as source for internal service-to-service access</li>
+          <li><span class="no">✗ NACL = stateless</span> — must define both inbound + outbound; subnet-level</li>
+          <li>Attach to SageMaker VPC config for training jobs + endpoints</li>
+        </ul>
+      </div>
+
+      <!-- PT3-18 -->
+      <div class="kcard" data-tags="data pipeline" style="--c:var(--accent3)">
+        <div class="kcard-head"><span class="kcard-icon">⚙️</span><span class="kcard-title">Glue Dynamic Frames (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>DynamicFrame</strong> — schema-on-read; handles mixed/inconsistent data types gracefully</li>
+          <li><strong>G.1X workers</strong> — memory-optimized (8 vCPU / 16 GB); use for most ETL jobs</li>
+          <li><strong>G.2X</strong> — heavy transforms: joins, large shuffles, skewed data partitions</li>
+          <li><code>toDF()</code> — convert DynamicFrame → Spark DataFrame for custom transformations</li>
+          <li><span class="no">✗ G.025X</span> — too small for ML feature engineering workloads</li>
+        </ul>
+      </div>
+
+      <!-- PT3-19 -->
+      <div class="kcard" data-tags="pipeline security" style="--c:var(--accent2)">
+        <div class="kcard-head"><span class="kcard-icon">📦</span><span class="kcard-title">ECR + CodePipeline MLOps (PT-3)</span><span class="kcard-src">PT-3 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>ECR private registry</strong> — store custom BYOC training images securely</li>
+          <li><strong>On-push scanning</strong> — automatic CVE vulnerability scan on image push</li>
+          <li><strong>Lifecycle policy</strong> — expire old images by age (days) or count</li>
+          <li>CodePipeline: Source(ECR/CodeCommit) → CodeBuild → Deploy to SageMaker</li>
+          <li><span class="no">✗ ECR Public ≠ private</span> — always use private registry for production BYOC</li>
+        </ul>
+      </div>
+
+      <!-- PT3-20 -->
+      <div class="kcard" data-tags="inference monitoring" style="--c:var(--accent1)">
+        <div class="kcard-head"><span class="kcard-icon">📈</span><span class="kcard-title">Target Tracking Auto-scaling (PT-3)</span><span class="kcard-src">PT-3 · 4×</span></div>
+        <ul class="kw">
+          <li><strong>SageMakerVariantInvocationsPerInstance</strong> — primary scaling metric</li>
+          <li>Set target value = expected invocations/min; ASG adds/removes instances automatically</li>
+          <li>Scale-out cooldown: prevents thrashing on traffic spikes</li>
+          <li>Min/Max capacity: set floors and ceilings for cost control</li>
+          <li><span class="no">✗ Step scaling</span> — less smooth; requires manual threshold configuration</li>
+        </ul>
+      </div>
+
+      <!-- PT3-21 -->
+      <div class="kcard" data-tags="mlconcepts" style="--c:var(--accent5)">
+        <div class="kcard-head"><span class="kcard-icon">📉</span><span class="kcard-title">Linear Learner (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>Modes</strong> — binary classification, multiclass classification, regression</li>
+          <li><strong>normalize_label</strong> — normalize targets for regression tasks</li>
+          <li>Built-in L1/L2 regularization via <strong>l1</strong> and <strong>wd</strong> hyperparameters</li>
+          <li><span class="yes">✓ Good baseline</span> — train before jumping to complex models like XGBoost</li>
+          <li><span class="no">✗ Not for sequential data</span> — use DeepAR/LSTM for time-series</li>
+        </ul>
+      </div>
+
+      <!-- PT3-22 -->
+      <div class="kcard" data-tags="security monitoring" style="--c:var(--accent6)">
+        <div class="kcard-head"><span class="kcard-icon">🔭</span><span class="kcard-title">CloudTrail Advanced (PT-3)</span><span class="kcard-src">PT-3 · 3×</span></div>
+        <ul class="kw">
+          <li><strong>Multi-region trail</strong> — single trail captures API activity in all regions</li>
+          <li><strong>CloudWatch Logs integration</strong> — real-time metric filters + alarms on API calls</li>
+          <li><strong>Data events</strong> — S3 object-level access (GetObject/PutObject) + Lambda invocations</li>
+          <li>Cross-account log aggregation: centralize to security audit S3 bucket</li>
+          <li><span class="no">✗ Management events only</span> — insufficient for data access audits; enable data events</li>
+        </ul>
+      </div>
+
+    </div><!-- /kgrid -->
+  </div><!-- /panel-keywords -->
+
+  <!-- ══════════════════════════ PANEL 3 — QUICK COMPARE ══════════════════════════ -->
+  <div class="panel" id="panel-compare">
+    <div class="ctable-grid">
+
+      <div class="ctable">
+        <div class="ctable-head">CI/CD Pipeline Step Order</div>
+        <div class="crow"><span class="cl">Step 2</span><span class="cr">S3 upload → event notification triggers pipeline</span></div>
+        <div class="crow"><span class="cl">Step 4</span><span class="cr">SageMaker retrains using updated S3 data</span></div>
+        <div class="crow"><span class="cl">Step 3</span><span class="cr">Retrained model deployed to real-time endpoint</span></div>
+        <div class="crow"><span class="cl no">✗ Step 1</span><span class="cr no">Model Monitor ≠ deployment target</span></div>
+        <div class="crow"><span class="cl no">✗ Step 5</span><span class="cr no">S3 Lifecycle rules cannot trigger pipelines</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Feature Store Creation Order</div>
+        <div class="crow"><span class="cl">Step 3 (first)</span><span class="cr">Set up feature group</span></div>
+        <div class="crow"><span class="cl">Step 2 (second)</span><span class="cr">Load feature data into store</span></div>
+        <div class="crow"><span class="cl">Step 1 (third)</span><span class="cr">Prepare training dataset from store</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Glue Data Prep Order</div>
+        <div class="crow"><span class="cl">Step 1 (first)</span><span class="cr">Glue Crawlers → infer schema from CSV</span></div>
+        <div class="crow"><span class="cl">Step 5 (second)</span><span class="cr">DataBrew → clean &amp; feature engineer</span></div>
+        <div class="crow"><span class="cl">Step 3 (third)</span><span class="cr">Store results back to Amazon S3</span></div>
+        <div class="crow"><span class="cl no">✗ Step 4</span><span class="cr no">Redshift Spectrum ≠ schema inference here</span></div>
+        <div class="crow"><span class="cl no">✗ Step 2</span><span class="cr no">EMR/Spark not required (use DataBrew)</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Inference Mode Selector</div>
+        <div class="crow"><span class="cl">Real-Time</span><span class="cr">Low-latency, persistent, ≤6 MB, ≤60s</span></div>
+        <div class="crow"><span class="cl">Serverless</span><span class="cr">Infrequent spikes, pay-per-use, ≤4 MB</span></div>
+        <div class="crow"><span class="cl">Multi-Model</span><span class="cr">Multiple models, one instance, cost saving</span></div>
+        <div class="crow"><span class="cl">Async</span><span class="cr">Large payloads ≤1 GB, scales to zero</span></div>
+        <div class="crow"><span class="cl">Batch Transform</span><span class="cr">Offline S3 bulk only</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Deployment Strategy</div>
+        <div class="crow"><span class="cl">Canary</span><span class="cr">Small % traffic first, safety guardrail</span></div>
+        <div class="crow"><span class="cl">Blue/Green</span><span class="cr">Full parallel fleet; CloudWatch auto-rollback</span></div>
+        <div class="crow"><span class="cl">A/B Testing</span><span class="cr">Relative weight ratios (weight 20 ≠ 20%)</span></div>
+        <div class="crow"><span class="cl">Shadow</span><span class="cr">Logged only — NOT returned to caller</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">HPO Strategy Selector</div>
+        <div class="crow"><span class="cl">Bayesian</span><span class="cr">Complex models; uses prior trial results</span></div>
+        <div class="crow"><span class="cl">Hyperband</span><span class="cr">Fastest; early-stops poor trials</span></div>
+        <div class="crow"><span class="cl">Random</span><span class="cr">Few important hyperparameters</span></div>
+        <div class="crow"><span class="cl">Grid</span><span class="cr">Exhaustive, most expensive</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Model Weight Changes?</div>
+        <div class="crow"><span class="cl">Fine-tuning (JumpStart)</span><span class="cr yes">✓ YES — changes weights</span></div>
+        <div class="crow"><span class="cl">RAG</span><span class="cr no">✗ NO — external retrieval only</span></div>
+        <div class="crow"><span class="cl">Prompt Engineering</span><span class="cr no">✗ NO — input modification only</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Overfitting Fixes</div>
+        <div class="crow"><span class="cl">Dropout layers</span><span class="cr yes">✓ Prevents neuron co-adaptation</span></div>
+        <div class="crow"><span class="cl">Early Stopping</span><span class="cr yes">✓ Halts when val loss stops improving</span></div>
+        <div class="crow"><span class="cl">Data Augmentation</span><span class="cr yes">✓ Increases training diversity</span></div>
+        <div class="crow"><span class="cl">Ensembling</span><span class="cr yes">✓ Averages out variance across models</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Boosting Algorithms</div>
+        <div class="crow"><span class="cl">AdaBoost</span><span class="cr">Adaptive weight on misclassified samples</span></div>
+        <div class="crow"><span class="cl">Gradient Boosting</span><span class="cr">Sequential residual correction</span></div>
+        <div class="crow"><span class="cl">XGBoost</span><span class="cr">Regularized; weighted classes; best imbalanced</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Ensemble Methods</div>
+        <div class="crow"><span class="cl">Stacking</span><span class="cr">Diverse models → meta-model (random forest)</span></div>
+        <div class="crow"><span class="cl">Bagging</span><span class="cr">Same model, different data subsets</span></div>
+        <div class="crow"><span class="cl">Boosting</span><span class="cr">Sequential error correction</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Feature Engineering Mapping</div>
+        <div class="crow"><span class="cl">building_type_year</span><span class="cr">Feature splitting → type + year</span></div>
+        <div class="crow"><span class="cl">city</span><span class="cr">One-hot encoding (categorical)</span></div>
+        <div class="crow"><span class="cl">building_size</span><span class="cr">Standardization (numerical)</span></div>
+        <div class="crow"><span class="cl">year_constructed</span><span class="cr">Binning (group into ranges)</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">GenAI Term Matching</div>
+        <div class="crow"><span class="cl">Embedding (1)</span><span class="cr">B — Numerical vector of text/data</span></div>
+        <div class="crow"><span class="cl">Token (2)</span><span class="cr">D — Units of text processed by LLM</span></div>
+        <div class="crow"><span class="cl">RAG (3)</span><span class="cr">A — Retrieval + generation method</span></div>
+        <div class="crow"><span class="cl">Temperature (4)</span><span class="cr">E — Controls output randomness</span></div>
+        <div class="crow"><span class="cl">Prompt (5)</span><span class="cr">C — Input guiding model response</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Explainability Tools</div>
+        <div class="crow"><span class="cl">SHAP (Clarify)</span><span class="cr">Local — per-instance feature contribution</span></div>
+        <div class="crow"><span class="cl">PDP</span><span class="cr">Global — marginal effect across dataset</span></div>
+        <div class="crow"><span class="cl">CDD</span><span class="cr">Bias conditioned on a feature (e.g. income)</span></div>
+        <div class="crow"><span class="cl">Debugger</span><span class="cr">Training quality: gradients, overfitting</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">EC2 Purchasing</div>
+        <div class="crow"><span class="cl">Spot</span><span class="cr">Interruption-tolerant batch; big savings</span></div>
+        <div class="crow"><span class="cl">On-Demand</span><span class="cr">Sporadic compute; no commitment</span></div>
+        <div class="crow"><span class="cl">Reserved</span><span class="cr">1 or 3 yr only — NOT 6 months</span></div>
+        <div class="crow"><span class="cl">Dedicated Host</span><span class="cr">Compliance / software licensing</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Training Startup Speed</div>
+        <div class="crow"><span class="cl">Warm Pools</span><span class="cr yes">✓ Reuses instances → reduces startup</span></div>
+        <div class="crow"><span class="cl">Managed Spot</span><span class="cr no">✗ Cost savings only, not startup</span></div>
+        <div class="crow"><span class="cl">Training Compiler</span><span class="cr no">✗ Optimizes ops, not startup time</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">CloudFormation Resource Order</div>
+        <div class="crow"><span class="cl">1st</span><span class="cr">AWS::SageMaker::Model</span></div>
+        <div class="crow"><span class="cl">2nd</span><span class="cr">AWS::SageMaker::EndpointConfig</span></div>
+        <div class="crow"><span class="cl">3rd</span><span class="cr">AWS::SageMaker::Endpoint</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Drift Detection Tools</div>
+        <div class="crow"><span class="cl">Data Drift</span><span class="cr">SageMaker Model Monitor</span></div>
+        <div class="crow"><span class="cl">Bias / Fairness</span><span class="cr">SageMaker Clarify</span></div>
+        <div class="crow"><span class="cl">Retrain trigger</span><span class="cr">CloudWatch Alarm → pipeline</span></div>
+        <div class="crow"><span class="cl no">≠ Clarify</span><span class="cr no">Clarify ≠ drift; Monitor ≠ bias</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Regularization Selector</div>
+        <div class="crow"><span class="cl">L1 (Lasso)</span><span class="cr yes">✓ Zeroes out features → feature selection</span></div>
+        <div class="crow"><span class="cl">L2 (Ridge)</span><span class="cr">Shrinks all, none to zero</span></div>
+        <div class="crow"><span class="cl">XGBoost overfit</span><span class="cr">Reduce max_depth</span></div>
+        <div class="crow"><span class="cl">Deep learning</span><span class="cr">Dropout + Early Stopping</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Recall vs Precision (When to Use)</div>
+        <div class="crow"><span class="cl">High Recall</span><span class="cr">Healthcare, fraud — catch all positives</span></div>
+        <div class="crow"><span class="cl">High Precision</span><span class="cr">Minimize false alarms (spam)</span></div>
+        <div class="crow"><span class="cl">Balance both</span><span class="cr">Loan default — F1 score</span></div>
+        <div class="crow"><span class="cl">Imbalanced data</span><span class="cr">AUC-ROC / F1 &gt; accuracy</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Instance Strategy (MLOps)</div>
+        <div class="crow"><span class="cl">Reserved</span><span class="cr">Batch retraining (predictable)</span></div>
+        <div class="crow"><span class="cl">Spot</span><span class="cr">HPT / training (fault-tolerant)</span></div>
+        <div class="crow"><span class="cl">On-demand</span><span class="cr">Real-time inference (no interruption)</span></div>
+        <div class="crow"><span class="cl">Inferentia</span><span class="cr">Low-latency prod inference</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">PII / Data Security Tools</div>
+        <div class="crow"><span class="cl">Redshift DDM</span><span class="cr">Mask at query time, no copy</span></div>
+        <div class="crow"><span class="cl">AWS Macie</span><span class="cr">Detect PII in S3 → Lambda remove</span></div>
+        <div class="crow"><span class="cl">Data Wrangler</span><span class="cr">Mask during feature engineering</span></div>
+        <div class="crow"><span class="cl">Lake Formation</span><span class="cr">Column/row-level access (LF-Tags)</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">K-Means vs KNN</div>
+        <div class="crow"><span class="cl">K-Means</span><span class="cr">Unsupervised clustering (no labels)</span></div>
+        <div class="crow"><span class="cl">KNN</span><span class="cr">Supervised classification (labeled data)</span></div>
+        <div class="crow"><span class="cl no">Common trap</span><span class="cr no">They are NOT the same algorithm</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Pipeline Trigger Methods</div>
+        <div class="crow"><span class="cl">Option A</span><span class="cr">S3 Event Notifications → Lambda</span></div>
+        <div class="crow"><span class="cl">Option B</span><span class="cr">EventBridge rule → SageMaker pipeline</span></div>
+        <div class="crow"><span class="cl no">✗ S3 Lifecycle</span><span class="cr no">Cannot trigger pipelines</span></div>
+        <div class="crow"><span class="cl no">✗ Model Monitor</span><span class="cr no">Not a deployment trigger</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">AI Service Selector (PT-2)</div>
+        <div class="crow"><span class="cl">Semantic search</span><span class="cr">Amazon Kendra</span></div>
+        <div class="crow"><span class="cl">NLP / Sentiment</span><span class="cr">Amazon Comprehend</span></div>
+        <div class="crow"><span class="cl">Speech → Text</span><span class="cr">Amazon Transcribe</span></div>
+        <div class="crow"><span class="cl">Text → Speech</span><span class="cr">Amazon Polly + Lexicons</span></div>
+        <div class="crow"><span class="cl">Image tagging</span><span class="cr">Rekognition Custom Labels</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Clarify: Pre vs Post-Training Bias</div>
+        <div class="crow"><span class="cl">Pre-training</span><span class="cr">DPPL — label skew in raw data</span></div>
+        <div class="crow"><span class="cl">Pre-training</span><span class="cr">DI — Disparate Impact on features</span></div>
+        <div class="crow"><span class="cl">Pre-training</span><span class="cr">CI — Class Imbalance ratio</span></div>
+        <div class="crow"><span class="cl">Post-training</span><span class="cr">DCOVA — outcome disparity in predictions</span></div>
+        <div class="crow"><span class="cl">Post-training</span><span class="cr">AD — Accuracy Difference across groups</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Rekognition API Selector (PT-3)</div>
+        <div class="crow"><span class="cl">Object/scene tags</span><span class="cr">DetectLabels</span></div>
+        <div class="crow"><span class="cl">Content moderation</span><span class="cr">DetectModerationLabels</span></div>
+        <div class="crow"><span class="cl">Identity verify</span><span class="cr">CompareFaces</span></div>
+        <div class="crow"><span class="cl">Domain training</span><span class="cr">Custom Labels (own dataset)</span></div>
+        <div class="crow"><span class="cl no">✗ DetectLabels</span><span class="cr no">NOT safe for content moderation</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Model Compression Techniques</div>
+        <div class="crow"><span class="cl">Pruning</span><span class="cr">Remove low-weight neurons → smaller model</span></div>
+        <div class="crow"><span class="cl">Quantization</span><span class="cr">FP32 → INT8 precision → faster inference</span></div>
+        <div class="crow"><span class="cl">Distillation</span><span class="cr">Train small student from large teacher</span></div>
+        <div class="crow"><span class="cl">SageMaker Neo</span><span class="cr">Compile + hardware-specific optimization</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Kinesis Family Selector</div>
+        <div class="crow"><span class="cl">Data Streams</span><span class="cr">Raw stream ingestion + custom consumer</span></div>
+        <div class="crow"><span class="cl">Data Analytics</span><span class="cr">Real-time SQL / Flink on streams</span></div>
+        <div class="crow"><span class="cl">Firehose</span><span class="cr">Batch delivery → S3 / Redshift / OpenSearch</span></div>
+        <div class="crow"><span class="cl no">✗ Firehose</span><span class="cr no">NOT for real-time query processing</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Generative Model Types</div>
+        <div class="crow"><span class="cl">GAN</span><span class="cr">Generator + Discriminator adversarial</span></div>
+        <div class="crow"><span class="cl">VAE</span><span class="cr">Latent space sampling, smooth interpolation</span></div>
+        <div class="crow"><span class="cl">Diffusion</span><span class="cr">Iterative denoising (DALL-E, Stable Diff)</span></div>
+        <div class="crow"><span class="cl">Use case</span><span class="cr">Synthetic data augmentation for rare classes</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">ECS vs EKS (PT-3)</div>
+        <div class="crow"><span class="cl">ECS Fargate</span><span class="cr">Serverless, AWS-native, simpler ops</span></div>
+        <div class="crow"><span class="cl">ECS EC2</span><span class="cr">Custom instance types, GPU support</span></div>
+        <div class="crow"><span class="cl">EKS</span><span class="cr">Kubernetes, complex orchestration, HPA</span></div>
+        <div class="crow"><span class="cl">Target Tracking</span><span class="cr">Scale on CPU% / custom CW metric</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Textract API Selector</div>
+        <div class="crow"><span class="cl">AnalyzeDocument</span><span class="cr">Forms + tables (structured extraction)</span></div>
+        <div class="crow"><span class="cl">DetectDocumentText</span><span class="cr">Raw OCR text only (no layout)</span></div>
+        <div class="crow"><span class="cl">Queries API</span><span class="cr">Natural language question about doc</span></div>
+        <div class="crow"><span class="cl">AnalyzeExpense</span><span class="cr">Invoice / receipt structured data</span></div>
+        <div class="crow"><span class="cl no">✗ Comprehend</span><span class="cr no">NLP on text, not document layout</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Redshift Load vs Maintenance</div>
+        <div class="crow"><span class="cl">COPY</span><span class="cr">Bulk load from S3 — fastest method</span></div>
+        <div class="crow"><span class="cl">Spectrum</span><span class="cr">Query S3 without loading data</span></div>
+        <div class="crow"><span class="cl">VACUUM</span><span class="cr">Reclaim space + resort after deletes</span></div>
+        <div class="crow"><span class="cl">ANALYZE</span><span class="cr">Update statistics for query optimizer</span></div>
+        <div class="crow"><span class="cl no">✗ Row INSERT</span><span class="cr no">Very slow — always use COPY for bulk</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">VPC Security: SG vs NACL</div>
+        <div class="crow"><span class="cl">Security Group</span><span class="cr">Stateful — return traffic auto-allowed</span></div>
+        <div class="crow"><span class="cl">Security Group</span><span class="cr">Allow-only rules; instance-level</span></div>
+        <div class="crow"><span class="cl">NACL</span><span class="cr">Stateless — must define both directions</span></div>
+        <div class="crow"><span class="cl">NACL</span><span class="cr">Explicit DENY rules; subnet-level</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Step Functions State Types</div>
+        <div class="crow"><span class="cl">Task</span><span class="cr">Invoke Lambda / SageMaker / ECS task</span></div>
+        <div class="crow"><span class="cl">Parallel</span><span class="cr">Fan-out concurrent branches; wait for all</span></div>
+        <div class="crow"><span class="cl">Map</span><span class="cr">Same logic per item in array</span></div>
+        <div class="crow"><span class="cl">Choice</span><span class="cr">Conditional branching (if/else)</span></div>
+        <div class="crow"><span class="cl">Wait</span><span class="cr">Delay or wait for callback token</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Glue Worker Types (PT-3)</div>
+        <div class="crow"><span class="cl">G.025X</span><span class="cr">Micro — crawlers and simple jobs only</span></div>
+        <div class="crow"><span class="cl">G.1X</span><span class="cr">Memory-optimized — most ETL + ML prep</span></div>
+        <div class="crow"><span class="cl">G.2X</span><span class="cr">Heavy joins / skewed data / large shuffle</span></div>
+        <div class="crow"><span class="cl">G.4X / G.8X</span><span class="cr">Very large datasets, memory-intensive</span></div>
+      </div>
+
+      <div class="ctable">
+        <div class="ctable-head">Lambda vs SageMaker Inference</div>
+        <div class="crow"><span class="cl">Lambda</span><span class="cr">Lightweight models, ≤15 min, cost-zero idle</span></div>
+        <div class="crow"><span class="cl">SageMaker RT</span><span class="cr">Large models, low-latency, persistent</span></div>
+        <div class="crow"><span class="cl">SageMaker Serverless</span><span class="cr">Infrequent, pay-per-use, cold start OK</span></div>
+        <div class="crow"><span class="cl no">✗ Lambda cold start</span><span class="cr no">Use Provisioned Concurrency to mitigate</span></div>
+      </div>
+
+  </div><!-- /panel-compare -->
+
+</div><!-- /container -->
+
+<script>
+// ─── TAB SWITCHING ───
+function showTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─── KEYWORD FILTER ───
+let activeTag='all';
+function doFilter(){
+  const q=document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('.kcard').forEach(c=>{
+    const text=c.innerText.toLowerCase();
+    const tagOk=activeTag==='all'||c.dataset.tags.includes(activeTag);
+    c.classList.toggle('hidden',!(tagOk&&(!q||text.includes(q))));
+  });
+}
+function setTag(tag,btn){
+  activeTag=tag;
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  doFilter();
+}
+
+// ─── DATA: ONLY NEW SESSION KEYWORDS ───
+const categories=[
+  {name:"SageMaker Core Services",  count:38, color:"#7c5cfc"},
+  {name:"ML Concepts & Algorithms", count:29, color:"#00e5c0"},
+  {name:"Data Engineering",         count:25, color:"#ffd166"},
+  {name:"Deployment Strategies",    count:19, color:"#ff6b6b"},
+  {name:"Security & IAM",           count:16, color:"#a78bfa"},
+  {name:"Model Monitoring & Drift", count:14, color:"#34d399"},
+  {name:"AWS AI Services (NLP)",    count:14, color:"#60a5fa"},
+  {name:"Generative AI (Bedrock)",  count:11, color:"#fb923c"},
+  {name:"Cost & FinOps",            count:9,  color:"#ff9f43"},
+];
+const totalKeywords=categories.reduce((a,b)=>a+b.count,0);
+
+const freqKeywords=[
+  {name:"SageMaker Model Monitor",   count:24},
+  {name:"SageMaker Clarify",         count:22},
+  {name:"SageMaker Pipelines",       count:18},
+  {name:"Data / Concept Drift",      count:17},
+  {name:"CloudWatch + Auto-scaling", count:16},
+  {name:"XGBoost / Interpretability",count:16},
+  {name:"Recall vs Precision",       count:14},
+  {name:"IAM / Security Policies",   count:14},
+  {name:"Feature Engineering",       count:11},
+  {name:"Kinesis / Flink Streams",   count:10},
+];
+
+const topicWeights=[
+  {name:"SageMaker Services",  pct:30},
+  {name:"ML Theory",           pct:19},
+  {name:"Data Engineering",    pct:16},
+  {name:"Deployment",          pct:13},
+  {name:"Security & IAM",      pct:10},
+  {name:"Monitoring & Drift",  pct:7},
+  {name:"Generative AI",       pct:5},
+];
+
+const allKeywords=[
+  {name:"SageMaker Pipelines",      tier:"tier1"},
+  {name:"SageMaker Clarify",        tier:"tier1"},
+  {name:"XGBoost",                  tier:"tier1"},
+  {name:"Concept Drift",            tier:"tier1"},
+  {name:"Overfitting",              tier:"tier1"},
+  {name:"AWS Glue Crawlers",        tier:"tier2"},
+  {name:"Model Registry",           tier:"tier2"},
+  {name:"SageMaker Warm Pools",     tier:"tier2"},
+  {name:"IAM Roles",                tier:"tier2"},
+  {name:"Data Wrangler",            tier:"tier2"},
+  {name:"Amazon Bedrock",           tier:"tier2"},
+  {name:"Feature Store",            tier:"tier2"},
+  {name:"Early Stopping",           tier:"tier2"},
+  {name:"Stacking / Ensembles",     tier:"tier2"},
+  {name:"CDD",                      tier:"tier2"},
+  {name:"Glue FindMatches",         tier:"tier3"},
+  {name:"Athena CTAS",              tier:"tier3"},
+  {name:"Blue/Green Deployment",    tier:"tier3"},
+  {name:"Canary Deployment",        tier:"tier3"},
+  {name:"Shadow Testing",           tier:"tier3"},
+  {name:"SHAP Values",              tier:"tier3"},
+  {name:"PDP",                      tier:"tier3"},
+  {name:"Serverless Inference",     tier:"tier3"},
+  {name:"Multi-Model Endpoint",     tier:"tier3"},
+  {name:"Random Cut Forest",        tier:"tier3"},
+  {name:"Linear Learner",           tier:"tier3"},
+  {name:"Comprehend ImportModel",   tier:"tier3"},
+  {name:"Lake Formation",           tier:"tier3"},
+  {name:"Dropout Layers",           tier:"tier3"},
+  {name:"AUC / ROC",                tier:"tier3"},
+  {name:"MAE / RMSE",               tier:"tier4"},
+  {name:"Bayesian HPO",             tier:"tier4"},
+  {name:"Hyperband",                tier:"tier4"},
+  {name:"BYOC / ECR",               tier:"tier4"},
+  {name:"Callback Steps",           tier:"tier4"},
+  {name:"Conditional Steps",        tier:"tier4"},
+  {name:"Managed Spot Training",    tier:"tier4"},
+  {name:"RAG",                      tier:"tier4"},
+  {name:"Fine-tuning",              tier:"tier4"},
+  {name:"JumpStart",                tier:"tier4"},
+  {name:"Rekognition Custom Labels",tier:"tier4"},
+  {name:"CloudWatch / SNS",         tier:"tier4"},
+  {name:"Nested Stacks",            tier:"tier4"},
+  {name:"EKS / ECS",                tier:"tier4"},
+  {name:"Pipe input mode",          tier:"tier4"},
+  {name:"One-hot Encoding",         tier:"tier4"},
+  {name:"Standardization",          tier:"tier4"},
+  {name:"Feature Splitting",        tier:"tier4"},
+  {name:"Inferentia / Trainium",    tier:"tier4"},
+  {name:"A2I",                      tier:"tier4"},
+  {name:"SageMaker Autopilot",      tier:"tier4"},
+  {name:"Lineage Tracking",         tier:"tier4"},
+  {name:"Spot Instances",           tier:"tier4"},
+  {name:"Defense-in-Depth",         tier:"tier4"},
+  {name:"SageMaker Debugger",       tier:"tier4"},
+  {name:"DataBrew",                 tier:"tier4"},
+  {name:"Confusion Matrix",         tier:"tier4"},
+  {name:"K-Means / RNN / PCA",      tier:"tier4"},
+  {name:"Embedding / Token",        tier:"tier4"},
+  {name:"Auto-scaling",             tier:"tier4"},
+  // ── PT-2 additions ──
+  {name:"Model Monitor",            tier:"tier1"},
+  {name:"SageMaker Clarify",        tier:"tier1"},
+  {name:"Recall vs Precision",      tier:"tier1"},
+  {name:"Data Wrangler (mask/norm)",tier:"tier1"},
+  {name:"EMR + Spark",              tier:"tier1"},
+  {name:"L1 Lasso / L2 Ridge",      tier:"tier1"},
+  {name:"Kendra",                   tier:"tier2"},
+  {name:"Redshift DDM",             tier:"tier2"},
+  {name:"Script Mode",              tier:"tier2"},
+  {name:"Feature Store",            tier:"tier2"},
+  {name:"Serverless Inference",     tier:"tier2"},
+  {name:"DeepAR",                   tier:"tier2"},
+  {name:"Bedrock Temperature/TopK", tier:"tier2"},
+  {name:"ECR Scanning",             tier:"tier2"},
+  {name:"EKS + HPA",                tier:"tier2"},
+  {name:"Production Variants",      tier:"tier2"},
+  {name:"CloudTrail",               tier:"tier2"},
+  {name:"Secrets Manager",          tier:"tier3"},
+  {name:"NACL deny rule",           tier:"tier3"},
+  {name:"VPC Endpoint S3",          tier:"tier3"},
+  {name:"FSx for Lustre",           tier:"tier3"},
+  {name:"Batch Transform",          tier:"tier3"},
+  {name:"Comprehend",               tier:"tier3"},
+  {name:"Rekognition Moderation",   tier:"tier3"},
+  {name:"Macie + Lambda PII",       tier:"tier3"},
+  {name:"Bias-Variance Tradeoff",   tier:"tier3"},
+  {name:"DynamoDB GSI",             tier:"tier3"},
+  {name:"Athena (serverless SQL)",  tier:"tier3"},
+  {name:"QuickSight Parameters",    tier:"tier3"},
+  {name:"S3 Event + EventBridge",   tier:"tier3"},
+  {name:"Polly Lexicons",           tier:"tier4"},
+  {name:"Transcribe vocab",         tier:"tier4"},
+  {name:"CodeDeploy rolling",       tier:"tier4"},
+  {name:"Kinesis + Lambda stream",  tier:"tier4"},
+  {name:"Spot/On-demand/Reserved",  tier:"tier4"},
+  {name:"Inferentia inf1",          tier:"tier4"},
+  {name:"Compute Optimizer",        tier:"tier4"},
+  {name:"Lake Formation LF-Tags",   tier:"tier4"},
+  {name:"p4d A100 GPU",             tier:"tier4"},
+  {name:"EDA first",                tier:"tier4"},
+  {name:"AWS Budgets + Tags",       tier:"tier4"},
+  {name:"CloudFormation IaC",       tier:"tier4"},
+  // ── PT-3 additions ──
+  {name:"Clarify DPPL/DI/CI",       tier:"tier1"},
+  {name:"Step Functions Parallel",  tier:"tier1"},
+  {name:"Model Pruning+Quantize",   tier:"tier1"},
+  {name:"Rekognition APIs",         tier:"tier1"},
+  {name:"ECS Fargate Auto-scaling", tier:"tier2"},
+  {name:"Amazon Personalize",       tier:"tier2"},
+  {name:"Textract AnalyzeDocument", tier:"tier2"},
+  {name:"KMS Key Rotation",         tier:"tier2"},
+  {name:"Glue Dynamic Frames G.1X", tier:"tier2"},
+  {name:"Production Variant Weights",tier:"tier2"},
+  {name:"Target Tracking Scaling",  tier:"tier2"},
+  {name:"Kinesis Analytics/Flink",  tier:"tier3"},
+  {name:"GANs / VAEs / Diffusion",  tier:"tier3"},
+  {name:"Lambda+API Gateway infer", tier:"tier3"},
+  {name:"Redshift COPY/VACUUM",     tier:"tier3"},
+  {name:"EFS Bursting Throughput",  tier:"tier3"},
+  {name:"ECR Private+Lifecycle",    tier:"tier3"},
+  {name:"Linear Learner Baseline",  tier:"tier3"},
+  {name:"VPC SG Stateful Rules",    tier:"tier4"},
+  {name:"CodeBuild buildspec.yml",  tier:"tier4"},
+  {name:"CloudTrail Multi-Region",  tier:"tier4"},
+  {name:"Amazon Translate Batch",   tier:"tier4"},
+  {name:"DynamoDB + Personalize",   tier:"tier4"},
+  {name:"SageMaker Neo Compile",    tier:"tier4"},
+];
+
+const tableData=[
+  {id:1, name:"SageMaker Pipelines (CI/CD + Orchestration)", cat:"SageMaker Core",   mentions:12, priority:"high"},
+  {id:2, name:"SageMaker Clarify + CDD",                     cat:"SageMaker Core",   mentions:10, priority:"high"},
+  {id:3, name:"Data Drift / Concept Drift",                  cat:"Monitoring",       mentions:9,  priority:"high"},
+  {id:4, name:"XGBoost (fraud, imbalanced data)",            cat:"ML Concepts",      mentions:9,  priority:"high"},
+  {id:5, name:"Overfitting / Dropout / Early Stopping",      cat:"ML Concepts",      mentions:8,  priority:"high"},
+  {id:6, name:"AWS Glue Crawlers + FindMatches",             cat:"Data Engineering", mentions:8,  priority:"high"},
+  {id:7, name:"SageMaker Model Registry + Collections",      cat:"SageMaker Core",   mentions:7,  priority:"high"},
+  {id:8, name:"SageMaker Warm Pools",                        cat:"SageMaker Core",   mentions:6,  priority:"high"},
+  {id:9, name:"IAM Roles / Resource-based Policy",           cat:"Security & IAM",   mentions:6,  priority:"high"},
+  {id:10,name:"Feature Engineering (split/encode/bin)",      cat:"ML Concepts",      mentions:6,  priority:"high"},
+  {id:11,name:"SageMaker Data Wrangler (balance/corrupt)",   cat:"SageMaker Core",   mentions:6,  priority:"high"},
+  {id:12,name:"Amazon Bedrock",                              cat:"Generative AI",    mentions:5,  priority:"med"},
+  {id:13,name:"Stacking / Bagging / Boosting",               cat:"ML Concepts",      mentions:5,  priority:"med"},
+  {id:14,name:"Blue/Green + Canary + Shadow",                cat:"Deployment",       mentions:5,  priority:"med"},
+  {id:15,name:"SHAP Values / PDP",                           cat:"SageMaker Core",   mentions:5,  priority:"med"},
+  {id:16,name:"Athena CTAS + Partitioning",                  cat:"Data Engineering", mentions:5,  priority:"med"},
+  {id:17,name:"Lake Formation + LF-Tags",                    cat:"Data Engineering", mentions:4,  priority:"med"},
+  {id:18,name:"Managed Spot Training",                       cat:"SageMaker Core",   mentions:4,  priority:"med"},
+  {id:19,name:"HPO (Bayesian / Hyperband / Random)",         cat:"ML Concepts",      mentions:4,  priority:"med"},
+  {id:20,name:"Comprehend ImportModel (cross-account)",      cat:"AI Services",      mentions:4,  priority:"med"},
+  {id:21,name:"AUC / ROC / F1 / Confusion Matrix",          cat:"ML Concepts",      mentions:4,  priority:"med"},
+  {id:22,name:"MAE / RMSE",                                  cat:"ML Concepts",      mentions:3,  priority:"med"},
+  {id:23,name:"RAG / Embedding / Token / Prompt",            cat:"Generative AI",    mentions:3,  priority:"med"},
+  {id:24,name:"CloudFormation Nested Stacks",                cat:"Security & IAM",   mentions:3,  priority:"med"},
+  {id:25,name:"BYOC / ECR / Script Mode",                    cat:"SageMaker Core",   mentions:3,  priority:"med"},
+  {id:26,name:"Serverless / Multi-Model Inference",          cat:"Deployment",       mentions:3,  priority:"med"},
+  {id:27,name:"Random Cut Forest (anomaly, IoT)",            cat:"ML Concepts",      mentions:3,  priority:"med"},
+  {id:28,name:"Feature Store (3→2→1 order)",                 cat:"SageMaker Core",   mentions:3,  priority:"med"},
+  {id:29,name:"EKS (GenAI scalability)",                     cat:"Deployment",       mentions:2,  priority:"low"},
+  {id:30,name:"JumpStart fine-tuning",                       cat:"SageMaker Core",   mentions:2,  priority:"low"},
+  {id:31,name:"Auto-scaling target tracking",                cat:"Deployment",       mentions:2,  priority:"low"},
+  {id:32,name:"NACL / Security Groups / WAF",                cat:"Security & IAM",   mentions:2,  priority:"low"},
+  {id:33,name:"SageMaker Debugger",                          cat:"SageMaker Core",   mentions:2,  priority:"low"},
+  {id:34,name:"Rekognition Custom Labels",                   cat:"AI Services",      mentions:2,  priority:"low"},
+  {id:35,name:"Pipe input mode (Terabyte datasets)",         cat:"Data Engineering", mentions:2,  priority:"low"},
+  {id:36,name:"Spot Instances (2-hr weekly jobs)",           cat:"Security & IAM",   mentions:2,  priority:"low"},
+  {id:37,name:"Defense-in-Depth (GenAI)",                    cat:"Generative AI",    mentions:2,  priority:"low"},
+  {id:38,name:"A2I / Manual approval steps",                 cat:"SageMaker Core",   mentions:2,  priority:"low"},
+  {id:39,name:"Inferentia / Trainium",                       cat:"SageMaker Core",   mentions:1,  priority:"low"},
+  {id:40,name:"SageMaker Autopilot",                         cat:"SageMaker Core",   mentions:1,  priority:"low"},
+  {id:41,name:"K-Means / RNN / PCA / Logistic Reg",         cat:"ML Concepts",      mentions:1,  priority:"low"},
+  {id:42,name:"CloudWatch alarms → SNS",                     cat:"Monitoring",       mentions:1,  priority:"low"},
+  {id:43,name:"Canvas / Apache Parquet",                     cat:"SageMaker Core",   mentions:1,  priority:"low"},
+  // ── PT-2 ──
+  {id:44,name:"SageMaker Model Monitor (drift/alerts)",        cat:"Monitoring",        mentions:8,  priority:"high"},
+  {id:45,name:"SageMaker Clarify (bias/SHAP/fairness)",        cat:"SageMaker Core",    mentions:7,  priority:"high"},
+  {id:46,name:"Recall vs Precision (imbalanced datasets)",     cat:"ML Concepts",       mentions:7,  priority:"high"},
+  {id:47,name:"SageMaker Data Wrangler (mask/normalize)",      cat:"SageMaker Core",    mentions:6,  priority:"high"},
+  {id:48,name:"Amazon EMR + Apache Spark (distributed ETL)",   cat:"Data Engineering",  mentions:6,  priority:"high"},
+  {id:49,name:"Overfitting: L1/L2 / XGBoost max_depth",       cat:"ML Concepts",       mentions:6,  priority:"high"},
+  {id:50,name:"CloudWatch Alarms + SageMaker Auto-scaling",    cat:"Monitoring",        mentions:6,  priority:"high"},
+  {id:51,name:"Data Drift vs Model Drift (definitions)",       cat:"Monitoring",        mentions:6,  priority:"high"},
+  {id:52,name:"SageMaker JumpStart (LCNC fine-tuning)",        cat:"SageMaker Core",    mentions:5,  priority:"high"},
+  {id:53,name:"SageMaker Canvas (no-code ML)",                 cat:"SageMaker Core",    mentions:5,  priority:"high"},
+  {id:54,name:"AWS Budgets + Resource Tagging (cost alerts)",  cat:"Cost & FinOps",     mentions:5,  priority:"high"},
+  {id:55,name:"Feature Engineering (one-hot/z-score recipe)",  cat:"ML Concepts",       mentions:5,  priority:"high"},
+  {id:56,name:"IAM policies (least privilege / explicit deny)", cat:"Security & IAM",    mentions:5,  priority:"high"},
+  {id:57,name:"SageMaker Model Registry (pharma versioning)",  cat:"SageMaker Core",    mentions:5,  priority:"high"},
+  {id:58,name:"SageMaker Serverless Inference (infrequent)",   cat:"Deployment",        mentions:5,  priority:"high"},
+  {id:59,name:"AWS Lake Formation LF-Tags (fine-grained)",     cat:"Data Engineering",  mentions:5,  priority:"med"},
+  {id:60,name:"SageMaker Feature Store → Data Wrangler",       cat:"SageMaker Core",    mentions:4,  priority:"med"},
+  {id:61,name:"Amazon Kendra (semantic search on S3)",         cat:"AWS AI Services",   mentions:4,  priority:"med"},
+  {id:62,name:"DeepAR (time-series forecasting)",              cat:"ML Concepts",       mentions:4,  priority:"med"},
+  {id:63,name:"Amazon Bedrock (temperature / top-K tuning)",   cat:"Generative AI",     mentions:4,  priority:"med"},
+  {id:64,name:"ECR image scanning + lifecycle policies",       cat:"Deployment",        mentions:4,  priority:"med"},
+  {id:65,name:"SageMaker Production Variants (A/B 20%)",       cat:"Deployment",        mentions:4,  priority:"med"},
+  {id:66,name:"VPC Endpoint + S3 PrivateLink (no internet)",   cat:"Security & IAM",    mentions:4,  priority:"med"},
+  {id:67,name:"AWS CloudTrail (API audit logging)",            cat:"Security & IAM",    mentions:4,  priority:"med"},
+  {id:68,name:"Amazon Athena (serverless SQL on S3)",          cat:"Data Engineering",  mentions:4,  priority:"med"},
+  {id:69,name:"S3 EventBridge + Lambda → pipeline trigger",    cat:"Deployment",        mentions:4,  priority:"med"},
+  {id:70,name:"Amazon Comprehend (NLP / sentiment)",           cat:"AWS AI Services",   mentions:4,  priority:"med"},
+  {id:71,name:"AWS Glue DataBrew (outlier/standardize)",       cat:"Data Engineering",  mentions:4,  priority:"med"},
+  {id:72,name:"Redshift Dynamic Data Masking (PII)",           cat:"Security & IAM",    mentions:4,  priority:"med"},
+  {id:73,name:"Spot/On-demand/Reserved instance strategy",     cat:"Cost & FinOps",     mentions:4,  priority:"med"},
+  {id:74,name:"Amazon EKS + HPA (containerized ML scale)",     cat:"Deployment",        mentions:3,  priority:"med"},
+  {id:75,name:"AWS Secrets Manager + rotation Lambda",         cat:"Security & IAM",    mentions:3,  priority:"med"},
+  {id:76,name:"NACL explicit deny (subnet-level block)",       cat:"Security & IAM",    mentions:3,  priority:"med"},
+  {id:77,name:"Amazon FSx for Lustre (S3 I/O latency fix)",   cat:"Data Engineering",  mentions:3,  priority:"med"},
+  {id:78,name:"SageMaker Batch Transform (offline S3)",        cat:"SageMaker Core",    mentions:3,  priority:"med"},
+  {id:79,name:"AWS Macie + Lambda (PII removal from S3)",      cat:"Security & IAM",    mentions:3,  priority:"med"},
+  {id:80,name:"Bias-Variance Trade-off (simpler=high bias)",   cat:"ML Concepts",       mentions:3,  priority:"med"},
+  {id:81,name:"Confusion Matrix / AUC / F1 (imbalanced eval)", cat:"ML Concepts",       mentions:3,  priority:"med"},
+  {id:82,name:"K-Means (unsupervised) vs KNN (supervised)",    cat:"ML Concepts",       mentions:3,  priority:"med"},
+  {id:83,name:"Logistic Regression (binary classification)",   cat:"ML Concepts",       mentions:3,  priority:"med"},
+  {id:84,name:"DynamoDB composite key + GSI (fraud txn)",      cat:"Data Engineering",  mentions:3,  priority:"med"},
+  {id:85,name:"QuickSight Parameters + Controls (filtering)",  cat:"Monitoring",        mentions:3,  priority:"med"},
+  {id:86,name:"AWS Compute Optimizer (rightsizing)",           cat:"Cost & FinOps",     mentions:3,  priority:"med"},
+  {id:87,name:"Amazon Polly Lexicons (custom TTS)",            cat:"AWS AI Services",   mentions:3,  priority:"med"},
+  {id:88,name:"Amazon Transcribe custom vocabulary",           cat:"AWS AI Services",   mentions:3,  priority:"med"},
+  {id:89,name:"SageMaker Script Mode (BYOC PyTorch/TF)",       cat:"SageMaker Core",    mentions:3,  priority:"med"},
+  {id:90,name:"AWS Inferentia ml.inf1 (low-latency serving)",  cat:"Deployment",        mentions:3,  priority:"med"},
+  {id:91,name:"EDA first (small imbalanced datasets)",         cat:"ML Concepts",       mentions:3,  priority:"med"},
+  {id:92,name:"RAG + Fine-tuning LLM (chatbot consistency)",   cat:"Generative AI",     mentions:3,  priority:"med"},
+  {id:93,name:"Amazon Rekognition Custom Labels + Moderation", cat:"AWS AI Services",   mentions:3,  priority:"med"},
+  {id:94,name:"AWS CodeDeploy rolling update (EC2 fleet)",     cat:"Deployment",        mentions:2,  priority:"low"},
+  {id:95,name:"Amazon Kinesis Streams + Lambda (IoT stream)",  cat:"Data Engineering",  mentions:2,  priority:"low"},
+  {id:96,name:"p4d instances A100 GPU (genomic DL training)",  cat:"Deployment",        mentions:2,  priority:"low"},
+  {id:97,name:"AWS Trusted Advisor / Cost Explorer",           cat:"Cost & FinOps",     mentions:2,  priority:"low"},
+  {id:98,name:"Redshift ML cross-account S3 VPC endpoint",     cat:"Data Engineering",  mentions:2,  priority:"low"},
+  {id:99,name:"CloudFormation + SageMaker IaC (scalable)",     cat:"Deployment",        mentions:2,  priority:"low"},
+  {id:100,name:"Managed Spot Training + Checkpointing",        cat:"SageMaker Core",    mentions:2,  priority:"low"},
+  {id:101,name:"FSx for NetApp ONTAP → copy to S3 first",      cat:"Data Engineering",  mentions:2,  priority:"low"},
+  // ── PT-3 ──
+  {id:102,name:"Clarify Pre/Post-Training Bias Metrics (DPPL/DI)", cat:"SageMaker Core",    mentions:7,  priority:"high"},
+  {id:103,name:"Step Functions Parallel States (multi-model)",     cat:"Deployment",        mentions:6,  priority:"high"},
+  {id:104,name:"Rekognition DetectLabels vs ModerationLabels",     cat:"AWS AI Services",   mentions:6,  priority:"high"},
+  {id:105,name:"Model Pruning + Quantization (SageMaker Neo)",     cat:"ML Concepts",       mentions:6,  priority:"high"},
+  {id:106,name:"Kinesis Data Analytics + Apache Flink",            cat:"Data Engineering",  mentions:5,  priority:"high"},
+  {id:107,name:"SageMaker Production Variants (weight ratios)",    cat:"Deployment",        mentions:5,  priority:"high"},
+  {id:108,name:"Target Tracking (SageMakerVariantInvocations)",    cat:"SageMaker Core",    mentions:5,  priority:"high"},
+  {id:109,name:"ECR Private + CodePipeline MLOps flow",            cat:"Deployment",        mentions:5,  priority:"high"},
+  {id:110,name:"Redshift COPY + VACUUM + Spectrum",                cat:"Data Engineering",  mentions:5,  priority:"high"},
+  {id:111,name:"Lambda + API Gateway serverless inference",        cat:"Deployment",        mentions:5,  priority:"high"},
+  {id:112,name:"Amazon Personalize (USER_PERSONALIZATION recipe)", cat:"AWS AI Services",   mentions:4,  priority:"med"},
+  {id:113,name:"Amazon Textract AnalyzeDocument (forms+tables)",   cat:"AWS AI Services",   mentions:4,  priority:"med"},
+  {id:114,name:"ECS Fargate + Target Tracking Auto Scaling",       cat:"Deployment",        mentions:4,  priority:"med"},
+  {id:115,name:"GANs + VAEs (generative + synthetic data aug)",    cat:"Generative AI",     mentions:4,  priority:"med"},
+  {id:116,name:"KMS key rotation (365-day, least privilege)",      cat:"Security & IAM",    mentions:4,  priority:"med"},
+  {id:117,name:"Glue Dynamic Frames G.1X/G.2X worker types",      cat:"Data Engineering",  mentions:4,  priority:"med"},
+  {id:118,name:"VPC Security Groups (stateful, inbound rules)",    cat:"Security & IAM",    mentions:4,  priority:"med"},
+  {id:119,name:"CodeBuild buildspec.yml + S3 artifacts",           cat:"Deployment",        mentions:3,  priority:"med"},
+  {id:120,name:"EFS General Purpose + Bursting Throughput",        cat:"Data Engineering",  mentions:3,  priority:"med"},
+  {id:121,name:"Amazon Translate Batch (S3→S3 async)",             cat:"AWS AI Services",   mentions:3,  priority:"med"},
+  {id:122,name:"Linear Learner baseline (L1/L2 built-in)",         cat:"ML Concepts",       mentions:3,  priority:"med"},
+  {id:123,name:"CloudTrail multi-region + data events",            cat:"Security & IAM",    mentions:3,  priority:"med"},
+  {id:124,name:"SageMaker Neo compile + hardware optimization",    cat:"SageMaker Core",    mentions:2,  priority:"low"},
+  {id:125,name:"DynamoDB + Personalize (real-time recommend)",     cat:"Data Engineering",  mentions:2,  priority:"low"},
+];
+
+// ─── COUNTERS ───
+function animateCount(el,target){
+  let s=0;const step=target/(1200/16);
+  const t=setInterval(()=>{s=Math.min(s+step,target);el.textContent=Math.floor(s);if(s>=target)clearInterval(t);},16);
+}
+window.addEventListener('load',()=>{
+  animateCount(document.getElementById('n-keywords'),125);
+  animateCount(document.getElementById('n-categories'),9);
+  animateCount(document.getElementById('n-questions'),195);
+  animateCount(document.getElementById('n-cards'),62);
+});
+
+// ─── CATEGORY CARDS ───
+const catGrid=document.getElementById('cat-grid');
+const maxCat=Math.max(...categories.map(c=>c.count));
+categories.forEach(cat=>{
+  const pct=Math.round((cat.count/totalKeywords)*100);
+  const barPct=Math.round((cat.count/maxCat)*100);
+  const div=document.createElement('div');div.className='cat-card';
+  div.innerHTML=`<div class="cat-header"><span class="cat-name">${cat.name}</span><span class="cat-count">${cat.count} keywords · ${pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="--fill-color:${cat.color}" data-width="${barPct}"></div></div>`;
+  catGrid.appendChild(div);
+});
+
+// ─── DONUT ───
+function buildDonut(){
+  const svg=document.getElementById('donut-svg');
+  const legend=document.getElementById('donut-legend');
+  const cx=90,cy=90,r=70,inner=45;
+  const total=categories.reduce((a,b)=>a+b.count,0);
+  let angle=-90;
+  categories.forEach(cat=>{
+    const slice=(cat.count/total)*360;
+    const s=(angle*Math.PI)/180,e=((angle+slice)*Math.PI)/180;
+    const x1=cx+r*Math.cos(s),y1=cy+r*Math.sin(s),x2=cx+r*Math.cos(e),y2=cy+r*Math.sin(e);
+    const ix1=cx+inner*Math.cos(s),iy1=cy+inner*Math.sin(s),ix2=cx+inner*Math.cos(e),iy2=cy+inner*Math.sin(e);
+    const large=slice>180?1:0;
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',`M ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} L ${ix2} ${iy2} A ${inner} ${inner} 0 ${large} 0 ${ix1} ${iy1} Z`);
+    path.setAttribute('fill',cat.color);path.setAttribute('opacity','0.85');
+    path.style.transition='opacity 0.2s';
+    path.addEventListener('mouseenter',()=>path.setAttribute('opacity','1'));
+    path.addEventListener('mouseleave',()=>path.setAttribute('opacity','0.85'));
+    svg.appendChild(path);
+    const pct=Math.round((cat.count/total)*100);
+    const li=document.createElement('div');li.className='legend-item';
+    li.innerHTML=`<div class="legend-dot" style="background:${cat.color}"></div><span class="legend-text">${cat.name}</span><span class="legend-pct">${pct}%</span>`;
+    legend.appendChild(li);
+    angle+=slice;
+  });
+  const text=document.createElementNS('http://www.w3.org/2000/svg','text');
+  text.setAttribute('x',cx);text.setAttribute('y',cy-6);text.setAttribute('text-anchor','middle');
+  text.setAttribute('fill','#e8e8f0');text.setAttribute('font-size','22');text.setAttribute('font-family','Syne,sans-serif');text.setAttribute('font-weight','800');
+  text.textContent='175';svg.appendChild(text);
+  const sub=document.createElementNS('http://www.w3.org/2000/svg','text');
+  sub.setAttribute('x',cx);sub.setAttribute('y',cy+12);sub.setAttribute('text-anchor','middle');
+  sub.setAttribute('fill','#6b6b8a');sub.setAttribute('font-size','9');sub.setAttribute('font-family','JetBrains Mono,monospace');
+  sub.textContent='KEYWORDS';svg.appendChild(sub);
+}
+buildDonut();
+
+// ─── FREQ BARS ───
+const maxFreq=freqKeywords[0].count;
+const leftList=document.getElementById('freq-list-left');
+freqKeywords.forEach(kw=>{
+  const pct=Math.round((kw.count/maxFreq)*100);
+  leftList.innerHTML+=`<div class="freq-row"><span class="freq-label">${kw.name}</span><div class="freq-bar-wrap"><div class="freq-bar-fill" data-width="${pct}"></div></div><span class="freq-val">${kw.count}</span></div>`;
+});
+const maxWeight=topicWeights[0].pct;
+const rightList=document.getElementById('freq-list-right');
+topicWeights.forEach(tw=>{
+  const pct=Math.round((tw.pct/maxWeight)*100);
+  rightList.innerHTML+=`<div class="freq-row"><span class="freq-label">${tw.name}</span><div class="freq-bar-wrap"><div class="freq-bar-fill" data-width="${pct}" style="background:linear-gradient(90deg,#ffd166,#ff6b6b)"></div></div><span class="freq-val">${tw.pct}%</span></div>`;
+});
+
+// ─── BUBBLES ───
+const bubbleWrap=document.getElementById('bubble-wrap');
+allKeywords.sort(()=>Math.random()-0.4);
+allKeywords.forEach(kw=>{
+  const span=document.createElement('span');span.className=`bubble ${kw.tier}`;span.textContent=kw.name;
+  bubbleWrap.appendChild(span);
+});
+
+// ─── TABLE ───
+const tbody=document.getElementById('coverage-table');
+const pc={high:'#00e5c0',med:'#ffd166',low:'#ff6b6b'};
+tableData.forEach(row=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td style="color:var(--muted);font-size:11px">${String(row.id).padStart(2,'0')}</td><td><span class="dot" style="background:${pc[row.priority]}"></span>${row.name}</td><td style="color:var(--muted)">${row.cat}</td><td style="color:var(--accent1);font-weight:600">${row.mentions}×</td><td><span class="badge ${row.priority}">${row.priority.toUpperCase()}</span></td>`;
+  tbody.appendChild(tr);
+});
+
+// ─── ANIMATE BARS ───
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.querySelectorAll('[data-width]').forEach(bar=>{
+        setTimeout(()=>{bar.style.width=bar.dataset.width+'%';},100);
+      });
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.cat-card,.freq-panel').forEach(el=>observer.observe(el));
+setTimeout(()=>{document.querySelectorAll('[data-width]').forEach(bar=>{bar.style.width=bar.dataset.width+'%';});},500);
+</script>
+</body>
+</html>
