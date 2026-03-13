@@ -40,12 +40,6 @@
   h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,#fff 30%,var(--accent1) 70%,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:12px;}
   .subtitle{color:var(--muted);font-size:13px;letter-spacing:1px;}
 
-  /* STATS */
-  .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:44px;animation:fadeUp 0.8s 0.2s ease both;}
-  .stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 20px;text-align:center;position:relative;overflow:hidden;}
-  .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--c,var(--accent1));}
-  .stat-number{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;color:var(--c,var(--accent1));}
-  .stat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
 
   /* SECTION TITLE */
   .section-title{font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent1);margin-bottom:20px;margin-top:44px;display:flex;align-items:center;gap:10px;}
@@ -79,14 +73,6 @@
   .freq-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent1),var(--accent2));transition:width 1.8s cubic-bezier(0.34,1.56,0.64,1);width:0;}
   .freq-val{font-size:13px;color:var(--accent1);width:32px;text-align:right;flex-shrink:0;}
 
-  /* BUBBLES */
-  .bubble-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px;animation:fadeUp 0.8s 0.5s ease both;}
-  .bubble{font-size:12px;padding:6px 14px;border-radius:20px;border:1px solid;cursor:default;transition:transform 0.2s,box-shadow 0.2s;white-space:nowrap;}
-  .bubble:hover{transform:scale(1.08);box-shadow:0 4px 20px rgba(0,0,0,0.3);}
-  .bubble.tier1{background:rgba(124,92,252,0.15);border-color:var(--accent1);color:var(--accent1);font-weight:600;font-size:14px;}
-  .bubble.tier2{background:rgba(0,229,192,0.10);border-color:var(--accent2);color:var(--accent2);font-size:13px;}
-  .bubble.tier3{background:rgba(255,209,102,0.10);border-color:var(--accent4);color:var(--accent4);font-size:12px;}
-  .bubble.tier4{background:rgba(255,107,107,0.10);border-color:var(--accent3);color:var(--accent3);font-size:11px;}
 
   /* TABLE */
   .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:44px;animation:fadeUp 0.8s 0.6s ease both;}
@@ -104,13 +90,6 @@
   .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px;vertical-align:middle;}
 
   /* KEYWORD CARDS */
-  .controls{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap;align-items:center;}
-  .search-box{flex:1;min-width:240px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:14px;outline:none;transition:border-color 0.2s;}
-  .search-box:focus{border-color:var(--accent1);}
-  .search-box::placeholder{color:var(--muted);}
-  .filters{display:flex;gap:8px;flex-wrap:wrap;}
-  .f-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all 0.2s;}
-  .f-btn:hover,.f-btn.active{background:var(--accent1);color:#fff;border-color:var(--accent1);}
 
   .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:20px;align-items:start;}
   .kcard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 24px;position:relative;overflow:hidden;opacity:0;transform:translateY(20px);animation:slideUp 0.5s ease forwards;transition:border-color 0.2s,box-shadow 0.2s;}
@@ -144,7 +123,7 @@
 
   /* GLOBAL SEARCH */
   .hidden{display:none!important;}
-  .gsearch-wrap{position:relative;margin-bottom:24px;animation:fadeDown 0.5s ease both;z-index:300;}
+  .gsearch-wrap{position:sticky;top:0;margin-bottom:24px;z-index:300;padding:12px 0 0;background:var(--bg);}
   .gsearch-inner{display:flex;align-items:center;gap:12px;background:var(--card);border:2px solid var(--border);border-radius:16px;padding:14px 20px;transition:border-color 0.2s,box-shadow 0.2s;}
   .gsearch-inner:focus-within{border-color:var(--accent1);box-shadow:0 0 0 4px var(--glow);}
   .gsearch-icon{font-size:1.15rem;opacity:0.7;flex-shrink:0;}
@@ -233,15 +212,6 @@
   <!-- ══════════════════════════ PANEL 1 — ANALYTICS ══════════════════════════ -->
   <div class="panel" id="panel-analytics">
 
-    <div class="hero-stats">
-      <div class="stat-card" style="--c:var(--accent1)"><div class="stat-number" id="n-keywords">0</div><div class="stat-label">Keywords Extracted</div></div>
-      <div class="stat-card" style="--c:var(--accent2)"><div class="stat-number" id="n-categories">0</div><div class="stat-label">Topic Categories</div></div>
-      <div class="stat-card" style="--c:var(--accent4)"><div class="stat-number" id="n-questions">0</div><div class="stat-label">Questions Covered</div></div>
-      <div class="stat-card" style="--c:var(--accent3)"><div class="stat-number" id="n-cards">0</div><div class="stat-label">Keyword Cards</div></div>
-    </div>
-
-    <p class="section-title">All Keywords · Size = Frequency</p>
-    <div class="bubble-wrap" id="bubble-wrap"></div>
 
     <p class="section-title">Keyword / Concept Reference</p>
     <div class="table-wrap">
@@ -258,20 +228,6 @@
   <!-- ══════════════════════════ PANEL 2 — KEYWORD CARDS ══════════════════════════ -->
   <p class="section-title" id="anchor-keywords">🗂 Keyword Cards</p>
   <div class="panel" id="panel-keywords">
-    <div class="controls">
-      <input class="search-box" id="search" placeholder="🔍  Search keywords, services, concepts..." oninput="doFilter()">
-      <div class="filters">
-        <button class="f-btn active" onclick="setTag('all',this)">All</button>
-        <button class="f-btn" onclick="setTag('pipeline',this)">Pipelines</button>
-        <button class="f-btn" onclick="setTag('inference',this)">Inference</button>
-        <button class="f-btn" onclick="setTag('training',this)">Training</button>
-        <button class="f-btn" onclick="setTag('data',this)">Data</button>
-        <button class="f-btn" onclick="setTag('mlconcepts',this)">ML Concepts</button>
-        <button class="f-btn" onclick="setTag('monitoring',this)">Monitoring</button>
-        <button class="f-btn" onclick="setTag('security',this)">Security/Cost</button>
-        <button class="f-btn" onclick="setTag('genai',this)">GenAI</button>
-      </div>
-    </div>
     <div class="kgrid" id="kgrid">
 
       <!-- 1 -->
@@ -279,7 +235,7 @@
         <div class="kcard-head"><span class="kcard-icon">⚙️</span><span class="kcard-title">SageMaker Pipelines</span><span class="kcard-src">New Session</span></div>
         <ul class="kw">
           <li><strong>Best for</strong> end-to-end ML: data processing → training → tuning → deployment; scalable, reliable, automated</li>
-          <li><strong>CI/CD trigger order</strong>: <span class="chip g">S3 upload → S3 event notification (step 2) → SageMaker retrains (step 4) → deploy to endpoint (step 3)</span></li>
+          <li><strong>CI/CD trigger flow</strong>: <span class="chip g">S3 upload → S3 event notification → SageMaker retrains → deploy to endpoint</span></li>
           <li><span class="no">✗ S3 Lifecycle rules</span> cannot start CodePipeline / SageMaker Pipeline</li>
           <li><span class="no">✗ Model Monitor</span> ≠ deployment target in the pipeline</li>
           <li><strong>Callback steps</strong> — wait for Glue jobs to finish; retrieve outputs from S3 with LEAST overhead</li>
@@ -423,7 +379,7 @@
       <div class="kcard" data-tags="data" style="--c:var(--accent6)">
         <div class="kcard-head"><span class="kcard-icon">🗄️</span><span class="kcard-title">Glue, DataBrew &amp; Athena</span><span class="kcard-src">New Session</span></div>
         <ul class="kw">
-          <li><strong>Glue Crawlers</strong> — auto-infer schema from S3 CSV files → populate Data Catalog (step 1)</li>
+          <li><strong>Glue Crawlers</strong> — auto-infer schema from S3 CSV files → populate Data Catalog</li>
           <li><strong>Glue DataBrew</strong> — visual no-code data cleaning &amp; feature engineering (step 5)</li>
           <li><strong>Correct 3-step order</strong>: <span class="chip g">1 (Crawlers) → 5 (DataBrew) → 3 (Store to S3)</span></li>
           <li><strong>Glue FindMatches</strong> — ML-based fuzzy duplicate detection; handles exact + near-duplicate records; minimal code; LEAST operational overhead</li>
@@ -437,10 +393,6 @@
       <div class="kcard" data-tags="data" style="--c:var(--accent1)">
         <div class="kcard-head"><span class="kcard-icon">🗃️</span><span class="kcard-title">SageMaker Feature Store</span><span class="kcard-src">New Session</span></div>
         <ul class="kw">
-          <li><strong>Correct creation order</strong>: <span class="chip g">3 → 2 → 1</span></li>
-          <li>Step 3 — Set up feature group to organize and store features</li>
-          <li>Step 2 — Load feature data into the store</li>
-          <li>Step 1 — Prepare training dataset by accessing features from store</li>
           <li><strong>Online store</strong> — real-time low-latency feature serving (inference)</li>
           <li><strong>Offline store</strong> — batch access for training jobs</li>
           <li>Ensures consistency and reusability of features across training and inference workflows</li>
@@ -1219,30 +1171,6 @@
   <div class="panel" id="panel-compare">
     <div class="ctable-grid">
 
-      <div class="ctable">
-        <div class="ctable-head">CI/CD Pipeline Step Order</div>
-        <div class="crow"><span class="cl">Step 2</span><span class="cr">S3 upload → event notification triggers pipeline</span></div>
-        <div class="crow"><span class="cl">Step 4</span><span class="cr">SageMaker retrains using updated S3 data</span></div>
-        <div class="crow"><span class="cl">Step 3</span><span class="cr">Retrained model deployed to real-time endpoint</span></div>
-        <div class="crow"><span class="cl no">✗ Step 1</span><span class="cr no">Model Monitor ≠ deployment target</span></div>
-        <div class="crow"><span class="cl no">✗ Step 5</span><span class="cr no">S3 Lifecycle rules cannot trigger pipelines</span></div>
-      </div>
-
-      <div class="ctable">
-        <div class="ctable-head">Feature Store Creation Order</div>
-        <div class="crow"><span class="cl">Step 3 (first)</span><span class="cr">Set up feature group</span></div>
-        <div class="crow"><span class="cl">Step 2 (second)</span><span class="cr">Load feature data into store</span></div>
-        <div class="crow"><span class="cl">Step 1 (third)</span><span class="cr">Prepare training dataset from store</span></div>
-      </div>
-
-      <div class="ctable">
-        <div class="ctable-head">Glue Data Prep Order</div>
-        <div class="crow"><span class="cl">Step 1 (first)</span><span class="cr">Glue Crawlers → infer schema from CSV</span></div>
-        <div class="crow"><span class="cl">Step 5 (second)</span><span class="cr">DataBrew → clean &amp; feature engineer</span></div>
-        <div class="crow"><span class="cl">Step 3 (third)</span><span class="cr">Store results back to Amazon S3</span></div>
-        <div class="crow"><span class="cl no">✗ Step 4</span><span class="cr no">Redshift Spectrum ≠ schema inference here</span></div>
-        <div class="crow"><span class="cl no">✗ Step 2</span><span class="cr no">EMR/Spark not required (use DataBrew)</span></div>
-      </div>
 
       <div class="ctable">
         <div class="ctable-head">Inference Mode Selector</div>
@@ -1558,22 +1486,6 @@ function showTab(id){
   if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ─── KEYWORD FILTER ───
-let activeTag='all';
-function doFilter(){
-  const q=document.getElementById('search').value.toLowerCase();
-  document.querySelectorAll('.kcard').forEach(c=>{
-    const text=c.innerText.toLowerCase();
-    const tagOk=activeTag==='all'||c.dataset.tags.includes(activeTag);
-    c.classList.toggle('hidden',!(tagOk&&(!q||text.includes(q))));
-  });
-}
-function setTag(tag,btn){
-  activeTag=tag;
-  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  doFilter();
-}
 
 // ─── DATA: ONLY NEW SESSION KEYWORDS ───
 const categories=[
@@ -1825,7 +1737,6 @@ const tableData=[
   {id:25, name:"BYOC / ECR / Script Mode",         what:"BYOC = bring your own Docker container; push to ECR; Script Mode = custom training script in managed SageMaker container"},
   {id:26, name:"Serverless / Multi-Model Inference",what:"Serverless = pay-per-invocation, scales to zero, cold start acceptable; Multi-Model = many models on one instance, cost saving"},
   {id:27, name:"Random Cut Forest",                what:"Unsupervised anomaly detection; identifies outliers in IoT time-series; built-in SageMaker algorithm; no labels required"},
-  {id:28, name:"Feature Store (3→2→1 order)",      what:"Centralized reusable features: Step 3 = setup feature group, Step 2 = load data, Step 1 = prepare training dataset"},
   {id:29, name:"EKS (GenAI scalability)",          what:"Kubernetes-managed containers; HPA auto-scales pods based on CPU/custom metrics; used for GenAI inference at scale"},
   {id:30, name:"JumpStart fine-tuning",            what:"Pre-built model hub in SageMaker Studio; browse and one-click fine-tune foundation models with minimal code"},
   {id:31, name:"Auto-scaling target tracking",     what:"Scales endpoint instances to maintain a target metric (e.g., InvocationsPerInstance); reacts automatically to traffic changes"},
@@ -1977,25 +1888,6 @@ const tableData=[
   {id:177,name:"Loss Curve",                       what:"Visual plot of training and validation loss values across epochs; both curves decreasing together = healthy training; training loss low + validation loss high = overfitting; both losses high = underfitting; monitored in SageMaker Debugger"},
 ];
 
-// ─── COUNTERS ───
-function animateCount(el,target){
-  let s=0;const step=target/(1200/16);
-  const t=setInterval(()=>{s=Math.min(s+step,target);el.textContent=Math.floor(s);if(s>=target)clearInterval(t);},16);
-}
-window.addEventListener('load',()=>{
-  animateCount(document.getElementById('n-keywords'),150);
-  animateCount(document.getElementById('n-categories'),9);
-  animateCount(document.getElementById('n-questions'),260);
-  animateCount(document.getElementById('n-cards'),74);
-});
-
-// ─── BUBBLES ───
-const bubbleWrap=document.getElementById('bubble-wrap');
-allKeywords.sort(()=>Math.random()-0.4);
-allKeywords.forEach(kw=>{
-  const span=document.createElement('span');span.className=`bubble ${kw.tier}`;span.textContent=kw.name;
-  bubbleWrap.appendChild(span);
-});
 
 // ─── TABLE ───
 const tbody=document.getElementById('coverage-table');
@@ -2019,7 +1911,7 @@ document.querySelectorAll('.cat-card,.freq-panel').forEach(el=>observer.observe(
 setTimeout(()=>{document.querySelectorAll('[data-width]').forEach(bar=>{bar.style.width=bar.dataset.width+'%';});},500);
 
 // ─── GLOBAL SEARCH ───
-(function(){
+window.addEventListener('load', function(){
   const input   = document.getElementById('gSearch');
   const dropdown= document.getElementById('gDropdown');
   const clearBtn= document.getElementById('gClear');
@@ -2056,17 +1948,11 @@ setTimeout(()=>{document.querySelectorAll('[data-width]').forEach(bar=>{bar.styl
     return index.filter(r=>r.name.toLowerCase().includes(lq)||r.preview.toLowerCase().includes(lq)).slice(0,20);
   }
 
-  // ── Reset: show ALL content across all tabs ──
+  // ── Reset: show ALL content ──
   function resetAll(){
     document.querySelectorAll('#coverage-table tr').forEach(tr=>tr.classList.remove('hidden','gs-highlight'));
     document.querySelectorAll('.kcard').forEach(c=>c.classList.remove('hidden'));
     document.querySelectorAll('.ctable').forEach(ct=>ct.classList.remove('hidden'));
-    const kInput=document.getElementById('search');
-    if(kInput) kInput.value='';
-    activeTag='all';
-    document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
-    const allBtn=document.querySelector('.f-btn[onclick*="all"]');
-    if(allBtn) allBtn.classList.add('active');
     gsActive=false;
   }
 
@@ -2163,7 +2049,7 @@ setTimeout(()=>{document.querySelectorAll('[data-width]').forEach(bar=>{bar.styl
     if(activeIdx>=0) items[activeIdx].scrollIntoView({block:'nearest'});
   });
   document.addEventListener('click',e=>{ if(!e.target.closest('.gsearch-wrap')) close(); });
-})();
+});
 </script>
 </body>
 </html>
