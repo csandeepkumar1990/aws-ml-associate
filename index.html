@@ -1997,12 +1997,10 @@ window.addEventListener('load', function(){
       dropdown.classList.add('open'); hint.textContent=''; return;
     }
     hint.textContent=results.length+' result'+(results.length>1?'s':'');
-    const bc={analytics:'ba',keywords:'bk',compare:'bc'};
     dropdown.innerHTML=results.map((r,i)=>`
       <div class="gsearch-item" data-idx="${i}">
         <span class="gsearch-item-name">${hilite(r.name,q)}</span>
         <span class="gsearch-item-preview">${hilite(r.preview.replace(/<[^>]+>/g,''),q)}</span>
-        <span class="gsearch-badge ${bc[r.tab]}">${r.tabLabel}</span>
       </div>`).join('');
     dropdown.classList.add('open');
     dropdown.querySelectorAll('.gsearch-item').forEach(el=>{
