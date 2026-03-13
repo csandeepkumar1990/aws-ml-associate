@@ -10,16 +10,30 @@
     --bg:#0a0a0f; --surface:#12121a; --card:#1a1a26; --border:#2a2a3d;
     --accent1:#7c5cfc; --accent2:#00e5c0; --accent3:#ff6b6b; --accent4:#ffd166;
     --accent5:#ff9f43; --accent6:#48dbfb; --text:#e8e8f0; --muted:#6b6b8a;
-    --glow:rgba(124,92,252,0.2);
+    --glow:rgba(124,92,252,0.2); --border-subtle:rgba(42,42,61,0.55);
+    --grid-line:rgba(124,92,252,0.04);
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg:#f4f4fb; --surface:#eaeaf5; --card:#ffffff; --border:#c8c8e0;
+      --accent1:#6042d4; --accent2:#009e84; --accent3:#d44444; --accent4:#a07800;
+      --accent5:#c06820; --accent6:#1a8fbf; --text:#18182c; --muted:#58587a;
+      --glow:rgba(96,66,212,0.1); --border-subtle:rgba(180,180,210,0.65);
+      --grid-line:rgba(96,66,212,0.05); --kw-text:#3a3a5c;
+    }
+    body::before { background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px); }
+    h1 { background:linear-gradient(135deg,#18182c 30%,var(--accent1) 70%,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+    .bubble:hover { box-shadow:0 4px 16px rgba(0,0,0,0.12); }
+    tr:hover td { background:rgba(96,66,212,0.04); }
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh;overflow-x:hidden;}
+  body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:14px;min-height:100vh;overflow-x:hidden;}
   body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,92,252,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,92,252,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
   .container{max-width:1360px;margin:0 auto;padding:44px 24px;position:relative;z-index:1;}
 
   /* NAV TABS */
   .nav-tabs{display:flex;gap:6px;margin-bottom:40px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:8px;animation:fadeDown 0.6s ease both;}
-  .tab-btn{flex:1;min-width:120px;background:transparent;border:none;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:10px 16px;border-radius:8px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+  .tab-btn{flex:1;min-width:120px;background:transparent;border:none;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:10px 16px;border-radius:8px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
   .tab-btn:hover{color:var(--text);background:rgba(124,92,252,0.1);}
   .tab-btn.active{background:var(--accent1);color:#fff;font-weight:600;}
   .panel{display:none;} .panel.active{display:block;}
@@ -28,7 +42,7 @@
   header{text-align:center;margin-bottom:52px;animation:fadeDown 0.8s ease both;}
   .tag{display:inline-block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);border:1px solid var(--accent2);padding:4px 14px;border-radius:20px;margin-bottom:20px;opacity:0.8;}
   h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,#fff 30%,var(--accent1) 70%,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:12px;}
-  .subtitle{color:var(--muted);font-size:12px;letter-spacing:1px;}
+  .subtitle{color:var(--muted);font-size:13px;letter-spacing:1px;}
 
   /* STATS */
   .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:44px;animation:fadeUp 0.8s 0.2s ease both;}
@@ -45,7 +59,7 @@
   .categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:44px;animation:fadeUp 0.8s 0.3s ease both;}
   .cat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;}
   .cat-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-  .cat-name{font-size:12px;font-weight:600;color:var(--text);}
+  .cat-name{font-size:13px;font-weight:600;color:var(--text);}
   .cat-count{font-size:10px;background:rgba(124,92,252,0.15);color:var(--accent1);border:1px solid rgba(124,92,252,0.3);padding:2px 10px;border-radius:20px;}
   .progress-bar{height:6px;background:var(--border);border-radius:10px;overflow:hidden;}
   .progress-fill{height:100%;border-radius:10px;background:var(--fill-color);transition:width 1.5s cubic-bezier(0.34,1.56,0.64,1);width:0;}
@@ -56,37 +70,37 @@
   .donut-legend{flex:1;min-width:200px;}
   .legend-item{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
   .legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
-  .legend-text{font-size:12px;color:var(--text);}
-  .legend-pct{margin-left:auto;font-size:12px;color:var(--muted);}
+  .legend-text{font-size:13px;color:var(--text);}
+  .legend-pct{margin-left:auto;font-size:13px;color:var(--muted);}
 
   /* FREQ BARS */
   .freq-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:44px;animation:fadeUp 0.8s 0.4s ease both;}
   .freq-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;}
   .freq-panel h3{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:20px;color:var(--accent2);letter-spacing:1px;}
   .freq-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-  .freq-label{font-size:11px;color:var(--text);width:170px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .freq-label{font-size:13px;color:var(--text);width:180px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .freq-bar-wrap{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
   .freq-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent1),var(--accent2));transition:width 1.8s cubic-bezier(0.34,1.56,0.64,1);width:0;}
-  .freq-val{font-size:11px;color:var(--accent1);width:32px;text-align:right;flex-shrink:0;}
+  .freq-val{font-size:13px;color:var(--accent1);width:32px;text-align:right;flex-shrink:0;}
 
   /* BUBBLES */
   .bubble-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px;animation:fadeUp 0.8s 0.5s ease both;}
-  .bubble{font-size:11px;padding:6px 14px;border-radius:20px;border:1px solid;cursor:default;transition:transform 0.2s,box-shadow 0.2s;white-space:nowrap;}
+  .bubble{font-size:12px;padding:6px 14px;border-radius:20px;border:1px solid;cursor:default;transition:transform 0.2s,box-shadow 0.2s;white-space:nowrap;}
   .bubble:hover{transform:scale(1.08);box-shadow:0 4px 20px rgba(0,0,0,0.3);}
-  .bubble.tier1{background:rgba(124,92,252,0.15);border-color:var(--accent1);color:var(--accent1);font-weight:600;font-size:13px;}
-  .bubble.tier2{background:rgba(0,229,192,0.10);border-color:var(--accent2);color:var(--accent2);font-size:12px;}
-  .bubble.tier3{background:rgba(255,209,102,0.10);border-color:var(--accent4);color:var(--accent4);}
-  .bubble.tier4{background:rgba(255,107,107,0.10);border-color:var(--accent3);color:var(--accent3);font-size:10px;}
+  .bubble.tier1{background:rgba(124,92,252,0.15);border-color:var(--accent1);color:var(--accent1);font-weight:600;font-size:14px;}
+  .bubble.tier2{background:rgba(0,229,192,0.10);border-color:var(--accent2);color:var(--accent2);font-size:13px;}
+  .bubble.tier3{background:rgba(255,209,102,0.10);border-color:var(--accent4);color:var(--accent4);font-size:12px;}
+  .bubble.tier4{background:rgba(255,107,107,0.10);border-color:var(--accent3);color:var(--accent3);font-size:11px;}
 
   /* TABLE */
   .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:44px;animation:fadeUp 0.8s 0.6s ease both;}
   table{width:100%;border-collapse:collapse;}
   thead tr{background:rgba(124,92,252,0.1);border-bottom:1px solid var(--border);}
-  th{padding:14px 20px;text-align:left;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent1);font-weight:600;}
-  td{padding:12px 20px;font-size:12px;border-bottom:1px solid rgba(42,42,61,0.5);vertical-align:middle;}
+  th{padding:14px 20px;text-align:left;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent1);font-weight:600;}
+  td{padding:12px 20px;font-size:14px;border-bottom:1px solid var(--border-subtle);vertical-align:middle;}
   tr:last-child td{border-bottom:none;}
   tr:hover td{background:rgba(124,92,252,0.04);}
-  .badge{display:inline-block;font-size:10px;padding:2px 10px;border-radius:10px;font-weight:600;}
+  .badge{display:inline-block;font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;}
   .badge.high{background:rgba(0,229,192,0.12);color:var(--accent2);border:1px solid rgba(0,229,192,0.3);}
   .badge.med{background:rgba(255,209,102,0.12);color:var(--accent4);border:1px solid rgba(255,209,102,0.3);}
   .badge.low{background:rgba(255,107,107,0.12);color:var(--accent3);border:1px solid rgba(255,107,107,0.3);}
@@ -94,11 +108,11 @@
 
   /* KEYWORD CARDS */
   .controls{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap;align-items:center;}
-  .search-box{flex:1;min-width:240px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border-color 0.2s;}
+  .search-box{flex:1;min-width:240px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:14px;outline:none;transition:border-color 0.2s;}
   .search-box:focus{border-color:var(--accent1);}
   .search-box::placeholder{color:var(--muted);}
   .filters{display:flex;gap:8px;flex-wrap:wrap;}
-  .f-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all 0.2s;}
+  .f-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all 0.2s;}
   .f-btn:hover,.f-btn.active{background:var(--accent1);color:#fff;border-color:var(--accent1);}
 
   .kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:20px;align-items:start;}
@@ -107,10 +121,10 @@
   .kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c,var(--accent1)),transparent);}
   .kcard-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
   .kcard-icon{font-size:1.1rem;}
-  .kcard-title{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;color:var(--c,var(--accent1));}
+  .kcard-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--c,var(--accent1));}
   .kcard-src{margin-left:auto;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:2px 8px;border-radius:20px;}
   .kw{list-style:none;display:flex;flex-direction:column;gap:8px;}
-  .kw li{font-size:11.5px;line-height:1.6;padding-left:16px;position:relative;color:#c8c8d8;}
+  .kw li{font-size:13px;line-height:1.65;padding-left:16px;position:relative;color:var(--kw-text,#c8c8d8);}
   .kw li::before{content:'▸';position:absolute;left:0;color:var(--c,var(--accent1));font-size:9px;top:3px;}
   .kw strong{color:var(--text);font-weight:600;}
   .kw .yes{color:var(--accent2);font-weight:600;}
@@ -124,7 +138,7 @@
   .ctable-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;}
   .ctable{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
   .ctable-head{background:var(--surface);padding:10px 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent2);border-bottom:1px solid var(--border);}
-  .crow{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 16px;gap:12px;border-bottom:1px solid rgba(42,42,61,0.6);font-size:11px;}
+  .crow{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 16px;gap:12px;border-bottom:1px solid var(--border-subtle);font-size:13px;}
   .crow:last-child{border-bottom:none;}
   .crow .cl{font-weight:600;color:var(--text);min-width:130px;}
   .crow .cr{color:var(--muted);text-align:right;flex:1;}
@@ -1722,6 +1736,31 @@ const allKeywords=[
   {name:"Pipe Mode + P3/G4 GPU",    tier:"tier4"},
   {name:"Cross-validation",         tier:"tier4"},
   {name:"SageMaker Model Monitor",  tier:"tier4"},
+  {name:"SageMaker Experiments",    tier:"tier2"},
+  {name:"SageMaker Ground Truth",   tier:"tier2"},
+  {name:"SageMaker Profiler",       tier:"tier2"},
+  {name:"SageMaker Studio",         tier:"tier2"},
+  {name:"SageMaker Notebook Inst.", tier:"tier3"},
+  {name:"SageMaker Processing Job", tier:"tier3"},
+  {name:"Async Inference",          tier:"tier2"},
+  {name:"Data Parallelism",         tier:"tier2"},
+  {name:"Model Parallelism",        tier:"tier2"},
+  {name:"Active Learning",          tier:"tier2"},
+  {name:"Reinforcement Learning",   tier:"tier2"},
+  {name:"Bias Drift",               tier:"tier2"},
+  {name:"Feature Attribution Drift",tier:"tier3"},
+  {name:"Model Quality Drift",      tier:"tier3"},
+  {name:"SMOTE",                    tier:"tier3"},
+  {name:"Class Weights",            tier:"tier3"},
+  {name:"Min-Max Scaling",          tier:"tier3"},
+  {name:"Underfitting",             tier:"tier3"},
+  {name:"Binary Classification",    tier:"tier3"},
+  {name:"Trust Policy (IAM)",       tier:"tier3"},
+  {name:"Amazon Fraud Detector",    tier:"tier3"},
+  {name:"AWS Shield Advanced",      tier:"tier3"},
+  {name:"AWS Config",               tier:"tier3"},
+  {name:"Glue Job Bookmarking",     tier:"tier3"},
+  {name:"Factorization Machines",   tier:"tier3"},
 ];
 
 const tableData=[
@@ -1875,6 +1914,30 @@ const tableData=[
   {id:148,name:"Cognito + API Gateway (secure ML API auth)",       what:"Cognito provides user identity/auth; API Gateway enforces JWT token validation before requests reach ML inference endpoints"},
   {id:149,name:"DataSync + Transfer Family (Kendra data sync)",    what:"DataSync automates data movement between on-prem and S3; Transfer Family provides SFTP/FTP; both feed Kendra knowledge base ingestion"},
   {id:150,name:"Apache Flink managed + Kinesis (IoT streaming)",   what:"Managed Flink (Kinesis Data Analytics) processes high-throughput IoT streams with sub-second latency; Kinesis buffers and delivers to Flink"},
+  {id:151,name:"SageMaker Experiments",            what:"Organizes training runs into Trials under a single Experiment; logs hyperparameters, metrics, datasets; enables reproducible comparison. Trials = individual runs; Trial Components = stages (preprocess → train → eval)"},
+  {id:152,name:"SageMaker Ground Truth",           what:"Managed data labeling; active learning automates simple labels and routes complex cases to human reviewers; use private workforce for sensitive/regulated data; HITL reduces cost while maintaining accuracy"},
+  {id:153,name:"SageMaker Profiler",               what:"Monitors CPU/GPU utilization, disk I/O, memory during training; add start/stop Profiler commands in training script; NOT for model metrics (use Debugger) or post-deployment drift (use Model Monitor)"},
+  {id:154,name:"SageMaker Notebook Instances",     what:"Fully managed Jupyter notebooks; AWS handles infrastructure, software, and library setup; persistent storage ensures work is saved when instance is stopped; individual use (not collaborative — use Studio for teams)"},
+  {id:155,name:"SageMaker Processing Jobs",        what:"Managed scalable environment for preprocessing, feature engineering, and evaluation scripts; uses pre-built containers; stores outputs to S3; decouples data prep from training jobs"},
+  {id:156,name:"Async Inference (SageMaker)",      what:"Queued inference for large payloads (≤1 GB) or long-running tasks (up to 15 min); scales to zero when idle, pay only when processing; use when requests can tolerate latency. NOT for strict real-time needs"},
+  {id:157,name:"Data Parallelism",                 what:"Same model replicated across multiple GPUs/machines; dataset split into shards, each worker trains on its shard; SageMaker synchronizes gradients. Use when dataset is too large, NOT when model is too large"},
+  {id:158,name:"Model Parallelism",                what:"Model itself split across multiple GPUs when too large for a single GPU (e.g., billions of parameters); each GPU handles a partition of layers. Use when model doesn't fit in one GPU's memory"},
+  {id:159,name:"SMOTE",                            what:"Synthetic Minority Oversampling Technique — generates new synthetic samples for the minority class by interpolating between existing examples; reduces overfitting risk vs simple duplication; fixes class imbalance"},
+  {id:160,name:"Class Weights",                    what:"Assigns higher penalty to misclassifying minority class samples during training; directly addresses imbalanced datasets; configure via class_weight hyperparameter in SageMaker algorithms or custom training scripts"},
+  {id:161,name:"Min-Max Scaling",                  what:"Scales all numerical features to a fixed range [0,1]; formula: (x − min)/(max − min); prevents features with larger ranges from dominating model learning; apply in SageMaker Data Wrangler or Processing Jobs"},
+  {id:162,name:"Underfitting (High Bias)",         what:"Model too simple to capture patterns; high error on both training and validation sets; fix by adding more training data, increasing model complexity, cross-validation, or adding relevant features. NOT fixed by early stopping"},
+  {id:163,name:"Bias Drift",                       what:"Model systematically favors certain groups or categories in predictions over time; emerges as production data shifts; detected by SageMaker Clarify scheduled with Model Monitor; fix by retraining on updated representative data"},
+  {id:164,name:"Feature Attribution Drift",        what:"The relative importance of features in predictions changes over time (e.g., 'annual income' becomes less predictive); detected by Model Monitor + Clarify; fix by retraining with updated data so feature weights realign"},
+  {id:165,name:"Model Quality Drift",              what:"General decline in prediction accuracy vs ground truth over time (compare predictions to actual labels); Model Monitor compares captured predictions with merged ground truth labels to calculate quality metrics"},
+  {id:166,name:"Amazon Fraud Detector",            what:"Managed service for real-time fraud scoring; ingest historical labeled fraud data to train model; assign fraud risk scores per transaction in real time; NOT a general recommendation engine — use Amazon Personalize for that"},
+  {id:167,name:"AWS Shield Advanced",              what:"Enhanced DDoS protection beyond Shield Standard; includes 24/7 DRT (DDoS Response Team) access, advanced attack diagnostics, financial protections; required for critical applications needing active mitigation and cost coverage"},
+  {id:168,name:"AWS Config",                       what:"Tracks configuration changes to AWS resources over time; evaluates compliance against Config Rules (periodic or on change); custom rules via Lambda; configuration snapshots stored in S3 for long-term regulatory auditing"},
+  {id:169,name:"Glue Job Bookmarking",             what:"Tracks which S3 data has already been processed between ETL job runs; on next execution only new/modified objects are processed; avoids reprocessing entire dataset; key for incremental Glue ETL pipelines"},
+  {id:170,name:"Factorization Machines",           what:"Built-in SageMaker algorithm; captures pairwise feature interactions efficiently; ideal for sparse high-dimensional datasets like recommendation systems (users × items matrix); handles cold-start better than collaborative filtering"},
+  {id:171,name:"Reinforcement Learning",           what:"Agent learns by interacting with environment, receiving rewards for good actions and penalties for bad; no labeled data required; core components: agent, environment, action space, reward function, policy. Used in robotics, trading, game AI"},
+  {id:172,name:"Binary Classification",            what:"Predicts one of two outcomes (yes/no, spam/not spam, fraud/not fraud); requires labeled historical data; key metrics: accuracy, precision, recall, AUC-ROC. Common algorithms: Logistic Regression, XGBoost, Linear Learner"},
+  {id:173,name:"Trust Policy (IAM)",               what:"Attached to an IAM Role; specifies which principals (users, services, other AWS accounts) are allowed to assume the role; required for cross-account access and service-to-service permissions. Separate from identity and resource-based policies"},
+  {id:174,name:"SageMaker Studio",                 what:"Fully integrated multi-user IDE for ML; persistent JupyterLab workspace; multiple notebooks in parallel; shared team access; seamless integration with all SageMaker services; tag Studio domain with AWS Budgets for cost control"},
 ];
 
 // ─── COUNTERS ───
