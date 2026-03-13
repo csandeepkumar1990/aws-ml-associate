@@ -146,6 +146,32 @@
   .crow .cr.yes{color:var(--accent2);}
   .crow .cr.no{color:var(--accent3);}
 
+  /* GLOBAL SEARCH */
+  .gsearch-wrap{position:relative;margin-bottom:24px;animation:fadeDown 0.5s ease both;}
+  .gsearch-inner{display:flex;align-items:center;gap:12px;background:var(--card);border:2px solid var(--border);border-radius:16px;padding:14px 20px;transition:border-color 0.2s,box-shadow 0.2s;}
+  .gsearch-inner:focus-within{border-color:var(--accent1);box-shadow:0 0 0 4px var(--glow);}
+  .gsearch-icon{font-size:1.15rem;opacity:0.7;flex-shrink:0;}
+  .gsearch-input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:15px;}
+  .gsearch-input::placeholder{color:var(--muted);}
+  .gsearch-clear{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:0 4px;line-height:1;display:none;transition:color 0.2s;}
+  .gsearch-clear:hover{color:var(--accent3);}
+  .gsearch-hint{font-size:11px;color:var(--muted);flex-shrink:0;white-space:nowrap;}
+  .gsearch-dropdown{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--card);border:1px solid var(--border);border-radius:14px;max-height:400px;overflow-y:auto;z-index:200;box-shadow:0 12px 40px rgba(0,0,0,0.35);display:none;}
+  .gsearch-dropdown.open{display:block;}
+  .gsearch-section{padding:8px 16px 4px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border-subtle);}
+  .gsearch-item{display:flex;align-items:center;gap:12px;padding:11px 18px;cursor:pointer;border-bottom:1px solid var(--border-subtle);transition:background 0.12s;}
+  .gsearch-item:last-child{border-bottom:none;}
+  .gsearch-item:hover,.gsearch-item.gsi-active{background:rgba(124,92,252,0.09);}
+  .gsearch-item-name{font-weight:600;color:var(--text);font-size:13px;min-width:180px;flex-shrink:0;}
+  .gsearch-item-preview{color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
+  .gsearch-badge{font-size:10px;letter-spacing:1px;padding:2px 9px;border-radius:10px;border:1px solid;flex-shrink:0;text-transform:uppercase;}
+  .gsearch-badge.ba{color:var(--accent1);border-color:var(--accent1);background:rgba(124,92,252,0.1);}
+  .gsearch-badge.bk{color:var(--accent2);border-color:var(--accent2);background:rgba(0,229,192,0.1);}
+  .gsearch-badge.bc{color:var(--accent4);border-color:var(--accent4);background:rgba(255,209,102,0.1);}
+  .gsearch-empty{padding:24px;text-align:center;color:var(--muted);font-size:13px;}
+  .gsearch-match{color:var(--accent1);font-weight:700;}
+  tr.gs-highlight td{background:rgba(124,92,252,0.12)!important;transition:background 1.5s;}
+
   /* ANIMATIONS */
   @keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
@@ -196,6 +222,16 @@
     <h1>ML Associate Reference</h1>
     <p class="subtitle">Marlon Anesi · Stephane Maarek · Nikolai Schuler</p>
   </header>
+
+  <div class="gsearch-wrap">
+    <div class="gsearch-inner">
+      <span class="gsearch-icon">🔍</span>
+      <input type="text" id="gSearch" class="gsearch-input" placeholder="Search any keyword, concept, or AWS service…" autocomplete="off" spellcheck="false">
+      <span class="gsearch-hint" id="gHint"></span>
+      <button class="gsearch-clear" id="gClear" onclick="gsClear()">✕</button>
+    </div>
+    <div class="gsearch-dropdown" id="gDropdown"></div>
+  </div>
 
   <div class="nav-tabs">
     <button class="tab-btn active" onclick="showTab('analytics',this)">📊 Analytics Dashboard</button>
@@ -1987,6 +2023,132 @@ const observer=new IntersectionObserver(entries=>{
 },{threshold:0.1});
 document.querySelectorAll('.cat-card,.freq-panel').forEach(el=>observer.observe(el));
 setTimeout(()=>{document.querySelectorAll('[data-width]').forEach(bar=>{bar.style.width=bar.dataset.width+'%';});},500);
+
+// ─── GLOBAL SEARCH ───
+(function(){
+  const input   = document.getElementById('gSearch');
+  const dropdown= document.getElementById('gDropdown');
+  const clearBtn= document.getElementById('gClear');
+  const hint    = document.getElementById('gHint');
+  let activeIdx = -1;
+  let results   = [];
+
+  // Build index from all three sources
+  const index = [];
+
+  // Source 1: tableData → Analytics tab
+  tableData.forEach(row=>{
+    index.push({ name:row.name, preview:row.what, tab:'analytics', tabLabel:'Analytics', id:row.id });
+  });
+
+  // Source 2: keyword cards → Keywords tab
+  document.querySelectorAll('.kcard').forEach(card=>{
+    const title = card.querySelector('.kcard-title')?.textContent.trim() || '';
+    const body  = Array.from(card.querySelectorAll('.kw li')).map(li=>li.textContent).join(' ');
+    if(title) index.push({ name:title, preview:body.substring(0,90), tab:'keywords', tabLabel:'Keywords', el:card });
+  });
+
+  // Source 3: compare tables → Compare tab
+  document.querySelectorAll('.ctable').forEach(ct=>{
+    const title = ct.querySelector('.ctable-head')?.textContent.trim() || '';
+    const body  = Array.from(ct.querySelectorAll('.crow')).map(r=>r.textContent).join(' ');
+    if(title) index.push({ name:title, preview:body.substring(0,90), tab:'compare', tabLabel:'Compare', el:ct });
+  });
+
+  function highlight(text, q){
+    if(!q) return text;
+    const re = new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+    return text.replace(re,'<span class="gsearch-match">$1</span>');
+  }
+
+  function search(q){
+    if(!q) return [];
+    const lq = q.toLowerCase();
+    return index.filter(item=>
+      item.name.toLowerCase().includes(lq) || item.preview.toLowerCase().includes(lq)
+    ).slice(0,20);
+  }
+
+  function render(q){
+    results = search(q);
+    activeIdx = -1;
+    if(!q){ dropdown.classList.remove('open'); hint.textContent=''; return; }
+    if(!results.length){
+      dropdown.innerHTML=`<div class="gsearch-empty">No results for "<strong>${q}</strong>"</div>`;
+      dropdown.classList.add('open'); hint.textContent=''; return;
+    }
+    hint.textContent = results.length + ' result' + (results.length>1?'s':'');
+    const badgeClass = {analytics:'ba', keywords:'bk', compare:'bc'};
+    dropdown.innerHTML = results.map((r,i)=>`
+      <div class="gsearch-item" data-idx="${i}">
+        <span class="gsearch-item-name">${highlight(r.name,q)}</span>
+        <span class="gsearch-item-preview">${highlight(r.preview.replace(/<[^>]+>/g,''),q)}</span>
+        <span class="gsearch-badge ${badgeClass[r.tab]}">${r.tabLabel}</span>
+      </div>`).join('');
+    dropdown.classList.add('open');
+    dropdown.querySelectorAll('.gsearch-item').forEach(el=>{
+      el.addEventListener('mousedown',e=>{ e.preventDefault(); goTo(parseInt(el.dataset.idx)); });
+    });
+  }
+
+  function goTo(idx){
+    const r = results[idx];
+    if(!r) return;
+    // Switch tab
+    const tabBtn = document.querySelector(`.tab-btn[onclick*="${r.tab}"]`);
+    if(tabBtn) showTab(r.tab, tabBtn);
+
+    if(r.tab==='analytics'){
+      // Scroll + flash the matching table row
+      const rows = document.querySelectorAll('#coverage-table tr');
+      rows.forEach(tr=>tr.classList.remove('gs-highlight'));
+      rows.forEach(tr=>{
+        if(tr.cells[1] && tr.cells[1].textContent.trim()===r.name){
+          tr.classList.add('gs-highlight');
+          setTimeout(()=>tr.scrollIntoView({behavior:'smooth',block:'center'}),120);
+          setTimeout(()=>tr.classList.remove('gs-highlight'),2200);
+        }
+      });
+    } else if(r.tab==='keywords'){
+      // Filter keyword cards
+      const kInput = document.getElementById('search');
+      if(kInput){ kInput.value=r.name; doFilter(); }
+      if(r.el) setTimeout(()=>r.el.scrollIntoView({behavior:'smooth',block:'center'}),150);
+    } else if(r.tab==='compare'){
+      if(r.el) setTimeout(()=>r.el.scrollIntoView({behavior:'smooth',block:'center'}),150);
+    }
+    close();
+  }
+
+  function close(){ dropdown.classList.remove('open'); activeIdx=-1; }
+
+  function gsClear(){
+    input.value=''; clearBtn.style.display='none'; hint.textContent='';
+    dropdown.classList.remove('open'); input.focus();
+    // reset keyword filter
+    const kInput=document.getElementById('search'); if(kInput){kInput.value='';doFilter();}
+  }
+  window.gsClear = gsClear;
+
+  input.addEventListener('input',()=>{
+    const q=input.value.trim();
+    clearBtn.style.display = q ? 'block':'none';
+    render(q);
+  });
+
+  input.addEventListener('keydown',e=>{
+    if(!dropdown.classList.contains('open')) return;
+    const items = dropdown.querySelectorAll('.gsearch-item');
+    if(e.key==='ArrowDown'){ e.preventDefault(); activeIdx=Math.min(activeIdx+1,items.length-1); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); activeIdx=Math.max(activeIdx-1,0); }
+    else if(e.key==='Enter'){ e.preventDefault(); if(activeIdx>=0) goTo(activeIdx); else if(results.length) goTo(0); return; }
+    else if(e.key==='Escape'){ close(); return; }
+    items.forEach((el,i)=>el.classList.toggle('gsi-active',i===activeIdx));
+    if(activeIdx>=0) items[activeIdx].scrollIntoView({block:'nearest'});
+  });
+
+  document.addEventListener('click',e=>{ if(!e.target.closest('.gsearch-wrap')) close(); });
+})();
 </script>
 </body>
 </html>
