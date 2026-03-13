@@ -1761,6 +1761,9 @@ const allKeywords=[
   {name:"AWS Config",               tier:"tier3"},
   {name:"Glue Job Bookmarking",     tier:"tier3"},
   {name:"Factorization Machines",   tier:"tier3"},
+  {name:"Training Loss",            tier:"tier2"},
+  {name:"Validation Loss",          tier:"tier2"},
+  {name:"Loss Curve",               tier:"tier2"},
 ];
 
 const tableData=[
@@ -1768,7 +1771,7 @@ const tableData=[
   {id:2,  name:"SageMaker Clarify + CDD",          what:"Detects pre/post-training bias (DPPL, DI, CDD); explains predictions with SHAP values and PDP"},
   {id:3,  name:"Data Drift / Concept Drift",       what:"Data drift = input distribution changes; concept drift = feature-target relationship changes; both degrade model accuracy"},
   {id:4,  name:"XGBoost",                          what:"Gradient-boosted trees; handles imbalanced data via scale_pos_weight; best general-purpose algorithm for tabular data"},
-  {id:5,  name:"Overfitting / Dropout / Early Stopping", what:"Model memorizes training noise; fix with dropout layers, early stopping, L1/L2 regularization, or simpler architecture"},
+  {id:5,  name:"Overfitting / Dropout / Early Stopping", what:"Overfitting = model performs well on training data but fails to generalize to unseen data — it has memorized noise and irrelevant patterns; fix with dropout, early stopping, L1/L2 regularization, or simpler architecture"},
   {id:6,  name:"AWS Glue Crawlers + FindMatches",  what:"Crawlers infer schema from S3/RDS automatically; FindMatches deduplicates records using ML matching"},
   {id:7,  name:"SageMaker Model Registry",         what:"Versions and tracks model artifacts; Collections group model groups; cross-account access via resource-based policy"},
   {id:8,  name:"SageMaker Warm Pools",             what:"Retains provisioned instances after training completes; reduces subsequent job startup time significantly"},
@@ -1925,7 +1928,7 @@ const tableData=[
   {id:159,name:"SMOTE",                            what:"Synthetic Minority Oversampling Technique — generates new synthetic samples for the minority class by interpolating between existing examples; reduces overfitting risk vs simple duplication; fixes class imbalance"},
   {id:160,name:"Class Weights",                    what:"Assigns higher penalty to misclassifying minority class samples during training; directly addresses imbalanced datasets; configure via class_weight hyperparameter in SageMaker algorithms or custom training scripts"},
   {id:161,name:"Min-Max Scaling",                  what:"Scales all numerical features to a fixed range [0,1]; formula: (x − min)/(max − min); prevents features with larger ranges from dominating model learning; apply in SageMaker Data Wrangler or Processing Jobs"},
-  {id:162,name:"Underfitting (High Bias)",         what:"Model too simple to capture patterns; high error on both training and validation sets; fix by adding more training data, increasing model complexity, cross-validation, or adding relevant features. NOT fixed by early stopping"},
+  {id:162,name:"Underfitting (High Bias)",         what:"Model too simplistic to capture underlying data patterns; poor performance on BOTH training and validation datasets; fix by adding more data, increasing model complexity, adding relevant features, or cross-validation. NOT fixed by early stopping"},
   {id:163,name:"Bias Drift",                       what:"Model systematically favors certain groups or categories in predictions over time; emerges as production data shifts; detected by SageMaker Clarify scheduled with Model Monitor; fix by retraining on updated representative data"},
   {id:164,name:"Feature Attribution Drift",        what:"The relative importance of features in predictions changes over time (e.g., 'annual income' becomes less predictive); detected by Model Monitor + Clarify; fix by retraining with updated data so feature weights realign"},
   {id:165,name:"Model Quality Drift",              what:"General decline in prediction accuracy vs ground truth over time (compare predictions to actual labels); Model Monitor compares captured predictions with merged ground truth labels to calculate quality metrics"},
@@ -1938,6 +1941,9 @@ const tableData=[
   {id:172,name:"Binary Classification",            what:"Predicts one of two outcomes (yes/no, spam/not spam, fraud/not fraud); requires labeled historical data; key metrics: accuracy, precision, recall, AUC-ROC. Common algorithms: Logistic Regression, XGBoost, Linear Learner"},
   {id:173,name:"Trust Policy (IAM)",               what:"Attached to an IAM Role; specifies which principals (users, services, other AWS accounts) are allowed to assume the role; required for cross-account access and service-to-service permissions. Separate from identity and resource-based policies"},
   {id:174,name:"SageMaker Studio",                 what:"Fully integrated multi-user IDE for ML; persistent JupyterLab workspace; multiple notebooks in parallel; shared team access; seamless integration with all SageMaker services; tag Studio domain with AWS Budgets for cost control"},
+  {id:175,name:"Training Loss",                    what:"Metric representing the model's error on training data during each epoch of learning; decreasing training loss means the model is fitting the training data; used alongside validation loss to diagnose overfitting or underfitting"},
+  {id:176,name:"Validation Loss",                  what:"Metric used to evaluate the model's generalization ability on a held-out validation dataset not seen during training; if validation loss rises while training loss falls, the model is overfitting; drives early stopping decisions"},
+  {id:177,name:"Loss Curve",                       what:"Visual plot of training and validation loss values across epochs; both curves decreasing together = healthy training; training loss low + validation loss high = overfitting; both losses high = underfitting; monitored in SageMaker Debugger"},
 ];
 
 // ─── COUNTERS ───
