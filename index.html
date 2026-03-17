@@ -51,7 +51,20 @@ body::before {
   background-image: repeating-linear-gradient(transparent, transparent 31px, var(--line) 31px, var(--line) 32px);
   pointer-events: none; z-index: 0;
 }
-.container { max-width: 1320px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
+.container { max-width:1320px; margin:0 auto; padding:40px 24px; position:relative; z-index:1; }
+.filter-row { display:flex; flex-direction:column; gap:0; margin-bottom:28px; border:1.5px solid var(--border); border-radius:14px; overflow:hidden; }
+.author-tabs { display:flex; flex-wrap:wrap; background:var(--card); border-bottom:1.5px solid var(--border); }
+.chip-tab { font-family:'Patrick Hand',cursive; font-size:16px; padding:9px 22px; border:none; background:transparent; color:var(--pencil); cursor:pointer; transition:all .15s; border-right:1px solid var(--border); }
+.chip-tab:last-child { border-right:none; }
+.chip-tab:hover { color:var(--red); background:var(--tag-bg); }
+.chip-tab.active { color:var(--red); font-weight:700; background:var(--paper); box-shadow:inset 0 -3px 0 var(--red); }
+.pt-row { display:none; align-items:center; gap:8px; flex-wrap:wrap; padding:10px 16px; border-bottom:1px dashed var(--border); background:var(--paper); animation:fadeIn .15s ease; }
+.pt-row.visible { display:flex; }
+.chip { font-family:'Patrick Hand',cursive; font-size:15px; padding:4px 14px; border-radius:20px; border:1.5px solid var(--border); background:var(--card); color:var(--pencil); cursor:pointer; transition:all .15s; }
+.chip:hover,.chip.active { border-color:var(--red); color:var(--red); background:var(--tag-bg); }
+.chip.soon { opacity:0.35; cursor:not-allowed; pointer-events:none; border-style:dashed; }
+.topic-row { display:flex; align-items:center; gap:7px; flex-wrap:wrap; padding:10px 16px; background:var(--card); }
+.topic-label { font-family:'Patrick Hand',cursive; font-size:13px; color:var(--pencil); letter-spacing:1px; text-transform:uppercase; margin-right:4px; }
 
 header { text-align:center; margin-bottom:40px; padding-bottom:20px; border-bottom: 2px solid var(--red); }
 .eyebrow { font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--pencil); margin-bottom:8px; font-family:monospace; }
@@ -68,12 +81,9 @@ h1 em { color:var(--red); font-style:normal; }
 .theme-btn { background:var(--card); border:1.5px solid var(--border); border-radius:10px; padding:8px 14px; cursor:pointer; font-family:'Patrick Hand',cursive; font-size:17px; color:var(--ink); display:flex; align-items:center; gap:6px; flex-shrink:0; transition:border-color .2s; }
 .theme-btn:hover { border-color:var(--red); }
 
-.filter-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; }
-.chip { font-family:'Patrick Hand',cursive; font-size:16px; padding:4px 14px; border-radius:20px; border:1.5px solid var(--border); background:var(--card); color:var(--pencil); cursor:pointer; transition:all .15s; }
-.chip:hover,.chip.active { border-color:var(--red); color:var(--red); background:var(--tag-bg); }
 
 .notes-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:20px; align-items:start; }
-.note { background:var(--card); border:1.5px solid var(--border); border-radius:4px; padding:20px 22px 20px 50px; position:relative; box-shadow:var(--shadow); transition:transform .15s,box-shadow .15s; animation:fadeIn .4s ease both; }
+.note { background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:20px 22px 20px 50px; position:relative; box-shadow:var(--shadow); transition:transform .15s,box-shadow .15s; animation:fadeIn .4s ease both; }
 .note:hover { transform:translateY(-2px); box-shadow:3px 8px 24px rgba(0,0,0,0.1); }
 .note.hidden { display:none; }
 .note::before { content:''; position:absolute; left:40px; top:0; bottom:0; width:1.5px; background:var(--margin-line); }
@@ -151,7 +161,7 @@ html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,
   <header>
     <div class="eyebrow">MLA-C01 · AWS Certified Machine Learning Associate</div>
     <h1>Study <em>Notes</em></h1>
-    <div class="subtitle">PT-1 through PT-6 · 390 Questions · Marlon Anesi / Abhishek Singh / Stephane Maarek</div>
+    <div class="subtitle">Nikolai Schuler · Stephane Maarek · Marlon Anesi · MLA-C01</div>
   </header>
 
   <div class="search-wrap">
@@ -167,17 +177,49 @@ html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,
   </div>
 
   <div class="filter-row">
-    <button class="chip active" onclick="setFilter('all',this)">All</button>
-    <button class="chip" onclick="setFilter('sagemaker',this)">SageMaker</button>
-    <button class="chip" onclick="setFilter('mlconcepts',this)">ML Concepts</button>
-    <button class="chip" onclick="setFilter('data',this)">Data</button>
-    <button class="chip" onclick="setFilter('deployment',this)">Deployment</button>
-    <button class="chip" onclick="setFilter('security',this)">Security</button>
-    <button class="chip" onclick="setFilter('monitoring',this)">Monitoring</button>
-    <button class="chip" onclick="setFilter('aiservices',this)">AI Services</button>
-    <button class="chip" onclick="setFilter('genai',this)">GenAI</button>
-    <button class="chip" onclick="setFilter('pt1',this)">PT-1</button>
-    <button class="chip" onclick="setFilter('nikolaischuler',this)">Nikolai Schuler</button>
+
+    <!-- Author tabs -->
+    <div class="author-tabs">
+      <button class="chip-tab active" onclick="setAuthor('all',this)">All</button>
+      <button class="chip-tab" onclick="setAuthor('nikolaischuler',this)">Nikolai Schuler</button>
+      <button class="chip-tab" onclick="setAuthor('stephanemaarek',this)">Stephane Maarek</button>
+      <button class="chip-tab" onclick="setAuthor('marlonAnesi',this)">Marlon Anesi</button>
+    </div>
+
+    <!-- PT sub-rows -->
+    <div class="pt-row" id="pt-nikolaischuler">
+      <button class="chip" onclick="setFilterAnd(['nikolaischuler','pt1'],this)">PT-1</button>
+      <button class="chip" onclick="setFilterAnd(['nikolaischuler','pt2'],this)">PT-2</button>
+      <button class="chip soon">PT-3</button>
+      <button class="chip soon">PT-4</button>
+    </div>
+    <div class="pt-row" id="pt-stephanemaarek">
+      <button class="chip soon">PT-1</button>
+      <button class="chip soon">PT-2</button>
+      <button class="chip soon">PT-3</button>
+    </div>
+    <div class="pt-row" id="pt-marlonAnesi">
+      <button class="chip soon">PT-1</button>
+      <button class="chip soon">PT-2</button>
+      <button class="chip soon">PT-3</button>
+      <button class="chip soon">PT-4</button>
+      <button class="chip soon">PT-5</button>
+      <button class="chip soon">PT-6</button>
+    </div>
+
+    <!-- Topics -->
+    <div class="topic-row">
+      <span class="topic-label">Topics →</span>
+      <button class="chip" onclick="setFilter('sagemaker',this)">SageMaker</button>
+      <button class="chip" onclick="setFilter('mlconcepts',this)">ML Concepts</button>
+      <button class="chip" onclick="setFilter('data',this)">Data</button>
+      <button class="chip" onclick="setFilter('deployment',this)">Deployment</button>
+      <button class="chip" onclick="setFilter('security',this)">Security</button>
+      <button class="chip" onclick="setFilter('monitoring',this)">Monitoring</button>
+      <button class="chip" onclick="setFilter('aiservices',this)">AI Services</button>
+      <button class="chip" onclick="setFilter('genai',this)">GenAI</button>
+    </div>
+
   </div>
 
   <div class="notes-grid">
@@ -1102,6 +1144,928 @@ html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,
 
   <!-- ===== End Nikolai Schuler PT-1 cards ===== -->
 
+  <!-- ===== Nikolai Schuler PT-2 cards Q1–Q65 ===== -->
+
+  <!-- PT2 Q1 -->
+  <div class="note" data-q="Q1" data-tags="nikolaischuler pt2 aiservices" data-text="translate polly lambda s3 audio text multilingual e-learning platform generate audio course materials Amazon Translate Amazon Polly Lambda store audio S3 Use Amazon Translate to translate the text Amazon Polly to generate the speech and Lambda to store the audio files back in S3">
+    <div class="note-title"> Multilingual Audio Pipeline</div>
+    <div class="sub">E-learning: text → translated audio → S3</div>
+    <div class="flow">
+      <div class="flow-box blue">S3 (course text)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Amazon Translate</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Amazon Polly</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Lambda → S3 (audio)</div>
+    </div>
+    <div class="cmp-grid" style="margin-top:8px">
+      <div class="cmp-cell red">Translate</div>
+      <div class="cmp-cell blue">Polly</div>
+      <div class="cmp-cell red-val">Text → target language</div>
+      <div class="cmp-cell blue-val">Translated text → speech (MP3)</div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">multilingual</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">TTS</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">Lambda glue</span>
+      <span class="circle blue" style="font-size:13px;padding:2px 10px">serverless</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Translate (language) + Polly (speech) + Lambda (store audio → S3)</p>
+  </div>
+
+  <!-- PT2 Q2 -->
+  <div class="note" data-q="Q2" data-tags="nikolaischuler pt2 sagemaker mlconcepts" data-text="custom algorithm built-in algorithm sagemaker proprietary models not available When is a custom algorithm MORE appropriate than a built-in algorithm in SageMaker When you need proprietary ML models not available as built-in algorithms">
+    <div class="note-title">Custom vs Built-in Algorithm</div>
+    <div class="sub">When to use custom in SageMaker</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Built-in</div>
+      <div class="cmp-cell blue">Custom</div>
+      <div class="cmp-cell red-val">Available algorithms (XGBoost, KNN…)</div>
+      <div class="cmp-cell blue-val">Proprietary models not in SageMaker</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Use custom when proprietary model not available as built-in</p>
+  </div>
+
+  <!-- PT2 Q3 -->
+  <div class="note" data-q="Q3" data-tags="nikolaischuler pt2 security" data-text="secrets manager cross-region replication KMS rotation credentials API keys access tokens high availability Enable cross-region replication for secrets and set up customer-managed KMS keys">
+    <div class="note-title">Secrets Manager Multi-Region</div>
+    <div class="sub">HA + auto rotation + encryption</div>
+    <div class="flow">
+      <div class="flow-box red">Secret (primary)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Cross-region replica</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box ink">Customer KMS key</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Auto rotation</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Cross-region replication + customer-managed KMS keys</p>
+  </div>
+
+  <!-- PT2 Q4 -->
+  <div class="note" data-q="Q4" data-tags="nikolaischuler pt2 data sagemaker" data-text="data wrangler missing values impute mean median interpolation preprocessing Redshift Handle missing values in Data Wrangler Impute mean or median Interpolation">
+    <div class="note-title">Data Wrangler: Missing Values</div>
+    <div class="sub">Two valid methods (choose 2)</div>
+    <div class="flow">
+      <div class="flow-box blue">Impute mean / median</div>
+      <span class="arrow">+</span>
+      <div class="flow-box green">Interpolation</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Mean/median imputation & interpolation both valid</p>
+  </div>
+
+  <!-- PT2 Q5 -->
+  <div class="note" data-q="Q5" data-tags="nikolaischuler pt2 deployment sagemaker" data-text="sagemaker pipelines benefit automates organizes machine learning workflows reusable scalable What is a benefit of SageMaker Pipelines It automates and organizes ML workflows making them reusable and scalable">
+    <div class="note-title">SageMaker Pipelines Benefit</div>
+    <div class="sub">Why use Pipelines?</div>
+    <div class="flow">
+      <div class="flow-box blue">Automate</div>
+      <span class="arrow">+</span>
+      <div class="flow-box green">Organize</div>
+      <span class="arrow">+</span>
+      <div class="flow-box red">Reuse & Scale</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Automates & organizes ML workflows → reusable + scalable</p>
+  </div>
+
+  <!-- PT2 Q6 -->
+  <div class="note" data-q="Q6" data-tags="nikolaischuler pt2 sagemaker monitoring" data-text="reinforcement learning model evaluation SageMaker energy smart grid training metrics SageMaker SDK built-in evaluation tools plot training metrics after training before deployment Use SageMaker built-in evaluation tools and plot training metrics using SageMaker SDK">
+    <div class="note-title">RL Model Evaluation</div>
+    <div class="sub">Post-training, pre-deployment</div>
+    <div class="flow">
+      <div class="flow-box blue">Train RL model</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">SM built-in eval tools</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Plot metrics (SDK)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Use SageMaker built-in evaluation + plot metrics via SDK</p>
+  </div>
+
+  <!-- PT2 Q7 -->
+  <div class="note" data-q="Q7" data-tags="nikolaischuler pt2 sagemaker deployment" data-text="sagemaker pipelines experiments fintech fraud detection hyperparameter tuning multiple configurations track compare best performing model Use SageMaker Pipelines to automate and SageMaker Experiments to track and compare multiple configurations">
+    <div class="note-title">Pipelines + Experiments</div>
+    <div class="sub">Fintech fraud pipeline</div>
+    <div class="flow">
+      <div class="flow-box blue">SM Pipelines</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Automate workflow</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box red">SM Experiments</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Track & compare configs</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Pipelines (automate) + Experiments (track/compare)</p>
+  </div>
+
+  <!-- PT2 Q8 -->
+  <div class="note" data-q="Q8" data-tags="nikolaischuler pt2 monitoring mlconcepts" data-text="bias drift systematic favoring certain groups model predictions over time Which type of drift is systematic favoring of certain groups Bias drift">
+    <div class="note-title">Bias Drift</div>
+    <div class="sub">Type of model drift</div>
+    <div class="flow">
+      <div class="flow-box red">Bias drift</div>
+      <span class="arrow">=</span>
+      <div class="flow-box ink">Systematic favoritism toward groups over time</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Bias drift = model systematically favors certain groups</p>
+  </div>
+
+  <!-- PT2 Q9 -->
+  <div class="note" data-q="Q9" data-tags="nikolaischuler pt2 monitoring" data-text="data drift monitoring SageMaker deployed model incoming data different from training data What type of drift incoming data significantly different from training data Data Drift">
+    <div class="note-title">Data Drift Monitoring</div>
+    <div class="sub">Incoming data ≠ training data</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Data Drift</div>
+      <div class="cmp-cell blue">Bias Drift</div>
+      <div class="cmp-cell red-val">Input distribution shifts from training</div>
+      <div class="cmp-cell blue-val">Model favors certain groups unfairly</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Data drift = incoming data differs from training distribution</p>
+  </div>
+
+  <!-- PT2 Q10 -->
+  <div class="note" data-q="Q10" data-tags="nikolaischuler pt2 sagemaker" data-text="SageMaker Experiments visualize compare accuracy precision trials graphical interface SageMaker Studio SageMaker Studio graphical interface to compare trials">
+    <div class="note-title">SageMaker Experiments: Compare</div>
+    <div class="sub">Visualize trial accuracy & precision</div>
+    <div class="flow">
+      <div class="flow-box blue">Multiple trials</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">SageMaker Studio UI</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Chart comparison</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Studio graphical interface for trial comparison</p>
+  </div>
+
+  <!-- PT2 Q11 -->
+  <div class="note" data-q="Q11" data-tags="nikolaischuler pt2 data sagemaker" data-text="data wrangler pipeline export S3 parquet format training SageMaker Use Data Wrangler create pipeline export transformed data to S3 in Apache Parquet then use SageMaker training jobs">
+    <div class="note-title">Data Wrangler → S3 Parquet</div>
+    <div class="sub">Pipeline export for training</div>
+    <div class="flow">
+      <div class="flow-box blue">Data Wrangler</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">S3 (Parquet)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">SM Training job</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Wrangler pipeline → export Parquet to S3 → SageMaker train</p>
+  </div>
+
+  <!-- PT2 Q12 -->
+  <div class="note" data-q="Q12" data-tags="nikolaischuler pt2 data" data-text="Glue Data Catalog ETL Athena S3 Redshift semi-structured metadata extract query SQL ETL operations large datasets Glue Data Catalog for metadata Glue ETL for transformation Athena for querying S3">
+    <div class="note-title">Glue + Athena Pipeline</div>
+    <div class="sub">ETL on S3 → Redshift analytics</div>
+    <div class="flow">
+      <div class="flow-box blue">Glue Data Catalog</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Glue ETL jobs</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Athena (SQL on S3)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Glue Catalog + ETL + Athena for S3 query without infra</p>
+  </div>
+
+  <!-- PT2 Q13 -->
+  <div class="note" data-q="Q13" data-tags="nikolaischuler pt2 sagemaker" data-text="automatic hyperparameter tuning requirements performance metric training algorithm SageMaker tuning job What must be specified to start a hyperparameter tuning job Performance metric and Training algorithm">
+    <div class="note-title">HPT: Required Inputs</div>
+    <div class="sub">Choose 2 required for tuning job</div>
+    <div class="flow">
+      <div class="flow-box red">Performance metric</div>
+      <span class="arrow">+</span>
+      <div class="flow-box blue">Training algorithm</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Must specify: performance metric + training algorithm</p>
+  </div>
+
+  <!-- PT2 Q14 -->
+  <div class="note" data-q="Q14" data-tags="nikolaischuler pt2 sagemaker mlconcepts" data-text="factorization machines recommendation system sparse datasets feature interactions movie ratings SageMaker Why factorization machines for recommendation It models interactions between features effective for sparse datasets">
+    <div class="note-title">Factorization Machines</div>
+    <div class="sub">Why suited for recommendations?</div>
+    <div class="flow">
+      <div class="flow-box blue">Sparse data (ratings)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Feature interactions</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Movie recs</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Models feature interactions, effective for sparse datasets</p>
+  </div>
+
+  <!-- PT2 Q15 -->
+  <div class="note" data-q="Q15" data-tags="nikolaischuler pt2 sagemaker deployment" data-text="bring your own container BYOC SageMaker training inference Docker image custom framework full control company responsibility Full control over training and inference environment must manage Docker image creation container configuration deployment">
+    <div class="note-title">BYOC — Bring Your Own Container</div>
+    <div class="sub">Custom framework in SageMaker</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">AWS provides</div>
+      <div class="cmp-cell blue">You manage</div>
+      <div class="cmp-cell red-val">Infrastructure & scaling</div>
+      <div class="cmp-cell blue-val">Docker image, config, deployment</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Full control but must manage Docker image + container config</p>
+  </div>
+
+  <!-- PT2 Q16 -->
+  <div class="note" data-q="Q16" data-tags="nikolaischuler pt2 mlconcepts" data-text="high variance overfitting responsible AI early stopping challenge high variance model key challenge overfitting solution early stopping">
+    <div class="note-title">High Variance → Overfitting</div>
+    <div class="sub">Responsible AI challenge</div>
+    <div class="flow">
+      <div class="flow-box red">High variance</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Overfitting</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Fix: Early stopping</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ High variance = overfitting; combat with early stopping</p>
+  </div>
+
+  <!-- PT2 Q17 -->
+  <div class="note" data-q="Q17" data-tags="nikolaischuler pt2 deployment aiservices" data-text="Amazon Personalize DynamoDB Kinesis S3 Lambda real-time recommendations retail scale peak shopping holidays Use Lambda to trigger real-time updates to Personalize when new events in DynamoDB Store historical data in S3 and feed into Personalize for batch training">
+    <div class="note-title">Personalize + DynamoDB + S3</div>
+    <div class="sub">Real-time + batch recs (choose 2)</div>
+    <div class="flow">
+      <div class="flow-box blue">DynamoDB events</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Lambda</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Personalize (real-time)</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box red">S3 historical data</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Personalize (batch train)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Lambda → Personalize (real-time) + S3 → Personalize (batch)</p>
+  </div>
+
+  <!-- PT2 Q18 -->
+  <div class="note" data-q="Q18" data-tags="nikolaischuler pt2 sagemaker" data-text="SageMaker Studio notebooks notebook instances collaborative persistent storage multiple notebooks team SageMaker Studio notebooks collaborative persistent storage integrated tools">
+    <div class="note-title">Studio vs Notebook Instances</div>
+    <div class="sub">Multi-notebook team collaboration</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Notebook Instances</div>
+      <div class="cmp-cell blue">Studio Notebooks</div>
+      <div class="cmp-cell red-val">Standalone, individual use</div>
+      <div class="cmp-cell blue-val">Collaborative, persistent, integrated</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Studio: collaborative + persistent + integrated tools</p>
+  </div>
+
+  <!-- PT2 Q19 -->
+  <div class="note" data-q="Q19" data-tags="nikolaischuler pt2 genai security" data-text="Amazon Bedrock generative AI S3 IAM SageMaker fine-tune foundation models monitor performance personalized email customer data Choose 3 S3 for storing customer interaction data IAM for securing access SageMaker for model fine-tuning">
+    <div class="note-title">Bedrock GenAI Stack</div>
+    <div class="sub">Choose 3 services</div>
+    <div class="flow">
+      <div class="flow-box blue">S3 (customer data)</div>
+      <span class="arrow">+</span>
+      <div class="flow-box red">IAM (secure APIs)</div>
+      <span class="arrow">+</span>
+      <div class="flow-box green">SageMaker (fine-tune)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ S3 + IAM + SageMaker for data, security, fine-tuning</p>
+  </div>
+
+  <!-- PT2 Q20 -->
+  <div class="note" data-q="Q20" data-tags="nikolaischuler pt2 sagemaker" data-text="SageMaker built-in algorithms image classification train steps compute resources instance type labeled dataset hyperparameters pre-packaged Choose 2 Define compute resources run training job referencing pre-built container Provide labeled dataset define hyperparameters">
+    <div class="note-title">Built-in Image Classification</div>
+    <div class="sub">Required steps (choose 2)</div>
+    <div class="flow">
+      <div class="flow-box blue">Labeled dataset + hyperparams</div>
+      <span class="arrow">+</span>
+      <div class="flow-box green">Compute resources + pre-built container</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Define compute + pre-built container; provide labeled data + hyperparams</p>
+  </div>
+
+  <!-- PT2 Q21 -->
+  <div class="note" data-q="Q21" data-tags="nikolaischuler pt2 monitoring deployment" data-text="demand forecasting SageMaker Model Monitor data quality performance degradation CloudWatch retraining drift automation Use Model Monitor for drift CloudWatch for alerts SageMaker Pipelines for automating retraining">
+    <div class="note-title">Monitor + Retrain Pipeline</div>
+    <div class="sub">Auto-detect drift and retrain</div>
+    <div class="flow">
+      <div class="flow-box blue">Model Monitor</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">CloudWatch alarm</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">SM Pipelines retrain</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Monitor + CloudWatch alerts + Pipelines auto-retrain</p>
+  </div>
+
+  <!-- PT2 Q22 -->
+  <div class="note" data-q="Q22" data-tags="nikolaischuler pt2 monitoring" data-text="CloudWatch EC2 CPU utilization memory request latency alerts ELB CloudWatch Alarms CloudWatch Agent custom metrics Use CloudWatch for CPU set CloudWatch Alarms install CloudWatch Agent for memory and custom metrics">
+    <div class="note-title">CloudWatch EC2 Monitoring</div>
+    <div class="sub">CPU + memory + latency alerts</div>
+    <div class="flow">
+      <div class="flow-box blue">CloudWatch (CPU)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">CW Alarms</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box ink">CW Agent (EC2)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Memory + custom metrics</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ CloudWatch + CW Alarms + CW Agent for memory/custom metrics</p>
+  </div>
+
+  <!-- PT2 Q23 -->
+  <div class="note" data-q="Q23" data-tags="nikolaischuler pt2 sagemaker" data-text="SageMaker built-in algorithms text analysis hyperparameter tuning learning rate batch size automatic hyperparameter tuning Use SageMaker automatic hyperparameter tuning to efficiently explore different configurations">
+    <div class="note-title">Auto Hyperparameter Tuning</div>
+    <div class="sub">Learning rate + batch size</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Manual grid search</div>
+      <div class="cmp-cell blue">SM Auto HPT</div>
+      <div class="cmp-cell red-val">Slow, exhaustive, error-prone</div>
+      <div class="cmp-cell blue-val">Efficient, explores configurations automatically</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Use SageMaker automatic hyperparameter tuning</p>
+  </div>
+
+  <!-- PT2 Q24 -->
+  <div class="note" data-q="Q24" data-tags="nikolaischuler pt2 sagemaker deployment" data-text="end-to-end ML lifecycle automation data ingestion model deployment SageMaker Data Wrangler Model Registry Pipelines Use Data Wrangler for data prep Model Registry for versioning Pipelines to orchestrate workflow">
+    <div class="note-title">E2E ML Automation</div>
+    <div class="sub">Data → Registry → Deploy</div>
+    <div class="flow">
+      <div class="flow-box blue">Data Wrangler</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Model Registry</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">SM Pipelines</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Wrangler (prep) + Registry (version) + Pipelines (orchestrate)</p>
+  </div>
+
+  <!-- PT2 Q25 -->
+  <div class="note" data-q="Q25" data-tags="nikolaischuler pt2 data" data-text="Glue crawlers Athena QuickSight S3 CSV no predefined schema query visualize Glue crawlers infer schema store in Glue Data Catalog Athena queries CSV Quicksight visualize">
+    <div class="note-title">Glue Crawlers → Athena → QuickSight</div>
+    <div class="sub">Query S3 CSV without schema</div>
+    <div class="flow">
+      <div class="flow-box blue">Glue crawler (infer schema)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Athena (SQL)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">QuickSight</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Crawler infers schema → Catalog → Athena queries → QuickSight</p>
+  </div>
+
+  <!-- PT2 Q26 -->
+  <div class="note" data-q="Q26" data-tags="nikolaischuler pt2 sagemaker mlconcepts" data-text="human in the loop HITL Ground Truth SageMaker labeling human workers complex tasks ML feedback combination machine learning human feedback only complex tasks labeling efficiency A combination of ML and human feedback where humans only intervene in complex tasks improving labeling efficiency">
+    <div class="note-title">HITL — Ground Truth</div>
+    <div class="sub">Human-in-the-loop definition</div>
+    <div class="flow">
+      <div class="flow-box blue">Easy tasks → ML auto-label</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box red">Complex tasks → Human review</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ ML + human feedback; humans only on complex tasks → efficient</p>
+  </div>
+
+  <!-- PT2 Q27 -->
+  <div class="note" data-q="Q27" data-tags="nikolaischuler pt2 aiservices" data-text="Transcribe Lex Polly chatbot speech text voice real-time customer service speech-to-text text-to-speech Use Transcribe for speech-to-text Lex for chatbot Polly for text-to-speech">
+    <div class="note-title">Transcribe → Lex → Polly</div>
+    <div class="sub">Voice chatbot pipeline</div>
+    <div class="flow">
+      <div class="flow-box blue">Transcribe (STT)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Lex (NLU)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Polly (TTS)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Transcribe (speech→text) + Lex (chatbot) + Polly (text→speech)</p>
+  </div>
+
+  <!-- PT2 Q28 -->
+  <div class="note" data-q="Q28" data-tags="nikolaischuler pt2 mlconcepts" data-text="precision 85 recall 60 binary classification fraud detection model good at identifying but misses significant portion The model is good at identifying fraudulent transactions but misses a significant portion of actual fraud">
+    <div class="note-title">Precision 85% / Recall 60%</div>
+    <div class="sub">Fraud detection model analysis</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Precision 85%</div>
+      <div class="cmp-cell blue">Recall 60%</div>
+      <div class="cmp-cell red-val">Low false positives (good ID)</div>
+      <div class="cmp-cell blue-val">Missing 40% of actual fraud</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Good at flagging fraud but misses significant portion of actual fraud</p>
+  </div>
+
+  <!-- PT2 Q29 -->
+  <div class="note" data-q="Q29" data-tags="nikolaischuler pt2 sagemaker mlconcepts" data-text="distributed training SageMaker data parallelism model parallelism large dataset cannot fit single machine model fits memory workers Data parallelism dataset split across workers each trains same model on its chunk">
+    <div class="note-title">Data Parallelism</div>
+    <div class="sub">Large data, small model</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Data Parallelism</div>
+      <div class="cmp-cell blue">Model Parallelism</div>
+      <div class="cmp-cell red-val">Split dataset; same model per worker</div>
+      <div class="cmp-cell blue-val">Split model across GPUs/machines</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Data parallelism: dataset chunks per worker, same model</p>
+  </div>
+
+  <!-- PT2 Q30 -->
+  <div class="note" data-q="Q30" data-tags="nikolaischuler pt2 data" data-text="Kinesis Data Streams IoT multiple consumers bottleneck read throughput Enhanced Fan-out What feature of Kinesis addresses multiple consumer bottlenecks Enhanced Fan-out">
+    <div class="note-title">Kinesis Enhanced Fan-out</div>
+    <div class="sub">Multiple consumers, no bottleneck</div>
+    <div class="flow">
+      <div class="flow-box blue">Kinesis stream</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Enhanced Fan-out</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">2MB/s per consumer</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Enhanced Fan-out: dedicated 2MB/s throughput per consumer</p>
+  </div>
+
+  <!-- PT2 Q31 -->
+  <div class="note" data-q="Q31" data-tags="nikolaischuler pt2 deployment sagemaker" data-text="SageMaker Endpoints real-time deployment recommendation engine built-in algorithms Lambda EC2 Most appropriate for real-time inference deployment SageMaker Endpoints real-time model deployment and scaling">
+    <div class="note-title">SageMaker Endpoints</div>
+    <div class="sub">Real-time model deployment</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Wrong options</div>
+      <div class="cmp-cell blue">Correct</div>
+      <div class="cmp-cell red-val">Lambda / EC2 / Model Monitor</div>
+      <div class="cmp-cell blue-val">SageMaker Endpoints (real-time + auto-scale)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Endpoints: real-time deployment + auto scaling</p>
+  </div>
+
+  <!-- PT2 Q32 -->
+  <div class="note" data-q="Q32" data-tags="nikolaischuler pt2 genai deployment" data-text="Amazon Bedrock pricing variable traffic on-demand provisioned throughput spot reserved cost-effective Most cost-effective for variable traffic On-demand pricing pay only for what you use">
+    <div class="note-title">Bedrock Pricing: Variable Traffic</div>
+    <div class="sub">Spikes + idle → which pricing?</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Provisioned</div>
+      <div class="cmp-cell blue">On-demand ✓</div>
+      <div class="cmp-cell red-val">Best for steady high usage</div>
+      <div class="cmp-cell blue-val">Pay per token; ideal for variable traffic</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ On-demand pricing for unpredictable, variable workloads</p>
+  </div>
+
+  <!-- PT2 Q33 -->
+  <div class="note" data-q="Q33" data-tags="nikolaischuler pt2 aiservices" data-text="Textract Comprehend Kendra legal document retrieval natural language search entity extraction case names judges dates PDFs Word documents Amazon Textract for text extraction Comprehend for entities Kendra for NL search">
+    <div class="note-title">Textract + Comprehend + Kendra</div>
+    <div class="sub">Legal document retrieval</div>
+    <div class="flow">
+      <div class="flow-box blue">Textract (extract text)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Comprehend (entities)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Kendra (NL search)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Textract → Comprehend (entities) → Kendra (NL search)</p>
+  </div>
+
+  <!-- PT2 Q34 -->
+  <div class="note" data-q="Q34" data-tags="nikolaischuler pt2 sagemaker" data-text="SageMaker Experiments trials healthcare patient outcomes algorithms hyperparameters feature sets reproducibility organized management Use Experiments to organize model runs into trials under a single experiment logging configs and metrics for comparison">
+    <div class="note-title">SageMaker Experiments: Trials</div>
+    <div class="sub">Healthcare model comparison</div>
+    <div class="flow">
+      <div class="flow-box blue">Experiment</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Trial A / Trial B / Trial C</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Compare metrics</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Trials under one experiment; auto-logs configs + metrics</p>
+  </div>
+
+  <!-- PT2 Q35 -->
+  <div class="note" data-q="Q35" data-tags="nikolaischuler pt2 sagemaker" data-text="hyperparameter tuning early stopping poorly performing models Hyperband Grid Search Bayesian Random SageMaker stops underperforming configurations early Which tuning strategy stops poorly performing models early Hyperband">
+    <div class="note-title">Hyperband Tuning</div>
+    <div class="sub">Stop poor configs early</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Others</div>
+      <div class="cmp-cell blue">Hyperband ✓</div>
+      <div class="cmp-cell red-val">Grid/Random/Bayesian: run to completion</div>
+      <div class="cmp-cell blue-val">Stops underperforming configs early → saves resources</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Hyperband = early stopping for underperforming HPT configs</p>
+  </div>
+
+  <!-- PT2 Q36 -->
+  <div class="note" data-q="Q36" data-tags="nikolaischuler pt2 monitoring sagemaker" data-text="SageMaker Model Monitor Experiments deployed models data drift performance degradation track dataset hyperparameters experiments version Use Model Monitor and SageMaker Experiments for monitoring and tracking">
+    <div class="note-title">Model Monitor + Experiments</div>
+    <div class="sub">Production monitoring + traceability</div>
+    <div class="flow">
+      <div class="flow-box blue">Model Monitor</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Detect drift & degradation</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box green">SM Experiments</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Track dataset + hyperparams</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Monitor (drift) + Experiments (traceability)</p>
+  </div>
+
+  <!-- PT2 Q37 -->
+  <div class="note" data-q="Q37" data-tags="nikolaischuler pt2 data mlconcepts" data-text="Data Wrangler one-hot encoding feature normalization Min-Max scaling dominating features large numerical ranges After one-hot encoding features dominate due to large ranges use Min-Max scaling normalization">
+    <div class="note-title">Feature Normalization</div>
+    <div class="sub">After one-hot encoding → scale features</div>
+    <div class="flow">
+      <div class="flow-box blue">One-hot encoded</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Large numerical ranges</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Min-Max scaling</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Min-Max scaling: normalizes to [0,1], prevents dominance</p>
+  </div>
+
+  <!-- PT2 Q38 -->
+  <div class="note" data-q="Q38" data-tags="nikolaischuler pt2 monitoring" data-text="SageMaker Model Monitor fairness transparency bias responsible AI production data distribution performance Which feature monitors for bias and fairness over time SageMaker Model Monitor track data distribution and performance">
+    <div class="note-title">Model Monitor: Fairness</div>
+    <div class="sub">Responsible AI in production</div>
+    <div class="flow">
+      <div class="flow-box blue">New prod data</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Model Monitor</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Bias / fairness alerts</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Monitor tracks data distribution → detects emerging bias</p>
+  </div>
+
+  <!-- PT2 Q39 -->
+  <div class="note" data-q="Q39" data-tags="nikolaischuler pt2 mlconcepts" data-text="bias variance strategies cross-validation early stopping PCA data augmentation Which TWO strategies address both bias and variance Cross-validation and Early stopping">
+    <div class="note-title">Bias & Variance: Two Strategies</div>
+    <div class="sub">Responsible AI (choose 2)</div>
+    <div class="flow">
+      <div class="flow-box green">Cross-validation</div>
+      <span class="arrow">+</span>
+      <div class="flow-box blue">Early stopping</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Cross-validation + early stopping address both bias & variance</p>
+  </div>
+
+  <!-- PT2 Q40 -->
+  <div class="note" data-q="Q40" data-tags="nikolaischuler pt2 sagemaker mlconcepts" data-text="SageMaker Ground Truth ethical AI bias vulnerabilities HITL human-in-the-loop feedback mechanism review correct model outputs Ground Truth human-in-the-loop feedback to review and correct outputs for bias and vulnerabilities">
+    <div class="note-title">Ground Truth: Ethical AI</div>
+    <div class="sub">HITL for bias detection</div>
+    <div class="flow">
+      <div class="flow-box blue">Model output</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Ground Truth HITL</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Bias corrected</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ HITL feedback mechanism reviews & corrects bias/vulnerabilities</p>
+  </div>
+
+  <!-- PT2 Q41 -->
+  <div class="note" data-q="Q41" data-tags="nikolaischuler pt2 sagemaker" data-text="SageMaker Script Mode custom algorithm modularize multiple Python scripts entry point requirements.txt dependencies Use Script Mode modularize code across multiple scripts entry point script requirements.txt for dependencies">
+    <div class="note-title">SageMaker Script Mode</div>
+    <div class="sub">Custom algorithm + dependencies</div>
+    <div class="flow">
+      <div class="flow-box blue">entry_point.py</div>
+      <span class="arrow">+</span>
+      <div class="flow-box green">requirements.txt</div>
+      <span class="arrow">+</span>
+      <div class="flow-box red">Pre-built container</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Script Mode: modular scripts + requirements.txt for deps</p>
+  </div>
+
+  <!-- PT2 Q42 -->
+  <div class="note" data-q="Q42" data-tags="nikolaischuler pt2 deployment" data-text="SageMaker Pipelines component sequence data preprocessing model training model registration DAG Pipeline Definition Pipeline Definition describes sequence of operations in a DAG">
+    <div class="note-title">Pipeline Definition</div>
+    <div class="sub">Component that defines step sequence</div>
+    <div class="flow">
+      <div class="flow-box blue">Pipeline Definition (DAG)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Pre-process → Train → Register</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Pipeline Definition = DAG of all steps (not Model Package/Group/SDK)</p>
+  </div>
+
+  <!-- PT2 Q43 -->
+  <div class="note" data-q="Q43" data-tags="nikolaischuler pt2 sagemaker data" data-text="SageMaker Feature Store online offline store real-time predictions batch training low-latency telecom churn features Use online store for real-time predictions offline store for batch model training">
+    <div class="note-title">Feature Store: Online vs Offline</div>
+    <div class="sub">Real-time + batch access</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Online Store</div>
+      <div class="cmp-cell blue">Offline Store</div>
+      <div class="cmp-cell red-val">Low-latency real-time predictions</div>
+      <div class="cmp-cell blue-val">Batch training jobs (S3-backed)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Online = real-time; Offline = batch training</p>
+  </div>
+
+  <!-- PT2 Q44 -->
+  <div class="note" data-q="Q44" data-tags="nikolaischuler pt2 security" data-text="Kinesis Firehose S3 encryption compliance financial data KMS HTTPS data integrity Enable encryption at rest KMS for S3 and encryption in transit HTTPS">
+    <div class="note-title">Firehose → S3 Encryption</div>
+    <div class="sub">Compliance: at-rest + in-transit</div>
+    <div class="flow">
+      <div class="flow-box blue">Firehose (HTTPS)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">S3 + KMS (SSE)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ KMS for at-rest (S3 SSE) + HTTPS for in-transit encryption</p>
+  </div>
+
+  <!-- PT2 Q45 -->
+  <div class="note" data-q="Q45" data-tags="nikolaischuler pt2 deployment sagemaker" data-text="SageMaker Pipelines reusability preprocessing step multiple models pipelines Same pipeline step reused across different pipelines without redefinition">
+    <div class="note-title">Pipeline Step Reusability</div>
+    <div class="sub">Reuse preprocessing across models</div>
+    <div class="flow">
+      <div class="flow-box blue">Preprocessing step</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Pipeline A</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box blue">Same step</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Pipeline B (no redefine)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Steps reusable across pipelines without redefinition</p>
+  </div>
+
+  <!-- PT2 Q46 -->
+  <div class="note" data-q="Q46" data-tags="nikolaischuler pt2 sagemaker" data-text="SageMaker Studio persistent storage collaboration experiment management integrated interface real-time customer behavior prediction SageMaker Studio comprehensive tool persistent storage collaborative experiment management">
+    <div class="note-title">SageMaker Studio</div>
+    <div class="sub">Persistent + collaborative + integrated</div>
+    <div class="flow">
+      <div class="flow-box blue">Persistent storage</div>
+      <span class="arrow">+</span>
+      <div class="flow-box green">Team collab</div>
+      <span class="arrow">+</span>
+      <div class="flow-box red">Experiment mgmt</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Studio = single integrated environment for full ML lifecycle</p>
+  </div>
+
+  <!-- PT2 Q47 -->
+  <div class="note" data-q="Q47" data-tags="nikolaischuler pt2 sagemaker mlconcepts" data-text="model parallelism SageMaker deep learning billions parameters single machine GPU SageMaker Model Parallelism Library automatically splits model across GPUs based on architecture and memory">
+    <div class="note-title">SageMaker Model Parallelism</div>
+    <div class="sub">Large model across multiple GPUs</div>
+    <div class="flow">
+      <div class="flow-box blue">Huge model</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">SM MP Library</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Auto-split across GPUs</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ MP Library auto-splits model per architecture + available memory</p>
+  </div>
+
+  <!-- PT2 Q48 -->
+  <div class="note" data-q="Q48" data-tags="nikolaischuler pt2 sagemaker monitoring" data-text="SageMaker Debugger overfitting detection built-in rules loss curve training validation deep learning SageMaker Debugger Use built-in Debugger rules to monitor loss curve and alert when overfitting detected">
+    <div class="note-title">Debugger: Overfitting Rules</div>
+    <div class="sub">Auto-detect overfitting in training</div>
+    <div class="flow">
+      <div class="flow-box blue">Training loss ↓</div>
+      <span class="arrow">vs</span>
+      <div class="flow-box red">Val loss ↑</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Debugger rule alert</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Built-in Debugger rules monitor loss curve, alert on overfitting</p>
+  </div>
+
+  <!-- PT2 Q49 -->
+  <div class="note" data-q="Q49" data-tags="nikolaischuler pt2 mlconcepts sagemaker" data-text="reinforcement learning warehouse robot navigation RL environment reward function dynamic obstacles penalty collisions delays progress destination Dynamic environment rewards for progress toward destination penalties for collisions or delays">
+    <div class="note-title">RL: Warehouse Robot Rewards</div>
+    <div class="sub">Environment + reward design</div>
+    <div class="flow">
+      <div class="flow-box green">Progress → destination +reward</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box red">Collision / delay → penalty</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Dynamic env + reward on progress + penalty on collision/delay</p>
+  </div>
+
+  <!-- PT2 Q50 -->
+  <div class="note" data-q="Q50" data-tags="nikolaischuler pt2 monitoring" data-text="feature attribution drift deployed model SageMaker importance features predictions over time What does feature attribution drift indicate Certain features have varying level of importance in predictions over time">
+    <div class="note-title">Feature Attribution Drift</div>
+    <div class="sub">What it indicates</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Feature Attribution Drift</div>
+      <div class="cmp-cell blue">Data Drift</div>
+      <div class="cmp-cell red-val">Feature importance changes over time</div>
+      <div class="cmp-cell blue-val">Input distribution shifts from training</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Feature importance/influence on predictions varies over time</p>
+  </div>
+
+  <!-- PT2 Q51 -->
+  <div class="note" data-q="Q51" data-tags="nikolaischuler pt2 sagemaker" data-text="SageMaker Studio Jupyter Lab notebooks end-to-end workflow training deployment managed infrastructure Use SageMaker Studio domain configure multiple JupyterLab notebooks within same workspace">
+    <div class="note-title">Studio: Jupyter Lab Workspace</div>
+    <div class="sub">Minimize infra management</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker Studio domain</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Multiple JupyterLab notebooks</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Managed infra</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Studio domain → multiple JupyterLab notebooks, fully managed</p>
+  </div>
+
+  <!-- PT2 Q52 -->
+  <div class="note" data-q="Q52" data-tags="nikolaischuler pt2 mlconcepts" data-text="reinforcement learning components critical state actions environment reward function game AI agent problem definition State actions environment and reward function are critical to defining the RL problem">
+    <div class="note-title">RL: Core Components</div>
+    <div class="sub">Critical for defining the problem</div>
+    <div class="flow">
+      <div class="flow-box blue">State</div>
+      <span class="arrow">+</span>
+      <div class="flow-box green">Actions</div>
+      <span class="arrow">+</span>
+      <div class="flow-box red">Environment</div>
+      <span class="arrow">+</span>
+      <div class="flow-box ink">Reward fn</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ State + Actions + Environment + Reward function define RL problem</p>
+  </div>
+
+  <!-- PT2 Q53 -->
+  <div class="note" data-q="Q53" data-tags="nikolaischuler pt2 mlconcepts" data-text="high bias image classification poor training validation performance underfitting strategies reduce bias cross-validation more training data Cross-validation ensure generalization Add more training data diverse examples">
+    <div class="note-title">Reduce High Bias (choose 2)</div>
+    <div class="sub">High bias = underfitting</div>
+    <div class="flow">
+      <div class="flow-box green">More training data</div>
+      <span class="arrow">+</span>
+      <div class="flow-box blue">Cross-validation</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ More data (diverse patterns) + cross-validation (generalization)</p>
+  </div>
+
+  <!-- PT2 Q54 -->
+  <div class="note" data-q="Q54" data-tags="nikolaischuler pt2 deployment sagemaker" data-text="SageMaker Model Registry Pipelines automate register deploy real-time endpoint model version lifecycle SageMaker Pipelines automates registration in Model Registry and triggers deployment to real-time endpoint">
+    <div class="note-title">Model Registry + Pipelines</div>
+    <div class="sub">Auto register → auto deploy</div>
+    <div class="flow">
+      <div class="flow-box blue">Train model</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">SM Pipelines</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Model Registry → Endpoint</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Pipelines automates register + deploy to real-time endpoint</p>
+  </div>
+
+  <!-- PT2 Q55 -->
+  <div class="note" data-q="Q55" data-tags="nikolaischuler pt2 sagemaker" data-text="SageMaker Studio collaboration persistent workspace multiple notebooks shared access project resources team Amazon SageMaker Studio persistent workspace multiple users Jupyter notebooks shared resources collaborative">
+    <div class="note-title">Studio: Team Collaboration</div>
+    <div class="sub">Shared persistent workspace</div>
+    <div class="flow">
+      <div class="flow-box blue">User A notebook</div>
+      <span class="arrow">+</span>
+      <div class="flow-box green">User B notebook</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Shared Studio domain</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Studio: persistent + multi-user + shared resources</p>
+  </div>
+
+  <!-- PT2 Q56 -->
+  <div class="note" data-q="Q56" data-tags="nikolaischuler pt2 deployment" data-text="S3 event notification Lambda resize images ObjectCreated trigger serverless S3 bucket S3 Event Notification trigger Lambda function Lambda resizes images S3 ObjectCreated events">
+    <div class="note-title">S3 → Lambda Image Resize</div>
+    <div class="sub">Serverless (choose 2)</div>
+    <div class="flow">
+      <div class="flow-box blue">S3 upload (ObjectCreated)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">S3 Event Notification</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Lambda (resize)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ S3 Event Notification triggers Lambda on ObjectCreated</p>
+  </div>
+
+  <!-- PT2 Q57 -->
+  <div class="note" data-q="Q57" data-tags="nikolaischuler pt2 data" data-text="AWS Glue crawlers incremental data loads streaming video metadata S3 schema update Data Catalog SQL queryable Glue crawlers auto-infer schema update Data Catalog Configure incremental loads in ETL jobs process only new data">
+    <div class="note-title">Glue: Crawlers + Incremental</div>
+    <div class="sub">Optimize video metadata pipeline (choose 2)</div>
+    <div class="flow">
+      <div class="flow-box blue">Glue crawlers (auto-schema)</div>
+      <span class="arrow">+</span>
+      <div class="flow-box green">Incremental ETL loads</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Crawlers update catalog + incremental loads minimize reprocessing</p>
+  </div>
+
+  <!-- PT2 Q58 -->
+  <div class="note" data-q="Q58" data-tags="nikolaischuler pt2 security" data-text="IAM trust policy identities users services accounts assume role cross-account access A policy that specifies which identities are allowed to assume a role commonly used for cross-account access">
+    <div class="note-title">IAM Trust Policy</div>
+    <div class="sub">Who can assume a role?</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Permission Policy</div>
+      <div class="cmp-cell blue">Trust Policy</div>
+      <div class="cmp-cell red-val">What actions are allowed on resources</div>
+      <div class="cmp-cell blue-val">Which identities can assume the role</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Trust policy = specifies who can assume the role (cross-account)</p>
+  </div>
+
+  <!-- PT2 Q59 -->
+  <div class="note" data-q="Q59" data-tags="nikolaischuler pt2 aiservices" data-text="Textract Comprehend Kendra onboarding documents ID cards contracts PDFs images entity extraction names addresses job roles categorize search natural language Amazon Textract text extraction Comprehend entity recognition categorization Kendra search">
+    <div class="note-title">Textract + Comprehend + Kendra</div>
+    <div class="sub">Onboarding document processing</div>
+    <div class="flow">
+      <div class="flow-box blue">Textract (extract)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Comprehend (entities + category)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Kendra (NL search)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Textract (text) + Comprehend (entities) + Kendra (search)</p>
+  </div>
+
+  <!-- PT2 Q60 -->
+  <div class="note" data-q="Q60" data-tags="nikolaischuler pt2 sagemaker monitoring" data-text="SageMaker Profiler GPU utilization I/O disk bottleneck training slow uneven resource utilization recommendation model Optimize I/O operations disk usage bottlenecks Monitor GPU utilization adjust data pipeline if underutilization">
+    <div class="note-title">SageMaker Profiler Fixes</div>
+    <div class="sub">Choose 2 actions</div>
+    <div class="flow">
+      <div class="flow-box blue">GPU underutilized → fix data pipeline</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box green">Disk I/O bottleneck → optimize data loading</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ GPU pipeline fix + I/O optimization for training speed</p>
+  </div>
+
+  <!-- PT2 Q61 -->
+  <div class="note" data-q="Q61" data-tags="nikolaischuler pt2 aiservices deployment" data-text="Amazon Kendra Lex S3 EventBridge Lambda fallback intent update index documents customer support Use EventBridge to trigger Lambda to update Kendra index implement Lex fallback intent for ambiguous queries">
+    <div class="note-title">Kendra + Lex: EventBridge</div>
+    <div class="sub">Auto-index + fallback intent</div>
+    <div class="flow">
+      <div class="flow-box blue">S3 new doc → EventBridge</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Lambda → Kendra index</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box red">Lex fallback intent</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Handle ambiguous queries</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ EventBridge → Lambda → Kendra + Lex fallback intent</p>
+  </div>
+
+  <!-- PT2 Q62 -->
+  <div class="note" data-q="Q62" data-tags="nikolaischuler pt2 mlconcepts" data-text="unsupervised learning grouping products categories customer reviews no predefined categories clustering Which ML type groups products without knowing categories Unsupervised learning clustering">
+    <div class="note-title">Unsupervised: Clustering</div>
+    <div class="sub">No labels, find groups</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Supervised</div>
+      <div class="cmp-cell blue">Unsupervised ✓</div>
+      <div class="cmp-cell red-val">Needs labeled categories</div>
+      <div class="cmp-cell blue-val">Finds patterns without labels (clustering)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Unsupervised learning for grouping without predefined categories</p>
+  </div>
+
+  <!-- PT2 Q63 -->
+  <div class="note" data-q="Q63" data-tags="nikolaischuler pt2 data" data-text="visual preprocess clean data non-coding users data transformation workflows schedule periodic execution no-code AWS Glue DataBrew visual data preparation 250 transformations schedule jobs">
+    <div class="note-title">AWS Glue DataBrew</div>
+    <div class="sub">Visual no-code data prep</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Glue ETL / Data Wrangler</div>
+      <div class="cmp-cell blue">DataBrew ✓</div>
+      <div class="cmp-cell red-val">Code-centric or ML-focused</div>
+      <div class="cmp-cell blue-val">Visual, 250+ transforms, schedulable, no-code</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ DataBrew: visual no-code data prep with scheduled jobs</p>
+  </div>
+
+  <!-- PT2 Q64 -->
+  <div class="note" data-q="Q64" data-tags="nikolaischuler pt2 mlconcepts" data-text="reinforcement learning robot factory trial and error feedback actions environment reward penalty paradigm Which ML paradigm robot trial and error feedback Reinforcement Learning">
+    <div class="note-title">Reinforcement Learning</div>
+    <div class="sub">Trial & error with feedback</div>
+    <div class="flow">
+      <div class="flow-box blue">Agent (robot)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Environment</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Reward / Penalty</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Learn</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ RL: agent learns by interacting with environment via rewards</p>
+  </div>
+
+  <!-- PT2 Q65 -->
+  <div class="note" data-q="Q65" data-tags="nikolaischuler pt2 sagemaker monitoring" data-text="SageMaker Debugger Experiments deep learning vanishing gradients overfitting real-time monitor track compare experiments hyperparameters performance Use Debugger for real-time training monitoring and Experiments to track and compare training runs">
+    <div class="note-title">Debugger + Experiments</div>
+    <div class="sub">Monitor + track deep learning</div>
+    <div class="flow">
+      <div class="flow-box blue">SM Debugger</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Vanishing gradients / overfitting</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box green">SM Experiments</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Track & compare runs</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Debugger (real-time issues) + Experiments (track/compare runs)</p>
+  </div>
+
+  <!-- ===== End Nikolai Schuler PT-2 cards ===== -->
+
   </div><!-- /notes-grid -->
 
   <footer class="footer">
@@ -1119,6 +2083,11 @@ html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,
       <button id="diagramClose" onclick="closeDiagram()">✕</button>
     </div>
     <img id="diagramImg" src="" alt="Question diagram">
+    <div id="diagramPlaceholder" style="display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:60px 40px;color:#999;font-family:'Patrick Hand',cursive;font-size:18px;text-align:center;">
+      <div style="font-size:48px;">📋</div>
+      <div>Diagram yet to be added</div>
+      <div style="font-size:13px;color:#bbb;">PT-2 diagrams coming soon</div>
+    </div>
   </div>
 </div>
 
@@ -1140,11 +2109,34 @@ function toggleTheme(){
   }
 })();
 
-var activeTag='all';
-function setFilter(tag,btn){
-  activeTag=tag;
-  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active');});
+var activeFilters=[];
+function clearAllActive(){
+  document.querySelectorAll('.chip-tab,.chip').forEach(function(c){c.classList.remove('active');});
+}
+function setAuthor(author,btn){
+  clearAllActive();
   btn.classList.add('active');
+  document.querySelectorAll('.pt-row').forEach(function(r){r.classList.remove('visible');});
+  if(author==='all'){
+    activeFilters=[];
+  } else {
+    activeFilters=[author];
+    var row=document.getElementById('pt-'+author);
+    if(row) row.classList.add('visible');
+  }
+  applyFilters();
+}
+function setFilter(tag,btn){
+  clearAllActive();
+  document.querySelectorAll('.pt-row').forEach(function(r){r.classList.remove('visible');});
+  btn.classList.add('active');
+  activeFilters=[tag];
+  applyFilters();
+}
+function setFilterAnd(tags,btn){
+  clearAllActive();
+  btn.classList.add('active');
+  activeFilters=tags;
   applyFilters();
 }
 
@@ -1161,7 +2153,8 @@ function applyFilters(){
     }
     var tags=n.getAttribute('data-tags')||'';
     var text=(n.getAttribute('data-text')||n.textContent).toLowerCase();
-    var tagMatch=activeTag==='all'||tags.split(' ').indexOf(activeTag)!==-1;
+    var tagList=tags.split(' ');
+    var tagMatch=activeFilters.length===0||activeFilters.every(function(f){return tagList.indexOf(f)!==-1;});
     var textMatch=!q||text.indexOf(q)!==-1;
     if(tagMatch&&textMatch){
       n.classList.remove('hidden');
@@ -1249,11 +2242,32 @@ document.addEventListener('DOMContentLoaded',function(){
 
 var diagramPageMap={1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:54,11:11,12:56,13:57,14:14,15:15,16:16,17:17,18:62,19:9,20:20,21:21,22:22,23:12,24:24,25:13,26:26,27:27,28:28,29:29,30:30,31:31,32:32,33:33,34:34,35:21,36:22,37:23,38:38,39:25,40:26,41:41,42:42,43:58,44:59,45:42,46:32,47:47,48:48,49:60,50:31,51:44,52:45,53:65,54:46,55:50,56:51,57:47,58:48,59:49,60:52,61:53,62:61,63:24,64:43,65:10};
 function openDiagram(qLabel,tags){
-  var num=parseInt(qLabel.replace(/\D/g,''),10);
-  var page=diagramPageMap[num]||num;
-  var pad=String(page).padStart(3,'0');
+  var tagList=(tags||'').split(' ');
+  var isPT2=tagList.indexOf('pt2')!==-1;
   var img=document.getElementById('diagramImg');
-  img.src='diagrams/q-'+pad+'.png';
+  var ph=document.getElementById('diagramPlaceholder');
+  var num=parseInt(qLabel.replace(/\D/g,''),10);
+  var pad=String(num).padStart(3,'0');
+  if(isPT2){
+    var pt2src='diagrams/pt2-'+pad+'.png';
+    var testImg=new window.Image();
+    testImg.onload=function(){
+      img.src=pt2src;
+      img.style.display='block';
+      ph.style.display='none';
+    };
+    testImg.onerror=function(){
+      img.style.display='none';
+      ph.style.display='flex';
+    };
+    testImg.src=pt2src;
+  } else {
+    img.style.display='block';
+    ph.style.display='none';
+    var page=diagramPageMap[num]||num;
+    var padPT1=String(page).padStart(3,'0');
+    img.src='diagrams/q-'+padPT1+'.png';
+  }
   document.getElementById('diagramLabel').textContent=qLabel;
   var metaTags=(tags||'').split(' ').filter(function(t){return authorTagKeys.indexOf(t)!==-1;});
   var metaEl=document.getElementById('diagramMeta');
