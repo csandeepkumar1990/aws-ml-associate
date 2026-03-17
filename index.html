@@ -963,6 +963,149 @@ html[data-theme="dark"] mark.hl { background:rgba(251,191,36,0.35); color:inheri
       </ul>
     </div>
 
+    <!-- 49. CloudFormation DependsOn -->
+    <div class="note" data-tags="deployment security" data-text="cloudformation dependson ec2 creation passed failed s3 bucket created not created rollback stack resource order dependency cfn">
+      <div class="note-title"><span class="note-icon">📋</span> CloudFormation — DependsOn</div>
+      <div style="margin:10px 0">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span class="gy">CF →</span>
+          <span class="circle">EC2</span>
+        </div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <div>
+            <div style="color:var(--green);font-size:16px;font-weight:600">Creation Passed</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+              <span class="arrow">→</span>
+              <span class="r">S3 bucket Created ✓</span>
+            </div>
+          </div>
+          <div>
+            <div style="color:var(--red);font-size:16px;font-weight:600">Creation Failed</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+              <span class="arrow">→</span>
+              <span class="r">S3 bucket NOT CREATED</span>
+              <span class="arrow">→</span>
+              <span class="circle blue">Rollback Stack</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul class="note-list">
+        <li><span class="r">DependsOn</span> = S3 bucket only created if EC2 succeeds</li>
+        <li class="yes">If EC2 fails → entire stack rolls back automatically</li>
+        <li class="no">Without DependsOn — resources create in parallel, no order guaranteed</li>
+      </ul>
+    </div>
+
+    <!-- 50. SageMaker Studio for EDA -->
+    <div class="note" data-tags="sagemaker" data-text="sagemaker studio notebooks eda exploratory data analysis visualizations avoid infra setup built-in viz libraries matplotlib seaborn share collaborate jupyter">
+      <div class="note-title"><span class="note-icon">🔬</span> SageMaker Studio Notebooks</div>
+      <div style="margin:10px 0;display:flex;flex-direction:column;align-items:center;gap:10px">
+        <span class="circle" style="font-size:18px;padding:6px 20px">SageMaker Studio Notebooks</span>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center">
+          <div style="text-align:center">
+            <div class="flow-box blue" style="display:inline-block">Create visualizations</div>
+          </div>
+          <div style="text-align:center">
+            <div class="flow-box green" style="display:inline-block">Avoid infra setup</div>
+          </div>
+          <div style="text-align:center">
+            <div class="flow-box blue" style="display:inline-block">Built-in viz libraries</div>
+          </div>
+        </div>
+      </div>
+      <ul class="note-list">
+        <li>Matplotlib, Seaborn pre-installed — no setup needed</li>
+        <li class="yes">Share notebooks directly with team for collaboration</li>
+        <li class="no">NOT EC2 with Jupyter — no manual infra management</li>
+      </ul>
+    </div>
+
+    <!-- 51. Debugger/Profiler + Glue Partition -->
+    <div class="note" data-tags="sagemaker monitoring data" data-text="sagemaker debugger profiler gpu analysis improve adjust batch size optimize querying glue partition by year year wise query performance athena">
+      <div class="note-title"><span class="note-icon">⚡</span> Profiler GPU Fix + Glue Partition</div>
+      <div class="sub">GPU Underutilization</div>
+      <div class="flow">
+        <div class="flow-box blue">GPU — analysis</div>
+        <span class="arrow">→</span>
+        <div class="flow-box red">improve</div>
+        <span class="arrow">→</span>
+        <div class="flow-box green">Adjust batch size</div>
+      </div>
+      <div class="rule"></div>
+      <div class="sub">Optimize Querying</div>
+      <div class="flow">
+        <div class="flow-box blue">Optimize querying</div>
+        <span class="arrow">→</span>
+        <div class="flow-box ink">Glue</div>
+        <span class="arrow">→</span>
+        <span class="circle">year wise</span>
+      </div>
+      <p style="font-size:16px;color:var(--red);font-weight:600;margin-top:8px">Partition by year</p>
+      <ul class="note-list">
+        <li>Athena skips non-matching year partitions → less data scanned → cheaper + faster</li>
+      </ul>
+    </div>
+
+    <!-- 52. SM Pipelines DAG + Encryption at REST -->
+    <div class="note" data-tags="sagemaker deployment security" data-text="sm pipelines defined order directed acyclic graph dag encryption at rest sse-s3 sse-kms s3 server side encryption compliance">
+      <div class="note-title"><span class="note-icon">🔄</span> SM Pipelines DAG + Encryption at REST</div>
+      <div class="sub">SM Pipelines</div>
+      <div class="flow">
+        <div class="flow-box ink">SM Pipelines</div>
+        <span class="arrow">→</span>
+        <span class="circle">defined order</span>
+        <span class="arrow">→</span>
+        <div class="flow-box blue">Directed Acyclic Graph</div>
+      </div>
+      <ul class="note-list" style="margin-bottom:10px">
+        <li>DAG = steps with defined dependencies, no cycles</li>
+      </ul>
+      <div class="rule"></div>
+      <div class="sub">Encryption at REST</div>
+      <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap">
+        <span class="circle" style="border-color:var(--ink);color:var(--ink)">Encryption at REST</span>
+        <div style="display:flex;gap:12px">
+          <span class="r">SSE-S3</span>
+          <span class="gy">/</span>
+          <span class="b">SSE-KMS</span>
+        </div>
+      </div>
+      <ul class="note-list">
+        <li><span class="r">SSE-S3</span> — AWS manages keys, simplest</li>
+        <li><span class="b">SSE-KMS</span> — customer controls, CloudTrail audit, HIPAA</li>
+      </ul>
+    </div>
+
+    <!-- 53. RL Rewards + IAM Role -->
+    <div class="note" data-tags="mlconcepts security" data-text="reinforcement learning rl agent reward positive expected negative not expected iam role multiple policies attach resources assume external identities cross account">
+      <div class="note-title"><span class="note-icon">🎮</span> RL Rewards + IAM Role</div>
+      <div class="sub">Reinforcement Learning</div>
+      <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap">
+        <div style="color:var(--blue);font-weight:600">Agent</div>
+        <span class="arrow">→</span>
+        <div style="color:var(--blue);font-weight:600">reward</div>
+        <span class="arrow">→</span>
+        <span class="circle" style="border-color:var(--red)">
+          <span class="g">+</span> expected &nbsp;/&nbsp; <span class="r">− not expected</span>
+        </span>
+      </div>
+      <ul class="note-list" style="margin-bottom:10px">
+        <li class="yes">+ reward = action was correct → agent repeats it</li>
+        <li class="no">− reward = action was wrong → agent avoids it</li>
+      </ul>
+      <div class="rule"></div>
+      <div class="sub">IAM Role</div>
+      <div style="display:flex;align-items:flex-start;gap:16px;margin:8px 0;flex-wrap:wrap">
+        <span class="circle" style="border-color:var(--ink);color:var(--ink);font-size:18px;padding:6px 18px">IAM Role</span>
+        <ul class="note-list" style="margin:0">
+          <li>← multiple policies attach</li>
+          <li>← resources Assume</li>
+          <li>← Assume ext identities (cross-account)</li>
+        </ul>
+      </div>
+    </div>
+
   </div><!-- /notes-grid -->
 
   <footer class="footer">
