@@ -77,6 +77,7 @@ h1 em { color:var(--red); font-style:normal; }
 .note:hover { transform:translateY(-2px); box-shadow:3px 8px 24px rgba(0,0,0,0.1); }
 .note.hidden { display:none; }
 .note::before { content:''; position:absolute; left:40px; top:0; bottom:0; width:1.5px; background:var(--margin-line); }
+.q-num { position:absolute; left:0; top:0; bottom:0; width:40px; display:flex; align-items:flex-start; justify-content:center; padding-top:14px; font-size:13px; font-weight:700; color:var(--pencil); line-height:1.2; text-align:center; }
 
 .note-title { font-size:20px; font-weight:700; color:var(--red); margin-bottom:14px; padding-bottom:6px; border-bottom:2px solid var(--red); display:flex; align-items:center; gap:8px; }
 .note-icon { font-size:18px; }
@@ -84,10 +85,12 @@ h1 em { color:var(--red); font-style:normal; }
 .cmp-grid { display:grid; grid-template-columns:1fr 1fr; margin:10px 0; border:2px solid var(--ink); border-radius:3px; overflow:hidden; }
 .cmp-cell { padding:9px 12px; font-size:17px; line-height:1.3; }
 .cmp-cell.red { color:var(--red); font-weight:700; border-right:2px solid var(--ink); border-bottom:2px solid var(--ink); }
-.cmp-cell.blue { color:var(--blue); font-weight:700; border-bottom:2px solid var(--ink); }
+.cmp-cell.blue { color:var(--red); font-weight:700; border-bottom:2px solid var(--ink); }
 .cmp-cell.blue-val { color:var(--blue); border-right:2px solid var(--ink); }
 .cmp-cell.red-val { color:var(--ink); }
 .cmp-cell.bot-left { border-right:2px solid var(--ink); }
+.card-meta { display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; padding-top:8px; border-top:1px dashed var(--border); }
+.card-meta-tag { font-size:12px; color:var(--pencil); background:rgba(100,100,100,0.08); border-radius:20px; padding:2px 9px; opacity:1; }
 
 .flow { display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:10px 0; }
 .flow-box { border-radius:4px; padding:4px 12px; font-size:17px; font-weight:600; border:2px solid; }
@@ -124,6 +127,22 @@ html[data-theme="dark"] mark.hl { background:rgba(251,191,36,0.35); color:inheri
 
 @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 @media(max-width:768px){.notes-grid{grid-template-columns:1fr} h1{font-size:2.2rem}}
+
+/* Diagram popup */
+.note[data-q] { cursor:pointer; }
+.note[data-q]:hover { border-color:var(--red); }
+#diagramOverlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:1000; align-items:center; justify-content:center; padding:20px; }
+#diagramOverlay.open { display:flex; }
+#diagramBox { background:#fff; border-radius:8px; max-width:90vw; max-height:90vh; overflow:auto; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.4); animation:fadeIn .2s ease; }
+html[data-theme="dark"] #diagramBox { background:#1e1e2e; }
+#diagramBox img { display:block; max-width:100%; height:auto; min-width:320px; padding:16px; box-sizing:border-box; }
+#diagramClose { position:absolute; right:12px; top:50%; transform:translateY(-50%); background:var(--red); color:#fff; border:none; border-radius:50%; width:32px; height:32px; font-size:18px; cursor:pointer; line-height:32px; text-align:center; flex-shrink:0; }
+#diagramHeader { display:flex; align-items:center; gap:10px; padding:12px 16px 8px; border-bottom:1px solid #eee; flex-wrap:wrap; position:relative; }
+#diagramLabel { background:var(--red); color:#fff; font-size:13px; font-weight:700; border-radius:4px; padding:3px 10px; font-family:monospace; }
+#diagramMeta { display:flex; gap:6px; flex-wrap:wrap; flex:1; justify-content:center; }
+.diagram-meta-tag { font-size:12px; color:#666; background:rgba(100,100,100,0.1); border-radius:20px; padding:2px 10px; font-family:'Patrick Hand',cursive; }
+html[data-theme="dark"] #diagramHeader { border-bottom-color:#333; }
+html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,255,0.1); }
 </style>
 </head>
 <body>
@@ -157,954 +176,931 @@ html[data-theme="dark"] mark.hl { background:rgba(251,191,36,0.35); color:inheri
     <button class="chip" onclick="setFilter('monitoring',this)">Monitoring</button>
     <button class="chip" onclick="setFilter('aiservices',this)">AI Services</button>
     <button class="chip" onclick="setFilter('genai',this)">GenAI</button>
+    <button class="chip" onclick="setFilter('pt1',this)">PT-1</button>
+    <button class="chip" onclick="setFilter('nikolaischuler',this)">Nikolai Schuler</button>
   </div>
 
   <div class="notes-grid">
 
     <div class="no-results" id="noResults">No notes found. Try a different search term.</div>
 
-    <!-- 1. SM Pipeline -->
-    <div class="note" data-tags="sagemaker deployment" data-text="sagemaker pipeline end to end ml workflow data train tune deploy stages steps orchestration dag automated">
-      <div class="note-title"><span class="note-icon">🔧</span> SM Pipeline</div>
-      <div class="sub">End to End ML Workflow</div>
-      <div class="flow">
-        <div class="flow-box red">data</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">Train</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">Tune</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">Deploy</div>
-      </div>
-      <ul class="note-list">
-        <li>Automates full ML lifecycle as a DAG of steps</li>
-        <li>Each step = Processing, Training, HPO, or Model step</li>
-        <li class="yes">Triggered by EventBridge schedules or on-demand</li>
-        <li class="yes">Versioned, reproducible, reusable pipelines</li>
-      </ul>
-    </div>
+  <!-- ===== Nikolai Schuler PT-1 cards Q1–Q65 ===== -->
 
-    <!-- 2. SageMaker Clarify -->
-    <div class="note" data-tags="sagemaker monitoring" data-text="sagemaker clarify bias data drift input distribution changes xgboost tabular fairness feature attribution shap pre post training">
-      <div class="note-title"><span class="note-icon">⚖️</span> SageMaker Clarify</div>
-      <p style="font-size:17px;margin-bottom:8px">Detects <span class="r u">Bias</span> &amp; explains predictions using SHAP</p>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Data Drift</div>
-        <div class="cmp-cell blue">Bias</div>
-        <div class="cmp-cell blue-val">input dist changes</div>
-        <div class="cmp-cell red-val">XGBoost — Tabular data</div>
-      </div>
-      <ul class="note-list">
-        <li>XGBoost great for tabular data + bias detection</li>
-        <li>Detects bias pre-training AND post-training</li>
-        <li class="yes">Works with Model Monitor for continuous bias drift</li>
-        <li class="no">Does NOT auto-fix bias — just detects it</li>
-      </ul>
+  <!-- Q1 -->
+  <div class="note" data-q="Q1" data-tags="nikolaischuler pt1 sagemaker data" data-text="lambda sns sqs s3 preprocess transaction data schema validation sagemaker invalid valid An e-commerce company uses a Lambda function triggered by Amazon SNS to preprocess customer transaction data before sending it to an Amazon SageMaker model for fraud detection. The transaction data is then stored in Amazon RDS for long-term analytics. The company wants to ensure that only valid transactions based on a predefined schema are passed to the SageMaker model and that invalid transactions are logged and stored in Amazon S3 for further analysis. Which of the following solutions BEST fits the company requirements? Use Lambda to validate the schema send valid data to SageMaker and forward invalid data to an Amazon SQS queue which will trigger another Lambda function to log and store it in S3.">
+    <div class="note-title"> Lambda + SNS Pipeline</div>
+    <div class="sub">Transaction data routing</div>
+    <div class="flow">
+      <div class="flow-box red">SNS trigger</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Lambda validate</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">SageMaker (valid)</div>
     </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box blue">Lambda</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">SQS (invalid)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Lambda → S3 log</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Lambda validates schema; valid → SageMaker, invalid → SQS → Lambda → S3</p>
+  </div>
 
-    <!-- 3. Model Monitor -->
-    <div class="note" data-tags="sagemaker monitoring" data-text="model monitor data drift model drift retrain sm pipeline sagemaker cloudwatch alert baseline schedule capture enable">
-      <div class="note-title"><span class="note-icon">📊</span> Model Monitor</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Data Drift</div>
-        <div class="cmp-cell blue">Model Drift</div>
-        <div class="cmp-cell blue-val">input distribution changes</div>
-        <div class="cmp-cell red-val">Retrain → SM Pipeline</div>
-      </div>
-      <div class="rule"></div>
-      <div class="sub">Setup Flow</div>
-      <div class="flow">
-        <div class="flow-box red">enable capture</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">baseline</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">schedule</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">CW alert</div>
-      </div>
-      <ul class="note-list">
-        <li class="no">Does NOT auto-retrain — only detects + alerts</li>
-        <li>Trigger retraining via EventBridge + SM Pipelines</li>
-      </ul>
+  <!-- Q2 -->
+  <div class="note" data-q="Q2" data-tags="nikolaischuler pt1 sagemaker" data-text="sagemaker experiments track training sessions hyperparameters algorithms reproducibility comparison A machine learning engineer is conducting multiple model training sessions in SageMaker using different sets of hyperparameters and algorithms to find the best configuration for their model. They want to keep track of every trial and ensure the reproducibility of their experiments. Which AWS service feature would help them organize and compare these configurations effectively? SageMaker Experiments">
+    <div class="note-title"> SageMaker Experiments</div>
+    <div class="sub">Track & compare training runs</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Track</div>
+      <div class="cmp-cell blue">Compare</div>
+      <div class="cmp-cell red-val">hyperparams, metrics, artifacts</div>
+      <div class="cmp-cell blue-val">algorithms side-by-side</div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">reproducibility</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">auto-logging</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">lineage</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Experiments</p>
+  </div>
 
-    <!-- 4. Feature Importance Drift -->
-    <div class="note" data-tags="sagemaker monitoring mlconcepts" data-text="feature importance drift sagemaker clarify model monitor retrain updated data shap feature attribution shift over time">
-      <div class="note-title"><span class="note-icon">📉</span> Feature Importance Drift</div>
-      <p style="font-size:17px;margin-bottom:10px">importance of a feature <span class="r">shifts over time</span></p>
-      <ul class="note-list">
-        <li>Detected via SageMaker Clarify feature attribution monitoring</li>
-        <li>SHAP values used to track feature importance per prediction</li>
-        <li class="yes">Fix: Model Monitor + Clarify → retrain on updated data</li>
-        <li>Different from data drift (input dist) — this is about feature ranking</li>
-      </ul>
+  <!-- Q3 -->
+  <div class="note" data-q="Q3" data-tags="nikolaischuler pt1 sagemaker deployment" data-text="jumpstart no ml expertise customer churn deploy customize pre-built model fine-tune model hub A retail company wants to use machine learning to predict customer churn. The company does not have enough expertise to build and train a model from scratch but they need a reliable model that can quickly be deployed and customized with their customer data. The company is considering Amazon SageMaker JumpStart as a solution. Which of the following actions should the company take to achieve its goal using SageMaker JumpStart? Fine-tune a pre-built customer churn model available on SageMaker JumpStart using the company proprietary data. Browse the SageMaker JumpStart model hub to find a pre-built customer churn prediction model and deploy it directly.">
+    <div class="note-title"> JumpStart – No ML Expertise</div>
+    <div class="sub">Fast churn model deployment</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Option A</div>
+      <div class="cmp-cell blue">Option B</div>
+      <div class="cmp-cell red-val">Fine-tune pre-built model with proprietary data</div>
+      <div class="cmp-cell blue-val">Browse model hub, deploy directly</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ JumpStart model hub: deploy or fine-tune without ML expertise</p>
+  </div>
 
-    <!-- 5. Data Wrangler + Feature Store -->
-    <div class="note" data-tags="sagemaker data" data-text="data wrangler feature store preprocess feature engineering store features notebooks train deploy sagemaker data prep online offline">
-      <div class="note-title"><span class="note-icon">🗄️</span> Data Wrangler + Feature Store</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Preprocess / Feature Eng</div>
-        <div class="cmp-cell blue">Store Features</div>
-        <div class="cmp-cell blue-val">Data Wrangler</div>
-        <div class="cmp-cell red-val">Feature Store</div>
-      </div>
-      <ul class="note-list">
-        <li>Data Wrangler = GUI for data prep + 300+ transforms</li>
-        <li>Feature Store = central repo; online (low latency) + offline (batch)</li>
-        <li class="yes">Notebooks = train + deploy from prepared features</li>
-        <li>Reduces duplicate feature engineering across teams</li>
-      </ul>
+  <!-- Q4 -->
+  <div class="note" data-q="Q4" data-tags="nikolaischuler pt1 mlconcepts" data-text="high variance overfitting good train poor unseen early stopping validation performance degrades A data scientist is facing the challenge of high variance in a machine learning model where the model performs well on training data but poorly on new unseen data. Which of the following methods would MOST LIKELY improve the model ability to generalize adhering to responsible AI principles? Use early stopping to halt the training once the model performance starts to degrade on the validation set.">
+    <div class="note-title"> High Variance → Early Stopping</div>
+    <div class="flow">
+      <div class="flow-box blue">Good train score</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Poor val score</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Early stopping</div>
     </div>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;margin-top:8px">
+      <span style="color:var(--pencil);font-size:13px">Halt training when validation performance degrades → prevents overfitting</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Early stopping</p>
+  </div>
 
-    <!-- 6. SageMaker JumpStart -->
-    <div class="note" data-tags="sagemaker genai" data-text="sagemaker jumpstart fine tune pre-built model hub one-click deploy customize dataset foundation model transfer learning llama mistral bert">
-      <div class="note-title"><span class="note-icon">🚀</span> SageMaker JumpStart</div>
-      <div class="flow">
-        <span class="circle">dataset</span>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">SM JumpStart</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">Fine Tune</div>
-        <span style="font-size:14px;color:var(--pencil);margin-left:4px">↑ customize</span>
-      </div>
-      <ul class="note-list">
-        <li>Pre-built model hub: Llama, Mistral, BERT, etc.</li>
-        <li>Fine-tune with your own dataset in a few clicks</li>
-        <li class="yes">One-click deploy to SageMaker endpoint</li>
-        <li class="no">Don't need to build from scratch</li>
-        <li class="no">NOT the same as Bedrock (JumpStart needs infra mgmt)</li>
-      </ul>
+  <!-- Q5 -->
+  <div class="note" data-q="Q5" data-tags="nikolaischuler pt1 data" data-text="kinesis iot anomaly multiple consumers low latency enhanced fan-out dedicated read throughput A company is using Amazon Kinesis to monitor IoT sensor data for real-time security threats. The system needs to detect anomalies in the data stream and trigger alerts immediately minimizing latency. They plan to have multiple consumers process the data streams concurrently. What approach should the company take to ensure optimal scalability and low latency? Enable enhanced fan-out for each consumer to achieve dedicated read throughput and lower latency.">
+    <div class="note-title"> Kinesis Enhanced Fan-Out</div>
+    <div class="sub">IoT anomaly detection, multi-consumer</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Standard</div>
+      <div class="cmp-cell blue">Enhanced Fan-Out</div>
+      <div class="cmp-cell red-val">Shared 2 MB/s per shard</div>
+      <div class="cmp-cell blue-val">2 MB/s dedicated per consumer</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Enhanced fan-out → dedicated throughput + low latency per consumer</p>
+  </div>
 
-    <!-- 7. SM Experiments + Trackers -->
-    <div class="note" data-tags="sagemaker" data-text="sagemaker experiments trackers trials hyperparameters metrics datasets reproducibility compare runs log trial t1 t2">
-      <div class="note-title"><span class="note-icon">🧪</span> SageMaker Experiments + Trackers</div>
-      <div class="flow">
-        <div class="flow-box ink">T₁ T₂ ... Tₙ</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">Log each Trial</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">Trackers</div>
-      </div>
-      <ul class="note-list">
-        <li>Trackers = auto-log hyperparams, datasets, metrics</li>
-        <li class="yes">Reproducibility: re-run any experiment from logs</li>
-        <li class="yes">Compare runs side by side in Studio</li>
-        <li>Each trial = one training job with specific config</li>
-      </ul>
+  <!-- Q6 -->
+  <div class="note" data-q="Q6" data-tags="nikolaischuler pt1 sagemaker" data-text="sagemaker pipelines adjust training params without modifying pipeline pipeline parameters A data scientist is building a machine learning pipeline using Amazon SageMaker Pipelines. The pipeline includes data preprocessing model training and model registration. The data scientist wants to ensure that parameters used for model training can be easily adjusted without modifying the pipeline itself. Which feature of SageMaker Pipelines should the data scientist use to achieve this? Pipeline Parameters">
+    <div class="note-title"> Pipeline Parameters</div>
+    <div class="sub">Adjust training params without code changes</div>
+    <div style="background:rgba(25,118,210,0.07);border-radius:8px;padding:8px;margin-top:6px">
+      <div style="color:var(--ink);font-size:13px">Define <strong>Pipeline Parameters</strong> → pass at execution time → no pipeline edits needed</div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">learning rate</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">batch size</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">epochs</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Pipeline Parameters</p>
+  </div>
 
-    <!-- 8. SageMaker Debugger -->
-    <div class="note" data-tags="sagemaker monitoring" data-text="sagemaker debugger tensors vanishing gradients overfitting hook training script real-time rules built-in stops training">
-      <div class="note-title"><span class="note-icon">🐛</span> SageMaker Debugger</div>
-      <ul class="note-list">
-        <li>Captures tensors in real-time during training</li>
-        <li>Built-in rules: vanishing gradients, overfitting, exploding tensors</li>
-        <li>Configure Debugger hook in training script</li>
-        <li>Saves tensor data to S3 for inspection</li>
-        <li class="no">NOT for post-deployment monitoring (use Model Monitor)</li>
-        <li class="yes">Stops training automatically when rule triggers</li>
-      </ul>
+  <!-- Q7 -->
+  <div class="note" data-q="Q7" data-tags="nikolaischuler pt1 sagemaker monitoring" data-text="sagemaker debugger vanishing gradients performance not improving custom rule learning rate optimizer A company is using Amazon SageMaker Debugger to monitor and debug their machine learning model during training. They encounter an issue where the model performance is no longer improving and they suspect it might be due to disappearing gradients. Which of the following steps should they take to resolve this issue? Set up a custom rule in SageMaker Debugger to detect vanishing gradients and adjust the learning rate or change the optimizer.">
+    <div class="note-title"> Debugger – Vanishing Gradients</div>
+    <div class="flow">
+      <div class="flow-box red">perf not improving</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">custom Debugger rule</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">fix LR / optimizer</div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">vanishing gradients</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">adjust learning rate</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">change optimizer</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Custom Debugger rule → detect vanishing gradients → tune LR or optimizer</p>
+  </div>
 
-    <!-- 9. SageMaker Profiler -->
-    <div class="note" data-tags="sagemaker monitoring" data-text="sagemaker profiler cpu gpu disk memory training performance bottleneck batch size data pipeline optimize throughput utilization">
-      <div class="note-title"><span class="note-icon">⚡</span> SageMaker Profiler</div>
-      <ul class="note-list">
-        <li>Monitors CPU / GPU / disk / memory during training</li>
-        <li>Add start/stop commands in training script</li>
-        <li>Low GPU util → increase batch size + optimize data pipeline</li>
-        <li class="no">NOT for model metrics (use Debugger for gradients)</li>
-        <li class="yes">Generates profiling report with bottleneck analysis</li>
-      </ul>
+  <!-- Q8 -->
+  <div class="note" data-q="Q8" data-tags="nikolaischuler pt1 sagemaker data" data-text="preprocess customer behavior remove duplicates normalize encode scale sagemaker processing jobs pre-built container s3 A retail company uses Amazon SageMaker to train machine learning models for product recommendation. The team stores raw customer behavior data such as clicks and purchases in an Amazon S3 bucket. They want to preprocess this data to remove duplicates normalize numerical features and encode categorical variables before training their model. Additionally the preprocessing needs to scale to handle increasing data volumes. Which solution will most effectively meet their requirements? Use Amazon SageMaker Processing Jobs with a pre-built container for data preprocessing and store the processed data back in S3.">
+    <div class="note-title"> SageMaker Processing Jobs</div>
+    <div class="sub">Scalable preprocessing at scale</div>
+    <div class="flow">
+      <div class="flow-box red">Raw data (S3)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Processing Job</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Cleaned → S3</div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">remove dupes</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">normalize</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">encode</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Processing Jobs + pre-built container; output stored in S3</p>
+  </div>
 
-    <!-- 10. SM Script Mode + BYOC -->
-    <div class="note" data-tags="sagemaker" data-text="script mode byoc bring your own container custom docker ecr entry point requirements.txt managed container training script custom python">
-      <div class="note-title"><span class="note-icon">📦</span> SM Script Mode + BYOC</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Script Mode</div>
-        <div class="cmp-cell blue">BYOC</div>
-        <div class="cmp-cell blue-val">custom .py in managed container</div>
-        <div class="cmp-cell red-val">custom Docker → ECR</div>
-      </div>
-      <ul class="note-list">
-        <li><span class="r">requirements.txt</span> for extra packages in Script Mode</li>
-        <li><span class="b">entry_point</span> = main training script file</li>
-        <li class="yes">Script Mode = easier; BYOC = full control</li>
-      </ul>
+  <!-- Q9 -->
+  <div class="note" data-q="Q9" data-tags="nikolaischuler pt1 monitoring" data-text="ecs cpu memory custom metrics active users cloudwatch cloudwatch agent monitor A DevOps team needs to monitor the CPU and memory utilization of their containerized applications running in Amazon ECS. They also need to monitor custom metrics such as the number of active users. Which combination of AWS services and features is the MOST appropriate for this scenario? Use AWS CloudWatch to monitor ECS task-level metrics such as CPU and memory utilization. Install the CloudWatch Agent to push custom metrics for active users.">
+    <div class="note-title"> CloudWatch + ECS Monitoring</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">ECS Metrics</div>
+      <div class="cmp-cell blue">Custom Metrics</div>
+      <div class="cmp-cell red-val">CloudWatch (CPU, memory)</div>
+      <div class="cmp-cell blue-val">CloudWatch Agent (active users)</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ CloudWatch for ECS + CloudWatch Agent for custom metrics</p>
+  </div>
 
-    <!-- 11. SM Inference Types -->
-    <div class="note" data-tags="sagemaker deployment" data-text="real-time inference batch transform serverless async inference low latency large dataset auto-scale sporadic traffic payload persistent endpoint">
-      <div class="note-title"><span class="note-icon">🌐</span> SM Inference Types</div>
-      <ul class="note-list">
-        <li><span class="r">Real-time</span> — low latency, persistent endpoint, always on</li>
-        <li><span class="b">Batch Transform</span> — offline, large dataset, no persistent endpoint</li>
-        <li><span class="g">Serverless</span> — auto-scale to zero, sporadic / infrequent traffic</li>
-        <li><span class="r">Async</span> — large payloads ≤1GB, up to 15min processing, queued</li>
-      </ul>
-      <div class="rule"></div>
-      <p style="font-size:16px;color:var(--pencil)">Choose based on: latency needs + payload size + traffic pattern</p>
+  <!-- Q10 -->
+  <div class="note" data-q="Q10" data-tags="nikolaischuler pt1 sagemaker monitoring" data-text="sagemaker profiler cpu gpu utilization import modules start stop profiling training script You are training a machine learning model using PyTorch on Amazon SageMaker and want to ensure that the system resources such as CPU and GPU are being effectively utilized. You plan to use SageMaker Profiler to track these metrics and improve the efficiency of your training job. Which of the following steps should you follow to set up and use SageMaker Profiler correctly? Import the necessary SageMaker Profiler modules and add start and stop profiling commands in your PyTorch training script.">
+    <div class="note-title"> SageMaker Profiler</div>
+    <div class="sub">Track CPU/GPU utilization</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Step 1</div>
+      <div class="cmp-cell blue">Step 2</div>
+      <div class="cmp-cell red-val">Import Profiler modules</div>
+      <div class="cmp-cell blue-val">Add start/stop profiling commands in training script</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Import Profiler modules + add start/stop in training script</p>
+  </div>
 
-    <!-- 12. SM Warm Pools + Spot Training -->
-    <div class="note" data-tags="sagemaker" data-text="warm pools spot training instances faster startup cheaper cost savings s3 checkpoints reuse managed warm pool 90 percent">
-      <div class="note-title"><span class="note-icon">♻️</span> SM Warm Pools + Spot Training</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Warm Pools</div>
-        <div class="cmp-cell blue">Spot Training</div>
-        <div class="cmp-cell blue-val">reuse instances → faster startup</div>
-        <div class="cmp-cell red-val">up to 90% cheaper + S3 checkpoints</div>
-      </div>
-      <ul class="note-list">
-        <li>Warm Pools = keep instances warm between jobs</li>
-        <li>Spot Training = interrupted; need S3 checkpoints to resume</li>
-        <li class="yes">Combine both for cost-efficient iterative training</li>
-      </ul>
+  <!-- Q11 -->
+  <div class="note" data-q="Q11" data-tags="nikolaischuler pt1 data" data-text="glue etl csv s3 parquet columnar athena auto-detect schema crawler transform A data engineer is tasked with creating an Extract Transform Load ETL pipeline using AWS Glue to process sales data from various sources. The data in CSV format is stored in Amazon S3. The processed data needs to be stored in a columnar format for faster querying using Amazon Athena. The engineer also needs to ensure the schema is automatically detected and stored for future use. Which of the following steps should the data engineer take to meet these requirements? Use AWS Glue built-in transformation to convert the CSV data into Apache Parquet before saving it back to S3.">
+    <div class="note-title"> Glue ETL – CSV → Parquet</div>
+    <div class="flow">
+      <div class="flow-box red">S3 CSV</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Glue transform</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Parquet (Athena)</div>
     </div>
+    <div class="cmp-grid" style="margin-top:8px">
+      <div class="cmp-cell red">Transform</div>
+      <div class="cmp-cell blue">Schema</div>
+      <div class="cmp-cell red-val">Built-in CSV → Parquet</div>
+      <div class="cmp-cell blue-val">Glue Crawler auto-detect</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Glue built-in transform + Glue Crawler for schema detection</p>
+  </div>
 
-    <!-- 13. HPO Methods -->
-    <div class="note" data-tags="sagemaker mlconcepts" data-text="hyperparameter optimization grid search random search bayesian hyperband hpo methods early stopping prior runs expensive evaluation exhaustive">
-      <div class="note-title"><span class="note-icon">🎯</span> HPO Methods</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Grid Search</div>
-        <div class="cmp-cell blue">Random Search</div>
-        <div class="cmp-cell blue-val">entire space, small model</div>
-        <div class="cmp-cell red-val">sample, large space</div>
-      </div>
-      <div style="height:8px"></div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Bayesian</div>
-        <div class="cmp-cell blue">Hyperband</div>
-        <div class="cmp-cell blue-val">uses prior runs, expensive eval</div>
-        <div class="cmp-cell red-val">early stop poor runs, fastest</div>
-      </div>
+  <!-- Q12 -->
+  <div class="note" data-q="Q12" data-tags="nikolaischuler pt1 genai" data-text="generative ai foundation models multiple providers serverless data stays in region amazon bedrock A company wants to integrate generative AI capabilities into their applications using foundation models from multiple AI providers. They need a solution that offers a serverless environment flexibility in model customization and ensures that data remains within a specific AWS region for compliance reasons. Which AWS service would best meet these requirements? Amazon Bedrock">
+    <div class="note-title"> Amazon Bedrock</div>
+    <div class="sub">GenAI with multiple FM providers</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">serverless</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">multi-provider FMs</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">data stays in region</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">no infra</span>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Amazon Bedrock</p>
+  </div>
 
-    <!-- 14. SageMaker Studio vs Notebooks -->
-    <div class="note" data-tags="sagemaker" data-text="sagemaker studio notebook instances multi-user collaborative ide single user individual use domain web-based jupyter ec2">
-      <div class="note-title"><span class="note-icon">💻</span> Studio vs Notebook Instances</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">SageMaker Studio</div>
-        <div class="cmp-cell blue">Notebook Instances</div>
-        <div class="cmp-cell blue-val">multi-user, collaborative, full IDE</div>
-        <div class="cmp-cell red-val">single user, individual use</div>
-      </div>
-      <ul class="note-list">
-        <li>Studio = web-based, integrates experiments, pipelines, debugger</li>
-        <li>Notebook Instances = EC2 with Jupyter, managed by you</li>
-        <li class="yes">Studio recommended for team environments</li>
-      </ul>
+  <!-- Q13 -->
+  <div class="note" data-q="Q13" data-tags="nikolaischuler pt1 sagemaker" data-text="fully managed ml lifecycle data prep deployment no server management sagemaker training A company wants to streamline their machine learning workflow by using AWS SageMaker. They need an environment that allows them to handle every step of the machine learning lifecycle from data preparation to model deployment and monitoring. The company prefers a fully managed environment where infrastructure concerns such as managing servers can be avoided. Which statement BEST describes how AWS SageMaker meets these needs? SageMaker simplifies the machine learning workflow by providing a fully managed service handling data preparation model training and deployment without requiring manual server management.">
+    <div class="note-title"> SageMaker – Fully Managed</div>
+    <div class="flow">
+      <div class="flow-box red">Data Prep</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Train</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Deploy</div>
     </div>
+    <div style="background:rgba(25,118,210,0.07);border-radius:8px;padding:8px;margin-top:8px;font-size:13px;color:var(--pencil)">
+      No server management — AWS handles infra, scaling, and environments
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Amazon SageMaker (fully managed)</p>
+  </div>
 
-    <!-- 15. SM Processing Jobs -->
-    <div class="note" data-tags="sagemaker data" data-text="sagemaker processing jobs managed scalable preprocessing pre-built containers outputs s3 data prep decouple training sklearn spark pytorch">
-      <div class="note-title"><span class="note-icon">⚙️</span> SM Processing Jobs</div>
-      <ul class="note-list">
-        <li>Managed scalable preprocessing on SageMaker infra</li>
-        <li>Pre-built containers: SKLearn, Spark, PyTorch, custom</li>
-        <li>Outputs written to S3 automatically</li>
-        <li class="yes">Decouples data prep from training job</li>
-        <li>Use for feature engineering, post-processing, model eval</li>
-      </ul>
+  <!-- Q14 -->
+  <div class="note" data-q="Q14" data-tags="nikolaischuler pt1 sagemaker data" data-text="data wrangler feature importance model predictions quick model feature contribution A data scientist is using SageMaker Data Wrangler for feature engineering and needs to determine which features contribute most to the model predictions. Which feature of Data Wrangler helps visualize and estimate the importance of different features? Quick Model">
+    <div class="note-title"> Data Wrangler – Feature Importance</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Tool</div>
+      <div class="cmp-cell blue">Output</div>
+      <div class="cmp-cell red-val">Quick Model</div>
+      <div class="cmp-cell blue-val">Feature importance rankings</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Data Wrangler → Quick Model → feature importance</p>
+  </div>
 
-    <!-- 16. Hyperparameters vs Model Parameters -->
-    <div class="note" data-tags="mlconcepts" data-text="hyperparameters model parameters before training during training learning rate batch size weights biases set before vs learned optimizer">
-      <div class="note-title"><span class="note-icon">⚙️</span> Hyperparameters vs Model Parameters</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Hyper Parameters</div>
-        <div class="cmp-cell blue">Model Parameters</div>
-        <div class="cmp-cell blue-val">Before Training</div>
-        <div class="cmp-cell red-val">During Training</div>
-      </div>
-      <div class="rule"></div>
-      <ul class="note-list">
-        <li><span class="r">Hyperparams</span>: learning rate, batch size, epochs, depth</li>
-        <li><span class="b">Model Params</span>: weights, biases — learned by optimizer</li>
-        <li class="yes">Hyperparams set by YOU; model params set by training</li>
-      </ul>
+  <!-- Q15 -->
+  <div class="note" data-q="Q15" data-tags="nikolaischuler pt1 sagemaker" data-text="hpo hyperparameter optimization spot instances algorithm hyperparameter range performance metric required specify An ML engineer wants to automate the hyperparameter tuning of their machine learning model using Amazon SageMaker. To minimize costs they also want to utilize spot instances during the tuning process. Which combination of factors must the engineer specify to initiate the automatic tuning process in SageMaker? Algorithm hyperparameter range performance metric">
+    <div class="note-title"> HPO + Spot Instances</div>
+    <div class="sub">What must be specified?</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">Algorithm</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">Hyperparameter range</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">Performance metric</span>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Algorithm + hyperparameter range + performance metric</p>
+  </div>
 
-    <!-- 17. Supervised Learning -->
-    <div class="note" data-tags="mlconcepts" data-text="supervised learning labelled data spam not spam fraud churn classification regression historical labels required unsupervised reinforcement">
-      <div class="note-title"><span class="note-icon">🏷️</span> Supervised Learning</div>
-      <div class="flow">
-        <div class="flow-box red">labelled data</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">Spam / not Spam</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">Supervised</div>
-      </div>
-      <ul class="note-list">
-        <li>Labeled historical data required for training</li>
-        <li>Spam/not spam, fraud/not fraud, churn/not churn</li>
-        <li class="no">Not Unsupervised — that has no labels</li>
-        <li class="no">Not RL — that uses rewards, not labels</li>
-      </ul>
+  <!-- Q16 -->
+  <div class="note" data-q="Q16" data-tags="nikolaischuler pt1 sagemaker" data-text="sagemaker pipeline dag directed acyclic graph execution order train process register steps A data scientist is designing a SageMaker pipeline to automate an ML workflow. The pipeline needs to train a model process data and register the model for future deployments. Which features of SageMaker Pipelines help automate and manage the workflow effectively? Pipelines are defined using a directed acyclic graph DAG specifying the sequence of steps and include reusable parameters for customization.">
+    <div class="note-title"> DAG – Execution Order</div>
+    <div class="flow">
+      <div class="flow-box red">Process</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Train</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Register</div>
     </div>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;margin-top:8px;font-size:13px;color:var(--pencil)">
+      <strong>DAG</strong> = Directed Acyclic Graph ensures steps run in defined dependency order
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ DAG (Directed Acyclic Graph)</p>
+  </div>
 
-    <!-- 18. Unsupervised vs RL -->
-    <div class="note" data-tags="mlconcepts" data-text="unsupervised reinforcement learning no labels find patterns agent rewards clustering k-means pca anomaly detection policy">
-      <div class="note-title"><span class="note-icon">🔮</span> Unsupervised vs RL</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Unsupervised</div>
-        <div class="cmp-cell blue">Reinforcement Learning</div>
-        <div class="cmp-cell blue-val">no labels, find patterns</div>
-        <div class="cmp-cell red-val">agent + rewards, no labels</div>
-      </div>
-      <ul class="note-list">
-        <li>Unsupervised: K-Means, PCA, anomaly detection</li>
-        <li>RL: agent takes actions → gets reward/penalty → learns policy</li>
-        <li class="yes">Both need NO labeled data — that's the key distinction</li>
-      </ul>
+  <!-- Q17 -->
+  <div class="note" data-q="Q17" data-tags="nikolaischuler pt1 data" data-text="glue etl large parquet files cost effective job bookmarking track processed data between runs A company uses AWS Glue to automate their ETL processes for data stored in various formats. They are planning to optimize the performance of their Glue ETL jobs which currently handle large volumes of Parquet files. What would be the most cost-effective way to optimize these jobs without compromising on performance? Implement job bookmarking to track data processed between job runs and reduce data redundancy.">
+    <div class="note-title"> Glue Job Bookmarking</div>
+    <div class="sub">Cost-effective large Parquet ETL</div>
+    <div style="background:rgba(25,118,210,0.07);border-radius:8px;padding:8px;margin-top:6px;font-size:13px;color:var(--pencil)">
+      <strong>Job bookmarking</strong> tracks which data was already processed — avoids reprocessing on reruns
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Glue Job Bookmarking</p>
+  </div>
 
-    <!-- 19. Overfitting vs Underfitting -->
-    <div class="note" data-tags="mlconcepts" data-text="overfitting underfitting high variance high bias good train bad val regularization dropout early stopping more data features complex model">
-      <div class="note-title"><span class="note-icon">📈</span> Overfitting vs Underfitting</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Overfitting (High Variance)</div>
-        <div class="cmp-cell blue">Underfitting (High Bias)</div>
-        <div class="cmp-cell blue-val">good train, bad val</div>
-        <div class="cmp-cell red-val">bad train AND bad val</div>
-      </div>
-      <div class="sub">Fixes: Overfitting</div>
-      <ul class="note-list">
-        <li>Regularization (L1/L2), dropout, early stopping, more data</li>
-      </ul>
-      <div class="sub">Fixes: Underfitting</div>
-      <ul class="note-list">
-        <li>More features, complex model, more epochs, more data</li>
-      </ul>
+  <!-- Q18 -->
+  <div class="note" data-q="Q18" data-tags="nikolaischuler pt1 sagemaker" data-text="built-in sagemaker algorithms xgboost linear learner advantages infrastructure pre-configured no custom containers You are a data scientist tasked with developing a model for a large e-commerce platform. The company needs a solution that minimizes development time and operational complexity. The team is considering using Amazon SageMaker built-in algorithms instead of building custom models. Which of the following advantages do built-in SageMaker algorithms offer for this use case? Built-in algorithms like XGBoost and Linear Learner abstract away infrastructure setup and allow quick model deployment. Pre-configured environments and infrastructure management are handled by AWS eliminating the need for custom containers.">
+    <div class="note-title"> Built-in SageMaker Algorithms</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Benefit A</div>
+      <div class="cmp-cell blue">Benefit B</div>
+      <div class="cmp-cell red-val">XGBoost + Linear Learner abstract infra setup</div>
+      <div class="cmp-cell blue-val">AWS manages pre-configured environments — no custom containers</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ No infra setup; AWS manages environment</p>
+  </div>
 
-    <!-- 20. Class Imbalance -->
-    <div class="note" data-tags="mlconcepts data" data-text="class imbalance smote weighted loss function penalize minority synthetic samples oversampling dimensionality reduction accuracy f1 recall">
-      <div class="note-title"><span class="note-icon">⚖️</span> Class Imbalance</div>
-      <div style="margin:10px 0;display:flex;align-items:center;flex-wrap:wrap;gap:8px">
-        <span class="gy">imbalance data →</span>
-        <span class="circle" style="margin:0 8px">SMOTE</span>
-        <span class="gy">or</span>
-        <span style="margin-left:8px;color:var(--blue);font-weight:600">Weighted loss fn → Penalize</span>
-      </div>
-      <ul class="note-list">
-        <li class="yes">SMOTE = synthetic minority over-sampling technique</li>
-        <li class="yes">Weighted loss = penalize minority misclassification more</li>
-        <li>Can also under-sample majority class</li>
-        <li class="no">Dimensionality reduction does NOT fix imbalance</li>
-        <li class="no">Accuracy is misleading on imbalanced data → use Recall/F1</li>
-      </ul>
+  <!-- Q19 -->
+  <div class="note" data-q="Q19" data-tags="nikolaischuler pt1 sagemaker monitoring" data-text="sagemaker debugger vanishing gradients overfitting hook capture log tensors built-in custom debug rules You are working on a machine learning project where your model frequently encounters issues such as vanishing gradients and overfitting during training. You decide to use Amazon SageMaker Debugger to monitor and debug the model in real-time to resolve these issues before deployment. Which of the following actions should you take when configuring SageMaker Debugger for this task? Configure a Debugger hook in the training script to capture and log tensors which provide insights into the model performance. Set up built-in or custom debug rules to monitor training metrics and detect issues such as vanishing gradients or overfitting.">
+    <div class="note-title"> Debugger – Hooks &amp; Rules</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Step 1</div>
+      <div class="cmp-cell blue">Step 2</div>
+      <div class="cmp-cell red-val">Configure Debugger hook → capture/log tensors</div>
+      <div class="cmp-cell blue-val">Set up built-in or custom debug rules</div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">vanishing gradients</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">overfitting</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Hook to capture tensors + built-in or custom rules</p>
+  </div>
 
-    <!-- 21. Regularization L1 vs L2 -->
-    <div class="note" data-tags="mlconcepts" data-text="regularization l1 lasso l2 ridge sparsity feature selection correlated features shrinks coefficients penalty overfitting zero weights">
-      <div class="note-title"><span class="note-icon">🎛️</span> Regularization L1 vs L2</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">L1 Lasso</div>
-        <div class="cmp-cell blue">L2 Ridge</div>
-        <div class="cmp-cell blue-val">sparsity, feature selection</div>
-        <div class="cmp-cell red-val">correlated features, shrinks all</div>
-      </div>
-      <ul class="note-list">
-        <li>L1 drives some coefficients exactly to zero → sparse model</li>
-        <li>L2 distributes penalty across all features smoothly</li>
-        <li class="yes">Both reduce overfitting by penalizing large weights</li>
-      </ul>
+  <!-- Q20 -->
+  <div class="note" data-q="Q20" data-tags="nikolaischuler pt1 aiservices" data-text="law firm pdf word scanned images text extraction entity recognition case names legal terms dates natural language search textract comprehend kendra A law firm wants to create an intelligent search system for internal legal documents. These documents are stored in different formats PDFs Word documents and scanned images and the firm needs to extract and index key information like case names legal terms and dates. The system should also allow the legal team to perform natural language searches to quickly retrieve relevant documents. Which combination of AWS services should the firm use to achieve this goal? Amazon Textract for extracting text from scanned images Amazon Comprehend for entity recognition and Amazon Kendra for building an intelligent search interface.">
+    <div class="note-title"> Law Firm – Doc Intelligence</div>
+    <div class="flow">
+      <div class="flow-box red">PDFs/scans</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Textract</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Comprehend</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Kendra</div>
     </div>
+    <div class="cmp-grid" style="margin-top:8px">
+      <div class="cmp-cell red">Textract</div>
+      <div class="cmp-cell blue">Comprehend</div>
+      <div class="cmp-cell red-val">Extract text from docs/images</div>
+      <div class="cmp-cell blue-val">Entity recognition (names, dates)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Textract + Comprehend + Kendra (intelligent search)</p>
+  </div>
 
-    <!-- 22. Bias-Variance Tradeoff -->
-    <div class="note" data-tags="mlconcepts" data-text="bias variance tradeoff high bias high variance underfits simple model overfits complex model balance sweet spot generalization">
-      <div class="note-title"><span class="note-icon">🎭</span> Bias-Variance Tradeoff</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">High Bias</div>
-        <div class="cmp-cell blue">High Variance</div>
-        <div class="cmp-cell blue-val">underfits, simple model</div>
-        <div class="cmp-cell red-val">overfits, complex model</div>
-      </div>
-      <ul class="note-list">
-        <li class="yes">Goal: balance both — the sweet spot = generalization</li>
-        <li>More complexity → bias↓ but variance↑</li>
-        <li>Regularization + more data → shrinks variance without bias spike</li>
-      </ul>
+  <!-- Q21 -->
+  <div class="note" data-q="Q21" data-tags="nikolaischuler pt1 mlconcepts" data-text="class imbalance 95 5 high accuracy poor positive class oversampling class weights penalize misclassification A Machine Learning Engineer is using Amazon SageMaker to build and train a binary classification model. The training dataset contains a severe class imbalance with 95% of the data belonging to the negative class and only 5% to the positive class. After training the model achieves high accuracy but performs poorly on the positive class. Which two techniques should the engineer consider to address this issue? Increase the size of the positive class through oversampling. Apply class weights to penalize misclassification of the minority class.">
+    <div class="note-title"> Class Imbalance – 95%/5%</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Option A</div>
+      <div class="cmp-cell blue">Option B</div>
+      <div class="cmp-cell red-val">Oversampling (increase minority class)</div>
+      <div class="cmp-cell blue-val">Class weights (penalize misclassification)</div>
     </div>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;margin-top:8px;font-size:13px;color:var(--pencil)">
+      High accuracy but poor on positive class = imbalanced dataset problem
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Oversampling + class weights</p>
+  </div>
 
-    <!-- 23. Loss Curves -->
-    <div class="note" data-tags="mlconcepts monitoring" data-text="loss curves train loss val loss healthy training overfitting underfitting validation sagemaker debugger convergence early stopping">
-      <div class="note-title"><span class="note-icon">📉</span> Loss Curves</div>
-      <ul class="note-list">
-        <li class="yes">train loss ↓ + val loss ↓ together = healthy training</li>
-        <li class="no">train loss ↓ + val loss ↑ = overfitting</li>
-        <li class="no">both high = underfitting</li>
-        <li>Monitored in SageMaker Debugger during training</li>
-        <li>Early stopping = halt when val loss stops improving</li>
-      </ul>
+  <!-- Q22 -->
+  <div class="note" data-q="Q22" data-tags="nikolaischuler pt1 data" data-text="large json s3 slow etl minimize read io athena apache parquet columnar format A company wants to optimize the data ingestion process for a machine learning pipeline in Amazon SageMaker. The data stored in Amazon S3 consists of large JSON files and the current ETL job takes a long time to process the data before training. To improve performance they want to minimize read and I/O times especially for downstream analysis using Amazon Athena. Which format should the company use to store their data in S3 for better processing and analytics performance? Use Apache Parquet to store the data in S3.">
+    <div class="note-title"> JSON → Parquet for Athena</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">JSON</div>
+      <div class="cmp-cell blue">Parquet</div>
+      <div class="cmp-cell red-val">Row-based, slow for analytics</div>
+      <div class="cmp-cell blue-val">Columnar, fast I/O, Athena-native</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Apache Parquet (columnar, minimizes read I/O)</p>
+  </div>
 
-    <!-- 24. Model Parallelism vs Data Parallelism -->
-    <div class="note" data-tags="mlconcepts sagemaker" data-text="model parallelism data parallelism gpu split layers large model dataset distributed training sagemaker distributed llm too big">
-      <div class="note-title"><span class="note-icon">🖥️</span> Model vs Data Parallelism</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Model Parallelism</div>
-        <div class="cmp-cell blue">Data Parallelism</div>
-        <div class="cmp-cell blue-val">model too big for 1 GPU → split layers</div>
-        <div class="cmp-cell red-val">dataset too large → split data, same model</div>
-      </div>
-      <ul class="note-list">
-        <li>SageMaker Distributed Training supports both strategies</li>
-        <li class="yes">Use model parallelism for giant LLMs that won't fit one GPU</li>
-        <li class="yes">Use data parallelism for huge datasets with normal-sized models</li>
-      </ul>
+  <!-- Q23 -->
+  <div class="note" data-q="Q23" data-tags="nikolaischuler pt1 mlconcepts" data-text="reduce overfitting responsible ai regularization penalties extreme model parameters l1 l2 Which of the following strategies is MOST effective in reducing overfitting when training an AI model according to responsible AI practices? Using regularization techniques that add penalties to extreme model parameters.">
+    <div class="note-title"> Regularization</div>
+    <div class="sub">Reduce overfitting + responsible AI</div>
+    <div style="background:rgba(25,118,210,0.07);border-radius:8px;padding:8px;margin-top:6px;font-size:13px;color:var(--pencil)">
+      Adds penalties to extreme parameter values → constrains model complexity → better generalization
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">L1 (Lasso)</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">L2 (Ridge)</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">Elastic Net</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Regularization</p>
+  </div>
 
-    <!-- 25. Boosting vs Bagging -->
-    <div class="note" data-tags="mlconcepts" data-text="boosting xgboost bagging random forest sequential parallel corrects errors variance bias ensemble gradient boosting independent trees">
-      <div class="note-title"><span class="note-icon">🌳</span> Boosting vs Bagging</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Boosting (XGBoost)</div>
-        <div class="cmp-cell blue">Bagging (Random Forest)</div>
-        <div class="cmp-cell blue-val">sequential, corrects errors, bias+variance</div>
-        <div class="cmp-cell red-val">parallel, independent, variance only</div>
-      </div>
-      <ul class="note-list">
-        <li>XGBoost = gradient boosting, each tree learns from previous errors</li>
-        <li>Random Forest = builds many independent trees, averages results</li>
-        <li class="yes">XGBoost often wins tabular competitions</li>
-      </ul>
+  <!-- Q24 -->
+  <div class="note" data-q="Q24" data-tags="nikolaischuler pt1 genai sagemaker" data-text="jumpstart text generation customization fine-tune own dataset prompt engineering A team at a media company wants to use Amazon SageMaker Jumpstart to quickly deploy a pre-trained model for text generation. They are considering whether to customize the model to better suit their specific use case. Which of the following customization methods available in Jumpstart should the team use to adapt the pre-trained model to their needs? Fine-tune the pre-trained model using their own dataset to improve performance for their specific task. Use prompt engineering to design and refine the input prompts so that the model output aligns better with their business requirements.">
+    <div class="note-title"> JumpStart – Text Gen Customization</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Option A</div>
+      <div class="cmp-cell blue">Option B</div>
+      <div class="cmp-cell red-val">Fine-tune with own dataset</div>
+      <div class="cmp-cell blue-val">Prompt engineering</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Fine-tune with own dataset OR prompt engineering</p>
+  </div>
 
-    <!-- 26. Evaluation Metrics -->
-    <div class="note" data-tags="mlconcepts" data-text="precision recall auc roc rmse mae f1 evaluation metrics tp fp fn confusion matrix regression classification fraud cancer false positive negative">
-      <div class="note-title"><span class="note-icon">📏</span> Evaluation Metrics</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Precision</div>
-        <div class="cmp-cell blue">Recall</div>
-        <div class="cmp-cell blue-val">TP/(TP+FP) — of positives predicted, how many real?</div>
-        <div class="cmp-cell red-val">TP/(TP+FN) — of all real positives, how many found?</div>
-      </div>
-      <ul class="note-list">
-        <li><span class="b">AUC-ROC</span>: overall model ranking ability</li>
-        <li><span class="r">RMSE/MAE</span>: regression errors (continuous output)</li>
-        <li class="yes">Use Recall when missing positives is costly (fraud, cancer)</li>
-        <li class="yes">Use Precision when false alarms are costly (spam filter)</li>
-      </ul>
+  <!-- Q25 -->
+  <div class="note" data-q="Q25" data-tags="nikolaischuler pt1 sagemaker deployment" data-text="real-time endpoint unpredictable traffic spikes low latency auto-scaling sagemaker A company wants to use Amazon SageMaker to deploy a real-time machine learning model for high-traffic online predictions. The model has moderate memory and CPU requirements but scalability and low latency are critical due to unpredictable traffic spikes. Which of the following deployment options is best suited for this scenario? Deploy the model on an Amazon SageMaker endpoint with auto-scaling enabled.">
+    <div class="note-title"> SageMaker Endpoint Auto-Scaling</div>
+    <div class="flow">
+      <div class="flow-box red">traffic spike</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">auto-scaling trigger</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">more instances</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker endpoint with auto-scaling enabled</p>
+  </div>
 
-    <!-- 27. Online/Incremental Learning -->
-    <div class="note" data-tags="mlconcepts sagemaker" data-text="online learning incremental learning concept drift model monitor new data retrain previous model artifact avoid full retraining warm start">
-      <div class="note-title"><span class="note-icon">🔄</span> Online / Incremental Learning</div>
-      <ul class="note-list">
-        <li>Updates model as new data arrives continuously</li>
-        <li>Initialize from previous model artifact (warm start)</li>
-        <li class="yes">Avoids full retraining from scratch each time</li>
-        <li>Use when concept drift detected by Model Monitor</li>
-        <li class="no">NOT same as transfer learning (different starting point)</li>
-      </ul>
+  <!-- Q26 -->
+  <div class="note" data-q="Q26" data-tags="nikolaischuler pt1 sagemaker" data-text="fully managed jupyter tensorflow pytorch auto-save accessible sagemaker notebook instances A data scientist is setting up an environment to develop train and deploy machine learning models using AWS SageMaker. The scientist wants a fully managed Jupyter notebook environment that simplifies infrastructure setup and provides pre-installed libraries such as TensorFlow and PyTorch. Additionally they want to ensure that their work is automatically saved and can be accessed later. Which AWS SageMaker feature would BEST meet these requirements? SageMaker Notebook Instances">
+    <div class="note-title"> SageMaker Notebook Instances</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">managed Jupyter</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">TF + PyTorch pre-installed</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">auto-save</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">persistent</span>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Notebook Instances</p>
+  </div>
 
-    <!-- 28. Transfer Learning -->
-    <div class="note" data-tags="mlconcepts genai" data-text="transfer learning fine-tune pre-trained model domain data deploy weights prompt engineering jumpstart foundation model freeze layers">
-      <div class="note-title"><span class="note-icon">🔀</span> Transfer Learning</div>
-      <div class="flow">
-        <div class="flow-box red">pre-trained model</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">fine-tune on domain data</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">deploy</div>
-      </div>
-      <ul class="note-list">
-        <li class="yes">JumpStart provides pre-trained models for fine-tuning</li>
-        <li class="no">Fine-tuning ≠ prompt engineering — fine-tuning changes weights</li>
-        <li>Freeze lower layers; train top layers on domain data</li>
-        <li class="yes">Saves time + compute vs training from scratch</li>
-      </ul>
+  <!-- Q27 -->
+  <div class="note" data-q="Q27" data-tags="nikolaischuler pt1 mlconcepts" data-text="reinforcement learning agent warehouse moves farther from goal positive rewards wrong actions reward shaping A robotics company is using SageMaker to train a reinforcement learning agent to navigate through a dynamic warehouse environment. During training the agent sometimes moves farther away from the goal instead of closer. What is the most likely cause of this behavior? Positive rewards">
+    <div class="note-title"> RL – Wrong Rewards</div>
+    <div class="sub">Agent moves farther from goal</div>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;margin-top:6px;font-size:13px;color:var(--pencil)">
+      <strong>Cause:</strong> Agent receives positive rewards for incorrect actions → reward function is misaligned
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Positive rewards for wrong actions (misaligned reward function)</p>
+  </div>
 
-    <!-- 29. CloudWatch vs AWS Config -->
-    <div class="note" data-tags="data monitoring security" data-text="cloudwatch aws config cloudtrail cpu utilization metrics config changes security group instance type api call logs monitoring compliance">
-      <div class="note-title"><span class="note-icon">👁️</span> CloudWatch vs AWS Config</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">CloudWatch</div>
-        <div class="cmp-cell blue">AWS Config</div>
-        <div class="cmp-cell blue-val">CPU Utilization, metrics, logs, alarms</div>
-        <div class="cmp-cell red-val">Config Changes (SG, instance type)</div>
-      </div>
-      <ul class="note-list">
-        <li class="no">CloudTrail = API call logs (not metrics, not config state)</li>
-        <li><span class="r">CW</span> = what's happening NOW (metrics + alarms)</li>
-        <li><span class="b">Config</span> = what changed over time (compliance, drift)</li>
-      </ul>
+  <!-- Q28 -->
+  <div class="note" data-q="Q28" data-tags="nikolaischuler pt1 security" data-text="iam roles aws services external identities multiple policies attached assume role trust policy Which of the following statements about AWS IAM roles is correct? IAM roles can be assumed by AWS services or external identities and can have multiple policies attached to manage permissions.">
+    <div class="note-title"> IAM Roles – Key Facts</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">assumed by AWS services</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">external identities</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">multiple policies</span>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ IAM roles can be assumed by AWS services or external identities; support multiple policies</p>
+  </div>
 
-    <!-- 30. Kinesis Firehose -->
-    <div class="note" data-tags="data" data-text="kinesis data firehose buffer time size batch delivery s3 redshift opensearch lambda transform enrich real-time streaming managed">
-      <div class="note-title"><span class="note-icon">🔥</span> Kinesis Firehose</div>
-      <div style="margin:10px 0;display:flex;align-items:center;flex-wrap:wrap;gap:8px">
-        <span class="circle">Kinesis Data Firehose</span>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">large file</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">Buffer data</div>
-      </div>
-      <ul class="note-list">
-        <li>Buffers by time (60s–900s) OR size (1MB–128MB)</li>
-        <li>Delivers batches to S3 / Redshift / OpenSearch</li>
-        <li>Lambda transform: enriches/transforms records before delivery</li>
-        <li class="no">NOT real-time query — use Kinesis Analytics for that</li>
-        <li class="yes">Fully managed — no shards to manage unlike Streams</li>
-      </ul>
+  <!-- Q29 -->
+  <div class="note" data-q="Q29" data-tags="nikolaischuler pt1 sagemaker" data-text="sagemaker pipelines execution order defined steps dag directed acyclic graph dependency A machine learning team is using SageMaker Pipelines to automate the training and deployment of multiple machine learning models. They want to scale the pipeline to handle thousands of workflows simultaneously while ensuring that steps such as model training and evaluation are executed in a specific sequence. Which feature of SageMaker Pipelines ensures that steps are executed in a defined order? Directed Acyclic Graph DAG">
+    <div class="note-title"> Pipelines – Step Order via DAG</div>
+    <div class="flow">
+      <div class="flow-box red">Step A</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Step B</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Step C</div>
     </div>
+    <div style="background:rgba(25,118,210,0.07);border-radius:8px;padding:8px;margin-top:8px;font-size:13px;color:var(--pencil)">
+      DAG enforces dependency order — steps only run after their prerequisites complete
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Directed Acyclic Graph (DAG)</p>
+  </div>
 
-    <!-- 31. Kinesis Streams vs Analytics -->
-    <div class="note" data-tags="data" data-text="kinesis data streams kinesis analytics flink ingest fan-out enhanced fan-out consumer throughput real-time sql low latency shards">
-      <div class="note-title"><span class="note-icon">🌊</span> Kinesis Streams vs Analytics</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Kinesis Data Streams</div>
-        <div class="cmp-cell blue">Kinesis Analytics (Flink)</div>
-        <div class="cmp-cell blue-val">ingest + fan-out, enhanced fan-out per consumer</div>
-        <div class="cmp-cell red-val">real-time SQL/Flink on stream</div>
-      </div>
-      <ul class="note-list">
-        <li>Enhanced fan-out = dedicated throughput per consumer → low latency</li>
-        <li>Streams = durable, 1–7 day retention, multiple consumers</li>
-        <li class="yes">Analytics = for real-time aggregations, anomaly detection on stream</li>
-      </ul>
+  <!-- Q30 -->
+  <div class="note" data-q="Q30" data-tags="nikolaischuler pt1 security" data-text="encryption at rest compliance multiple storage services s3 sse kms managed keys sse-kms A company needs to ensure that their data storage solutions on AWS comply with industry regulations that require encryption of data at rest. Which AWS service and feature should be implemented to meet this compliance requirement across multiple storage services? Enable Amazon S3 server-side encryption SSE with AWS KMS-managed keys SSE-KMS.">
+    <div class="note-title"> Encryption at Rest – SSE-KMS</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Service</div>
+      <div class="cmp-cell blue">Method</div>
+      <div class="cmp-cell red-val">S3</div>
+      <div class="cmp-cell blue-val">SSE-KMS (KMS-managed keys)</div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">compliance</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">audit trail</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">key rotation</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ S3 SSE-KMS</p>
+  </div>
 
-    <!-- 32. AWS Glue -->
-    <div class="note" data-tags="data" data-text="aws glue crawler data catalog etl job s3 redshift csv parquet conversion job bookmarking partitioning athena serverless managed">
-      <div class="note-title"><span class="note-icon">🕸️</span> AWS Glue</div>
-      <div class="flow">
-        <div class="flow-box red">Crawler</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">Data Catalog</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">ETL Job</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">S3/Redshift</div>
-      </div>
-      <ul class="note-list">
-        <li>CSV → Parquet conversion built into Glue ETL</li>
-        <li><span class="r">Glue Job Bookmarking</span> = only process NEW/changed data since last run</li>
-        <li>Partitioning by year/date → skip irrelevant data in Athena queries</li>
-        <li class="yes">Serverless — no cluster management</li>
-      </ul>
+  <!-- Q31 -->
+  <div class="note" data-q="Q31" data-tags="nikolaischuler pt1 sagemaker monitoring" data-text="debugger profiler low gpu utilization longer training times batch size data loading pipeline efficiency An ML engineer is using SageMaker Debugger profiling feature to optimize resource usage during training. They notice that the GPU utilization is very low causing longer training times. Which of the following actions could help improve GPU utilization and optimize the training process? Adjust the batch size and data loading pipeline to ensure that the GPU is being used efficiently throughout the training.">
+    <div class="note-title"> Profiler – Low GPU Utilization</div>
+    <div class="flow">
+      <div class="flow-box red">low GPU util</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">adjust batch size</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">optimize data loading</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Adjust batch size + optimize data loading pipeline</p>
+  </div>
 
-    <!-- 33. Parquet + Athena -->
-    <div class="note" data-tags="data" data-text="parquet athena csv columnar row-based scan serverless sql s3 cost per tb scanned partitions faster query 10 30x cheaper">
-      <div class="note-title"><span class="note-icon">📋</span> Parquet + Athena</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">CSV</div>
-        <div class="cmp-cell blue">Parquet</div>
-        <div class="cmp-cell blue-val">row-based, scan all</div>
-        <div class="cmp-cell red-val">columnar, scan only needed columns, 10–30× faster</div>
-      </div>
-      <ul class="note-list">
-        <li>Athena = serverless SQL on S3; pay per TB scanned</li>
-        <li class="yes">Use Parquet + partitions to minimize cost</li>
-        <li>Glue converts CSV → Parquet automatically in ETL jobs</li>
-      </ul>
+  <!-- Q32 -->
+  <div class="note" data-q="Q32" data-tags="nikolaischuler pt1 data" data-text="large datasets s3 query by year reduce query time glue athena partition data year crawlers recognize partitions You are working with large datasets stored in an Amazon S3 bucket and need to optimize the performance of querying and processing the data in AWS Glue. The data is frequently queried for specific years. Which of the following strategies will MOST effectively reduce query execution time and cost in this scenario? Partition the data by year and define Glue crawlers to automatically recognize these partitions.">
+    <div class="note-title"> S3 Partitioning for Athena</div>
+    <div class="flow">
+      <div class="flow-box red">S3 data</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Partition by year</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Glue Crawler</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Athena fast</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Partition by year + Glue Crawlers to recognize partitions</p>
+  </div>
 
-    <!-- 34. S3 SSE Encryption -->
-    <div class="note" data-tags="security data" data-text="s3 sse encryption sse-s3 sse-kms aws managed keys customer rotation cloudtrail audit hipaa compliance server side encryption">
-      <div class="note-title"><span class="note-icon">🔐</span> S3 SSE Encryption</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">SSE-S3</div>
-        <div class="cmp-cell blue">SSE-KMS</div>
-        <div class="cmp-cell blue-val">AWS manages keys, simple, default</div>
-        <div class="cmp-cell red-val">customer controls rotation, CloudTrail audit, HIPAA</div>
-      </div>
-      <ul class="note-list">
-        <li>SSE-C = customer provides own key (in each request)</li>
-        <li class="yes">SSE-KMS = audit who accessed what data via CloudTrail</li>
-        <li class="yes">Use SSE-KMS for regulated data (HIPAA, PCI-DSS)</li>
-      </ul>
+  <!-- Q33 -->
+  <div class="note" data-q="Q33" data-tags="nikolaischuler pt1 sagemaker data" data-text="sagemaker studio eda visualizations preprocessing share results no infra matplotlib seaborn jupyterlab A machine learning engineer is using Amazon SageMaker Studio to perform exploratory data analysis on a large dataset stored in Amazon S3. The analyst needs to create visualizations run data preprocessing workflows and share the results with team members. The analyst also wants to avoid setting up infrastructure manually. Which SageMaker features should the analyst leverage to achieve these tasks efficiently? Take advantage of the built-in integrations with popular data visualization libraries such as Matplotlib and Seaborn. Share SageMaker Studio notebooks directly with team members for collaboration. Utilize SageMaker Studio JupyterLab environment to interactively run code cells visualize data and tweak preprocessing workflows without worrying about underlying infrastructure.">
+    <div class="note-title"> SageMaker Studio – EDA</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Visualize</div>
+      <div class="cmp-cell blue">Share</div>
+      <div class="cmp-cell red-val">Matplotlib / Seaborn integrations</div>
+      <div class="cmp-cell blue-val">Share Studio notebooks directly</div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">JupyterLab</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">no infra setup</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Matplotlib/Seaborn + shared notebooks in SageMaker Studio</p>
+  </div>
 
-    <!-- 35. Deployment Strategies -->
-    <div class="note" data-tags="deployment" data-text="deployment strategies ab testing canary blue green shadow traffic split percentage parallel fleet rollback cloudwatch safety guardrail">
-      <div class="note-title"><span class="note-icon">🚦</span> Deployment Strategies</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">A/B Testing</div>
-        <div class="cmp-cell blue">Canary</div>
-        <div class="cmp-cell blue-val">% traffic split, compare metrics</div>
-        <div class="cmp-cell red-val">small % first, safety guardrail</div>
-      </div>
-      <div style="height:8px"></div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Blue/Green</div>
-        <div class="cmp-cell blue">Shadow</div>
-        <div class="cmp-cell blue-val">full parallel fleet, CW rollback</div>
-        <div class="cmp-cell red-val">copy traffic, log only, NOT returned</div>
-      </div>
+  <!-- Q34 -->
+  <div class="note" data-q="Q34" data-tags="nikolaischuler pt1 deployment" data-text="cloudformation s3 bucket ec2 launches successfully rollback dependson attribute dependency A technology company uses AWS CloudFormation to manage its infrastructure as code. The team wants to create a CloudFormation stack that includes an Amazon S3 bucket and an Amazon EC2 instance. The S3 bucket should only be created if the EC2 instance is successfully launched. If the EC2 instance creation fails the stack creation should be rolled back and the S3 bucket should not be created. Which configuration will meet these requirements? Use the DependsOn attribute in the S3 bucket resource to specify the EC2 instance resource.">
+    <div class="note-title"> CloudFormation DependsOn</div>
+    <div class="flow">
+      <div class="flow-box blue">EC2 launches</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">S3 bucket created</div>
     </div>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;margin-top:8px;font-size:13px;color:var(--pencil)">
+      <strong>DependsOn</strong> attribute on S3 resource → points to EC2 resource → rollback if EC2 fails
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ DependsOn attribute in S3 resource pointing to EC2</p>
+  </div>
 
-    <!-- 36. Multi-Model Endpoints -->
-    <div class="note" data-tags="deployment sagemaker" data-text="multi-model endpoints multiple models single instance dynamic load unload cost savings small models large payload mme memory">
-      <div class="note-title"><span class="note-icon">🎛️</span> Multi-Model Endpoints</div>
-      <ul class="note-list">
-        <li>Multiple models on single instance; dynamically loaded/unloaded</li>
-        <li>Models stored in S3; loaded into memory on first invocation</li>
-        <li class="yes">Cost savings for many small models sharing one endpoint</li>
-        <li class="no">NOT ideal for models that are each very large (memory pressure)</li>
-        <li>Invocation includes TargetModel in the request</li>
-      </ul>
+  <!-- Q35 -->
+  <div class="note" data-q="Q35" data-tags="nikolaischuler pt1 sagemaker monitoring" data-text="fraud detection data drift automate retraining explain predictions model monitor pipelines clarify explainability A financial services company is using Amazon SageMaker to develop a machine learning model for fraud detection. The dataset contains transaction records customer profiles and behavioral data stored in Amazon S3. The data is updated in real-time and new fraudulent patterns emerge frequently requiring regular model updates. To ensure that the model remains effective the company wants to automate the model retraining process based on new data detect data drift in real-time and perform hyperparameter tuning for optimal performance. Additionally the company needs to ensure that model predictions are explainable to regulators. Which is the most appropriate solution to meet these requirements? Use SageMaker Model Monitor to detect data drift SageMaker Pipelines to automate the retraining process and SageMaker Clarify to explain model predictions.">
+    <div class="note-title"> Fraud: Monitor + Retrain + Explain</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Data Drift</div>
+      <div class="cmp-cell blue">Retrain</div>
+      <div class="cmp-cell red-val">Model Monitor</div>
+      <div class="cmp-cell blue-val">Pipelines (automated)</div>
     </div>
+    <div style="background:rgba(25,118,210,0.07);border-radius:8px;padding:8px;margin-top:8px;font-size:13px;color:var(--pencil)">
+      <strong>Clarify</strong> → explainability (SHAP feature attribution)
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Monitor + Pipelines + Clarify</p>
+  </div>
 
-    <!-- 37. CloudFormation IaC -->
-    <div class="note" data-tags="deployment security" data-text="cloudformation iac infrastructure as code model endpoint config dependson nested stacks resource order sagemaker deployment versioned">
-      <div class="note-title"><span class="note-icon">📝</span> CloudFormation IaC</div>
-      <div class="flow">
-        <div class="flow-box red">Model</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">EndpointConfig</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">Endpoint</div>
-      </div>
-      <ul class="note-list">
-        <li>Must be created in order — each depends on the previous</li>
-        <li><span class="r">DependsOn</span> attribute = ensures resource creation order</li>
-        <li><span class="b">Nested Stacks</span> = modularize large templates</li>
-        <li class="yes">Use CFn for reproducible, versioned ML infrastructure</li>
-      </ul>
+  <!-- Q36 -->
+  <div class="note" data-q="Q36" data-tags="nikolaischuler pt1 sagemaker monitoring" data-text="model monitor binary classifier baseline statistics training data enable data capture required setup A company deployed a binary classification model on a real-time Amazon SageMaker endpoint. To ensure long-term performance they set up a schedule for SageMaker Model Monitor to evaluate model quality based on actual predictions and outcomes over time. Which of the following steps is required to effectively monitor model quality using SageMaker Model Monitor? Create baseline statistics from the model training data and enable data capture to record requests and predictions.">
+    <div class="note-title"> Model Monitor – Setup Steps</div>
+    <div class="flow">
+      <div class="flow-box red">Create baseline stats</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Enable data capture</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Schedule monitor</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Create baseline from training data + enable data capture</p>
+  </div>
 
-    <!-- 38. IAM Roles + Trust Policy -->
-    <div class="note" data-tags="security" data-text="iam roles trust policy identity-based resource-based policy assume role cross-account ec2 least privilege s3 bucket service role">
-      <div class="note-title"><span class="note-icon">🛡️</span> IAM Roles + Trust Policy</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Identity-based Policy</div>
-        <div class="cmp-cell blue">Resource-based Policy</div>
-        <div class="cmp-cell blue-val">attached to user/role</div>
-        <div class="cmp-cell red-val">attached to resource (S3 bucket)</div>
-      </div>
-      <ul class="note-list">
-        <li><span class="r">Trust Policy</span> = who can ASSUME this role (cross-account, EC2)</li>
-        <li class="yes">Least privilege principle — always grant minimum needed</li>
-        <li>Service roles = allow AWS services (e.g., SageMaker) to call others</li>
-      </ul>
+  <!-- Q37 -->
+  <div class="note" data-q="Q37" data-tags="nikolaischuler pt1 sagemaker data" data-text="data wrangler import s3 redshift feature store clean engineer features one-hot encoding categorical An ML engineer is using Amazon SageMaker Data Wrangler to preprocess data for a machine learning project. They need to import customer transaction data from various sources clean and transform the data and engineer features for model training. Which TWO of the following steps should the engineer take to prepare the data using Data Wrangler? Import data from Amazon S3 Redshift or SageMaker Feature Store into Data Wrangler. Use Data Wrangler to apply one-hot encoding on categorical variables.">
+    <div class="note-title"> Data Wrangler – Import &amp; Clean</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Import</div>
+      <div class="cmp-cell blue">Transform</div>
+      <div class="cmp-cell red-val">S3 / Redshift / Feature Store</div>
+      <div class="cmp-cell blue-val">One-hot encode categorical vars</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Import from S3/Redshift/Feature Store + one-hot encode</p>
+  </div>
 
-    <!-- 39. VPC + NACL vs Security Groups -->
-    <div class="note" data-tags="security" data-text="vpc nacl network acl security groups instance level subnet level stateful stateless allow deny malicious ip block inbound outbound">
-      <div class="note-title"><span class="note-icon">🔒</span> VPC — NACL vs Security Groups</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Security Groups</div>
-        <div class="cmp-cell blue">NACL</div>
-        <div class="cmp-cell blue-val">instance-level, stateful, ALLOW only</div>
-        <div class="cmp-cell red-val">subnet-level, stateless, ALLOW + DENY</div>
-      </div>
-      <ul class="note-list">
-        <li class="yes">Use NACL explicit DENY to block malicious IPs</li>
-        <li>SG = stateful (return traffic auto-allowed)</li>
-        <li>NACL = stateless (must explicitly allow inbound AND outbound)</li>
-      </ul>
+  <!-- Q38 -->
+  <div class="note" data-q="Q38" data-tags="nikolaischuler pt1 sagemaker" data-text="sagemaker data parallelism distributed training split dataset multiple machines same model Which of the following best describes how Amazon SageMaker handles data parallelism during distributed training? Splits the dataset across multiple machines each training the same model on a portion of the data.">
+    <div class="note-title"> Data Parallelism</div>
+    <div class="sub">Distributed training strategy</div>
+    <div style="background:rgba(25,118,210,0.07);border-radius:8px;padding:8px;margin-top:6px;font-size:13px;color:var(--pencil)">
+      Splits <strong>dataset</strong> across machines → each trains the <em>same model</em> on a portion → gradients synchronized
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">same model everywhere</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">split data</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Dataset split across machines; same model on each</p>
+  </div>
 
-    <!-- 40. Model Monitor Setup -->
-    <div class="note" data-tags="monitoring sagemaker" data-text="model monitor setup data capture baseline schedule cloudwatch alert data quality model quality bias drift feature attribution auto-retrain eventbridge">
-      <div class="note-title"><span class="note-icon">🔍</span> Model Monitor Setup</div>
-      <div class="flow">
-        <div class="flow-box red">enable capture</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">baseline</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">schedule</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">CW alert</div>
-      </div>
-      <ul class="note-list">
-        <li>Monitors: data quality, model quality, bias drift, feature attribution drift</li>
-        <li class="no">Does NOT auto-retrain — trigger via EventBridge + SM Pipelines</li>
-        <li class="yes">Baseline = statistics of training data used as reference</li>
-      </ul>
+  <!-- Q39 -->
+  <div class="note" data-q="Q39" data-tags="nikolaischuler pt1 mlconcepts" data-text="reinforcement learning trading agent environment actions rewards required elements A financial firm wants to use reinforcement learning to optimize trading strategies using Amazon SageMaker. They want to train an agent that interacts with a simulated trading environment and receives feedback in the form of profits or losses. Which of the following elements must be included to formulate the reinforcement learning problem in this context? Defining the agent environment actions and rewards.">
+    <div class="note-title"> RL for Trading – Core Elements</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">Agent</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">Environment</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">Actions</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">Rewards</span>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Agent + Environment + Actions + Rewards</p>
+  </div>
 
-    <!-- 41. Drift Types -->
-    <div class="note" data-tags="monitoring mlconcepts" data-text="data drift concept drift bias drift feature attribution drift input distribution relationship changes model favors groups feature importance shifts">
-      <div class="note-title"><span class="note-icon">🌀</span> Drift Types</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Data Drift</div>
-        <div class="cmp-cell blue">Concept Drift</div>
-        <div class="cmp-cell blue-val">input distribution changes</div>
-        <div class="cmp-cell red-val">relationship input→output changes</div>
-      </div>
-      <div style="height:8px"></div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Bias Drift</div>
-        <div class="cmp-cell blue">Feature Attribution Drift</div>
-        <div class="cmp-cell blue-val">model favors certain groups</div>
-        <div class="cmp-cell red-val">feature importance shifts over time</div>
-      </div>
+  <!-- Q40 -->
+  <div class="note" data-q="Q40" data-tags="nikolaischuler pt1 sagemaker" data-text="collaborate sagemaker share notebooks manage users scale gpu integrated environment sagemaker studio A machine learning engineer wants to collaborate with a team on a project in AWS SageMaker. The team needs to share notebooks manage multiple users and ensure that they can easily scale resources based on their deep learning model GPU requirements. They also prefer to work in an integrated environment that allows seamless transition between data preparation training and model deployment. Which SageMaker tool would BEST meet these collaboration and scaling requirements? SageMaker Studio">
+    <div class="note-title"> SageMaker Studio – Collaboration</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">shared notebooks</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">user management</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">GPU scaling</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">integrated IDE</span>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Studio</p>
+  </div>
 
-    <!-- 42. AI Service Selector -->
-    <div class="note" data-tags="aiservices" data-text="comprehend rekognition transcribe polly translate kendra textract lookout ai services text entities sentiment images video faces speech text to speech nlp ocr anomaly">
-      <div class="note-title"><span class="note-icon">🤖</span> AI Service Selector</div>
-      <ul class="note-list">
-        <li>Text / entities / sentiment → <span class="r">Comprehend</span></li>
-        <li>Images / video / faces → <span class="b">Rekognition</span></li>
-        <li>Speech to text → <span class="r">Transcribe</span></li>
-        <li>Text to speech → <span class="b">Polly</span></li>
-        <li>Translation → <span class="g">Amazon Translate</span></li>
-        <li>Search (NL queries) → <span class="r">Kendra</span></li>
-        <li>Extract text from docs → <span class="b">Textract</span></li>
-        <li>Anomaly detection → <span class="g">Lookout</span></li>
-      </ul>
+  <!-- Q41 -->
+  <div class="note" data-q="Q41" data-tags="nikolaischuler pt1 data" data-text="kinesis data streams fraud detection scale automatically low latency enhanced fan-out dedicated throughput consumer A financial services company is building a fraud detection system to monitor transactions in real-time. They plan to use Amazon Kinesis Data Streams to ingest transaction data and want the system to scale automatically based on demand. They require low-latency for fast fraud detection responses. Which feature of Amazon Kinesis Data Streams should the company implement to meet these requirements? Use enhanced fan-out to reduce consumer latency and ensure dedicated throughput per consumer.">
+    <div class="note-title"> Kinesis – Fraud Detection Scaling</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Need</div>
+      <div class="cmp-cell blue">Solution</div>
+      <div class="cmp-cell red-val">Auto-scale + low latency</div>
+      <div class="cmp-cell blue-val">Enhanced fan-out per consumer</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Enhanced fan-out (dedicated throughput per consumer)</p>
+  </div>
 
-    <!-- 43. Transcribe + Translate + Polly -->
-    <div class="note" data-tags="aiservices" data-text="transcribe translate polly speech text audio multilingual customer support pipeline asr tts speech-to-text text-to-speech translation ssml">
-      <div class="note-title"><span class="note-icon">🎙️</span> Transcribe + Translate + Polly</div>
-      <div class="flow">
-        <div class="flow-box red">Speech</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">Transcribe</div>
-        <span class="arrow">→</span>
-        <div class="flow-box ink">Text</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">Translate</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">Polly</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">Audio</div>
-      </div>
-      <ul class="note-list">
-        <li>Use case: multilingual customer support pipeline</li>
-        <li>Transcribe supports custom vocabulary + medical terminology</li>
-        <li>Polly supports SSML for speech control (pace, pitch)</li>
-      </ul>
+  <!-- Q42 -->
+  <div class="note" data-q="Q42" data-tags="nikolaischuler pt1 security" data-text="grant s3 access iam users ec2 different account cross-account identity-based policy role trust policy assume A company is using Amazon S3 to store sensitive business documents. To enhance security they want to grant access to the S3 bucket only to certain IAM users while denying access to others. Additionally the company requires the S3 bucket to be accessed by an EC2 instance running in a different AWS account but only for reading data. Which combination of AWS IAM features should be used to meet these requirements? Use an identity-based policy to attach to IAM users that grants or denies access to the S3 bucket. Create a role in the other AWS account with a trust policy allowing the EC2 instance to assume the role and read from the S3 bucket.">
+    <div class="note-title"> S3 Cross-Account Access</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Same Account</div>
+      <div class="cmp-cell blue">Cross-Account EC2</div>
+      <div class="cmp-cell red-val">Identity-based policy on IAM users</div>
+      <div class="cmp-cell blue-val">Role with trust policy → EC2 assumes role</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Identity-based policy + cross-account role with trust policy</p>
+  </div>
 
-    <!-- 44. Textract + Comprehend + Kendra -->
-    <div class="note" data-tags="aiservices" data-text="textract comprehend kendra scanned doc ocr forms tables handwritten entities sentiment pii natural language semantic search pipeline">
-      <div class="note-title"><span class="note-icon">📄</span> Textract + Comprehend + Kendra</div>
-      <div class="flow">
-        <div class="flow-box red">scanned doc</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">Textract</div>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">Comprehend</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">Kendra</div>
-      </div>
-      <ul class="note-list">
-        <li><span class="r">Textract</span> = OCR + forms + tables (handwritten too)</li>
-        <li><span class="b">Comprehend</span> = entities, sentiment, PII detection</li>
-        <li><span class="g">Kendra</span> = natural language semantic search over docs</li>
-      </ul>
+  <!-- Q43 -->
+  <div class="note" data-q="Q43" data-tags="nikolaischuler pt1 data" data-text="data wrangler visualize distribution numerical relationships histograms line plots trends A machine learning engineer is using SageMaker Data Wrangler to understand relationships between features in the dataset. The engineer wants to visualize the distribution of numerical data and identify relationships between features. Which of the following visualization methods should be used in Data Wrangler to achieve these objectives? Histograms for understanding data distribution. Line plots for analyzing trends over time.">
+    <div class="note-title"> Data Wrangler – Visualizations</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Distribution</div>
+      <div class="cmp-cell blue">Trends</div>
+      <div class="cmp-cell red-val">Histograms</div>
+      <div class="cmp-cell blue-val">Line plots (over time)</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Histograms (distribution) + Line plots (trends)</p>
+  </div>
 
-    <!-- 45. Lookout Services -->
-    <div class="note" data-tags="aiservices monitoring" data-text="lookout metrics lookout vision lookout equipment anomalies business metrics visual defects products machine sensor industrial iot manufacturing">
-      <div class="note-title"><span class="note-icon">🔭</span> Lookout Services</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">Lookout for Metrics</div>
-        <div class="cmp-cell blue">Lookout for Vision</div>
-        <div class="cmp-cell blue-val">anomalies in business metrics</div>
-        <div class="cmp-cell red-val">visual defects in products</div>
-      </div>
-      <ul class="note-list">
-        <li><span class="g">Lookout for Equipment</span> = machine sensor anomalies (IoT)</li>
-        <li>Metrics: revenue drops, user anomalies, KPI spikes</li>
-        <li>Vision: manufacturing quality control, product defects</li>
-      </ul>
+  <!-- Q44 -->
+  <div class="note" data-q="Q44" data-tags="nikolaischuler pt1 aiservices" data-text="sentiment analysis call recordings transcripts compliance transcribe audio text s3 comprehend A financial services company records customer service calls and needs to perform sentiment analysis on these calls to assess customer satisfaction. They also require the ability to review the transcripts of these calls for compliance purposes. Which combination of AWS services will BEST achieve these requirements? Use Amazon Transcribe to convert the call recordings into text store the transcripts in Amazon S3 and use Amazon Comprehend for sentiment analysis on the transcripts.">
+    <div class="note-title"> Call Recording Sentiment</div>
+    <div class="flow">
+      <div class="flow-box red">Call audio</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Transcribe</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">S3</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Comprehend</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Transcribe (audio→text) → S3 → Comprehend (sentiment)</p>
+  </div>
 
-    <!-- 46. Amazon Bedrock -->
-    <div class="note" data-tags="genai" data-text="amazon bedrock serverless foundation models providers infrastructure management data stays aws region compliance fine-tune prompt engineering claude llama titan anthropic">
-      <div class="note-title"><span class="note-icon">🪨</span> Amazon Bedrock</div>
-      <ul class="note-list">
-        <li>Serverless foundation models from multiple providers (Anthropic, Meta, AWS)</li>
-        <li class="yes">No infrastructure management — fully managed</li>
-        <li class="yes">Data stays in your AWS region (compliance + privacy)</li>
-        <li>Fine-tune with custom data OR use prompt engineering</li>
-        <li>Knowledge Bases for RAG; Agents for multi-step tasks</li>
-        <li class="no">NOT open-source — managed API access only</li>
-      </ul>
+  <!-- Q45 -->
+  <div class="note" data-q="Q45" data-tags="nikolaischuler pt1 aiservices" data-text="healthcare pdfs handwritten forms textract entity recognition names diagnoses medications s3 metadata comprehend A healthcare organization needs to analyze large volumes of patient medical forms and identify important entities such as patient names diagnoses and medications. These forms include both text and handwritten content. The organization also needs to extract and categorize information to automate the documentation process and store the extracted metadata for further querying. Which combination of services would BEST meet the organization requirements? Amazon Textract for extracting both printed and handwritten text Amazon Comprehend for entity recognition and Amazon S3 for storing the extracted metadata.">
+    <div class="note-title"> Healthcare – Doc Processing</div>
+    <div class="flow">
+      <div class="flow-box red">PDF/handwritten</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Textract</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Comprehend</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">S3 metadata</div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">names</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">diagnoses</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">medications</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Textract + Comprehend Medical + S3</p>
+  </div>
 
-    <!-- 47. RAG vs Fine-tuning -->
-    <div class="note" data-tags="genai" data-text="rag retrieval augmented generation fine-tuning domain data weight changes context runtime dynamic knowledge style adaptation bedrock vector database opensearch">
-      <div class="note-title"><span class="note-icon">🔍</span> RAG vs Fine-tuning</div>
-      <div class="cmp-grid">
-        <div class="cmp-cell red">RAG</div>
-        <div class="cmp-cell blue">Fine-tuning</div>
-        <div class="cmp-cell blue-val">retrieve context at runtime, no weight changes</div>
-        <div class="cmp-cell red-val">train on domain data, updates weights</div>
-      </div>
-      <ul class="note-list">
-        <li class="yes">RAG = good for dynamic/changing knowledge (docs, FAQs)</li>
-        <li class="yes">Fine-tuning = good for style/domain adaptation (tone, format)</li>
-        <li>RAG uses vector DB (OpenSearch, Bedrock KB) for retrieval</li>
-      </ul>
+  <!-- Q46 -->
+  <div class="note" data-q="Q46" data-tags="nikolaischuler pt1 mlconcepts" data-text="improve forecast accuracy holiday competitor pricing features add new features retrain compare performance A retail company uses Amazon SageMaker to forecast sales by training a machine learning model on historical data. The data includes columns such as product_id date price promotion and units_sold. The company wants to improve its forecast accuracy by incorporating new features such as holidays and competitor pricing. What is the most effective way to include these new features in the model training workflow? Add the new features to the dataset retrain the model and compare the new model performance.">
+    <div class="note-title"> Improve Forecast Accuracy</div>
+    <div class="flow">
+      <div class="flow-box red">Add features</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Retrain</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Compare perf</div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">holidays</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">competitor pricing</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Add new features → retrain → compare performance</p>
+  </div>
 
-    <!-- 48. Grid Search (HPO) -->
-    <div class="note" data-tags="mlconcepts sagemaker" data-text="grid search hyperparameter optimization hpo exhaustive entire space random search fast trains small search space coverage guarantee bayesian hyperband">
-      <div class="note-title"><span class="note-icon">🔲</span> Grid Search (HPO)</div>
-      <div style="margin:10px 0;display:flex;align-items:center;flex-wrap:wrap;gap:8px">
-        <span class="circle blue">hyperparam space</span>
-        <span class="arrow">→</span>
-        <span style="color:var(--blue);font-weight:600">Entire</span>
-        <span class="arrow">→</span>
-        <div class="flow-box red">grid search</div>
-      </div>
-      <ul class="note-list">
-        <li>Grid Search = exhaustive, covers entire hyperparam space</li>
-        <li class="yes">Best when model trains fast AND search space is small</li>
-        <li>Random Search = samples, no full coverage guarantee</li>
-        <li class="no">Grid Search is slow for large, high-dimensional spaces</li>
-        <li class="yes">Use Bayesian / Hyperband for large spaces</li>
-      </ul>
+  <!-- Q47 -->
+  <div class="note" data-q="Q47" data-tags="nikolaischuler pt1 sagemaker monitoring" data-text="monitor data quality production missing values outliers deviations model monitor baseline incoming data A machine learning engineer at a healthcare company has deployed a model on Amazon SageMaker and wants to monitor the data quality to ensure that the data used in production maintains high integrity. Which of the following actions is MOST appropriate for monitoring data quality using Amazon SageMaker? Use SageMaker Model Monitor to evaluate incoming data for missing values outliers and deviations from the baseline training data.">
+    <div class="note-title"> Data Quality in Production</div>
+    <div class="flow">
+      <div class="flow-box red">incoming data</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Model Monitor</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">vs. baseline</div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">missing values</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">outliers</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">deviations</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Model Monitor</p>
+  </div>
 
-    <!-- 49. CloudFormation DependsOn -->
-    <div class="note" data-tags="deployment security" data-text="cloudformation dependson ec2 creation passed failed s3 bucket created not created rollback stack resource order dependency cfn">
-      <div class="note-title"><span class="note-icon">📋</span> CloudFormation — DependsOn</div>
-      <div style="margin:10px 0">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-          <span class="gy">CF →</span>
-          <span class="circle">EC2</span>
-        </div>
-        <div style="display:flex;gap:16px;flex-wrap:wrap">
-          <div>
-            <div style="color:var(--green);font-size:16px;font-weight:600">Creation Passed</div>
-            <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
-              <span class="arrow">→</span>
-              <span class="r">S3 bucket Created ✓</span>
-            </div>
-          </div>
-          <div>
-            <div style="color:var(--red);font-size:16px;font-weight:600">Creation Failed</div>
-            <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
-              <span class="arrow">→</span>
-              <span class="r">S3 bucket NOT CREATED</span>
-              <span class="arrow">→</span>
-              <span class="circle blue">Rollback Stack</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ul class="note-list">
-        <li><span class="r">DependsOn</span> = S3 bucket only created if EC2 succeeds</li>
-        <li class="yes">If EC2 fails → entire stack rolls back automatically</li>
-        <li class="no">Without DependsOn — resources create in parallel, no order guaranteed</li>
-      </ul>
+  <!-- Q48 -->
+  <div class="note" data-q="Q48" data-tags="nikolaischuler pt1 data" data-text="data wrangler missing values inconsistent scales categorical one-hot encode normalize imputation mean median A machine learning engineer is using Amazon SageMaker Data Wrangler to prepare data for training a model. The dataset has missing values inconsistent scales across features and categorical data. Which of the following actions can the engineer perform using Data Wrangler to resolve these issues? One-hot encode categorical data to convert it into a numerical format. Normalize feature values to ensure all features are on a similar scale. Perform imputation to fill in missing values using strategies like mean or median.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q48.</span> Data Wrangler – Preprocessing</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Issue</div>
+      <div class="cmp-cell blue">Fix</div>
+      <div class="cmp-cell red-val">Categorical data</div>
+      <div class="cmp-cell blue-val">One-hot encoding</div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">normalize scales</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">impute missing (mean/median)</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ One-hot encode + normalize + imputation</p>
+  </div>
 
-    <!-- 50. SageMaker Studio for EDA -->
-    <div class="note" data-tags="sagemaker" data-text="sagemaker studio notebooks eda exploratory data analysis visualizations avoid infra setup built-in viz libraries matplotlib seaborn share collaborate jupyter">
-      <div class="note-title"><span class="note-icon">🔬</span> SageMaker Studio Notebooks</div>
-      <div style="margin:10px 0;display:flex;flex-direction:column;align-items:center;gap:10px">
-        <span class="circle" style="font-size:18px;padding:6px 20px">SageMaker Studio Notebooks</span>
-        <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center">
-          <div style="text-align:center">
-            <div class="flow-box blue" style="display:inline-block">Create visualizations</div>
-          </div>
-          <div style="text-align:center">
-            <div class="flow-box green" style="display:inline-block">Avoid infra setup</div>
-          </div>
-          <div style="text-align:center">
-            <div class="flow-box blue" style="display:inline-block">Built-in viz libraries</div>
-          </div>
-        </div>
-      </div>
-      <ul class="note-list">
-        <li>Matplotlib, Seaborn pre-installed — no setup needed</li>
-        <li class="yes">Share notebooks directly with team for collaboration</li>
-        <li class="no">NOT EC2 with Jupyter — no manual infra management</li>
-      </ul>
+  <!-- Q49 -->
+  <div class="note" data-q="Q49" data-tags="nikolaischuler pt1 sagemaker data" data-text="feature reuse projects real-time batch sagemaker feature store offline online store An e-commerce company needs to build a recommendation engine using a machine learning model trained on customer activity data including purchase history browsing patterns and demographics. The team wants to streamline their model development process by creating a centralized repository of preprocessed features that can be reused across different projects. The system needs to support real-time recommendations and batch training. What is the MOST appropriate setup for the team to ensure consistent feature reuse while also optimizing for real-time and batch processing? Use the SageMaker Feature Store to create an offline store for batch training and an online store for real-time inference.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q49.</span> SageMaker Feature Store</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Offline Store</div>
+      <div class="cmp-cell blue">Online Store</div>
+      <div class="cmp-cell red-val">Batch processing (S3-backed)</div>
+      <div class="cmp-cell blue-val">Real-time retrieval (low-latency)</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Feature Store: offline (batch) + online (real-time)</p>
+  </div>
 
-    <!-- 51. Debugger/Profiler + Glue Partition -->
-    <div class="note" data-tags="sagemaker monitoring data" data-text="sagemaker debugger profiler gpu analysis improve adjust batch size optimize querying glue partition by year year wise query performance athena">
-      <div class="note-title"><span class="note-icon">⚡</span> Profiler GPU Fix + Glue Partition</div>
-      <div class="sub">GPU Underutilization</div>
-      <div class="flow">
-        <div class="flow-box blue">GPU — analysis</div>
-        <span class="arrow">→</span>
-        <div class="flow-box red">improve</div>
-        <span class="arrow">→</span>
-        <div class="flow-box green">Adjust batch size</div>
-      </div>
-      <div class="rule"></div>
-      <div class="sub">Optimize Querying</div>
-      <div class="flow">
-        <div class="flow-box blue">Optimize querying</div>
-        <span class="arrow">→</span>
-        <div class="flow-box ink">Glue</div>
-        <span class="arrow">→</span>
-        <span class="circle">year wise</span>
-      </div>
-      <p style="font-size:16px;color:var(--red);font-weight:600;margin-top:8px">Partition by year</p>
-      <ul class="note-list">
-        <li>Athena skips non-matching year partitions → less data scanned → cheaper + faster</li>
-      </ul>
+  <!-- Q50 -->
+  <div class="note" data-q="Q50" data-tags="nikolaischuler pt1 aiservices" data-text="multilingual speech input translate audio response transcribe translate polly text speech same language A company is building a multi-lingual customer support system that allows users to communicate both via text and voice. The system should transcribe customer support calls into text translate the text into the user preferred language and generate audio responses in the same language. Which combination of AWS services is MOST appropriate for this use case? Use Amazon Transcribe to convert speech to text Amazon Translate to translate the text and Amazon Polly to convert the translated text to speech.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q50.</span> Multilingual Voice Pipeline</div>
+    <div class="flow">
+      <div class="flow-box red">Speech in</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Transcribe</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Translate</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Polly (audio out)</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Transcribe + Translate + Polly</p>
+  </div>
 
-    <!-- 52. SM Pipelines DAG + Encryption at REST -->
-    <div class="note" data-tags="sagemaker deployment security" data-text="sm pipelines defined order directed acyclic graph dag encryption at rest sse-s3 sse-kms s3 server side encryption compliance">
-      <div class="note-title"><span class="note-icon">🔄</span> SM Pipelines DAG + Encryption at REST</div>
-      <div class="sub">SM Pipelines</div>
-      <div class="flow">
-        <div class="flow-box ink">SM Pipelines</div>
-        <span class="arrow">→</span>
-        <span class="circle">defined order</span>
-        <span class="arrow">→</span>
-        <div class="flow-box blue">Directed Acyclic Graph</div>
-      </div>
-      <ul class="note-list" style="margin-bottom:10px">
-        <li>DAG = steps with defined dependencies, no cycles</li>
-      </ul>
-      <div class="rule"></div>
-      <div class="sub">Encryption at REST</div>
-      <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap">
-        <span class="circle" style="border-color:var(--ink);color:var(--ink)">Encryption at REST</span>
-        <div style="display:flex;gap:12px">
-          <span class="r">SSE-S3</span>
-          <span class="gy">/</span>
-          <span class="b">SSE-KMS</span>
-        </div>
-      </div>
-      <ul class="note-list">
-        <li><span class="r">SSE-S3</span> — AWS manages keys, simplest</li>
-        <li><span class="b">SSE-KMS</span> — customer controls, CloudTrail audit, HIPAA</li>
-      </ul>
+  <!-- Q51 -->
+  <div class="note" data-q="Q51" data-tags="nikolaischuler pt1 sagemaker" data-text="script mode modularize multiple python files external dependencies entry point estimator requirements.txt package A data scientist is using SageMaker Script Mode to train a machine learning model. They need to modularize their code by separating model definition training logic and inference logic into different Python files. They also need to include several external dependencies. How should the data scientist proceed to ensure SageMaker can correctly run their custom model? Split the code into multiple Python files package them and specify a single entry point script in the SageMaker estimator. Use a requirements.txt file to install dependencies.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q51.</span> Script Mode – Modular Code</div>
+    <div class="flow">
+      <div class="flow-box red">Python files</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">package</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">entry point</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">requirements.txt</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Split into Python files + single entry point + requirements.txt</p>
+  </div>
 
-    <!-- 53. RL Rewards + IAM Role -->
-    <div class="note" data-tags="mlconcepts security" data-text="reinforcement learning rl agent reward positive expected negative not expected iam role multiple policies attach resources assume external identities cross account">
-      <div class="note-title"><span class="note-icon">🎮</span> RL Rewards + IAM Role</div>
-      <div class="sub">Reinforcement Learning</div>
-      <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap">
-        <div style="color:var(--blue);font-weight:600">Agent</div>
-        <span class="arrow">→</span>
-        <div style="color:var(--blue);font-weight:600">reward</div>
-        <span class="arrow">→</span>
-        <span class="circle" style="border-color:var(--red)">
-          <span class="g">+</span> expected &nbsp;/&nbsp; <span class="r">− not expected</span>
-        </span>
-      </div>
-      <ul class="note-list" style="margin-bottom:10px">
-        <li class="yes">+ reward = action was correct → agent repeats it</li>
-        <li class="no">− reward = action was wrong → agent avoids it</li>
-      </ul>
-      <div class="rule"></div>
-      <div class="sub">IAM Role</div>
-      <div style="display:flex;align-items:flex-start;gap:16px;margin:8px 0;flex-wrap:wrap">
-        <span class="circle" style="border-color:var(--ink);color:var(--ink);font-size:18px;padding:6px 18px">IAM Role</span>
-        <ul class="note-list" style="margin:0">
-          <li>← multiple policies attach</li>
-          <li>← resources Assume</li>
-          <li>← Assume ext identities (cross-account)</li>
-        </ul>
-      </div>
+  <!-- Q52 -->
+  <div class="note" data-q="Q52" data-tags="nikolaischuler pt1 sagemaker mlconcepts" data-text="neural network too large single gpu memory model parallelism split model across gpus A company is training a large neural network model with billions of parameters on Amazon SageMaker. The model is too large to fit into the memory of a single GPU. What technique should the company use to distribute the training across multiple instances in this scenario? Model Parallelism">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q52.</span> Model Too Large for One GPU</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Data Parallelism</div>
+      <div class="cmp-cell blue">Model Parallelism</div>
+      <div class="cmp-cell red-val">Split dataset across GPUs (same model)</div>
+      <div class="cmp-cell blue-val">Split model layers across GPUs ✓</div>
     </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Parallelism (split model across GPUs)</p>
+  </div>
+
+  <!-- Q53 -->
+  <div class="note" data-q="Q53" data-tags="nikolaischuler pt1 sagemaker monitoring" data-text="feature attribution drift annual income dominant model monitor retrain updated data shap A financial services company is using Amazon SageMaker Model Monitor to track the feature attribution drift of their credit risk prediction model. They notice that the importance of a particular feature annual income has shifted significantly over time making it a more dominant factor in the model predictions. What is the BEST course of action to address this shift in feature importance? Use SageMaker Model Monitor to alert the team about this shift and retrain the model with updated data to ensure feature importance remains balanced.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q53.</span> Feature Attribution Drift</div>
+    <div class="flow">
+      <div class="flow-box red">"annual income" dominant</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Model Monitor alert</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">retrain</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Monitor alerts → retrain with updated data</p>
+  </div>
+
+  <!-- Q54 -->
+  <div class="note" data-q="Q54" data-tags="nikolaischuler pt1 mlconcepts" data-text="model excels train poor val test overfitting training data memorize generalization You are evaluating the performance of a machine learning model and want to ensure that it generalizes well on unseen data. You decide to partition your dataset into three distinct sets training validation and testing. However your model performs exceptionally well on the training set but poorly on the validation and test sets. What is the likely cause of this performance discrepancy? The model is overfitting the training data.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q54.</span> Good Train, Poor Val/Test</div>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;margin-top:6px;font-size:13px;color:var(--pencil)">
+      Model memorizes training data → fails to generalize to unseen data = <strong>Overfitting</strong>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">high variance</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">low train error</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">high val error</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Overfitting the training data</p>
+  </div>
+
+  <!-- Q55 -->
+  <div class="note" data-q="Q55" data-tags="nikolaischuler pt1 aiservices" data-text="extract entities sentiment customer feedback comprehend entity recognition sentiment analysis A data analyst wants to extract meaningful insights from unstructured customer feedback stored in Amazon S3. The insights should include key entities like people organizations and locations mentioned in the feedback as well as the overall sentiment of the feedback. Which combination of Amazon Comprehend features should the analyst use to achieve this goal? Entity Recognition and Sentiment Analysis">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q55.</span> Comprehend – NLP Tasks</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Entity Recognition</div>
+      <div class="cmp-cell blue">Sentiment Analysis</div>
+      <div class="cmp-cell red-val">Extract people, places, orgs, dates</div>
+      <div class="cmp-cell blue-val">Positive / Negative / Mixed / Neutral</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Comprehend: Entity Recognition + Sentiment Analysis</p>
+  </div>
+
+  <!-- Q56 -->
+  <div class="note" data-q="Q56" data-tags="nikolaischuler pt1 mlconcepts" data-text="fraud detection 2% fraudulent cases minimize false negatives weighted loss oversampling smote minority class A data scientist is building a fraud detection model using Amazon SageMaker. The dataset is highly imbalanced with only 2% of the data representing fraudulent cases. The scientist wants to ensure the model can effectively detect fraud while minimizing false negatives. Which techniques should the scientist use to handle this issue? Use weighted loss functions during training to penalize misclassification of the minority class. Use oversampling techniques such as SMOTE to balance the dataset.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q56.</span> Fraud – Minimize False Negatives</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Option A</div>
+      <div class="cmp-cell blue">Option B</div>
+      <div class="cmp-cell red-val">Weighted loss functions (penalize minority misclassification)</div>
+      <div class="cmp-cell blue-val">Oversampling / SMOTE</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Weighted loss + SMOTE/oversampling for 2% fraud class</p>
+  </div>
+
+  <!-- Q57 -->
+  <div class="note" data-q="Q57" data-tags="nikolaischuler pt1 sagemaker monitoring" data-text="data drift model drift model monitor pipelines automate retraining both A machine learning model deployed into production has started underperforming due to the introduction of new data resulting in the model making less accurate predictions. The team is concerned about both data drift changes in input data distribution and model drift declining model accuracy. Which AWS service combination is most suitable for addressing these issues? SageMaker Model Monitor to track data drift and SageMaker Pipelines to automate model retraining.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q57.</span> Data Drift + Model Drift</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Detect</div>
+      <div class="cmp-cell blue">Respond</div>
+      <div class="cmp-cell red-val">Model Monitor (data drift)</div>
+      <div class="cmp-cell blue-val">Pipelines (automate retraining)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Monitor (detect) + Pipelines (retrain)</p>
+  </div>
+
+  <!-- Q58 -->
+  <div class="note" data-q="Q58" data-tags="nikolaischuler pt1 sagemaker data" data-text="preprocess gps data store features train model data wrangler feature store sagemaker notebooks A transportation company is analyzing GPS data from its fleet of vehicles to optimize delivery routes. The company needs to preprocess and clean this data create relevant features like average speed and distance traveled and store these features in a scalable feature store. The team wants to ensure the features are available for real-time predictions on delivery times and wants to train a machine learning model using these features in an easily managed notebook environment. Which services should the company use to preprocess the data store the features and train the model? Use SageMaker Data Wrangler for data preprocessing SageMaker Feature Store to store features and SageMaker Notebooks to train and deploy the machine learning model.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q58.</span> GPS Data ML Pipeline</div>
+    <div class="flow">
+      <div class="flow-box red">Data Wrangler</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Feature Store</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">SM Notebooks (train)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Data Wrangler → Feature Store → SageMaker Notebooks</p>
+  </div>
+
+  <!-- Q59 -->
+  <div class="note" data-q="Q59" data-tags="nikolaischuler pt1 mlconcepts" data-text="supervised learning classify emails spam not spam historical labeled data classification Which of the following scenarios best describes the use of supervised learning? A company develops a predictive model to classify emails as either spam or not spam using historical labeled data.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q59.</span> Supervised Learning</div>
+    <div style="background:rgba(25,118,210,0.07);border-radius:8px;padding:8px;margin-top:6px;font-size:13px;color:var(--pencil)">
+      <strong>Example:</strong> Classify emails as spam/not-spam using historical labeled data → labeled training data = supervised
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">labeled data</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">input → output mapping</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Supervised learning (labeled historical data)</p>
+  </div>
+
+  <!-- Q60 -->
+  <div class="note" data-q="Q60" data-tags="nikolaischuler pt1 mlconcepts" data-text="small model trains quickly systematic hyperparameter coverage grid search exhaustive search space Suppose you have a relatively small model that trains very quickly but you want to systematically guarantee coverage of the hyperparameter space. Which method is most suitable in this case? Grid Search">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q60.</span> Grid Search HPO</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Grid Search</div>
+      <div class="cmp-cell blue">Random Search</div>
+      <div class="cmp-cell red-val">Exhaustive systematic coverage ✓</div>
+      <div class="cmp-cell blue-val">Random sampling (faster for large spaces)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Grid Search (small model, systematic coverage)</p>
+  </div>
+
+  <!-- Q61 -->
+  <div class="note" data-q="Q61" data-tags="nikolaischuler pt1 monitoring" data-text="monitor ec2 cpu disk config changes security groups instance type ami cloudwatch aws config A company wants to ensure that all its EC2 instances are monitored for both CPU utilization and disk read/write operations. They also need to track configuration changes to these EC2 instances over time such as changes to security groups instance type and AMI IDs. Which combination of AWS services will best meet these requirements? Use AWS CloudWatch to monitor CPU utilization and disk read/write operations and AWS Config to track configuration changes to the EC2 instances.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q61.</span> EC2 Monitoring + Config Tracking</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Metrics</div>
+      <div class="cmp-cell blue">Config Changes</div>
+      <div class="cmp-cell red-val">CloudWatch (CPU, disk)</div>
+      <div class="cmp-cell blue-val">AWS Config (SGs, instance type, AMI)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ CloudWatch + AWS Config</p>
+  </div>
+
+  <!-- Q62 -->
+  <div class="note" data-q="Q62" data-tags="nikolaischuler pt1 data" data-text="kinesis firehose large log files data consistency optimize api calls buffer time intervals A company is planning to utilize AWS Kinesis Data Firehose for the ingestion of large log files from various devices. Their goal is to ensure data consistency and optimize API call usage. What configuration would best meet their requirements? Configure Kinesis Data Firehose to buffer data based on maximum time intervals.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q62.</span> Firehose – Buffer Strategy</div>
+    <div style="background:rgba(25,118,210,0.07);border-radius:8px;padding:8px;margin-top:6px;font-size:13px;color:var(--pencil)">
+      Large log files → buffer based on <strong>maximum time intervals</strong> → ensures data consistency + fewer API calls
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">time-based buffering</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">reduce API calls</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Buffer based on maximum time intervals</p>
+  </div>
+
+  <!-- Q63 -->
+  <div class="note" data-q="Q63" data-tags="nikolaischuler pt1 sagemaker aiservices" data-text="jumpstart sentiment analysis quickly deploy customize fine-tune foundation models custom datasets hyperparameter tuning An ML engineer wants to build a sentiment analysis model using pre-built solutions in SageMaker JumpStart. They need a model that can quickly be deployed and then customized using their own dataset. What features of SageMaker JumpStart would be most useful for the ML engineer needs? The ability to fine-tune foundation models with custom datasets and perform hyperparameter tuning.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q63.</span> JumpStart – Sentiment Analysis</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Deploy</div>
+      <div class="cmp-cell blue">Customize</div>
+      <div class="cmp-cell red-val">Fine-tune foundation models</div>
+      <div class="cmp-cell blue-val">Custom datasets + HPT</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Fine-tune with custom datasets + hyperparameter tuning</p>
+  </div>
+
+  <!-- Q64 -->
+  <div class="note" data-q="Q64" data-tags="nikolaischuler pt1 sagemaker" data-text="sagemaker experiments auto-log metadata hyperparameters datasets code changes trial trackers A data scientist is using SageMaker Experiments to track and compare model training runs. They want to ensure that detailed metadata such as hyperparameters datasets and code changes are logged automatically for each trial. Which feature of SageMaker Experiments provides this functionality? Trackers">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q64.</span> Experiments – Trackers</div>
+    <div style="background:rgba(25,118,210,0.07);border-radius:8px;padding:8px;margin-top:6px;font-size:13px;color:var(--pencil)">
+      <strong>Trackers</strong> automatically log metadata per trial: hyperparameters, datasets, code changes → full lineage
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:13px;padding:2px 10px">auto-log</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">per trial</span>
+      <span class="circle" style="font-size:13px;padding:2px 10px">lineage</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Experiments Trackers</p>
+  </div>
+
+  <!-- Q65 -->
+  <div class="note" data-q="Q65" data-tags="nikolaischuler pt1 mlconcepts" data-text="model parameters hyperparameters difference set before training learned during training weights biases What is the main difference between model parameters and hyperparameters in machine learning? Hyperparameters are set before training while model parameters are learned during training.">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q65.</span> Parameters vs Hyperparameters</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Model Parameters</div>
+      <div class="cmp-cell blue">Hyperparameters</div>
+      <div class="cmp-cell red-val">Learned during training (weights, biases)</div>
+      <div class="cmp-cell blue-val">Set BEFORE training (LR, batch size, depth)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Hyperparameters set before training; parameters learned during training</p>
+  </div>
+
+  <!-- ===== End Nikolai Schuler PT-1 cards ===== -->
 
   </div><!-- /notes-grid -->
 
@@ -1113,6 +1109,18 @@ html[data-theme="dark"] mark.hl { background:rgba(251,191,36,0.35); color:inheri
   </footer>
 
 </div><!-- /container -->
+
+<!-- Diagram popup overlay -->
+<div id="diagramOverlay">
+  <div id="diagramBox">
+    <div id="diagramHeader">
+      <span id="diagramLabel"></span>
+      <span id="diagramMeta"></span>
+      <button id="diagramClose" onclick="closeDiagram()">✕</button>
+    </div>
+    <img id="diagramImg" src="" alt="Question diagram">
+  </div>
+</div>
 
 <script>
 function toggleTheme(){
@@ -1159,9 +1167,6 @@ function applyFilters(){
       n.classList.remove('hidden');
       visible++;
       if(q){
-        if(!n.hasAttribute('data-orig')){
-          n.setAttribute('data-orig',n.innerHTML);
-        }
         var re=new RegExp('('+escRe(q)+')','gi');
         n.innerHTML=n.innerHTML.replace(re,'<mark class="hl">$1</mark>');
       }
@@ -1178,10 +1183,100 @@ function clearSearch(){
   applyFilters();
 }
 
+var tagLabels={
+  'nikolaischuler':'Nikolai Schuler','marlonAnesi':'Marlon Anesi',
+  'abhisheksingh':'Abhishek Singh','stephanemaarek':'Stephane Maarek',
+  'pt1':'PT-1','pt2':'PT-2','pt3':'PT-3','pt4':'PT-4','pt5':'PT-5','pt6':'PT-6',
+  'sagemaker':'SageMaker','mlconcepts':'ML Concepts','data':'Data Eng',
+  'deployment':'Deployment','security':'Security','monitoring':'Monitoring',
+  'aiservices':'AI Services','genai':'GenAI','pipeline':'Pipeline',
+  'training':'Training','inference':'Inference'
+};
+var authorTagKeys=['nikolaischuler','marlonAnesi','abhisheksingh','stephanemaarek','pt1','pt2','pt3','pt4','pt5','pt6'];
 document.addEventListener('DOMContentLoaded',function(){
+  var cardNum=0;
   document.querySelectorAll('.note').forEach(function(n){
+    cardNum++;
+    // Move existing Q-number span (Q1.-Q65.) from title to left margin
+    var hasQNum=false;
+    n.querySelectorAll('.note-title span').forEach(function(s){
+      if(/^Q\d+\.$/.test(s.textContent.trim())){
+        hasQNum=true;
+        s.className='q-num';
+        s.removeAttribute('style');
+        n.appendChild(s);
+      }
+    });
+    // Handle data-q attribute (cards without inline span)
+    if(!hasQNum&&n.getAttribute('data-q')){
+      hasQNum=true;
+      var qSpan=document.createElement('span');
+      qSpan.className='q-num';
+      qSpan.textContent=n.getAttribute('data-q');
+      n.appendChild(qSpan);
+    }
+    // Fallback: sequential number
+    if(!hasQNum){
+      var numSpan=document.createElement('span');
+      numSpan.className='q-num';
+      numSpan.textContent=cardNum;
+      n.appendChild(numSpan);
+    }
+    // Inject author/PT badges only
+    var tags=(n.getAttribute('data-tags')||'').split(' ').filter(function(t){return authorTagKeys.indexOf(t)!==-1;});
+    if(tags.length){
+      var meta=document.createElement('div');
+      meta.className='card-meta';
+      tags.forEach(function(t){
+        var span=document.createElement('span');
+        span.className='card-meta-tag';
+        span.textContent=tagLabels[t]||t;
+        meta.appendChild(span);
+      });
+      n.appendChild(meta);
+    }
+    // Save AFTER mutations so data-orig includes Q-num + badges
     n.setAttribute('data-orig',n.innerHTML);
+    // Attach diagram popup on click
+    if(n.getAttribute('data-q')){
+      n.addEventListener('click',function(e){
+        if(e.target.closest('.chip')||e.target.closest('button')) return;
+        openDiagram(n.getAttribute('data-q'),n.getAttribute('data-tags')||'');
+      });
+    }
   });
+});
+
+var diagramPageMap={1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:54,11:11,12:56,13:57,14:14,15:15,16:16,17:17,18:62,19:9,20:20,21:21,22:22,23:12,24:24,25:13,26:26,27:27,28:28,29:29,30:30,31:31,32:32,33:33,34:34,35:21,36:22,37:23,38:38,39:25,40:26,41:41,42:42,43:58,44:59,45:42,46:32,47:47,48:48,49:60,50:31,51:44,52:45,53:65,54:46,55:50,56:51,57:47,58:48,59:49,60:52,61:53,62:61,63:24,64:43,65:10};
+function openDiagram(qLabel,tags){
+  var num=parseInt(qLabel.replace(/\D/g,''),10);
+  var page=diagramPageMap[num]||num;
+  var pad=String(page).padStart(3,'0');
+  var img=document.getElementById('diagramImg');
+  img.src='diagrams/q-'+pad+'.png';
+  document.getElementById('diagramLabel').textContent=qLabel;
+  var metaTags=(tags||'').split(' ').filter(function(t){return authorTagKeys.indexOf(t)!==-1;});
+  var metaEl=document.getElementById('diagramMeta');
+  metaEl.innerHTML='';
+  metaTags.forEach(function(t){
+    var s=document.createElement('span');
+    s.className='diagram-meta-tag';
+    s.textContent=tagLabels[t]||t;
+    metaEl.appendChild(s);
+  });
+  document.getElementById('diagramOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDiagram(){
+  document.getElementById('diagramOverlay').classList.remove('open');
+  document.getElementById('diagramImg').src='';
+  document.body.style.overflow='';
+}
+document.getElementById('diagramOverlay').addEventListener('click',function(e){
+  if(e.target===this) closeDiagram();
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape') closeDiagram();
 });
 </script>
 </body>
