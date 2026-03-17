@@ -190,8 +190,8 @@ html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,
     <div class="pt-row" id="pt-nikolaischuler">
       <button class="chip" onclick="setFilterAnd(['nikolaischuler','pt1'],this)">PT-1</button>
       <button class="chip" onclick="setFilterAnd(['nikolaischuler','pt2'],this)">PT-2</button>
-      <button class="chip soon">PT-3</button>
-      <button class="chip soon">PT-4</button>
+      <button class="chip" onclick="setFilterAnd(['nikolaischuler','pt3'],this)">PT-3</button>
+      <button class="chip" onclick="setFilterAnd(['nikolaischuler','pt4'],this)">PT-4</button>
     </div>
     <div class="pt-row" id="pt-stephanemaarek">
       <button class="chip soon">PT-1</button>
@@ -2066,6 +2066,1652 @@ html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,
 
   <!-- ===== End Nikolai Schuler PT-2 cards ===== -->
 
+  <!-- ===== Nikolai Schuler PT-3 cards Q1–Q65 ===== -->
+
+  <div class="note" data-q="Q1" data-tags="nikolaischuler pt3 data" data-text="glue etl json parquet crawler schema data catalog s3 transform">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q1.</span> Glue ETL: JSON → Parquet</div>
+    <div class="sub">Schema discovery + format conversion</div>
+    <div class="flow">
+      <div class="flow-box red">S3 (JSON)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Glue ETL Job</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">S3 (Parquet)</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box ink">Glue Crawler</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Data Catalog</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Athena / Redshift</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Glue ETL converts JSON→Parquet; Crawler infers schema into Data Catalog</p>
+  </div>
+
+  <div class="note" data-q="Q2" data-tags="nikolaischuler pt3 sagemaker mlconcepts" data-text="sagemaker experiments trials trial components trackers hyperparameter tracking">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q2.</span> SageMaker Experiments Hierarchy</div>
+    <div class="sub">Track and compare training configurations</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Component</div>
+      <div class="cmp-cell blue">Purpose</div>
+      <div class="cmp-cell red-val"><span class="circle" style="font-size:12px">Experiment</span></div>
+      <div class="cmp-cell blue-val">Groups related Trials</div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Trial</span>
+      <span class="circle blue" style="font-size:12px">Trial Components</span>
+      <span class="circle" style="font-size:12px">Trackers</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Experiment → Trials → Trial Components → Trackers (log metrics/params)</p>
+  </div>
+
+  <div class="note" data-q="Q3" data-tags="nikolaischuler pt3 sagemaker mlconcepts" data-text="sagemaker experiments tracking comparing hyperparameter configurations runs">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q3.</span> Experiments: Compare HP Configs</div>
+    <div class="sub">Track every training run systematically</div>
+    <div class="flow">
+      <div class="flow-box red">HP Config A</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">SM Experiments</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Compare Metrics</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Experiments tracks and compares hyperparameter configurations across runs</p>
+  </div>
+
+  <div class="note" data-q="Q4" data-tags="nikolaischuler pt3 deployment sagemaker" data-text="sagemaker neo compile edge iot greengrass deploy model optimization">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q4.</span> Neo + IoT Greengrass Edge Deploy</div>
+    <div class="sub">Compile once, run on edge hardware</div>
+    <div class="flow">
+      <div class="flow-box blue">SM Neo Compile</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Target HW Optimize</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">IoT Greengrass</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Neo compiles model → deploy via AWS IoT Greengrass to edge devices</p>
+  </div>
+
+  <div class="note" data-q="Q5" data-tags="nikolaischuler pt3 security" data-text="macie anomalous access PII health data S3 classify sensitive data security">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q5.</span> AWS Macie: PII Detection in S3</div>
+    <div class="sub">Detects sensitive data + anomalous access</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Capability</div>
+      <div class="cmp-cell blue">Detail</div>
+      <div class="cmp-cell red-val">Anomalous Access</div>
+      <div class="cmp-cell blue-val">Alerts on unusual S3 access</div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">PII Detection</span>
+      <span class="circle blue" style="font-size:12px">Health Data</span>
+      <span class="circle" style="font-size:12px">S3 Classifier</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Macie classifies PII/health data in S3 + detects anomalous access patterns</p>
+  </div>
+
+  <div class="note" data-q="Q6" data-tags="nikolaischuler pt3 sagemaker training" data-text="xgboost churn prediction built-in algorithm limited time sagemaker training">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q6.</span> Built-in XGBoost for Churn</div>
+    <div class="sub">Fast start with pre-packaged algorithm</div>
+    <div class="flow">
+      <div class="flow-box red">Churn Dataset</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">SM XGBoost (built-in)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Churn Predictions</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SM built-in XGBoost: only provide data + hyperparameters, no container setup needed</p>
+  </div>
+
+  <div class="note" data-q="Q7" data-tags="nikolaischuler pt3 monitoring deployment" data-text="model monitor data drift sagemaker pipelines auto retrain automated retraining">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q7.</span> Monitor Drift → Auto Retrain</div>
+    <div class="sub">Automated response to model degradation</div>
+    <div class="flow">
+      <div class="flow-box blue">Model Monitor</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Drift Detected</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">SM Pipelines Retrain</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Monitor detects drift → triggers SM Pipelines to auto-retrain the model</p>
+  </div>
+
+  <div class="note" data-q="Q8" data-tags="nikolaischuler pt3 mlconcepts" data-text="regression estimating future sales ad spend historical data supervised learning">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q8.</span> Regression: Estimating Future Sales</div>
+    <div class="sub">Continuous output from numerical inputs</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Input Features</div>
+      <div class="cmp-cell blue">Output</div>
+      <div class="cmp-cell red-val">Ad spend + historical data</div>
+      <div class="cmp-cell blue-val">Predicted sales ($)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Regression = predict continuous value (future sales) from numerical inputs</p>
+  </div>
+
+  <div class="note" data-q="Q9" data-tags="nikolaischuler pt3 security" data-text="aws organizations sso single sign-on centralized access management multi-account">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q9.</span> AWS Organizations + SSO</div>
+    <div class="sub">Centralized access across accounts</div>
+    <div class="flow">
+      <div class="flow-box blue">AWS Organizations</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">AWS SSO</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Centralized Access</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ AWS Organizations + SSO provides centralized, multi-account access management</p>
+  </div>
+
+  <div class="note" data-q="Q10" data-tags="nikolaischuler pt3 sagemaker" data-text="sagemaker studio collaboration multiple ml tasks persistent storage notebooks">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q10.</span> SM Studio: Collaboration Hub</div>
+    <div class="sub">All ML tasks in one IDE</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Persistent Storage</span>
+      <span class="circle blue" style="font-size:12px">Collaboration</span>
+      <span class="circle" style="font-size:12px">Multi-task IDE</span>
+      <span class="circle blue" style="font-size:12px">AWS Integration</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Studio: persistent storage + collaboration + all ML tasks in one place</p>
+  </div>
+
+  <div class="note" data-q="Q11" data-tags="nikolaischuler pt3 sagemaker" data-text="sagemaker studio vs notebook instance parallel notebooks centralized storage comparison">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q11.</span> Studio vs Notebook Instance</div>
+    <div class="sub">Which environment for which use case?</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">SM Studio</div>
+      <div class="cmp-cell blue">Notebook Instance</div>
+      <div class="cmp-cell red-val">Parallel notebooks, centralized storage, AWS integration</div>
+      <div class="cmp-cell blue-val">Single independent notebook, simpler setup</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Studio = parallel notebooks + centralized storage; Notebook Instance = standalone</p>
+  </div>
+
+  <div class="note" data-q="Q12" data-tags="nikolaischuler pt3 genai" data-text="amazon bedrock serverless auto-scaling data encryption foundation model managed">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q12.</span> Bedrock: Serverless + Encrypted</div>
+    <div class="sub">Managed FM access with built-in security</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Serverless</span>
+      <span class="circle blue" style="font-size:12px">Auto-Scaling</span>
+      <span class="circle" style="font-size:12px">Data Encryption</span>
+      <span class="circle blue" style="font-size:12px">No Infra Mgmt</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Bedrock: serverless auto-scaling + data encryption at rest and in transit</p>
+  </div>
+
+  <div class="note" data-q="Q13" data-tags="nikolaischuler pt3 data" data-text="kinesis data streams analytics real-time firehose s3 pipeline ingestion">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q13.</span> Kinesis Real-Time Pipeline</div>
+    <div class="sub">Stream → Analyze → Store</div>
+    <div class="flow">
+      <div class="flow-box red">Kinesis Streams</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Kinesis Analytics</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Firehose</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">S3</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Streams (ingest) → Analytics (real-time SQL) → Firehose → S3 (store)</p>
+  </div>
+
+  <div class="note" data-q="Q14" data-tags="nikolaischuler pt3 monitoring sagemaker" data-text="model monitor schedule monitoring jobs merge ground truth predictions baseline">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q14.</span> Model Monitor: Ground Truth Merge</div>
+    <div class="sub">Schedule jobs + compare predictions vs actuals</div>
+    <div class="flow">
+      <div class="flow-box blue">Schedule Monitor Job</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Merge Ground Truth</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Quality Report</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Monitor: schedule monitoring + merge ground truth with endpoint predictions</p>
+  </div>
+
+  <div class="note" data-q="Q15" data-tags="nikolaischuler pt3 data" data-text="glue crawler infer schema data catalog etl s3 redshift pipeline">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q15.</span> Glue Crawler + ETL to Redshift</div>
+    <div class="sub">Schema discovery then data movement</div>
+    <div class="flow">
+      <div class="flow-box red">S3 Raw Data</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Glue Crawler → Catalog</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Glue ETL → Redshift</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Crawler infers schema into Data Catalog; ETL job transforms and loads to Redshift</p>
+  </div>
+
+  <div class="note" data-q="Q16" data-tags="nikolaischuler pt3 mlconcepts" data-text="unsupervised learning grouping customers purchase behavior clustering no labels">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q16.</span> Unsupervised: Customer Grouping</div>
+    <div class="sub">No labels — find hidden patterns</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Input</div>
+      <div class="cmp-cell blue">Output</div>
+      <div class="cmp-cell red-val">Purchase behavior (no labels)</div>
+      <div class="cmp-cell blue-val">Customer clusters/segments</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Unsupervised learning finds natural groupings without labeled training data</p>
+  </div>
+
+  <div class="note" data-q="Q17" data-tags="nikolaischuler pt3 data training" data-text="SMOTE synthetic minority oversampling class imbalance data wrangler balance dataset">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q17.</span> SMOTE for Class Imbalance</div>
+    <div class="sub">Synthetic minority oversampling in Data Wrangler</div>
+    <div class="flow">
+      <div class="flow-box red">Imbalanced Dataset</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Data Wrangler + SMOTE</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Balanced Classes</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SMOTE generates synthetic minority samples to balance class distribution</p>
+  </div>
+
+  <div class="note" data-q="Q18" data-tags="nikolaischuler pt3 monitoring sagemaker" data-text="model monitor baseline data capture endpoint enable monitoring setup schedule">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q18.</span> Model Monitor Setup Steps</div>
+    <div class="sub">Baseline then capture then schedule</div>
+    <div class="flow">
+      <div class="flow-box red">Define Baseline</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Enable Data Capture</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Schedule Monitor</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Define baseline stats → enable data capture on endpoint → schedule monitoring jobs</p>
+  </div>
+
+  <div class="note" data-q="Q19" data-tags="nikolaischuler pt3 aiservices" data-text="rekognition image moderation comprehend offensive text s3 store content moderation">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q19.</span> Content Moderation Pipeline</div>
+    <div class="sub">Image + text moderation with AI Services</div>
+    <div class="flow">
+      <div class="flow-box red">Rekognition (image)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Comprehend (text)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">S3 (store results)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Rekognition moderates images; Comprehend detects offensive text; results stored in S3</p>
+  </div>
+
+  <div class="note" data-q="Q20" data-tags="nikolaischuler pt3 sagemaker training" data-text="ground truth active learning model labels simple humans label complex annotation">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q20.</span> Ground Truth Active Learning</div>
+    <div class="sub">Automate easy labels, humans handle hard ones</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Simple Data</div>
+      <div class="cmp-cell blue">Complex Data</div>
+      <div class="cmp-cell red-val">Auto-labeled by model</div>
+      <div class="cmp-cell blue-val">Sent to human workers</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Active learning: model labels confident samples, humans only label uncertain ones</p>
+  </div>
+
+  <div class="note" data-q="Q21" data-tags="nikolaischuler pt3 data sagemaker" data-text="data wrangler feature importance quick model histograms bar charts visualization">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q21.</span> Data Wrangler: Feature Importance</div>
+    <div class="sub">Quick Model + visual analysis tools</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Quick Model</span>
+      <span class="circle blue" style="font-size:12px">Feature Importance</span>
+      <span class="circle" style="font-size:12px">Histograms</span>
+      <span class="circle blue" style="font-size:12px">Bar Charts</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Data Wrangler Quick Model evaluates feature importance; histograms show distributions</p>
+  </div>
+
+  <div class="note" data-q="Q22" data-tags="nikolaischuler pt3 data sagemaker" data-text="data wrangler preprocess feature store versioned features notebooks train pipeline">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q22.</span> Wrangler → Feature Store → Train</div>
+    <div class="sub">End-to-end feature engineering pipeline</div>
+    <div class="flow">
+      <div class="flow-box red">Data Wrangler</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Feature Store</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">SM Notebooks</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Wrangler preprocesses → Feature Store stores versioned features → Notebooks train model</p>
+  </div>
+
+  <div class="note" data-q="Q23" data-tags="nikolaischuler pt3 mlconcepts" data-text="high precision low recall fraud detection correctly identifies misses many false negative">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q23.</span> High Precision + Low Recall</div>
+    <div class="sub">Accurate positives but misses many cases</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">High Precision</div>
+      <div class="cmp-cell blue">Low Recall</div>
+      <div class="cmp-cell red-val">Few false positives — when it flags fraud, it's right</div>
+      <div class="cmp-cell blue-val">Many false negatives — misses actual frauds</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ High precision = rarely wrong when flagging; low recall = missing many real frauds</p>
+  </div>
+
+  <div class="note" data-q="Q24" data-tags="nikolaischuler pt3 monitoring mlconcepts" data-text="data drift change input distribution training data over time production model">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q24.</span> Data Drift Definition</div>
+    <div class="sub">Input distribution shifts from training baseline</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Training Data</div>
+      <div class="cmp-cell blue">Production Data</div>
+      <div class="cmp-cell red-val">Original distribution</div>
+      <div class="cmp-cell blue-val">Changed distribution = drift</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Data drift = change in input feature distribution between training and production data</p>
+  </div>
+
+  <div class="note" data-q="Q25" data-tags="nikolaischuler pt3 sagemaker data" data-text="data wrangler clean feature store jumpstart pre-built model pipeline quick deployment">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q25.</span> Wrangler + Feature Store + JumpStart</div>
+    <div class="sub">Clean → Store → Deploy pre-built model</div>
+    <div class="flow">
+      <div class="flow-box red">Data Wrangler</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Feature Store</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">JumpStart Model</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Wrangler cleans → Feature Store persists features → JumpStart deploys pre-built model</p>
+  </div>
+
+  <div class="note" data-q="Q26" data-tags="nikolaischuler pt3 security monitoring" data-text="aws config evaluate s3 rules cloudwatch events real-time alerts compliance bucket">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q26.</span> Config Rules + CloudWatch Alerts</div>
+    <div class="sub">Compliance evaluation + real-time notification</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">AWS Config</div>
+      <div class="cmp-cell blue">CloudWatch Events</div>
+      <div class="cmp-cell red-val">Evaluates S3 compliance rules</div>
+      <div class="cmp-cell blue-val">Fires real-time alerts on violation</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ AWS Config evaluates S3 rules; CloudWatch Events triggers real-time remediation alerts</p>
+  </div>
+
+  <div class="note" data-q="Q27" data-tags="nikolaischuler pt3 data" data-text="kinesis firehose failed records backup s3 bucket configuration delivery failure">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q27.</span> Firehose Failed Records Backup</div>
+    <div class="sub">Automatic backup for delivery failures</div>
+    <div class="flow">
+      <div class="flow-box blue">Kinesis Firehose</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Delivery Failure</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Backup S3 Bucket</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Firehose backup config routes failed records to a dedicated S3 backup bucket</p>
+  </div>
+
+  <div class="note" data-q="Q28" data-tags="nikolaischuler pt3 sagemaker deployment" data-text="sagemaker processing preprocess built-in algorithm AMT hyperparameter tuning endpoint deployment">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q28.</span> SM Full Pipeline: Preprocess → Deploy</div>
+    <div class="sub">Processing → Train → Tune → Endpoint</div>
+    <div class="flow">
+      <div class="flow-box red">SM Processing</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Built-in Algo</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">AMT (HP Tuning)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">SM Endpoint</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Processing → Train with built-in → AMT tunes HPs → deploy to SM endpoint</p>
+  </div>
+
+  <div class="note" data-q="Q29" data-tags="nikolaischuler pt3 sagemaker deployment" data-text="sagemaker model registry track model versions hyperparameters metrics versioning">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q29.</span> SM Model Registry</div>
+    <div class="sub">Central store for model versions + metadata</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Model Versions</span>
+      <span class="circle blue" style="font-size:12px">HP Tracking</span>
+      <span class="circle" style="font-size:12px">Metrics</span>
+      <span class="circle blue" style="font-size:12px">Approval Status</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Registry tracks versions, hyperparameters, metrics, and approval status</p>
+  </div>
+
+  <div class="note" data-q="Q30" data-tags="nikolaischuler pt3 sagemaker training" data-text="script mode python script entry point estimator custom training code bring your own">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q30.</span> Script Mode: Custom Training</div>
+    <div class="sub">Bring your Python script to SM containers</div>
+    <div class="flow">
+      <div class="flow-box red">Python Script</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">SM Estimator (entry_point)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Training Job</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Script Mode: write Python training script → specify as entry_point in SM estimator</p>
+  </div>
+
+  <div class="note" data-q="Q31" data-tags="nikolaischuler pt3 mlconcepts training" data-text="hyperband allocates resources promising configurations stops underperformers early stopping HPO">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q31.</span> Hyperband HPO Strategy</div>
+    <div class="sub">Resource-aware early termination</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Promising Config</div>
+      <div class="cmp-cell blue">Poor Config</div>
+      <div class="cmp-cell red-val">Gets more compute resources allocated</div>
+      <div class="cmp-cell blue-val">Stopped early to save resources</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Hyperband allocates more resources to promising configs and stops underperformers early</p>
+  </div>
+
+  <div class="note" data-q="Q32" data-tags="nikolaischuler pt3 data" data-text="glue partitioning year month process partitions independently reduce costs ETL">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q32.</span> Glue Partitioning by Date</div>
+    <div class="sub">Process partitions independently, reduce scan costs</div>
+    <div class="flow">
+      <div class="flow-box red">S3 (year/month partitions)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Glue ETL (per partition)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Reduced Cost</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Partitioning by year/month lets Glue process each partition independently, lowering costs</p>
+  </div>
+
+  <div class="note" data-q="Q33" data-tags="nikolaischuler pt3 sagemaker training" data-text="jumpstart pre-built solutions end-to-end pipelines faster deployment foundation models">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q33.</span> JumpStart: End-to-End Solutions</div>
+    <div class="sub">Pre-built pipelines for rapid deployment</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Pre-built Models</span>
+      <span class="circle blue" style="font-size:12px">E2E Pipelines</span>
+      <span class="circle" style="font-size:12px">Foundation Models</span>
+      <span class="circle blue" style="font-size:12px">Fast Deploy</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ JumpStart provides pre-built solutions with end-to-end pipelines for faster deployment</p>
+  </div>
+
+  <div class="note" data-q="Q34" data-tags="nikolaischuler pt3 data" data-text="glue partitioning year skip irrelevant partitions reduce data scanned athena cost">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q34.</span> Glue Partitioning: Skip Irrelevant</div>
+    <div class="sub">Query only relevant date partitions</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Without Partitioning</div>
+      <div class="cmp-cell blue">With Partitioning</div>
+      <div class="cmp-cell red-val">Scans all data every query</div>
+      <div class="cmp-cell blue-val">Skips irrelevant year partitions</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Partitioning by year allows Athena to skip irrelevant partitions, reducing data scanned</p>
+  </div>
+
+  <div class="note" data-q="Q35" data-tags="nikolaischuler pt3 mlconcepts" data-text="recall focus when missing fraud is costly low recall missing frauds false negative rate">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q35.</span> Recall: Fraud Detection Priority</div>
+    <div class="sub">When missing positives is most costly</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Low Recall Problem</div>
+      <div class="cmp-cell blue">High Recall Goal</div>
+      <div class="cmp-cell red-val">Many frauds go undetected (costly!)</div>
+      <div class="cmp-cell blue-val">Catches most actual fraud cases</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Optimize recall when false negatives (missing fraud) are more costly than false positives</p>
+  </div>
+
+  <div class="note" data-q="Q36" data-tags="nikolaischuler pt3 monitoring" data-text="cloudwatch alarm average cpu 80 percent 5 minutes action stop instance threshold">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q36.</span> CloudWatch Alarm: CPU → Action</div>
+    <div class="sub">Threshold-based automated response</div>
+    <div class="flow">
+      <div class="flow-box red">CPU &gt; 80% (5 min avg)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">CW Alarm Triggers</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Stop Instance</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ CloudWatch alarm on avg CPU &gt;80% over 5 min → automated action to stop instance</p>
+  </div>
+
+  <div class="note" data-q="Q37" data-tags="nikolaischuler pt3 aiservices" data-text="translate language comprehend sentiment entity lambda automate pipeline AI services">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q37.</span> Translate + Comprehend + Lambda</div>
+    <div class="sub">Multilingual NLP automation pipeline</div>
+    <div class="flow">
+      <div class="flow-box red">Translate (language)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Comprehend (sentiment)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Lambda (automate)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Translate converts language → Comprehend extracts sentiment/entities → Lambda automates</p>
+  </div>
+
+  <div class="note" data-q="Q38" data-tags="nikolaischuler pt3 sagemaker" data-text="sagemaker studio persistent storage multiple notebooks vs notebook instance independent">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q38.</span> Studio vs Notebook Instance (II)</div>
+    <div class="sub">Persistent storage vs independent environments</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">SM Studio</div>
+      <div class="cmp-cell blue">Notebook Instance</div>
+      <div class="cmp-cell red-val">Persistent EFS storage, multiple notebooks</div>
+      <div class="cmp-cell blue-val">Independent, local storage, single notebook</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Studio = persistent EFS + multi-notebook; Notebook Instance = independent single env</p>
+  </div>
+
+  <div class="note" data-q="Q39" data-tags="nikolaischuler pt3 security" data-text="identity-based policies users groups roles resource-based policies s3 buckets IAM">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q39.</span> Identity vs Resource-Based Policies</div>
+    <div class="sub">Two types of IAM permission attachment</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Identity-Based</div>
+      <div class="cmp-cell blue">Resource-Based</div>
+      <div class="cmp-cell red-val">Attached to users/groups/roles</div>
+      <div class="cmp-cell blue-val">Attached to S3 buckets, KMS keys</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Identity-based = on principals; Resource-based = on resources (S3, KMS, Lambda)</p>
+  </div>
+
+  <div class="note" data-q="Q40" data-tags="nikolaischuler pt3 sagemaker training" data-text="sagemaker debugger built-in rules gradient values learning rate adjust training">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q40.</span> Debugger: Gradient Rules</div>
+    <div class="sub">Detect training issues, adjust learning rate</div>
+    <div class="flow">
+      <div class="flow-box red">Training Job</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Debugger (gradient rules)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Adjust Learning Rate</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SM Debugger built-in rules detect bad gradient values → alert to adjust learning rate</p>
+  </div>
+
+  <div class="note" data-q="Q41" data-tags="nikolaischuler pt3 deployment monitoring" data-text="pipelines automate retrain model monitor performance degradation experiments track">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q41.</span> Monitor + Retrain + Experiments</div>
+    <div class="sub">Closed-loop MLOps workflow</div>
+    <div class="flow">
+      <div class="flow-box blue">Model Monitor</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Degradation Alert</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Pipelines Retrain</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Experiments Track</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Monitor detects degradation → Pipelines auto-retrain → Experiments track all runs</p>
+  </div>
+
+  <div class="note" data-q="Q42" data-tags="nikolaischuler pt3 data" data-text="glue serverless auto-scaling incremental ETL only new modified data cost efficient">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q42.</span> Glue Serverless + Incremental ETL</div>
+    <div class="sub">Auto-scale + process only new data</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Serverless</span>
+      <span class="circle blue" style="font-size:12px">Auto-Scaling</span>
+      <span class="circle" style="font-size:12px">Incremental ETL</span>
+      <span class="circle blue" style="font-size:12px">Only New Data</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Glue is serverless auto-scaling; incremental ETL processes only new/modified data</p>
+  </div>
+
+  <div class="note" data-q="Q43" data-tags="nikolaischuler pt3 monitoring sagemaker" data-text="model monitor bias drift model favoring particular group fairness demographic">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q43.</span> Model Monitor: Bias Drift</div>
+    <div class="sub">Detect model fairness degradation over time</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Bias Drift Signal</div>
+      <div class="cmp-cell blue">Root Cause</div>
+      <div class="cmp-cell red-val">Model favoring one group</div>
+      <div class="cmp-cell blue-val">Shifted data distribution in prod</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Bias drift = model starts favoring a particular group; detected by Model Monitor</p>
+  </div>
+
+  <div class="note" data-q="Q44" data-tags="nikolaischuler pt3 data" data-text="kinesis enhanced fan-out multiple consumers bottleneck avoid dedicated throughput">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q44.</span> Kinesis Enhanced Fan-Out</div>
+    <div class="sub">Dedicated throughput per consumer</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Standard</div>
+      <div class="cmp-cell blue">Enhanced Fan-Out</div>
+      <div class="cmp-cell red-val">Shared 2MB/s, consumers compete</div>
+      <div class="cmp-cell blue-val">2MB/s per consumer, no bottleneck</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Enhanced Fan-Out gives each consumer dedicated throughput, avoids bottlenecks</p>
+  </div>
+
+  <div class="note" data-q="Q45" data-tags="nikolaischuler pt3 sagemaker training" data-text="script mode python script entry_point requirements.txt custom libraries dependencies">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q45.</span> Script Mode: requirements.txt</div>
+    <div class="sub">Install custom dependencies in SM containers</div>
+    <div class="flow">
+      <div class="flow-box red">training_script.py</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">entry_point + requirements.txt</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">SM Training Job</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Script Mode: Python script + entry_point + requirements.txt installs custom libs</p>
+  </div>
+
+  <div class="note" data-q="Q46" data-tags="nikolaischuler pt3 sagemaker training" data-text="model parallelism split model multiple GPUs too large single GPU distributed training">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q46.</span> Model Parallelism Explained</div>
+    <div class="sub">When model is too large for one GPU</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Data Parallelism</div>
+      <div class="cmp-cell blue">Model Parallelism</div>
+      <div class="cmp-cell red-val">Split data, each GPU has full model</div>
+      <div class="cmp-cell blue-val">Split model across GPUs (too large)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model parallelism = split the model layers across multiple GPUs when too large</p>
+  </div>
+
+  <div class="note" data-q="Q47" data-tags="nikolaischuler pt3 security" data-text="secrets manager cross-account resource policy KMS key policy grants decryption">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q47.</span> Secrets Manager Cross-Account</div>
+    <div class="sub">Resource policy + KMS key policy for decryption</div>
+    <div class="flow">
+      <div class="flow-box red">Cross-Account Role</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Resource Policy (Secrets Mgr)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">KMS Key Policy (decrypt)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Cross-account: Secrets Manager resource policy + KMS key policy grants decryption access</p>
+  </div>
+
+  <div class="note" data-q="Q48" data-tags="nikolaischuler pt3 aiservices security" data-text="transcribe medical speech text lambda comprehend medical PII redact s3 HIPAA">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q48.</span> Transcribe Medical + PII Redaction</div>
+    <div class="sub">Medical speech → text → PII removed</div>
+    <div class="flow">
+      <div class="flow-box red">Transcribe Medical</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Lambda + Comprehend Medical</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">S3 (PII redacted)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Transcribe Medical converts speech; Lambda + Comprehend Medical redacts PII; stored in S3</p>
+  </div>
+
+  <div class="note" data-q="Q49" data-tags="nikolaischuler pt3 sagemaker deployment" data-text="sagemaker pipeline structure name steps train register deploy parameters DAG">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q49.</span> SM Pipeline Structure</div>
+    <div class="sub">Name + steps + parameters define the DAG</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Pipeline Name</span>
+      <span class="circle blue" style="font-size:12px">Steps (Train/Register/Deploy)</span>
+      <span class="circle" style="font-size:12px">Parameters</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SM Pipeline = name + ordered steps (train/register/deploy) + parameters for flexibility</p>
+  </div>
+
+  <div class="note" data-q="Q50" data-tags="nikolaischuler pt3 aiservices" data-text="transcribe speech text translate language polly text speech pipeline multilingual">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q50.</span> Transcribe → Translate → Polly</div>
+    <div class="sub">Speech-to-speech translation pipeline</div>
+    <div class="flow">
+      <div class="flow-box red">Transcribe (speech→text)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Translate (text)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Polly (text→speech)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Transcribe → Translate language → Polly synthesizes speech in target language</p>
+  </div>
+
+  <div class="note" data-q="Q51" data-tags="nikolaischuler pt3 sagemaker mlconcepts" data-text="trial single training run trial components stages data processing training experiments">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q51.</span> Trial vs Trial Components</div>
+    <div class="sub">Granularity in SM Experiments</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Trial</div>
+      <div class="cmp-cell blue">Trial Components</div>
+      <div class="cmp-cell red-val">One complete training run</div>
+      <div class="cmp-cell blue-val">Stages: data proc + training + eval</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Trial = single run; Trial Components = individual stages within that run</p>
+  </div>
+
+  <div class="note" data-q="Q52" data-tags="nikolaischuler pt3 sagemaker deployment" data-text="sagemaker pipelines DAG auto step execution scalability concurrent workflows orchestration">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q52.</span> SM Pipelines: DAG + Scalability</div>
+    <div class="sub">Concurrent workflow orchestration</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">DAG Structure</span>
+      <span class="circle blue" style="font-size:12px">Auto Execution</span>
+      <span class="circle" style="font-size:12px">Concurrent Workflows</span>
+      <span class="circle blue" style="font-size:12px">Scalable</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SM Pipelines: DAG auto-executes steps; scales to handle concurrent parallel workflows</p>
+  </div>
+
+  <div class="note" data-q="Q53" data-tags="nikolaischuler pt3 data" data-text="kinesis firehose redshift native integration SQL fast querying analytics warehouse">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q53.</span> Firehose → Redshift for SQL</div>
+    <div class="sub">Native integration for fast SQL analytics</div>
+    <div class="flow">
+      <div class="flow-box red">Kinesis Firehose</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Redshift (native)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Fast SQL Queries</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Firehose has native Redshift integration — ideal for SQL-based fast analytics queries</p>
+  </div>
+
+  <div class="note" data-q="Q54" data-tags="nikolaischuler pt3 data" data-text="glue crawlers detect schema changes data catalog athena queries updated schema">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q54.</span> Crawlers: Schema Change Detection</div>
+    <div class="sub">Keep Data Catalog current for Athena</div>
+    <div class="flow">
+      <div class="flow-box red">S3 Data Changes</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Glue Crawler (detects)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Data Catalog → Athena</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Crawlers detect schema changes → update Data Catalog → Athena queries stay accurate</p>
+  </div>
+
+  <div class="note" data-q="Q55" data-tags="nikolaischuler pt3 sagemaker training" data-text="sagemaker automatic hyperparameter tuning built-in linear learner AMT optimization">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q55.</span> SM Auto HP Tuning (AMT)</div>
+    <div class="sub">Automatic tuning with built-in linear learner</div>
+    <div class="flow">
+      <div class="flow-box red">Linear Learner</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">AMT (HP ranges)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Best HP Config</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ AMT automatically tunes hyperparameters for SM built-in linear learner algorithm</p>
+  </div>
+
+  <div class="note" data-q="Q56" data-tags="nikolaischuler pt3 mlconcepts training" data-text="cross-validation multiple subsets early stopping prevent overfitting generalization">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q56.</span> Cross-Validation + Early Stopping</div>
+    <div class="sub">Two techniques to prevent overfitting</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Cross-Validation</div>
+      <div class="cmp-cell blue">Early Stopping</div>
+      <div class="cmp-cell red-val">Multiple folds to test generalization</div>
+      <div class="cmp-cell blue-val">Stop training when val loss increases</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Cross-validation uses multiple subsets; early stopping halts training before overfitting</p>
+  </div>
+
+  <div class="note" data-q="Q57" data-tags="nikolaischuler pt3 genai" data-text="bedrock serverless fine-tune foundation model s3 store historical data chatbot">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q57.</span> Bedrock + S3: Custom Chatbot</div>
+    <div class="sub">Fine-tune FM with historical data</div>
+    <div class="flow">
+      <div class="flow-box red">S3 (historical data)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Bedrock Fine-tune FM</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Custom Chatbot</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Bedrock fine-tunes foundation model with historical data from S3 for custom chatbot</p>
+  </div>
+
+  <div class="note" data-q="Q58" data-tags="nikolaischuler pt3 sagemaker mlconcepts" data-text="sagemaker clarify fairness explainability bias before after training SHAP feature attribution">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q58.</span> SM Clarify: Fairness + Explainability</div>
+    <div class="sub">Detect bias before and after training</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Pre-training Bias</span>
+      <span class="circle blue" style="font-size:12px">Post-training Bias</span>
+      <span class="circle" style="font-size:12px">SHAP Explainability</span>
+      <span class="circle blue" style="font-size:12px">Feature Attribution</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Clarify = fairness analysis (pre + post training) + SHAP explainability reports</p>
+  </div>
+
+  <div class="note" data-q="Q59" data-tags="nikolaischuler pt3 data sagemaker" data-text="data wrangler sources amazon s3 sagemaker feature store data sources connection">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q59.</span> Data Wrangler Data Sources</div>
+    <div class="sub">Connect to S3 and Feature Store</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Amazon S3</span>
+      <span class="circle blue" style="font-size:12px">Feature Store</span>
+      <span class="circle" style="font-size:12px">Athena</span>
+      <span class="circle blue" style="font-size:12px">Redshift</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Data Wrangler sources: Amazon S3 + SageMaker Feature Store (among others)</p>
+  </div>
+
+  <div class="note" data-q="Q60" data-tags="nikolaischuler pt3 sagemaker deployment" data-text="sagemaker pipelines reuse preprocessing steps different projects modular pipeline code">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q60.</span> Pipelines: Reuse Preprocessing Steps</div>
+    <div class="sub">Modular steps across multiple projects</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Without Pipelines</div>
+      <div class="cmp-cell blue">With SM Pipelines</div>
+      <div class="cmp-cell red-val">Rewrite preprocessing per project</div>
+      <div class="cmp-cell blue-val">Reuse step definitions across projects</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SM Pipelines allows reuse of preprocessing step definitions across different projects</p>
+  </div>
+
+  <div class="note" data-q="Q61" data-tags="nikolaischuler pt3 sagemaker" data-text="sagemaker jupyter notebooks persistent storage prevents data loss notebook instance">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q61.</span> SM Notebooks: Persistent Storage</div>
+    <div class="sub">Data survives instance stop/start</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Without Persistence</div>
+      <div class="cmp-cell blue">SM Persistent Storage</div>
+      <div class="cmp-cell red-val">Data lost on instance stop</div>
+      <div class="cmp-cell blue-val">EBS/EFS survives lifecycle events</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SageMaker Jupyter Notebooks use persistent storage — no data loss on stop/restart</p>
+  </div>
+
+  <div class="note" data-q="Q62" data-tags="nikolaischuler pt3 sagemaker training" data-text="ground truth private workforce sensitive data active learning automate simple labels">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q62.</span> Ground Truth: Private + Active Learning</div>
+    <div class="sub">Sensitive data labeling with automation</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Private Workforce</div>
+      <div class="cmp-cell blue">Active Learning</div>
+      <div class="cmp-cell red-val">Keeps sensitive data internal</div>
+      <div class="cmp-cell blue-val">Auto-labels simple, humans do complex</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Private workforce for sensitive data + active learning automates simple label tasks</p>
+  </div>
+
+  <div class="note" data-q="Q63" data-tags="nikolaischuler pt3 sagemaker training" data-text="sagemaker profiler monitor disk IO GPU utilization real-time training performance">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q63.</span> SM Profiler: Disk I/O + GPU</div>
+    <div class="sub">Real-time training resource monitoring</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Disk I/O</span>
+      <span class="circle blue" style="font-size:12px">GPU Utilization</span>
+      <span class="circle" style="font-size:12px">CPU Metrics</span>
+      <span class="circle blue" style="font-size:12px">Real-Time</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SM Profiler monitors disk I/O and GPU utilization in real-time during training</p>
+  </div>
+
+  <div class="note" data-q="Q64" data-tags="nikolaischuler pt3 sagemaker training" data-text="sagemaker reinforcement learning pre-built toolkits Coach Ray RLlib python SDK monitoring">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q64.</span> SM Reinforcement Learning</div>
+    <div class="sub">Pre-built RL toolkits in SageMaker</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Intel Coach</span>
+      <span class="circle blue" style="font-size:12px">Ray RLlib</span>
+      <span class="circle" style="font-size:12px">Python SDK</span>
+      <span class="circle blue" style="font-size:12px">Monitoring</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SM RL: pre-built toolkits (Coach, Ray RLlib) + Python SDK with training monitoring</p>
+  </div>
+
+  <div class="note" data-q="Q65" data-tags="nikolaischuler pt3 sagemaker training" data-text="sagemaker built-in algorithms pre-packaged containers only data hyperparameters no custom code">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q65.</span> SM Built-in Algorithms</div>
+    <div class="sub">Pre-packaged — only bring data + HPs</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">You Provide</div>
+      <div class="cmp-cell blue">AWS Provides</div>
+      <div class="cmp-cell red-val">Dataset + hyperparameters</div>
+      <div class="cmp-cell blue-val">Pre-packaged container + algorithm</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Built-in algorithms: AWS provides pre-packaged container; you only supply data + HPs</p>
+  </div>
+
+  <!-- ===== End Nikolai Schuler PT-3 cards ===== -->
+
+  <!-- ===== Nikolai Schuler PT-4 cards Q1–Q65 ===== -->
+
+  <div class="note" data-q="Q1" data-tags="nikolaischuler pt4 sagemaker" data-text="sagemaker notebook instances managed jupyter no infrastructure maintenance easy start">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q1.</span> SM Notebook Instances</div>
+    <div class="sub">Managed Jupyter, zero infra management</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Managed Jupyter</span>
+      <span class="circle blue" style="font-size:12px">No Infra to Manage</span>
+      <span class="circle" style="font-size:12px">Easy Start</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SM Notebook Instances = managed Jupyter environment, no infrastructure to maintain</p>
+  </div>
+
+  <div class="note" data-q="Q2" data-tags="nikolaischuler pt4 data sagemaker" data-text="data wrangler quick model auto split train simple model evaluate feature importance visualization">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q2.</span> Data Wrangler Quick Model</div>
+    <div class="sub">Auto feature importance evaluation</div>
+    <div class="flow">
+      <div class="flow-box red">Auto Split Dataset</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Train Simple Model</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Feature Importance Score</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Quick Model: auto splits data, trains simple model, evaluates feature importance</p>
+  </div>
+
+  <div class="note" data-q="Q3" data-tags="nikolaischuler pt4 sagemaker training" data-text="sagemaker built-in algorithm bring dataset hyperparameters pre-packaged AWS container">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q3.</span> Built-in Algo: Bring Data + HPs</div>
+    <div class="sub">AWS packages the algorithm container</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Your Responsibility</div>
+      <div class="cmp-cell blue">AWS Responsibility</div>
+      <div class="cmp-cell red-val">Dataset + hyperparameters</div>
+      <div class="cmp-cell blue-val">Pre-packaged container + algo</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Built-in algo: bring dataset + HPs; AWS pre-packages the algorithm in a container</p>
+  </div>
+
+  <div class="note" data-q="Q4" data-tags="nikolaischuler pt4 sagemaker training" data-text="xgboost pre-packaged container data location hyperparameters compute instance training job">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q4.</span> XGBoost Training Setup</div>
+    <div class="sub">4 inputs needed to start training</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">XGBoost Container</span>
+      <span class="circle blue" style="font-size:12px">Data Location (S3)</span>
+      <span class="circle" style="font-size:12px">Hyperparameters</span>
+      <span class="circle blue" style="font-size:12px">Compute Instance</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ XGBoost: pre-packaged container + S3 data location + HPs + instance type</p>
+  </div>
+
+  <div class="note" data-q="Q5" data-tags="nikolaischuler pt4 sagemaker training mlconcepts" data-text="hyperparameter tuning requires performance metric training algorithm AMT configuration">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q5.</span> HP Tuning Requirements</div>
+    <div class="sub">Two must-have inputs for AMT</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Required Input 1</div>
+      <div class="cmp-cell blue">Required Input 2</div>
+      <div class="cmp-cell red-val">Performance metric to optimize</div>
+      <div class="cmp-cell blue-val">Training algorithm to tune</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ HP tuning requires: (1) performance metric + (2) training algorithm to optimize</p>
+  </div>
+
+  <div class="note" data-q="Q6" data-tags="nikolaischuler pt4 sagemaker training" data-text="script mode focus model development pre-configured pytorch no container management framework">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q6.</span> Script Mode: Focus on Model Dev</div>
+    <div class="sub">Pre-configured frameworks, no Docker needed</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Script Mode</div>
+      <div class="cmp-cell blue">BYOC</div>
+      <div class="cmp-cell red-val">Write code, AWS manages container</div>
+      <div class="cmp-cell blue-val">Full control, build custom container</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Script Mode: focus on model code with pre-configured PyTorch/TF; no container mgmt</p>
+  </div>
+
+  <div class="note" data-q="Q7" data-tags="nikolaischuler pt4 sagemaker mlconcepts" data-text="sagemaker experiments trials track compare individual training runs metrics hyperparameters">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q7.</span> SM Experiments: Trials</div>
+    <div class="sub">Each trial = one training run</div>
+    <div class="flow">
+      <div class="flow-box red">Trial Run A (HP set 1)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Trial Run B (HP set 2)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Compare in Experiments</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Trials track and compare each individual training run in SM Experiments</p>
+  </div>
+
+  <div class="note" data-q="Q8" data-tags="nikolaischuler pt4 sagemaker training" data-text="ground truth active learning automate simple labels human labels complex annotation workforce">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q8.</span> Ground Truth Active Learning (II)</div>
+    <div class="sub">Smart labeling — automate what's easy</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Simple Samples</div>
+      <div class="cmp-cell blue">Complex Samples</div>
+      <div class="cmp-cell red-val">Model auto-labels (high confidence)</div>
+      <div class="cmp-cell blue-val">Sent to human annotators</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Active learning automates simple labels; humans only annotate low-confidence samples</p>
+  </div>
+
+  <div class="note" data-q="Q9" data-tags="nikolaischuler pt4 sagemaker training" data-text="sagemaker profiler add start stop commands training script CPU GPU metrics collection">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q9.</span> SM Profiler: Script Commands</div>
+    <div class="sub">Add hooks to collect resource metrics</div>
+    <div class="flow">
+      <div class="flow-box red">profiler.start() in script</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Collect CPU/GPU Metrics</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">profiler.stop()</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Add profiler start/stop commands in training script to collect CPU/GPU metrics</p>
+  </div>
+
+  <div class="note" data-q="Q10" data-tags="nikolaischuler pt4 monitoring sagemaker" data-text="data drift retrain updated training data fix declining model performance production">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q10.</span> Fix Drift: Retrain with New Data</div>
+    <div class="sub">Updated data fixes distribution shift</div>
+    <div class="flow">
+      <div class="flow-box red">Data Drift Detected</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Retrain with Updated Data</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Performance Restored</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Data drift → retrain model with updated training data to restore performance</p>
+  </div>
+
+  <div class="note" data-q="Q11" data-tags="nikolaischuler pt4 monitoring sagemaker" data-text="model monitor tracks data drift feature attribution drift two types monitoring">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q11.</span> Model Monitor: Two Drift Types</div>
+    <div class="sub">What Model Monitor tracks in production</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Data Drift</div>
+      <div class="cmp-cell blue">Feature Attribution Drift</div>
+      <div class="cmp-cell red-val">Input feature distribution shifts</div>
+      <div class="cmp-cell blue-val">Feature importance rankings change</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Monitor tracks: Data Drift + Feature Attribution Drift (and quality/bias drift)</p>
+  </div>
+
+  <div class="note" data-q="Q12" data-tags="nikolaischuler pt4 sagemaker deployment" data-text="model lineage tracks history model development auditing compliance pipelines registry">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q12.</span> SM Model Lineage</div>
+    <div class="sub">Audit trail for model development history</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Dev History</span>
+      <span class="circle blue" style="font-size:12px">Auditing</span>
+      <span class="circle" style="font-size:12px">Compliance</span>
+      <span class="circle blue" style="font-size:12px">Pipelines</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Model Lineage tracks full development history for auditing and compliance in Pipelines</p>
+  </div>
+
+  <div class="note" data-q="Q13" data-tags="nikolaischuler pt4 sagemaker deployment" data-text="model registry approval status controls which models deploy production gating">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q13.</span> Model Registry: Approval Status</div>
+    <div class="sub">Gate which model versions reach production</div>
+    <div class="flow">
+      <div class="flow-box red">New Model Version</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Approval Status Check</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Deploy to Production</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Approval Status in Model Registry controls which model versions are deployed</p>
+  </div>
+
+  <div class="note" data-q="Q14" data-tags="nikolaischuler pt4 mlconcepts" data-text="binary classification predict customer purchase yes no two class output">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q14.</span> Binary Classification</div>
+    <div class="sub">Predict one of two outcomes</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Input</div>
+      <div class="cmp-cell blue">Output</div>
+      <div class="cmp-cell red-val">Customer features + behavior</div>
+      <div class="cmp-cell blue-val">Will purchase? YES / NO</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Binary classification = predict one of two outcomes (purchase: yes/no)</p>
+  </div>
+
+  <div class="note" data-q="Q15" data-tags="nikolaischuler pt4 mlconcepts" data-text="accuracy 85 percent emails correctly classified spam not spam metric definition">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q15.</span> Accuracy: Email Classification</div>
+    <div class="sub">% of all samples correctly classified</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Metric</div>
+      <div class="cmp-cell blue">Meaning</div>
+      <div class="cmp-cell red-val">Accuracy = 85%</div>
+      <div class="cmp-cell blue-val">85% of emails correctly classified</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Accuracy = fraction of total emails correctly classified (spam or not spam)</p>
+  </div>
+
+  <div class="note" data-q="Q16" data-tags="nikolaischuler pt4 genai" data-text="bedrock provisioned throughput large steady workloads serverless auto-scaling variable traffic">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q16.</span> Bedrock: Provisioned vs Serverless</div>
+    <div class="sub">Match throughput model to workload pattern</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Provisioned Throughput</div>
+      <div class="cmp-cell blue">Serverless</div>
+      <div class="cmp-cell red-val">Large, steady high-volume workloads</div>
+      <div class="cmp-cell blue-val">Variable/unpredictable traffic, auto-scales</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Provisioned throughput for steady large workloads; serverless auto-scales for variable traffic</p>
+  </div>
+
+  <div class="note" data-q="Q17" data-tags="nikolaischuler pt4 genai" data-text="bedrock agents real-time API data knowledge bases private data recommendations RAG">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q17.</span> Bedrock Agents + Knowledge Bases</div>
+    <div class="sub">Real-time data + private knowledge for AI</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Agents</div>
+      <div class="cmp-cell blue">Knowledge Bases</div>
+      <div class="cmp-cell red-val">Real-time API calls + actions</div>
+      <div class="cmp-cell blue-val">Private data RAG for context</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Agents = real-time API actions; Knowledge Bases = private RAG data for recommendations</p>
+  </div>
+
+  <div class="note" data-q="Q18" data-tags="nikolaischuler pt4 genai" data-text="amazon q business RAG retrieval augmented generation knowledge base accurate responses">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q18.</span> Amazon Q Business: RAG System</div>
+    <div class="sub">Pull from knowledge base for accurate answers</div>
+    <div class="flow">
+      <div class="flow-box red">User Query</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">RAG (Knowledge Base)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Accurate Response</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Amazon Q Business uses RAG to pull relevant info from knowledge base for accurate responses</p>
+  </div>
+
+  <div class="note" data-q="Q19" data-tags="nikolaischuler pt4 data" data-text="glue incremental loading partitioning only process newly added log files efficiency">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q19.</span> Glue Incremental Loading</div>
+    <div class="sub">Process only newly added files via partitions</div>
+    <div class="flow">
+      <div class="flow-box red">New Log Files (S3)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Glue Partition Filter</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Process Only New Data</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Incremental loading via partitioning ensures only newly added log files are processed</p>
+  </div>
+
+  <div class="note" data-q="Q20" data-tags="nikolaischuler pt4 data" data-text="glue cost minimum DPUs crawlers schedule not constant execution optimize billing">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q20.</span> Glue Cost Optimization</div>
+    <div class="sub">Minimize DPUs + schedule crawlers</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Cost Driver</div>
+      <div class="cmp-cell blue">Optimization</div>
+      <div class="cmp-cell red-val">Always-on crawlers + excess DPUs</div>
+      <div class="cmp-cell blue-val">Min DPUs + scheduled (not constant) crawlers</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Reduce cost: set minimum DPUs + run crawlers on schedule (not continuously)</p>
+  </div>
+
+  <div class="note" data-q="Q21" data-tags="nikolaischuler pt4 data" data-text="glue crawler data catalog semi-structured S3 data ETL schema detection JSON CSV">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q21.</span> Glue Crawler for Semi-Structured Data</div>
+    <div class="sub">Auto-detect schema from S3 files</div>
+    <div class="flow">
+      <div class="flow-box red">S3 Semi-Structured</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Glue Crawler</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Data Catalog → ETL</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Glue Crawler detects schema from semi-structured S3 data → populates Data Catalog</p>
+  </div>
+
+  <div class="note" data-q="Q22" data-tags="nikolaischuler pt4 data" data-text="glue databrew visual interface remove duplicates uppercase recipe data preparation no code">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q22.</span> Glue DataBrew: Visual Prep</div>
+    <div class="sub">No-code data cleaning saved as recipes</div>
+    <div class="flow">
+      <div class="flow-box red">Visual Interface</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Remove Dupes + Uppercase</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Save as Recipe</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ DataBrew: visual no-code interface → apply transforms → save reusable recipe</p>
+  </div>
+
+  <div class="note" data-q="Q23" data-tags="nikolaischuler pt4 deployment" data-text="step functions manage API call validation lambda forward kinesis orchestration workflow">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q23.</span> Step Functions + Lambda + Kinesis</div>
+    <div class="sub">Orchestrate API validation and streaming</div>
+    <div class="flow">
+      <div class="flow-box blue">Step Functions (orchestrate)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Lambda (validate)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Kinesis (stream)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Step Functions manages flow; Lambda validates + forwards to Kinesis for streaming</p>
+  </div>
+
+  <div class="note" data-q="Q24" data-tags="nikolaischuler pt4 data" data-text="kinesis firehose gzip compress parquet S3 SSE athena querying columnar format encryption">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q24.</span> Firehose → Compress → Parquet → S3</div>
+    <div class="sub">Optimize for Athena with encryption</div>
+    <div class="flow">
+      <div class="flow-box red">Firehose</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Gzip + Parquet convert</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">S3 + SSE (for Athena)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Firehose: Gzip compress → convert to Parquet → S3 with SSE encryption for Athena</p>
+  </div>
+
+  <div class="note" data-q="Q25" data-tags="nikolaischuler pt4 sagemaker training" data-text="sagemaker pipe mode stream large dataset S3 directly training instances no copy">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q25.</span> SM Pipe Mode: Stream from S3</div>
+    <div class="sub">Large datasets without copying to instance</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">File Mode</div>
+      <div class="cmp-cell blue">Pipe Mode</div>
+      <div class="cmp-cell red-val">Copy full dataset to instance storage</div>
+      <div class="cmp-cell blue-val">Stream directly from S3, no copy needed</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Pipe mode streams large S3 datasets directly to training instance — faster start time</p>
+  </div>
+
+  <div class="note" data-q="Q26" data-tags="nikolaischuler pt4 sagemaker" data-text="sagemaker studio collaboration notebook instance persistent storage use cases comparison">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q26.</span> Studio (Collab) + Notebook (Persistent)</div>
+    <div class="sub">Two environments for different needs</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">SM Studio</div>
+      <div class="cmp-cell blue">Notebook Instance</div>
+      <div class="cmp-cell red-val">Team collaboration + shared resources</div>
+      <div class="cmp-cell blue-val">Persistent local storage, single user</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Studio for team collaboration; Notebook Instance for persistent single-user storage</p>
+  </div>
+
+  <div class="note" data-q="Q27" data-tags="nikolaischuler pt4 data sagemaker" data-text="data wrangler feature engineering day of week timestamp quick model feature importance transform">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q27.</span> Wrangler: Time Feature + Importance</div>
+    <div class="sub">Engineer features then evaluate impact</div>
+    <div class="flow">
+      <div class="flow-box red">Timestamp Column</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Extract Day of Week</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Quick Model (importance)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Wrangler extracts day-of-week from timestamps, then Quick Model evaluates feature importance</p>
+  </div>
+
+  <div class="note" data-q="Q28" data-tags="nikolaischuler pt4 sagemaker training" data-text="sagemaker built-in select algorithm upload dataset configure hyperparameters launch training job">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q28.</span> SM Built-in Training Steps</div>
+    <div class="sub">4-step process to launch a training job</div>
+    <div class="flow">
+      <div class="flow-box red">Select Algorithm</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Upload Dataset</div>
+      <span class="arrow">→</span>
+      <div class="flow-box ink">Configure HPs</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Launch Job</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Select algo → upload to S3 → configure HPs → launch SM training job</p>
+  </div>
+
+  <div class="note" data-q="Q29" data-tags="nikolaischuler pt4 mlconcepts" data-text="hyperparameter depth decision tree set before training external configuration not learned">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q29.</span> Hyperparameter Example: Tree Depth</div>
+    <div class="sub">Set before training, not learned from data</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Hyperparameter</div>
+      <div class="cmp-cell blue">Model Parameter</div>
+      <div class="cmp-cell red-val">Tree depth (set before training)</div>
+      <div class="cmp-cell blue-val">Node weights (learned during training)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Depth of decision tree = hyperparameter, set manually before training begins</p>
+  </div>
+
+  <div class="note" data-q="Q30" data-tags="nikolaischuler pt4 mlconcepts" data-text="hyperparameters set before training external model parameters learned during training internal">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q30.</span> HPs vs Model Parameters</div>
+    <div class="sub">External config vs internally learned values</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Hyperparameters</div>
+      <div class="cmp-cell blue">Model Parameters</div>
+      <div class="cmp-cell red-val">Set BEFORE training (external)</div>
+      <div class="cmp-cell blue-val">Learned DURING training (internal)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ HPs = external config set before training; Model params = learned from training data</p>
+  </div>
+
+  <div class="note" data-q="Q31" data-tags="nikolaischuler pt4 sagemaker training" data-text="data parallelism split dataset across machines each trains full model copy distributed">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q31.</span> Data Parallelism Explained</div>
+    <div class="sub">Split data, replicate model across instances</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Data Parallelism</div>
+      <div class="cmp-cell blue">Model Parallelism</div>
+      <div class="cmp-cell red-val">Dataset split, each has full model copy</div>
+      <div class="cmp-cell blue-val">Model split, each has full dataset</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Data parallelism: split dataset across machines, each trains a full copy of the model</p>
+  </div>
+
+  <div class="note" data-q="Q32" data-tags="nikolaischuler pt4 sagemaker training" data-text="ground truth active learning automate simple humans complex video labeling annotation workforce">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q32.</span> Ground Truth: Video Labeling</div>
+    <div class="sub">Active learning for complex video annotation</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Simple Frames</div>
+      <div class="cmp-cell blue">Complex Scenes</div>
+      <div class="cmp-cell red-val">Auto-labeled by trained model</div>
+      <div class="cmp-cell blue-val">Human workforce labels manually</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Active learning automates simple video frames; humans handle complex scene labeling</p>
+  </div>
+
+  <div class="note" data-q="Q33" data-tags="nikolaischuler pt4 mlconcepts training" data-text="high bias underfitting add more training data cross-validation simple model complex">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q33.</span> Fix High Bias (Underfitting)</div>
+    <div class="sub">Model too simple for the data</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Problem</div>
+      <div class="cmp-cell blue">Solutions</div>
+      <div class="cmp-cell red-val">High bias = underfitting</div>
+      <div class="cmp-cell blue-val">More training data + cross-validation</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ High bias (underfitting): add more training data, use cross-validation, increase model complexity</p>
+  </div>
+
+  <div class="note" data-q="Q34" data-tags="nikolaischuler pt4 sagemaker mlconcepts" data-text="sagemaker clarify SHAP feature attribution bias assessment regulatory compliance explainability">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q34.</span> Clarify SHAP: Feature Attribution</div>
+    <div class="sub">Explainability for bias + compliance</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">SHAP Values</span>
+      <span class="circle blue" style="font-size:12px">Feature Attribution</span>
+      <span class="circle" style="font-size:12px">Bias Assessment</span>
+      <span class="circle blue" style="font-size:12px">Regulatory Reports</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Clarify SHAP = feature attribution scores for bias assessment and regulatory compliance</p>
+  </div>
+
+  <div class="note" data-q="Q35" data-tags="nikolaischuler pt4 deployment sagemaker" data-text="sagemaker neo compile target hardware deploy iot greengrass edge device optimization">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q35.</span> Neo → IoT Greengrass (Edge)</div>
+    <div class="sub">Compile once for target hardware, deploy to edge</div>
+    <div class="flow">
+      <div class="flow-box blue">SM Neo Compile</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Target HW Optimized</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">IoT Greengrass (edge)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Neo compiles model for target hardware → deploy optimized model via IoT Greengrass</p>
+  </div>
+
+  <div class="note" data-q="Q36" data-tags="nikolaischuler pt4 monitoring sagemaker" data-text="model monitor baseline job define constraints schedule monitoring jobs setup steps">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q36.</span> Model Monitor Setup (3 Steps)</div>
+    <div class="sub">Baseline → Constraints → Schedule</div>
+    <div class="flow">
+      <div class="flow-box red">Run Baseline Job</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Define Constraints</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Schedule Monitor</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Baseline job → define constraints → schedule periodic monitoring jobs</p>
+  </div>
+
+  <div class="note" data-q="Q37" data-tags="nikolaischuler pt4 sagemaker deployment" data-text="model registry approval status only trusted model versions deployed production gating control">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q37.</span> Registry: Only Approved Deploys</div>
+    <div class="sub">Approval status as production gate</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Pending Approval</div>
+      <div class="cmp-cell blue">Approved</div>
+      <div class="cmp-cell red-val">Cannot deploy to production</div>
+      <div class="cmp-cell blue-val">Allowed to deploy to production</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Registry approval status ensures only trusted, validated model versions reach production</p>
+  </div>
+
+  <div class="note" data-q="Q38" data-tags="nikolaischuler pt4 mlconcepts" data-text="supervised learning classify emails spam not spam labeled historical data training">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q38.</span> Supervised Learning: Email Spam</div>
+    <div class="sub">Learn from labeled historical examples</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Input</div>
+      <div class="cmp-cell blue">Output</div>
+      <div class="cmp-cell red-val">Historical emails with labels</div>
+      <div class="cmp-cell blue-val">Classify new emails: spam / not spam</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Supervised learning: train on labeled email history → classify new emails as spam/not spam</p>
+  </div>
+
+  <div class="note" data-q="Q39" data-tags="nikolaischuler pt4 mlconcepts training" data-text="reinforcement learning reward small gains larger penalty losses risk management profit optimization">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q39.</span> RL Reward: Risk Management</div>
+    <div class="sub">Balance gains vs loss penalties in reward fn</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Gain Action</div>
+      <div class="cmp-cell blue">Loss Action</div>
+      <div class="cmp-cell red-val">Small positive reward</div>
+      <div class="cmp-cell blue-val">Larger negative penalty</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ RL reward: small reward for gains + larger penalty for losses encodes risk aversion</p>
+  </div>
+
+  <div class="note" data-q="Q40" data-tags="nikolaischuler pt4 aiservices" data-text="fraud detector ingest historical data assign fraud score real-time evaluation detection">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q40.</span> Amazon Fraud Detector</div>
+    <div class="sub">Ingest history → real-time fraud scores</div>
+    <div class="flow">
+      <div class="flow-box red">Historical Fraud Data</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Fraud Detector (train)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Real-time Fraud Score</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Fraud Detector: ingest historical data → train model → assign fraud score in real-time</p>
+  </div>
+
+  <div class="note" data-q="Q41" data-tags="nikolaischuler pt4 genai" data-text="amazon q business plugins integrate servicenow zendesk enterprise connectors third party">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q41.</span> Amazon Q Business Plugins</div>
+    <div class="sub">Connect to enterprise tools via plugins</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">ServiceNow</span>
+      <span class="circle blue" style="font-size:12px">Zendesk</span>
+      <span class="circle" style="font-size:12px">Enterprise Connectors</span>
+      <span class="circle blue" style="font-size:12px">Third-Party APIs</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Amazon Q Business plugins integrate with ServiceNow, Zendesk and other enterprise tools</p>
+  </div>
+
+  <div class="note" data-q="Q42" data-tags="nikolaischuler pt4 data" data-text="glue incremental processing avoid reprocessing same data redshift ETL bookmark job">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q42.</span> Glue Incremental Processing</div>
+    <div class="sub">Avoid reprocessing data in Redshift ETL</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Full Reprocess</div>
+      <div class="cmp-cell blue">Incremental</div>
+      <div class="cmp-cell red-val">Reprocesses ALL data every run</div>
+      <div class="cmp-cell blue-val">Bookmarks progress, only new data</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Glue incremental processing avoids reprocessing same data in repeated ETL runs to Redshift</p>
+  </div>
+
+  <div class="note" data-q="Q43" data-tags="nikolaischuler pt4 data" data-text="glue transform parquet analytical queries minimum DPUs cost optimization columnar format">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q43.</span> Glue: Parquet + Min DPUs</div>
+    <div class="sub">Columnar format for queries + cost control</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Optimization Goal</div>
+      <div class="cmp-cell blue">Solution</div>
+      <div class="cmp-cell red-val">Fast analytical queries</div>
+      <div class="cmp-cell blue-val">Transform to Parquet + min DPUs</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Transform to Parquet for analytical query performance + set minimum DPUs to control cost</p>
+  </div>
+
+  <div class="note" data-q="Q44" data-tags="nikolaischuler pt4 data" data-text="glue crawlers update schema incremental data loads only new data ETL pipeline efficiency">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q44.</span> Crawlers + Incremental Loads</div>
+    <div class="sub">Schema updates + only new data processed</div>
+    <div class="flow">
+      <div class="flow-box red">New Data Arrives (S3)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Crawler (update schema)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Incremental Load (new only)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Crawlers keep schema current; incremental loads ensure only new data is processed each run</p>
+  </div>
+
+  <div class="note" data-q="Q45" data-tags="nikolaischuler pt4 deployment" data-text="S3 event lambda metadata dynamodb sagemaker endpoint serverless inference pipeline">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q45.</span> S3 Event → Lambda → SM Endpoint</div>
+    <div class="sub">Event-driven inference pipeline</div>
+    <div class="flow">
+      <div class="flow-box red">S3 Event</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Lambda (metadata → DynamoDB)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">SM Endpoint (inference)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ S3 event triggers Lambda to log metadata to DynamoDB and invoke SM endpoint</p>
+  </div>
+
+  <div class="note" data-q="Q46" data-tags="nikolaischuler pt4 mlconcepts training" data-text="cross-validation regularization reduce overfitting generalization techniques model">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q46.</span> Cross-Val + Regularization vs Overfit</div>
+    <div class="sub">Two techniques to reduce overfitting</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Cross-Validation</div>
+      <div class="cmp-cell blue">Regularization</div>
+      <div class="cmp-cell red-val">Multiple folds, test generalization</div>
+      <div class="cmp-cell blue-val">Penalizes complexity (L1/L2)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Cross-validation + regularization together effectively reduce model overfitting</p>
+  </div>
+
+  <div class="note" data-q="Q47" data-tags="nikolaischuler pt4 sagemaker mlconcepts" data-text="sagemaker clarify analyze mitigate bias during after training fairness report">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q47.</span> SM Clarify: Bias During + After</div>
+    <div class="sub">Continuous bias analysis throughout ML lifecycle</div>
+    <div class="flow">
+      <div class="flow-box red">Pre-training Bias</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">SM Clarify Analyzes</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Post-training Mitigation</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Clarify analyzes and helps mitigate bias both during and after model training</p>
+  </div>
+
+  <div class="note" data-q="Q48" data-tags="nikolaischuler pt4 sagemaker training" data-text="debugger validation loss increasing training loss decreasing overfitting early stopping">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q48.</span> Debugger: Val Loss ↑ Train Loss ↓</div>
+    <div class="sub">Classic overfitting signal → early stopping</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Signal</div>
+      <div class="cmp-cell blue">Action</div>
+      <div class="cmp-cell red-val">Val loss ↑ while train loss ↓</div>
+      <div class="cmp-cell blue-val">Enable early stopping via Debugger</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Debugger detects val loss↑ + train loss↓ = overfitting → use early stopping</p>
+  </div>
+
+  <div class="note" data-q="Q49" data-tags="nikolaischuler pt4 mlconcepts" data-text="regularization penalizes extreme parameter values simplifies model reduces overfitting L1 L2">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q49.</span> Regularization Explained</div>
+    <div class="sub">Penalize complexity to prevent overfit</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">L1 (Lasso)</div>
+      <div class="cmp-cell blue">L2 (Ridge)</div>
+      <div class="cmp-cell red-val">Sparse features, some weights = 0</div>
+      <div class="cmp-cell blue-val">Shrinks all weights, none to zero</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Regularization penalizes extreme param values, simplifying the model to reduce overfit</p>
+  </div>
+
+  <div class="note" data-q="Q50" data-tags="nikolaischuler pt4 sagemaker mlconcepts" data-text="sagemaker clarify analyze sensitive attributes gender age generate bias report fairness">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q50.</span> Clarify: Sensitive Attribute Analysis</div>
+    <div class="sub">Gender, age → bias report</div>
+    <div class="flow">
+      <div class="flow-box red">Sensitive Attributes (gender/age)</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">SM Clarify Analyze</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Bias Report</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Clarify analyzes sensitive attributes (gender, age) → generates detailed bias report</p>
+  </div>
+
+  <div class="note" data-q="Q51" data-tags="nikolaischuler pt4 sagemaker training" data-text="sagemaker debugger custom rules disappearing gradients vanishing gradient adjust learning rate">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q51.</span> Debugger: Vanishing Gradients</div>
+    <div class="sub">Custom rules detect disappearing gradients</div>
+    <div class="flow">
+      <div class="flow-box red">Vanishing Gradients</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Debugger Custom Rule</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Adjust Learning Rate</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Debugger custom rules detect vanishing/exploding gradients → adjust learning rate</p>
+  </div>
+
+  <div class="note" data-q="Q52" data-tags="nikolaischuler pt4 sagemaker deployment" data-text="serverless inference optimize cost unpredictable fluctuating traffic pay per use variable">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q52.</span> Serverless Inference: Variable Traffic</div>
+    <div class="sub">Cost-optimize unpredictable workloads</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Real-Time Endpoint</div>
+      <div class="cmp-cell blue">Serverless Inference</div>
+      <div class="cmp-cell red-val">Always-on, pay per hour</div>
+      <div class="cmp-cell blue-val">Scale-to-zero, pay per request</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Serverless Inference scales to zero and optimizes cost for unpredictable traffic patterns</p>
+  </div>
+
+  <div class="note" data-q="Q53" data-tags="nikolaischuler pt4 deployment sagemaker" data-text="sagemaker neo optimize model edge devices limited compute resource constrained IoT">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q53.</span> SM Neo: Edge Optimization</div>
+    <div class="sub">Compile model for resource-constrained devices</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Cloud Model</div>
+      <div class="cmp-cell blue">Neo Compiled Model</div>
+      <div class="cmp-cell red-val">Large, needs GPU/cloud</div>
+      <div class="cmp-cell blue-val">Optimized for edge HW constraints</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ SM Neo optimizes models for edge devices with limited compute and memory resources</p>
+  </div>
+
+  <div class="note" data-q="Q54" data-tags="nikolaischuler pt4 sagemaker deployment" data-text="serverless inference cost-effective variable fraud detection traffic unpredictable workload">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q54.</span> Serverless: Fraud Detection Traffic</div>
+    <div class="sub">Variable fraud traffic = serverless wins</div>
+    <div class="flow">
+      <div class="flow-box red">Variable Fraud Traffic</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Serverless Inference</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Cost-Effective Scaling</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Serverless Inference is cost-effective for variable fraud detection traffic patterns</p>
+  </div>
+
+  <div class="note" data-q="Q55" data-tags="nikolaischuler pt4 monitoring sagemaker deployment" data-text="real-time endpoint low latency model monitor data quality drift production monitoring">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q55.</span> Real-Time + Model Monitor</div>
+    <div class="sub">Low latency endpoint with drift monitoring</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Real-Time Endpoint</div>
+      <div class="cmp-cell blue">Model Monitor</div>
+      <div class="cmp-cell red-val">Low-latency synchronous inference</div>
+      <div class="cmp-cell blue-val">Tracks data/quality drift over time</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Real-time endpoint for low latency + Model Monitor for data/quality drift detection</p>
+  </div>
+
+  <div class="note" data-q="Q56" data-tags="nikolaischuler pt4 sagemaker deployment" data-text="asynchronous inference batch video files no real-time needed pay per use long running">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q56.</span> Async Inference: Batch Videos</div>
+    <div class="sub">Long-running jobs without real-time needs</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Use Case</div>
+      <div class="cmp-cell blue">Async Inference Benefit</div>
+      <div class="cmp-cell red-val">Batch video files, no instant response</div>
+      <div class="cmp-cell blue-val">Pay per use, handles long processing</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Async Inference for batch video files — no real-time requirement, pay only per use</p>
+  </div>
+
+  <div class="note" data-q="Q57" data-tags="nikolaischuler pt4 genai" data-text="bedrock serverless auto-scaling fluctuating peak off-peak chatbot traffic variable workload">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q57.</span> Bedrock Serverless: Chatbot Traffic</div>
+    <div class="sub">Auto-scale through peak and off-peak</div>
+    <div class="flow">
+      <div class="flow-box red">Peak Traffic</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Bedrock Auto-Scales</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Off-Peak Scales Down</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Bedrock serverless auto-scaling handles peak/off-peak chatbot traffic automatically</p>
+  </div>
+
+  <div class="note" data-q="Q58" data-tags="nikolaischuler pt4 aiservices" data-text="fraud detector real-time evaluation fraud score transaction risk assessment managed service">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q58.</span> Fraud Detector: Real-Time Scoring</div>
+    <div class="sub">Instant fraud risk evaluation per transaction</div>
+    <div class="flow">
+      <div class="flow-box red">Transaction Data</div>
+      <span class="arrow">→</span>
+      <div class="flow-box blue">Fraud Detector API</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">Fraud Score (0–1000)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Fraud Detector evaluates transactions in real-time and returns a fraud risk score</p>
+  </div>
+
+  <div class="note" data-q="Q59" data-tags="nikolaischuler pt4 genai" data-text="bedrock region-specific data handling encryption synthetic data privacy compliance">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q59.</span> Bedrock: Regional + Privacy</div>
+    <div class="sub">Region-specific data + encryption for privacy</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Regional Data</span>
+      <span class="circle blue" style="font-size:12px">Encryption</span>
+      <span class="circle" style="font-size:12px">Synthetic Data</span>
+      <span class="circle blue" style="font-size:12px">Privacy Compliance</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Bedrock: region-specific data handling + encryption for synthetic data privacy compliance</p>
+  </div>
+
+  <div class="note" data-q="Q60" data-tags="nikolaischuler pt4 genai" data-text="bedrock data encryption transit rest sensitive user data security compliance protected">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q60.</span> Bedrock: Encryption In/At Rest</div>
+    <div class="sub">Sensitive data protected end to end</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">In Transit</div>
+      <div class="cmp-cell blue">At Rest</div>
+      <div class="cmp-cell red-val">TLS encryption for all API calls</div>
+      <div class="cmp-cell blue-val">AES-256 for stored data</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Bedrock encrypts sensitive user data both in transit (TLS) and at rest (AES-256)</p>
+  </div>
+
+  <div class="note" data-q="Q61" data-tags="nikolaischuler pt4 security" data-text="IAM roles centralized permissions multiple lambda functions least privilege access management">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q61.</span> IAM Roles for Lambda Functions</div>
+    <div class="sub">Centralized permissions across multiple functions</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Without IAM Roles</div>
+      <div class="cmp-cell blue">With IAM Roles</div>
+      <div class="cmp-cell red-val">Hardcoded credentials per function</div>
+      <div class="cmp-cell blue-val">Centralized role, least privilege</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ IAM Roles provide centralized, least-privilege permissions across multiple Lambda functions</p>
+  </div>
+
+  <div class="note" data-q="Q62" data-tags="nikolaischuler pt4 security" data-text="customer managed KMS key full control encryption audit rotation compliance CMK">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q62.</span> Customer Managed KMS Key</div>
+    <div class="sub">Full control over your encryption keys</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span class="circle" style="font-size:12px">Full Key Control</span>
+      <span class="circle blue" style="font-size:12px">Audit Trails</span>
+      <span class="circle" style="font-size:12px">Key Rotation</span>
+      <span class="circle blue" style="font-size:12px">Compliance</span>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Customer Managed KMS Key = full control, audit access, manage rotation policies</p>
+  </div>
+
+  <div class="note" data-q="Q63" data-tags="nikolaischuler pt4 security" data-text="AWS Shield Advanced DDoS protection DRT real-time support cost protection managed defense">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q63.</span> AWS Shield Advanced</div>
+    <div class="sub">Advanced DDoS protection + expert response</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Shield Standard</div>
+      <div class="cmp-cell blue">Shield Advanced</div>
+      <div class="cmp-cell red-val">Basic DDoS, automatic, free</div>
+      <div class="cmp-cell blue-val">Advanced DDoS + DRT real-time support</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Shield Advanced: advanced DDoS protection + DDoS Response Team (DRT) real-time support</p>
+  </div>
+
+  <div class="note" data-q="Q64" data-tags="nikolaischuler pt4 security monitoring" data-text="AWS Config rules periodic evaluation custom lambda rules compliance resource configuration">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q64.</span> AWS Config: Rules + Lambda</div>
+    <div class="sub">Periodic checks + custom compliance rules</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Managed Rules</div>
+      <div class="cmp-cell blue">Custom Lambda Rules</div>
+      <div class="cmp-cell red-val">Periodic evaluation of AWS resources</div>
+      <div class="cmp-cell blue-val">Custom compliance logic via Lambda</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ Config: managed rules for periodic eval + custom Lambda rules for business compliance logic</p>
+  </div>
+
+  <div class="note" data-q="Q65" data-tags="nikolaischuler pt4 security" data-text="AWS Config configuration snapshots store S3 long-term audit history compliance archiving">
+    <div class="note-title"><span class="r" style="font-size:14px;margin-right:6px">Q65.</span> Config Snapshots → S3 Audit</div>
+    <div class="sub">Long-term audit history via S3 storage</div>
+    <div class="flow">
+      <div class="flow-box blue">AWS Config</div>
+      <span class="arrow">→</span>
+      <div class="flow-box red">Config Snapshots</div>
+      <span class="arrow">→</span>
+      <div class="flow-box green">S3 (long-term audit)</div>
+    </div>
+    <p style="margin:8px 0 0;color:var(--green);font-size:14px">✓ AWS Config delivers configuration snapshots to S3 for long-term audit history and compliance</p>
+  </div>
+
+  <!-- ===== End Nikolai Schuler PT-4 cards ===== -->
+
   </div><!-- /notes-grid -->
 
   <footer class="footer">
@@ -2086,7 +3732,7 @@ html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,
     <div id="diagramPlaceholder" style="display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:60px 40px;color:#999;font-family:'Patrick Hand',cursive;font-size:18px;text-align:center;">
       <div style="font-size:48px;">📋</div>
       <div>Diagram yet to be added</div>
-      <div style="font-size:13px;color:#bbb;">PT-2 diagrams coming soon</div>
+      <div style="font-size:13px;color:#bbb;">Diagrams coming soon</div>
     </div>
   </div>
 </div>
@@ -2243,16 +3889,17 @@ document.addEventListener('DOMContentLoaded',function(){
 var diagramPageMap={1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:54,11:11,12:56,13:57,14:14,15:15,16:16,17:17,18:62,19:9,20:20,21:21,22:22,23:12,24:24,25:13,26:26,27:27,28:28,29:29,30:30,31:31,32:32,33:33,34:34,35:21,36:22,37:23,38:38,39:25,40:26,41:41,42:42,43:58,44:59,45:42,46:32,47:47,48:48,49:60,50:31,51:44,52:45,53:65,54:46,55:50,56:51,57:47,58:48,59:49,60:52,61:53,62:61,63:24,64:43,65:10};
 function openDiagram(qLabel,tags){
   var tagList=(tags||'').split(' ');
-  var isPT2=tagList.indexOf('pt2')!==-1;
+  var isPT1=tagList.indexOf('pt1')!==-1;
   var img=document.getElementById('diagramImg');
   var ph=document.getElementById('diagramPlaceholder');
   var num=parseInt(qLabel.replace(/\D/g,''),10);
   var pad=String(num).padStart(3,'0');
-  if(isPT2){
-    var pt2src='diagrams/pt2-'+pad+'.png';
+  if(!isPT1){
+    var ptTag=tagList.filter(function(t){return /^pt\d+$/.test(t);})[0]||'pt2';
+    var ptSrc='diagrams/'+ptTag+'-'+pad+'.png';
     var testImg=new window.Image();
     testImg.onload=function(){
-      img.src=pt2src;
+      img.src=ptSrc;
       img.style.display='block';
       ph.style.display='none';
     };
@@ -2260,7 +3907,7 @@ function openDiagram(qLabel,tags){
       img.style.display='none';
       ph.style.display='flex';
     };
-    testImg.src=pt2src;
+    testImg.src=ptSrc;
   } else {
     img.style.display='block';
     ph.style.display='none';
