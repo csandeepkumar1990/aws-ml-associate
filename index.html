@@ -138,21 +138,13 @@ html[data-theme="dark"] mark.hl { background:rgba(251,191,36,0.35); color:inheri
 @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 @media(max-width:768px){.notes-grid{grid-template-columns:1fr} h1{font-size:2.2rem}}
 
-/* Diagram popup */
-.note[data-q] { cursor:pointer; }
-.note[data-q]:hover { border-color:var(--red); }
-#diagramOverlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:1000; align-items:center; justify-content:center; padding:20px; }
-#diagramOverlay.open { display:flex; }
-#diagramBox { background:#fff; border-radius:8px; max-width:90vw; max-height:90vh; overflow:auto; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.4); animation:fadeIn .2s ease; }
-html[data-theme="dark"] #diagramBox { background:#1e1e2e; }
-#diagramBox img { display:block; max-width:100%; height:auto; min-width:320px; padding:16px; box-sizing:border-box; }
-#diagramClose { position:absolute; right:12px; top:50%; transform:translateY(-50%); background:var(--red); color:#fff; border:none; border-radius:50%; width:32px; height:32px; font-size:18px; cursor:pointer; line-height:32px; text-align:center; flex-shrink:0; }
-#diagramHeader { display:flex; align-items:center; gap:10px; padding:12px 16px 8px; border-bottom:1px solid #eee; flex-wrap:wrap; position:relative; }
-#diagramLabel { background:var(--red); color:#fff; font-size:13px; font-weight:700; border-radius:4px; padding:3px 10px; font-family:monospace; }
-#diagramMeta { display:flex; gap:6px; flex-wrap:wrap; flex:1; justify-content:center; }
-.diagram-meta-tag { font-size:12px; color:#666; background:rgba(100,100,100,0.1); border-radius:20px; padding:2px 10px; font-family:'Patrick Hand',cursive; }
-html[data-theme="dark"] #diagramHeader { border-bottom-color:#333; }
-html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,255,0.1); }
+/* Card zoom popup */
+.note { cursor:pointer; }
+#cardOverlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:1000; align-items:flex-start; justify-content:center; padding:40px 20px; overflow-y:auto; }
+#cardOverlay.open { display:flex; }
+#cardZoomBox { background:var(--paper); border-radius:14px; width:min(900px,92vw); position:relative; box-shadow:0 24px 64px rgba(0,0,0,0.45); animation:fadeIn .18s ease; flex-shrink:0; }
+#cardZoomClose { position:fixed; top:16px; right:20px; background:var(--red); color:#fff; border:none; border-radius:50%; width:36px; height:36px; font-size:20px; cursor:pointer; line-height:36px; text-align:center; z-index:1001; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
+#cardZoomBody .note { cursor:default; animation:none; transform:none !important; box-shadow:none; border:none; border-radius:14px; margin:0; zoom:1.6; }
 </style>
 </head>
 <body>
@@ -194,9 +186,9 @@ html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,
       <button class="chip" onclick="setFilterAnd(['nikolaischuler','pt4'],this)">PT-4</button>
     </div>
     <div class="pt-row" id="pt-stephanemaarek">
-      <button class="chip soon">PT-1</button>
-      <button class="chip soon">PT-2</button>
-      <button class="chip soon">PT-3</button>
+      <button class="chip" onclick="setFilterAnd(['stephanemaarek','pt1'],this)">PT-1</button>
+      <button class="chip" onclick="setFilterAnd(['stephanemaarek','pt2'],this)">PT-2</button>
+      <button class="chip" onclick="setFilterAnd(['stephanemaarek','pt3'],this)">PT-3</button>
     </div>
     <div class="pt-row" id="pt-marlonAnesi">
       <button class="chip" onclick="setFilterAnd(['marlonAnesi','pt1'],this)">PT-1</button>
@@ -8614,6 +8606,2289 @@ html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,
   <!-- ===== End Marlon Anesi PT-6 cards ===== -->
 
 
+  <!-- ===== Stephane Maarek PT-1 cards Q1–Q65 ===== -->
+
+  <!-- Q1 -->
+  <div class="note" data-q="Q1" data-tags="stephanemaarek pt1 sagemaker pipeline" data-text="SageMaker Pipelines end-to-end ML workflow orchestration patient readmission preprocessing training HPO deployment retraining scalability">
+    <div class="note-title">🔁 ML Workflow Orchestration</div>
+    <div class="sub">End-to-end pipeline</div>
+    <div class="flow">
+      <div class="flow-box red">Preprocess</div><span class="arrow">→</span>
+      <div class="flow-box blue">Train + HPO</div><span class="arrow">→</span>
+      <div class="flow-box green">Deploy</div>
+    </div>
+    <p style="margin:6px 0 0;font-size:13px">Auto-retrain when new data arrives — needs orchestration</p>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon SageMaker Pipelines</b> — integrated orchestration for full ML lifecycle</p>
+  </div>
+
+  <!-- Q2 -->
+  <div class="note" data-q="Q2" data-tags="stephanemaarek pt1 sagemaker pipeline" data-text="SageMaker Pipelines fraud detection scalable complex dependencies monitoring versioning AWS integration">
+    <div class="note-title">🔄 Fraud Detection Pipeline</div>
+    <div class="sub">Scalable + versioned workflow</div>
+    <div class="flow">
+      <div class="flow-box red">Extract</div><span class="arrow">→</span>
+      <div class="flow-box blue">Feature Eng</div><span class="arrow">→</span>
+      <div class="flow-box blue">Train + Tune</div><span class="arrow">→</span>
+      <div class="flow-box green">Deploy</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Pipelines</b> — scalable, versioned, native AWS integration</p>
+  </div>
+
+  <!-- Q3 -->
+  <div class="note" data-q="Q3" data-tags="stephanemaarek pt1 sagemaker monitoring" data-text="SageMaker Clarify bias detection on demand real-time endpoint inference data capture retail customer purchase fairness">
+    <div class="note-title">⚖️ On-Demand Bias Detection</div>
+    <div class="sub">Real-time endpoint analysis</div>
+    <div class="flow">
+      <div class="flow-box blue">Inference endpoint</div><span class="arrow">→</span>
+      <div class="flow-box red">Captured data</div><span class="arrow">→</span>
+      <div class="flow-box green">Clarify bias check</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon SageMaker Clarify</b> — analyze inference data for bias on demand</p>
+  </div>
+
+  <!-- Q4 -->
+  <div class="note" data-q="Q4" data-tags="stephanemaarek pt1 training inference deployment" data-text="on-demand instances training sporadic significant compute provisioned auto-scaling inference varying traffic cost conscious recommendation engine">
+    <div class="note-title">💰 Training vs Inference Cost</div>
+    <div class="sub">Resource allocation strategy</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Training</div><div class="cmp-cell blue">Inference</div>
+      <div class="cmp-cell blue-val">On-demand instances<br><span class="gy">sporadic, scale as needed</span></div>
+      <div class="cmp-cell red-val">Provisioned + Auto-Scaling<br><span class="gy">handles varying traffic</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ On-demand for training · Provisioned + auto-scale for inference</p>
+  </div>
+
+  <!-- Q5 -->
+  <div class="note" data-q="Q5" data-tags="stephanemaarek pt1 monitoring mlconcepts" data-text="Conditional Demographic Disparity CDD bias fairness insurance fraud claims demographic groups income conditioned positive prediction rates SageMaker Clarify">
+    <div class="note-title">📊 Conditional Demographic Disparity</div>
+    <div class="sub">SageMaker Clarify bias metric</div>
+    <p style="font-size:13px;margin:4px 0 8px"><span class="circle blue">CDD</span> measures disparity in <b>positive prediction rates</b> across groups, <b>conditioned on a specific feature</b> (e.g. income)</p>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px">Detects bias not visible in overall outcomes — useful when fairness depends on context</div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ CDD evaluates conditioned positive prediction rates per demographic group</p>
+  </div>
+
+  <!-- Q6 -->
+  <div class="note" data-q="Q6" data-tags="stephanemaarek pt1 aiservices security" data-text="Amazon Comprehend ImportModel API cross-account sentiment analysis model Account A Account B resource-based IAM policy secure transfer minimal effort">
+    <div class="note-title">🔀 Cross-Account Comprehend Model</div>
+    <div class="sub">Secure model transfer</div>
+    <div class="flow">
+      <div class="flow-box red">Account A<br><span class="gy" style="font-size:11px">us-west-2</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Resource IAM<br><span class="gy" style="font-size:11px">policy on A</span></div><span class="arrow">→</span>
+      <div class="flow-box green">ImportModel API<br><span class="gy" style="font-size:11px">from Account B</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon Comprehend ImportModel API</b> + resource-based IAM policy in Account A</p>
+  </div>
+
+  <!-- Q7 -->
+  <div class="note" data-q="Q7" data-tags="stephanemaarek pt1 mlconcepts training" data-text="XGBoost tree-based model early stopping hyperparameter tuning fraud detection balance performance training time cost frequent retraining">
+    <div class="note-title">🌲 Fraud Detection: XGBoost Strategy</div>
+    <div class="sub">Balance performance, time, cost</div>
+    <div class="flow">
+      <div class="flow-box blue">XGBoost</div><span class="arrow">+</span>
+      <div class="flow-box red">Early Stopping</div><span class="arrow">+</span>
+      <div class="flow-box green">HPO Tuning</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Tree-based model with early stopping + HPO — balances accuracy with reduced compute</p>
+  </div>
+
+  <!-- Q8 -->
+  <div class="note" data-q="Q8" data-tags="stephanemaarek pt1 data sagemaker" data-text="SageMaker Data Wrangler balance data class imbalance oversample minority class hospital readmission high-risk patients categorical numerical features minimal operational effort">
+    <div class="note-title">⚖️ Class Imbalance: Data Wrangler</div>
+    <div class="sub">Balance data operation</div>
+    <div class="flow">
+      <div class="flow-box red">Imbalanced data<br><span class="gy" style="font-size:11px">few high-risk patients</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Data Wrangler<br><span class="gy" style="font-size:11px">'balance data' op</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Data Wrangler 'balance data'</b> — oversample minority class, minimal effort</p>
+  </div>
+
+  <!-- Q9 -->
+  <div class="note" data-q="Q9" data-tags="stephanemaarek pt1 sagemaker training" data-text="SageMaker Warm Pools reduce startup time consecutive training jobs hyperparameter configurations back-to-back patient readmission productivity">
+    <div class="note-title">🔥 Warm Pools: Faster Consecutive Jobs</div>
+    <div class="sub">Reuse training instances</div>
+    <div class="flow">
+      <div class="flow-box red">Job 1</div><span class="arrow">→</span>
+      <div class="flow-box blue">Warm Pool<br><span class="gy" style="font-size:11px">instance retained</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Job 2 starts fast</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Enable SageMaker Warm Pools</b> — reuse instances, reduce startup time between HPO jobs</p>
+  </div>
+
+  <!-- Q10 -->
+  <div class="note" data-q="Q10" data-tags="stephanemaarek pt1 data" data-text="AWS Glue crawlers infer schema columns EMR Spark data cleaning feature engineering S3 store correct order retail CSV missing values column labels">
+    <div class="note-title">🗂️ Data Prep: Correct Step Order</div>
+    <div class="sub">Glue → EMR → S3</div>
+    <div class="flow">
+      <div class="flow-box red">① Glue Crawlers<br><span class="gy" style="font-size:11px">infer schema</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">⑤ EMR + Spark<br><span class="gy" style="font-size:11px">clean + engineer</span></div><span class="arrow">→</span>
+      <div class="flow-box green">③ Store to S3</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Correct order: <b>1, 5, 3</b> (Glue Crawlers → EMR Spark → S3)</p>
+  </div>
+
+  <!-- Q11 -->
+  <div class="note" data-q="Q11" data-tags="stephanemaarek pt1 monitoring mlconcepts" data-text="data drift model drift difference recommendation model SageMaker Model Monitor distribution input data changes parameters outdated retrain">
+    <div class="note-title">📉 Data Drift vs Model Drift</div>
+    <div class="sub">SageMaker Model Monitor</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Data Drift</div><div class="cmp-cell blue">Model Drift</div>
+      <div class="cmp-cell blue-val">Input distribution changes over time</div>
+      <div class="cmp-cell red-val">Model assumptions/params become outdated</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Data drift → <b>Model Monitor</b> track input dist. · Model drift → retrain on latest data</p>
+  </div>
+
+  <!-- Q12 -->
+  <div class="note" data-q="Q12" data-tags="stephanemaarek pt1 monitoring" data-text="concept drift model accuracy drops credit card fraud SageMaker Model Monitor no changes to model customer data relationship input features target variable">
+    <div class="note-title">🌀 Concept Drift: Accuracy Drop</div>
+    <div class="sub">Why accuracy degrades without model changes</div>
+    <p style="font-size:13px;margin:4px 0 8px">Model unchanged but accuracy drops significantly → underlying data relationship changed</p>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px"><b>Concept drift</b> = relationship between input features and target variable changed over time (e.g. economic shifts)</div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Concept drift</b> occurred in customer data — not data drift or model code issue</p>
+  </div>
+
+  <!-- Q13 -->
+  <div class="note" data-q="Q13" data-tags="stephanemaarek pt1 sagemaker deployment" data-text="SageMaker Model Registry centralized model management version control deployment tracking fraud detection fintech operational overhead minimal">
+    <div class="note-title">📋 Centralized Model Registry</div>
+    <div class="sub">Versioning + deployment governance</div>
+    <div class="flow">
+      <div class="flow-box red">Train model</div><span class="arrow">→</span>
+      <div class="flow-box blue">Register in<br>Model Registry</div><span class="arrow">→</span>
+      <div class="flow-box green">Deploy approved<br>version</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Model Registry</b> — model groups, version management, minimal overhead</p>
+  </div>
+
+  <!-- Q14 -->
+  <div class="note" data-q="Q14" data-tags="stephanemaarek pt1 mlconcepts" data-text="Mean Absolute Error MAE regression metric continuous numerical value delivery time prediction logistics distance traffic weight evaluation">
+    <div class="note-title">📐 Regression Metric: MAE</div>
+    <div class="sub">Continuous output evaluation</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Problem</div><div class="cmp-cell blue">Metric</div>
+      <div class="cmp-cell blue-val">Predict delivery time (hours) — continuous output</div>
+      <div class="cmp-cell red-val"><b>MAE</b> — Mean Absolute Error<br><span class="gy">avg |predicted − actual|</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Mean Absolute Error (MAE)</b> for regression — interpretable, same unit as target</p>
+  </div>
+
+  <!-- Q15 -->
+  <div class="note" data-q="Q15" data-tags="stephanemaarek pt1 sagemaker training" data-text="hyperparameter tuning Bayesian optimization random search not converging CLV customer lifetime value narrow range critical hyperparameters SageMaker AMT">
+    <div class="note-title">🎯 HPO: Random Search → Bayesian</div>
+    <div class="sub">When trials aren't converging</div>
+    <div class="flow">
+      <div class="flow-box red">Random Search<br><span class="gy" style="font-size:11px">not converging</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Bayesian Optimization<br><span class="gy" style="font-size:11px">+ narrow ranges</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Switch to <b>Bayesian Optimization</b> + narrow critical hyperparameter ranges</p>
+  </div>
+
+  <!-- Q16 -->
+  <div class="note" data-q="Q16" data-tags="stephanemaarek pt1 deployment" data-text="AWS CloudFormation nested stacks IaC infrastructure as code SageMaker EC2 RDS automated provisioning communication between stacks outputs inputs recommendation system">
+    <div class="note-title">🏗️ IaC: CloudFormation Nested Stacks</div>
+    <div class="sub">Multi-resource orchestration</div>
+    <div class="flow">
+      <div class="flow-box red">Stack A<br><span class="gy" style="font-size:11px">SageMaker</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Stack B<br><span class="gy" style="font-size:11px">EC2 + RDS</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Outputs→Inputs<br><span class="gy" style="font-size:11px">cross-stack ref</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>CloudFormation nested stacks</b> — outputs from one as inputs to another</p>
+  </div>
+
+  <!-- Q17 -->
+  <div class="note" data-q="Q17" data-tags="stephanemaarek pt1 data" data-text="Amazon Athena CTAS CREATE TABLE AS SELECT partitioning observation date CSV weather sensor ad-hoc queries efficient querying least operational overhead">
+    <div class="note-title">🔍 Athena + CTAS Partitioning</div>
+    <div class="sub">Efficient ad-hoc queries on CSV</div>
+    <div class="flow">
+      <div class="flow-box red">CSV in S3<br><span class="gy" style="font-size:11px">same schema</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Athena CTAS<br><span class="gy" style="font-size:11px">partition by date</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Fast queries<br><span class="gy" style="font-size:11px">partition pruning</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Athena CTAS</b> with partitioning on observation date — least overhead</p>
+  </div>
+
+  <!-- Q18 -->
+  <div class="note" data-q="Q18" data-tags="stephanemaarek pt1 genai" data-text="Amazon Bedrock foundational models product descriptions marketing copy sentiment analysis e-commerce third-party providers AWS infrastructure integration">
+    <div class="note-title">🪨 Amazon Bedrock for GenAI</div>
+    <div class="sub">Managed foundation models</div>
+    <div class="flow">
+      <div class="flow-box blue">Product descriptions</div><span class="arrow">+</span>
+      <div class="flow-box blue">Marketing copy</div><span class="arrow">+</span>
+      <div class="flow-box blue">Sentiment</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon Bedrock</b> — managed FMs from 3rd-party providers, seamless AWS integration</p>
+  </div>
+
+  <!-- Q19 -->
+  <div class="note" data-q="Q19" data-tags="stephanemaarek pt1 mlconcepts sagemaker" data-text="XGBoost algorithm imbalanced data fraud detection real-time transactions precision recall custom objective function built-in SageMaker algorithm">
+    <div class="note-title">🎯 XGBoost for Imbalanced Fraud</div>
+    <div class="sub">Best built-in SageMaker algorithm</div>
+    <div class="flow">
+      <div class="flow-box red">Imbalanced dataset<br><span class="gy" style="font-size:11px">few fraudulent</span></div><span class="arrow">→</span>
+      <div class="flow-box green">XGBoost<br><span class="gy" style="font-size:11px">custom objective</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>XGBoost</b> with custom objective to optimize precision + recall on imbalanced data</p>
+  </div>
+
+  <!-- Q20 -->
+  <div class="note" data-q="Q20" data-tags="stephanemaarek pt1 sagemaker mlconcepts" data-text="feature engineering domain-specific features SageMaker Clarify feature importance SageMaker Debugger debug overfitting saturated activation vanishing gradients AUC credit risk">
+    <div class="note-title">🔧 Improve Model AUC</div>
+    <div class="sub">Two most impactful strategies</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Feature Engineering</b><br>domain-specific + Clarify for importance</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>SageMaker Debugger</b><br>fix overfitting, vanishing gradients</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Feature engineering + Debugger (select two)</p>
+  </div>
+
+  <!-- Q21 -->
+  <div class="note" data-q="Q21" data-tags="stephanemaarek pt1 mlconcepts training" data-text="overfitting deep learning medical images high training low validation data augmentation early stopping ensembling generalization small dataset regularization">
+    <div class="note-title">🩺 Prevent Overfitting: Deep Learning</div>
+    <div class="sub">Medical image classification</div>
+    <div class="flow">
+      <div class="flow-box red">Data Augmentation<br><span class="gy" style="font-size:11px">diversity</span></div><span class="arrow">+</span>
+      <div class="flow-box blue">Early Stopping<br><span class="gy" style="font-size:11px">prevent overfit</span></div><span class="arrow">+</span>
+      <div class="flow-box green">Ensembling<br><span class="gy" style="font-size:11px">avg predictions</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Data augmentation + early stopping + ensembling for small dataset generalization</p>
+  </div>
+
+  <!-- Q22 -->
+  <div class="note" data-q="Q22" data-tags="stephanemaarek pt1 training" data-text="EC2 Spot Instances cost-effective weekend batch aggregation job Saturday night 2 hours tolerate interruptions 6 months consistent">
+    <div class="note-title">💸 Spot Instances for Batch Jobs</div>
+    <div class="sub">Cost-effective for interruptible workloads</div>
+    <p style="font-size:13px;margin:4px 0 8px">Weekly batch job · 2 hours · tolerates interruptions · consistent schedule</p>
+    <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px"><span class="circle">EC2 Spot</span> substantial savings + handles interruptions gracefully</div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>EC2 Spot Instances</b> — most cost-effective for fault-tolerant batch workloads</p>
+  </div>
+
+  <!-- Q23 -->
+  <div class="note" data-q="Q23" data-tags="stephanemaarek pt1 mlconcepts" data-text="stacking meta-model credit risk logistic regression decision trees support vector machines combining models random forest final prediction ensemble">
+    <div class="note-title">🏗️ Stacking Ensemble</div>
+    <div class="sub">Meta-model combines base models</div>
+    <div class="flow">
+      <div class="flow-box red">LR + DT + SVM<br><span class="gy" style="font-size:11px">base models</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Random Forest<br><span class="gy" style="font-size:11px">meta-model</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Final prediction</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Stacking</b> — predictions from base models used as inputs to meta-model</p>
+  </div>
+
+  <!-- Q24 -->
+  <div class="note" data-q="Q24" data-tags="stephanemaarek pt1 sagemaker data" data-text="SageMaker Data Wrangler tabular data millions rows data selection cleansing exploration visualization single visual interface S3 preparation ML jobs">
+    <div class="note-title">🔧 Data Wrangler: Visual Data Prep</div>
+    <div class="sub">Selection → cleansing → explore → viz</div>
+    <div class="flow">
+      <div class="flow-box red">S3 tabular data</div><span class="arrow">→</span>
+      <div class="flow-box blue">Data Wrangler<br><span class="gy" style="font-size:11px">single visual UI</span></div><span class="arrow">→</span>
+      <div class="flow-box green">ML-ready data</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon SageMaker Data Wrangler</b> — best fit for visual data prep pipeline</p>
+  </div>
+
+  <!-- Q25 -->
+  <div class="note" data-q="Q25" data-tags="stephanemaarek pt1 sagemaker genai" data-text="SageMaker JumpStart fine-tuning pre-trained NLP model sentiment analysis custom dataset labeled customer reviews minimal training time development effort">
+    <div class="note-title">🚀 JumpStart Fine-Tuning NLP</div>
+    <div class="sub">Pre-trained model + custom dataset</div>
+    <div class="flow">
+      <div class="flow-box blue">JumpStart<br><span class="gy" style="font-size:11px">pre-trained NLP</span></div><span class="arrow">→</span>
+      <div class="flow-box red">Fine-tune<br><span class="gy" style="font-size:11px">labeled reviews</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Sentiment model</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker JumpStart</b> + built-in fine-tuning functionality — minimal effort</p>
+  </div>
+
+  <!-- Q26 -->
+  <div class="note" data-q="Q26" data-tags="stephanemaarek pt1 sagemaker data" data-text="SageMaker Feature Store store share manage features training inference ML model inputs features reuse consistency">
+    <div class="note-title">🗃️ Feature Store: Store + Share Features</div>
+    <div class="sub">Central feature management</div>
+    <div class="flow">
+      <div class="flow-box red">Raw data</div><span class="arrow">→</span>
+      <div class="flow-box blue">Feature engineering</div><span class="arrow">→</span>
+      <div class="flow-box green">Feature Store<br><span class="gy" style="font-size:11px">train + infer</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon SageMaker Feature Store</b> — store, share, and manage ML features</p>
+  </div>
+
+  <!-- Q27 -->
+  <div class="note" data-q="Q27" data-tags="stephanemaarek pt1 data" data-text="AWS Lake Formation aggregate connect multi-source data customer churn PostgreSQL on-premises S3 call logs schema alignment feature inconsistencies">
+    <div class="note-title">🏞️ Lake Formation: Multi-Source Aggregation</div>
+    <div class="sub">Centralize data from S3 + on-premises</div>
+    <div class="flow">
+      <div class="flow-box red">S3 logs</div><span class="arrow">+</span>
+      <div class="flow-box red">PostgreSQL<br><span class="gy" style="font-size:11px">on-premises</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Lake Formation<br><span class="gy" style="font-size:11px">unified access</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>AWS Lake Formation</b> — aggregate + centrally manage data, seamless access</p>
+  </div>
+
+  <!-- Q28 -->
+  <div class="note" data-q="Q28" data-tags="stephanemaarek pt1 mlconcepts" data-text="XGBoost extreme gradient boosting imbalanced datasets fraud detection regularization weighted classes AdaBoost gradient boosting boosting technique class imbalance">
+    <div class="note-title">⚡ XGBoost for Imbalanced Datasets</div>
+    <div class="sub">Best boosting technique for class imbalance</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">AdaBoost</div><div class="cmp-cell blue">XGBoost</div>
+      <div class="cmp-cell blue-val">Sequential, sensitive to noise</div>
+      <div class="cmp-cell red-val"><b>Regularization + weighted classes</b> — handles imbalance</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>XGBoost</b> — regularization + weighted classes + computational efficiency</p>
+  </div>
+
+  <!-- Q29 -->
+  <div class="note" data-q="Q29" data-tags="stephanemaarek pt1 data mlconcepts" data-text="feature engineering feature splitting binning one-hot encoding standardization building type year city name building size real estate rental prices preprocessing">
+    <div class="note-title">🔩 Feature Engineering Techniques</div>
+    <div class="sub">Match feature to transformation</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Feature</div><div class="cmp-cell blue">Technique</div>
+      <div class="cmp-cell blue-val"><b>building_type_year</b> → Feature splitting<br><b>city</b> → One-hot encoding<br><b>building_size</b> → Standardization</div>
+      <div class="cmp-cell red-val">Split compound → numeric; nominal → binary; numeric → scaled</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ splitting / one-hot / standardization matched correctly</p>
+  </div>
+
+  <!-- Q30 -->
+  <div class="note" data-q="Q30" data-tags="stephanemaarek pt1 mlconcepts data" data-text="exploratory data analysis EDA feasibility ML solution missing values class imbalance small dataset 1000 records chronic disease predict likelihood">
+    <div class="note-title">🔍 EDA Before ML Feasibility</div>
+    <div class="sub">Small + imbalanced dataset assessment</div>
+    <p style="font-size:13px;margin:4px 0 8px">1,000 records · missing values · 5% positive class — need to assess if ML is viable</p>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px"><b>EDA first:</b> understand distribution, address missing values, assess class imbalance before committing to ML</div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Conduct <b>Exploratory Data Analysis (EDA)</b> to determine ML feasibility</p>
+  </div>
+
+  <!-- Q31 -->
+  <div class="note" data-q="Q31" data-tags="stephanemaarek pt1 sagemaker deployment" data-text="SageMaker Model Registry cross-account access ECR model groups centralized catalog version management deployment tracking governance compliance healthcare">
+    <div class="note-title">📋 Model Registry: Cross-Account</div>
+    <div class="sub">Centralized catalog + governance</div>
+    <div class="flow">
+      <div class="flow-box red">Models in ECR<br><span class="gy" style="font-size:11px">multiple accounts</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Model Registry<br><span class="gy" style="font-size:11px">model groups</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Resource-based policy<br><span class="gy" style="font-size:11px">cross-account access</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Model Registry</b> + resource-based policy for cross-account access</p>
+  </div>
+
+  <!-- Q32 -->
+  <div class="note" data-q="Q32" data-tags="stephanemaarek pt1 mlconcepts sagemaker" data-text="Shapley values local explanation individual prediction contribution feature PDP partial dependence plot global explanation marginal effect dataset level loan defaults credit risk">
+    <div class="note-title">🔬 Shapley Values vs PDP</div>
+    <div class="sub">Local vs global explainability</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Shapley Values</div><div class="cmp-cell blue">PDP</div>
+      <div class="cmp-cell blue-val"><b>Local</b> — quantifies each feature's contribution for a <em>specific instance</em></div>
+      <div class="cmp-cell red-val"><b>Global</b> — shows marginal effect of a feature across entire dataset</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Shapley = local (per instance) · PDP = global (dataset-level)</p>
+  </div>
+
+  <!-- Q33 -->
+  <div class="note" data-q="Q33" data-tags="stephanemaarek pt1 monitoring" data-text="CloudWatch SNS notification SageMaker endpoint API call events monitor threshold peak traffic alarm product demand forecast">
+    <div class="note-title">📢 CloudWatch + SNS Endpoint Alerts</div>
+    <div class="sub">Monitor API call threshold</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker endpoint<br><span class="gy" style="font-size:11px">API calls</span></div><span class="arrow">→</span>
+      <div class="flow-box red">CloudWatch Alarm<br><span class="gy" style="font-size:11px">call count threshold</span></div><span class="arrow">→</span>
+      <div class="flow-box green">SNS notification</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>CloudWatch</b> monitor API metrics + alarm → <b>SNS</b> notification on threshold breach</p>
+  </div>
+
+  <!-- Q34 -->
+  <div class="note" data-q="Q34" data-tags="stephanemaarek pt1 training sagemaker" data-text="SageMaker Managed Spot Training deep learning cost minimize checkpoints retry interrupted instances budget limited computationally intensive long training job">
+    <div class="note-title">💡 Spot Training + Checkpoints</div>
+    <div class="sub">Cost-effective long training jobs</div>
+    <div class="flow">
+      <div class="flow-box red">Spot instance<br><span class="gy" style="font-size:11px">interrupted</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Checkpoint<br><span class="gy" style="font-size:11px">saved state</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Auto-retry<br><span class="gy" style="font-size:11px">from checkpoint</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Managed Spot Training</b> — dynamically allocates Spot + checkpoints</p>
+  </div>
+
+  <!-- Q35 -->
+  <div class="note" data-q="Q35" data-tags="stephanemaarek pt1 monitoring mlconcepts" data-text="detecting managing drift loan defaults continuous monitoring statistical tests retrain recent data model versioning performance improvements select two">
+    <div class="note-title">🔄 Drift Detection Strategy</div>
+    <div class="sub">Two approaches (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Continuous monitoring</b><br>statistical tests on input data + predictions → alert on drift</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Retrain + version</b><br>retrain on recent data + model versioning to track improvements</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Monitor statistically + retrain + version (select two)</p>
+  </div>
+
+  <!-- Q36 -->
+  <div class="note" data-q="Q36" data-tags="stephanemaarek pt1 sagemaker pipeline" data-text="CI/CD pipeline CodePipeline SageMaker retrain deploy S3 trigger patient readmission retraining S3 event notification Model Monitor real-time inference correct order steps">
+    <div class="note-title">🔄 CI/CD Pipeline: Correct Step Order</div>
+    <div class="sub">Auto-retrain on new S3 data</div>
+    <div class="flow">
+      <div class="flow-box red">② S3 event<br><span class="gy" style="font-size:11px">triggers pipeline</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">④ SageMaker<br><span class="gy" style="font-size:11px">retrain on S3 data</span></div><span class="arrow">→</span>
+      <div class="flow-box green">③ Deploy endpoint<br><span class="gy" style="font-size:11px">real-time predictions</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Correct order: <b>2, 4, 3</b> (S3 trigger → retrain → deploy)</p>
+  </div>
+
+  <!-- Q37 -->
+  <div class="note" data-q="Q37" data-tags="stephanemaarek pt1 training sagemaker data" data-text="Pipe input mode stream data S3 training instances medical imaging 10 million images terabytes I/O bottleneck high throughput SageMaker input mode large dataset">
+    <div class="note-title">🔌 Pipe Mode: Stream Large Datasets</div>
+    <div class="sub">10M images, several TB from S3</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">File Mode</div><div class="cmp-cell blue">Pipe Mode</div>
+      <div class="cmp-cell blue-val">Downloads full dataset to instance storage — slow for large data</div>
+      <div class="cmp-cell red-val"><b>Streams directly from S3</b> — start immediately, no local storage needed</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Pipe input mode</b> — streams S3 data, avoids I/O bottleneck, no full download</p>
+  </div>
+
+  <!-- Q38 -->
+  <div class="note" data-q="Q38" data-tags="stephanemaarek pt1 inference deployment" data-text="SageMaker Serverless Inference variable traffic low traffic periods spikes beta phase image recognition minimize costs cold starts infrequent requests">
+    <div class="note-title">⚡ Serverless Inference</div>
+    <div class="sub">Variable traffic, cost-minimized</div>
+    <div class="flow">
+      <div class="flow-box red">Low traffic<br><span class="gy" style="font-size:11px">no cost</span></div><span class="arrow">↔</span>
+      <div class="flow-box green">Serverless<br><span class="gy" style="font-size:11px">auto-scales</span></div><span class="arrow">↔</span>
+      <div class="flow-box blue">Spike traffic<br><span class="gy" style="font-size:11px">handles efficiently</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Serverless Inference</b> — minimize costs during low-traffic, handles spikes</p>
+  </div>
+
+  <!-- Q39 -->
+  <div class="note" data-q="Q39" data-tags="stephanemaarek pt1 sagemaker pipeline" data-text="SageMaker Pipelines ML Lineage Tracking DAG directed acyclic graph drug discovery granular control visualize workflows experiment history governance regulatory compliance">
+    <div class="note-title">🧬 Pipelines + ML Lineage Tracking</div>
+    <div class="sub">DAG visualization + audit compliance</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker Pipelines<br><span class="gy" style="font-size:11px">orchestrate as DAG</span></div><span class="arrow">+</span>
+      <div class="flow-box green">ML Lineage Tracking<br><span class="gy" style="font-size:11px">audit + compliance</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Pipelines (DAG + control) + <b>ML Lineage Tracking</b> (governance + reproducibility)</p>
+  </div>
+
+  <!-- Q40 -->
+  <div class="note" data-q="Q40" data-tags="stephanemaarek pt1 data sagemaker" data-text="SageMaker Data Wrangler customer segmentation preprocess categorical numerical one-hot encoding standardization S3 PostgreSQL on-premises least operational overhead">
+    <div class="note-title">🔧 Data Wrangler: Categorical + Numerical</div>
+    <div class="sub">One-hot encoding + standardization</div>
+    <div class="flow">
+      <div class="flow-box red">Categorical<br><span class="gy" style="font-size:11px">region, tier</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">One-hot encoding</div>
+      <div class="flow-box red" style="margin-left:8px">Numerical<br><span class="gy" style="font-size:11px">amount, duration</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Standardize</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Data Wrangler</b> — handles both transformations, minimal overhead</p>
+  </div>
+
+  <!-- Q41 -->
+  <div class="note" data-q="Q41" data-tags="stephanemaarek pt1 sagemaker deployment" data-text="SageMaker Model Registry collections organize model groups business categories fraud detection risk assessment customer segmentation high-level categories discoverability">
+    <div class="note-title">📂 Model Registry Collections</div>
+    <div class="sub">Group model groups into categories</div>
+    <div class="flow">
+      <div class="flow-box blue">Model groups<br><span class="gy" style="font-size:11px">existing</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Collections<br><span class="gy" style="font-size:11px">fraud / risk / segment</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Model Registry collections</b> — group model groups without affecting them</p>
+  </div>
+
+  <!-- Q42 -->
+  <div class="note" data-q="Q42" data-tags="stephanemaarek pt1 data" data-text="AWS Glue FindMatches duplicate detection patient records spelling errors incomplete addresses deduplication minimal code least operational overhead">
+    <div class="note-title">🔍 Glue FindMatches: Deduplication</div>
+    <div class="sub">Fuzzy duplicate record detection</div>
+    <div class="flow">
+      <div class="flow-box red">Patient records<br><span class="gy" style="font-size:11px">duplicates + typos</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Glue FindMatches<br><span class="gy" style="font-size:11px">ML-based dedup</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>AWS Glue FindMatches</b> — automatically detect + group duplicates, minimal code</p>
+  </div>
+
+  <!-- Q43 -->
+  <div class="note" data-q="Q43" data-tags="stephanemaarek pt1 deployment inference" data-text="EKS Amazon Elastic Kubernetes Service generative AI high scalability SageMaker endpoints real-time low latency fraud detection large model serverless Lambda deployment targets">
+    <div class="note-title">🚀 Deployment Targets by Model Type</div>
+    <div class="sub">Match model to deployment (select two)</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Model type</div><div class="cmp-cell blue">Target</div>
+      <div class="cmp-cell blue-val">GenAI — high scalability → <b>Amazon EKS</b> (containerized)<br>Recommendations — low latency → <b>SageMaker endpoint</b></div>
+      <div class="cmp-cell red-val">Fraud (large, serverless) → Lambda</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ EKS (GenAI) + SageMaker endpoint (real-time recommendations)</p>
+  </div>
+
+  <!-- Q44 -->
+  <div class="note" data-q="Q44" data-tags="stephanemaarek pt1 mlconcepts training" data-text="dropout layers early stopping neural network overfitting validation loss improves early epochs degrades after epochs medical images healthy abnormal select two">
+    <div class="note-title">🧠 Mitigate Neural Network Overfitting</div>
+    <div class="sub">Validation loss degrades after early epochs</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><span class="circle">Dropout</span><br>Remove neurons randomly — regularizes network</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><span class="circle blue">Early Stopping</span><br>Halt when validation loss stops improving</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Dropout layers + early stopping (select two)</p>
+  </div>
+
+  <!-- Q45 -->
+  <div class="note" data-q="Q45" data-tags="stephanemaarek pt1 data sagemaker" data-text="SageMaker Data Wrangler corrupt image transform simulate lighting variations image quality robust model training production degraded warehouse surveillance damaged products">
+    <div class="note-title">🖼️ Data Wrangler: Corrupt Image Transform</div>
+    <div class="sub">Simulate production image variations</div>
+    <div class="flow">
+      <div class="flow-box red">Clean training<br><span class="gy" style="font-size:11px">images</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Corrupt transform<br><span class="gy" style="font-size:11px">vary lighting/quality</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Robust model</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Data Wrangler corrupt image transform</b> — simulate quality variations, least effort</p>
+  </div>
+
+  <!-- Q46 -->
+  <div class="note" data-q="Q46" data-tags="stephanemaarek pt1 inference deployment" data-text="auto-scaling fleet medium-sized instances multi-model endpoint multiple models single instance shared resources cost performance latency balance logistics delivery routes real-time">
+    <div class="note-title">⚖️ Cost-Perf Balance: Multi-Model Endpoint</div>
+    <div class="sub">Auto-scaling + shared resources</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Auto-scaling</b> fleet<br>adjusts based on real-time demand</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Multi-model endpoint</b><br>multiple models → single instance, shared resources</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Auto-scaling + multi-model endpoint (select two)</p>
+  </div>
+
+  <!-- Q47 -->
+  <div class="note" data-q="Q47" data-tags="stephanemaarek pt1 genai" data-text="generative AI Bedrock LLM terms embedding token RAG temperature prompt match description numerical vector sequence characters randomness creative deterministic">
+    <div class="note-title">🤖 GenAI Terms Matching</div>
+    <div class="sub">Embedding · Token · RAG · Temperature · Prompt</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Term</div><div class="cmp-cell blue">Description</div>
+      <div class="cmp-cell blue-val"><b>Embedding</b> → B (numerical vector)<br><b>Token</b> → D (text unit for LLM)<br><b>RAG</b> → A (external knowledge retrieval)</div>
+      <div class="cmp-cell red-val"><b>Temperature</b> → E (randomness control)<br><b>Prompt</b> → C (input to guide response)</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Answer: <b>1-B, 2-D, 3-A</b></p>
+  </div>
+
+  <!-- Q48 -->
+  <div class="note" data-q="Q48" data-tags="stephanemaarek pt1 inference deployment" data-text="target tracking scaling policy auto-scaling endpoint traffic spikes peak shopping periods low demand invocations per instance CPU utilization recommendation engine">
+    <div class="note-title">📈 Target Tracking Scaling Policy</div>
+    <div class="sub">Auto-scale on predefined target metric</div>
+    <div class="flow">
+      <div class="flow-box red">Traffic spike</div><span class="arrow">→</span>
+      <div class="flow-box blue">Target tracking<br><span class="gy" style="font-size:11px">CPU / invocations</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Auto add/remove<br><span class="gy" style="font-size:11px">instances</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Target tracking scaling policy</b> — maintains steady performance during spikes</p>
+  </div>
+
+  <!-- Q49 -->
+  <div class="note" data-q="Q49" data-tags="stephanemaarek pt1 data sagemaker" data-text="SageMaker Data Wrangler IoT sensor anomaly detection aggregate preprocess visualize manufacturing production defective products SQL database S3">
+    <div class="note-title">🏭 IoT Anomaly Detection + Viz</div>
+    <div class="sub">Aggregate → detect → visualize</div>
+    <div class="flow">
+      <div class="flow-box red">IoT + SQL<br><span class="gy" style="font-size:11px">multiple sources</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Data Wrangler<br><span class="gy" style="font-size:11px">aggregate + clean</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Visual insights<br><span class="gy" style="font-size:11px">anomaly detection</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Data Wrangler</b> — aggregates, prepares data, generates visual insights</p>
+  </div>
+
+  <!-- Q50 -->
+  <div class="note" data-q="Q50" data-tags="stephanemaarek pt1 security sagemaker" data-text="single IAM role S3 permissions centralized access SageMaker notebook instances data science team shared datasets inconsistent permissions decentralized">
+    <div class="note-title">🔑 Centralized IAM for Notebooks</div>
+    <div class="sub">One role, consistent S3 access</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Before</div><div class="cmp-cell blue">After</div>
+      <div class="cmp-cell blue-val">Individual IAM role per notebook — inconsistent, duplicated effort</div>
+      <div class="cmp-cell red-val"><b>Single IAM role</b> with S3 permissions attached to all team notebooks</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Single IAM role with S3 permissions</b> attached to all notebook instances</p>
+  </div>
+
+  <!-- Q51 -->
+  <div class="note" data-q="Q51" data-tags="stephanemaarek pt1 mlconcepts" data-text="precision recall confusion matrix imbalanced dataset evaluation purchase prediction browsing behavior false positives false negatives select two">
+    <div class="note-title">📊 Imbalanced Dataset Evaluation</div>
+    <div class="sub">Beyond accuracy (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Precision + Recall</b><br>focus on positive class ability</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Confusion Matrix</b><br>TP/FP/TN/FN → derive F1, precision, recall</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Precision/recall + confusion matrix for imbalanced class evaluation</p>
+  </div>
+
+  <!-- Q52 -->
+  <div class="note" data-q="Q52" data-tags="stephanemaarek pt1 deployment sagemaker" data-text="SageMaker versioning canary release blue green deployment rollback traffic management new model version healthcare personalized treatment plans">
+    <div class="note-title">🔵🟢 Blue/Green + Canary Deployment</div>
+    <div class="sub">Safe rollout with rollback (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Canary release</b><br>small % traffic to new version initially</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Blue/green deployment</b><br>gradual traffic shift + quick rollback</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ SageMaker versioning (canary) + blue/green deployment (select two)</p>
+  </div>
+
+  <!-- Q53 -->
+  <div class="note" data-q="Q53" data-tags="stephanemaarek pt1 mlconcepts" data-text="explainable transparent machine learning model trust confidence debugging optimization benefits persuade developer">
+    <div class="note-title">🪟 Explainable ML Benefits</div>
+    <div class="sub">Why choose transparent models</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Trust + confidence</b><br>stakeholders trust predictions</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Debugging + optimization</b><br>easier to identify model issues</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Foster trust + facilitate debugging (select two)</p>
+  </div>
+
+  <!-- Q54 -->
+  <div class="note" data-q="Q54" data-tags="stephanemaarek pt1 inference deployment" data-text="SageMaker real-time hosting auto-scaling endpoint e-commerce recommendation purchase prediction low latency peak traffic Black Friday scalable monitor roll out updates">
+    <div class="note-title">🛒 Real-Time Hosting + Auto-Scaling</div>
+    <div class="sub">Peak traffic scalable deployment</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker real-time endpoint</div><span class="arrow">+</span>
+      <div class="flow-box green">Auto-scaling<br><span class="gy" style="font-size:11px">adjust on demand</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker real-time hosting + auto-scaling endpoint</b> — handles Black Friday spikes</p>
+  </div>
+
+  <!-- Q55 -->
+  <div class="note" data-q="Q55" data-tags="stephanemaarek pt1 sagemaker deployment" data-text="SageMaker Model Registry version control auditability pharmaceutical clinical trial regulatory compliance model versioning repeatability hyperparameters data sources training code">
+    <div class="note-title">📜 Model Registry: Version + Audit</div>
+    <div class="sub">Regulatory compliance + reproducibility</div>
+    <div class="flow">
+      <div class="flow-box blue">Train model</div><span class="arrow">→</span>
+      <div class="flow-box red">Register<br><span class="gy" style="font-size:11px">data+params+code</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Audit-ready<br><span class="gy" style="font-size:11px">any version</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Model Registry</b> — captures all metadata, ensures reproducibility</p>
+  </div>
+
+  <!-- Q56 -->
+  <div class="note" data-q="Q56" data-tags="stephanemaarek pt1 security genai" data-text="defense-in-depth security generative AI applications AWS multiple layers input validation access controls continuous monitoring vulnerabilities">
+    <div class="note-title">🛡️ Defense-in-Depth for GenAI</div>
+    <div class="sub">Multiple security layers</div>
+    <div class="flow">
+      <div class="flow-box red">Input validation</div><span class="arrow">+</span>
+      <div class="flow-box blue">Access controls</div><span class="arrow">+</span>
+      <div class="flow-box green">Continuous monitoring</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Multiple security layers</b> — validation + access control + monitoring = defense-in-depth</p>
+  </div>
+
+  <!-- Q57 -->
+  <div class="note" data-q="Q57" data-tags="stephanemaarek pt1 sagemaker deployment pipeline" data-text="SageMaker auto-scaling endpoints Pipelines scalable maintainable cost-effective ML infrastructure mobile app recommendation engine rapid scaling budget small team">
+    <div class="note-title">📱 Scalable ML Infrastructure</div>
+    <div class="sub">SageMaker + Pipelines + auto-scaling</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker training</div><span class="arrow">→</span>
+      <div class="flow-box blue">Pipelines<br><span class="gy" style="font-size:11px">orchestration</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Auto-scaling endpoint</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ SageMaker + auto-scaling endpoints + Pipelines — scalable, maintainable, cost-effective</p>
+  </div>
+
+  <!-- Q58 -->
+  <div class="note" data-q="Q58" data-tags="stephanemaarek pt1 mlconcepts sagemaker" data-text="SageMaker Linear Learner churn prediction class imbalance feature interdependencies categorical numerical membership tier purchase frequency least operational effort">
+    <div class="note-title">📉 Linear Learner for Churn</div>
+    <div class="sub">Class imbalance + feature interdependencies</div>
+    <div class="flow">
+      <div class="flow-box red">Imbalanced churn data<br><span class="gy" style="font-size:11px">S3 + PostgreSQL</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Linear Learner<br><span class="gy" style="font-size:11px">handles imbalance</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon SageMaker Linear Learner</b> — least operational effort for this scenario</p>
+  </div>
+
+  <!-- Q59 -->
+  <div class="note" data-q="Q59" data-tags="stephanemaarek pt1 training sagemaker" data-text="BYOC Bring Your Own Container Docker ECR TensorFlow custom Python libraries SageMaker Script Mode genomic data compatibility flexibility training inference">
+    <div class="note-title">🐳 BYOC: Custom TensorFlow Container</div>
+    <div class="sub">Non-standard dependencies</div>
+    <div class="flow">
+      <div class="flow-box red">Docker container<br><span class="gy" style="font-size:11px">custom TF env</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Push to ECR</div><span class="arrow">→</span>
+      <div class="flow-box green">SageMaker Script Mode<br><span class="gy" style="font-size:11px">execute training</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Docker → ECR → <b>SageMaker Script Mode</b> within custom container</p>
+  </div>
+
+  <!-- Q60 -->
+  <div class="note" data-q="Q60" data-tags="stephanemaarek pt1 sagemaker pipeline deployment" data-text="SageMaker Pipelines conditional steps manual approval workflow only approved models deployed production credit risk AI governance secure S3 training data centralized">
+    <div class="note-title">✅ Pipelines: Manual Approval Workflow</div>
+    <div class="sub">Only approved models reach production</div>
+    <div class="flow">
+      <div class="flow-box blue">Train + register</div><span class="arrow">→</span>
+      <div class="flow-box red">Conditional step<br><span class="gy" style="font-size:11px">manual approval</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Deploy to prod</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Pipelines with conditional steps</b> — implements approval gate</p>
+  </div>
+
+  <!-- Q61 -->
+  <div class="note" data-q="Q61" data-tags="stephanemaarek pt1 sagemaker data" data-text="SageMaker Feature Store create feature group load feature data access training dataset correct order steps e-commerce purchase behavior">
+    <div class="note-title">🗃️ Feature Store: Setup Order</div>
+    <div class="sub">Create group → load → access</div>
+    <div class="flow">
+      <div class="flow-box red">③ Set up feature group<br><span class="gy" style="font-size:11px">organize + store</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">② Load feature data<br><span class="gy" style="font-size:11px">into store</span></div><span class="arrow">→</span>
+      <div class="flow-box green">① Access dataset<br><span class="gy" style="font-size:11px">for training</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Correct order: <b>3, 2, 1</b> (create group → load → access for training)</p>
+  </div>
+
+  <!-- Q62 -->
+  <div class="note" data-q="Q62" data-tags="stephanemaarek pt1 mlconcepts" data-text="AUC ROC curve Area Under Curve imbalanced binary classification loan defaults defaulters non-defaulters discriminatory power excellent close to 1.0">
+    <div class="note-title">📈 AUC-ROC: Imbalanced Classification</div>
+    <div class="sub">Evaluate discriminatory power</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">AUC = 0.5</div><div class="cmp-cell blue">AUC ≈ 1.0</div>
+      <div class="cmp-cell blue-val">Random classifier — no discriminatory power</div>
+      <div class="cmp-cell red-val"><b>Excellent</b> — effectively distinguishes defaulters from non-defaulters</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>AUC close to 1.0</b> = excellent discriminatory power, reliable for imbalanced data</p>
+  </div>
+
+  <!-- Q63 -->
+  <div class="note" data-q="Q63" data-tags="stephanemaarek pt1 mlconcepts sagemaker" data-text="Random Cut Forest RCF predictive maintenance anomaly detection sensor data temperature pressure usage error rates telecommunications network equipment failure">
+    <div class="note-title">🌲 RCF: Predictive Maintenance</div>
+    <div class="sub">Anomaly detection in sensor data</div>
+    <div class="flow">
+      <div class="flow-box red">Sensor data<br><span class="gy" style="font-size:11px">temp, pressure, errors</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Random Cut Forest<br><span class="gy" style="font-size:11px">anomaly score</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Predict failure<br><span class="gy" style="font-size:11px">just in time</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Random Cut Forest (RCF)</b> — detects anomalies in sensor data indicating failure</p>
+  </div>
+
+  <!-- Q64 -->
+  <div class="note" data-q="Q64" data-tags="stephanemaarek pt1 training mlconcepts" data-text="reduce learning rate oscillating loss RNN recurrent neural network time series electricity demand stochastic gradient descent SGD stabilize training high loss both">
+    <div class="note-title">📉 Reduce LR: Oscillating Loss</div>
+    <div class="sub">Stabilize RNN training with SGD</div>
+    <div class="flow">
+      <div class="flow-box red">High oscillating loss<br><span class="gy" style="font-size:11px">both train + val</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Reduce learning rate<br><span class="gy" style="font-size:11px">smoother convergence</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Reduce learning rate</b> — gradient updates converge smoothly, prevent oscillations</p>
+  </div>
+
+  <!-- Q65 -->
+  <div class="note" data-q="Q65" data-tags="stephanemaarek pt1 sagemaker pipeline data" data-text="SageMaker Pipelines callback steps AWS Glue jobs integration wait complete retrieve outputs S3 video metadata feature engineering seamless data flow least overhead">
+    <div class="note-title">🔗 Pipelines + Glue: Callback Steps</div>
+    <div class="sub">Integrate Glue jobs into SM Pipelines</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker Pipelines</div><span class="arrow">→</span>
+      <div class="flow-box red">Callback step<br><span class="gy" style="font-size:11px">wait for Glue job</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Retrieve outputs<br><span class="gy" style="font-size:11px">from S3</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Pipelines callback steps</b> — wait for Glue, retrieve S3 outputs directly</p>
+  </div>
+
+  <!-- ===== End Stephane Maarek PT-1 cards ===== -->
+
+  <!-- Q1 -->
+  <div class="note" data-q="Q1" data-tags="stephanemaarek pt2 mlconcepts genai" data-text="model parameters hyperparameters generative AI difference behavior weights biases training process control customization">
+    <div class="note-title">⚙️ Params vs Hyperparams</div>
+    <div class="sub">Generative AI context</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Model Parameters</div><div class="cmp-cell blue">Hyperparameters</div>
+      <div class="cmp-cell blue-val">Define the model and its behavior — weights, biases (learned during training)</div>
+      <div class="cmp-cell red-val">Values adjusted for customization — <b>control the training process</b></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Parameters = model behavior · Hyperparameters = training control</p>
+  </div>
+
+  <!-- Q2 -->
+  <div class="note" data-q="Q2" data-tags="stephanemaarek pt2 deployment monitoring" data-text="A/B testing recommendation engine new model real-world randomly assign users engagement metrics click-through rate session duration CloudWatch aggregate winning model">
+    <div class="note-title">🧪 A/B Testing: New Model Evaluation</div>
+    <div class="sub">Live traffic evaluation</div>
+    <div class="flow">
+      <div class="flow-box red">Users split<br><span class="gy" style="font-size:11px">random %</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Model A vs B<br><span class="gy" style="font-size:11px">engagement metrics</span></div><span class="arrow">→</span>
+      <div class="flow-box green">CloudWatch<br><span class="gy" style="font-size:11px">determine winner</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Random user split + CloudWatch engagement metrics → determine winning model</p>
+  </div>
+
+  <!-- Q3 -->
+  <div class="note" data-q="Q3" data-tags="stephanemaarek pt2 monitoring sagemaker" data-text="SageMaker Model Monitor track distribution input data features model predictions alerting deviations fraud detection transactions incorrectly classified non-fraudulent">
+    <div class="note-title">🔍 Model Monitor: Detect Classification Drift</div>
+    <div class="sub">Transactions wrongly classified as non-fraudulent</div>
+    <div class="flow">
+      <div class="flow-box red">Production data<br><span class="gy" style="font-size:11px">deviates from baseline</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Model Monitor<br><span class="gy" style="font-size:11px">track distribution</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Alert + investigate</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Model Monitor</b> — tracks input + prediction distribution, alerts on deviations</p>
+  </div>
+
+  <!-- Q4 -->
+  <div class="note" data-q="Q4" data-tags="stephanemaarek pt2 training mlconcepts" data-text="distributed training multiple GPU instances parallelize training time image classification autonomous vehicle single GPU too slow reduce training time">
+    <div class="note-title">⚡ Distributed Training: Multi-GPU</div>
+    <div class="sub">Reduce training time for deep learning</div>
+    <div class="flow">
+      <div class="flow-box red">Single GPU<br><span class="gy" style="font-size:11px">too slow</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Distributed training<br><span class="gy" style="font-size:11px">multiple GPU instances</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Distributed training with multiple GPU instances</b> — parallelize, reduce time</p>
+  </div>
+
+  <!-- Q5 -->
+  <div class="note" data-q="Q5" data-tags="stephanemaarek pt2 mlconcepts sagemaker" data-text="Factorization Machines recommendation system e-commerce large dataset user interactions collaborative filtering built-in SageMaker algorithm">
+    <div class="note-title">🔢 Factorization Machines: Recommendations</div>
+    <div class="sub">Best SageMaker algorithm for collaborative filtering</div>
+    <div class="flow">
+      <div class="flow-box red">User-item interactions<br><span class="gy" style="font-size:11px">sparse, large dataset</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Factorization Machines<br><span class="gy" style="font-size:11px">SageMaker built-in</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Factorization Machines</b> — models user-item interactions for collaborative filtering</p>
+  </div>
+
+  <!-- Q6 -->
+  <div class="note" data-q="Q6" data-tags="stephanemaarek pt2 data" data-text="Amazon EMR cluster On-Demand primary core nodes Spot task nodes cost-effective no data loss fault tolerance log data processing">
+    <div class="note-title">🖥️ EMR: On-Demand + Spot Mix</div>
+    <div class="sub">No data loss + cost-effective</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Primary + Core nodes</div><div class="cmp-cell blue">Task nodes</div>
+      <div class="cmp-cell blue-val"><b>On-Demand</b> — no data loss, fault-tolerant (HDFS data here)</div>
+      <div class="cmp-cell red-val"><b>Spot instances</b> — reduce costs, task nodes don't store data</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ On-Demand (primary+core) + Spot (task) — no data loss + cost savings</p>
+  </div>
+
+  <!-- Q7 -->
+  <div class="note" data-q="Q7" data-tags="stephanemaarek pt2 monitoring" data-text="AWS Cost Explorer historical spending patterns cost trends forecast budgeting planning AWS Trusted Advisor cost optimization underutilized idle resources reserved instances select two">
+    <div class="note-title">💰 AWS Cost Analysis Tools</div>
+    <div class="sub">Monitor + optimize spending (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>AWS Cost Explorer</b><br>analyze spending patterns + forecast future costs</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>AWS Trusted Advisor</b><br>recommendations — idle resources, reserved instance opportunities</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Cost Explorer (analysis) + Trusted Advisor (optimization recommendations)</p>
+  </div>
+
+  <!-- Q8 -->
+  <div class="note" data-q="Q8" data-tags="stephanemaarek pt2 monitoring sagemaker" data-text="SageMaker Model Monitor Amazon A2I Augmented AI human review monitoring machine learning models incorporating human review processes select two">
+    <div class="note-title">👁️ ML Monitoring + Human Review</div>
+    <div class="sub">Two AWS services (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>SageMaker Model Monitor</b><br>automated drift + quality monitoring</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Amazon A2I (Augmented AI)</b><br>incorporates human review into ML workflows</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Model Monitor + Amazon A2I for ML monitoring with human review</p>
+  </div>
+
+  <!-- Q9 -->
+  <div class="note" data-q="Q9" data-tags="stephanemaarek pt2 mlconcepts deployment" data-text="model compression mobile device pruning quantization reduce size 32-bit 8-bit weights neurons layers acceptable performance object detection real-time">
+    <div class="note-title">📱 Model Compression for Mobile</div>
+    <div class="sub">Reduce size, maintain performance</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Pruning</b><br>remove less important neurons and layers</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Quantization</b><br>32-bit → 8-bit weights (4× size reduction)</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Pruning + quantization — reduce model size for mobile deployment</p>
+  </div>
+
+  <!-- Q10 -->
+  <div class="note" data-q="Q10" data-tags="stephanemaarek pt2 training sagemaker" data-text="distributed training multiple smaller instances balance training time cost demand forecasting SageMaker automatic model tuning HPO spot instances select two">
+    <div class="note-title">⚖️ Balance Training: Perf + Cost</div>
+    <div class="sub">Demand forecasting (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Distributed training</b><br>multiple smaller instances = balance time + cost</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>SageMaker AMT + Spot</b><br>HPO for performance + spot instances for cost</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Distributed training + HPO with spot instances (select two)</p>
+  </div>
+
+  <!-- Q11 -->
+  <div class="note" data-q="Q11" data-tags="stephanemaarek pt2 inference deployment" data-text="AWS Inferentia accelerators production low latency high throughput CPU-based instances test environment experimentation cost saving fraud detection real-time select two">
+    <div class="note-title">🔬 Inferentia: Prod vs Test Strategy</div>
+    <div class="sub">Low-latency prod + cheap test</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Production</div><div class="cmp-cell blue">Test</div>
+      <div class="cmp-cell blue-val"><b>AWS Inferentia</b> — high throughput, low latency accelerators</div>
+      <div class="cmp-cell red-val"><b>CPU-based instances</b> — cost-effective for test/experimentation</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Inferentia (prod) + CPU instances (test) — select two</p>
+  </div>
+
+  <!-- Q12 -->
+  <div class="note" data-q="Q12" data-tags="stephanemaarek pt2 inference monitoring" data-text="Auto Scaling target metric instance utilization SageMaker endpoint response time slower throughput not meeting required levels improve performance">
+    <div class="note-title">📈 Auto Scaling for Endpoint Throughput</div>
+    <div class="sub">Fix slow response + low throughput</div>
+    <div class="flow">
+      <div class="flow-box red">Slow response<br><span class="gy" style="font-size:11px">low throughput</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Enable Auto Scaling<br><span class="gy" style="font-size:11px">target metric: utilization</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Enable Auto Scaling with target metric</b> for instance utilization</p>
+  </div>
+
+  <!-- Q13 -->
+  <div class="note" data-q="Q13" data-tags="stephanemaarek pt2 monitoring sagemaker" data-text="SageMaker Clarify continuous monitoring feature attribution drift distribution changes insurance model new regions investigate retrain alert significant">
+    <div class="note-title">📊 Clarify: Feature Attribution Drift</div>
+    <div class="sub">Monitor data distribution across regions</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker Clarify<br><span class="gy" style="font-size:11px">continuous monitoring</span></div><span class="arrow">→</span>
+      <div class="flow-box red">Feature attribution drift<br><span class="gy" style="font-size:11px">detected</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Alert + retrain</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Clarify continuous monitoring</b> — tracks feature distribution + alerts on attribution drift</p>
+  </div>
+
+  <!-- Q14 -->
+  <div class="note" data-q="Q14" data-tags="stephanemaarek pt2 monitoring sagemaker" data-text="Model Monitor data quality issues generate new baseline configure model monitor updated baseline future evaluations after model update">
+    <div class="note-title">📋 Model Monitor: Update Baseline</div>
+    <div class="sub">Address data quality issues post-update</div>
+    <div class="flow">
+      <div class="flow-box red">Model updated<br><span class="gy" style="font-size:11px">quality flags</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Generate new baseline<br><span class="gy" style="font-size:11px">latest dataset</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Configure Monitor<br><span class="gy" style="font-size:11px">use new baseline</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Generate new baseline + configure Model Monitor with updated baseline</p>
+  </div>
+
+  <!-- Q15 -->
+  <div class="note" data-q="Q15" data-tags="stephanemaarek pt2 mlconcepts monitoring" data-text="overfitting underfitting identifying compare training validation loss curves validation loss higher training loss prediction maintenance model generalizes">
+    <div class="note-title">📉 Loss Curves: Identify Overfitting</div>
+    <div class="sub">Training vs validation loss</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Overfitting</div><div class="cmp-cell blue">Underfitting</div>
+      <div class="cmp-cell blue-val">Val loss >> Train loss — model memorizes training data</div>
+      <div class="cmp-cell red-val">Both losses high — model too simple for problem</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Compare training and validation loss curves</b> over time to identify both</p>
+  </div>
+
+  <!-- Q16 -->
+  <div class="note" data-q="Q16" data-tags="stephanemaarek pt2 mlconcepts" data-text="recall F1 score binary classification disease prediction false positives false negatives severe consequences both evaluation metrics select two">
+    <div class="note-title">🩺 Recall + F1: Disease Prediction</div>
+    <div class="sub">When both FP and FN have severe consequences</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Recall</b><br>reduce false negatives — catch all sick patients</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>F1 Score</b><br>balance precision + recall — address both FP and FN</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Prioritize Recall + F1 score (select two)</p>
+  </div>
+
+  <!-- Q17 -->
+  <div class="note" data-q="Q17" data-tags="stephanemaarek pt2 mlconcepts" data-text="accuracy metric binary classification maximize correct predictions both positive negative labels recalibrate healthcare at-risk patients">
+    <div class="note-title">✅ Accuracy: Both Labels Equally</div>
+    <div class="sub">When FP and FN costs are equal</div>
+    <p style="font-size:13px;margin:4px 0 8px">Maximize correct predictions for <b>both</b> positive AND negative labels → balanced objective</p>
+    <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px"><span class="circle">Accuracy</span> = (TP + TN) / Total — measures overall correctness equally</div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Accuracy</b> — correct metric when both classes matter equally</p>
+  </div>
+
+  <!-- Q18 -->
+  <div class="note" data-q="Q18" data-tags="stephanemaarek pt2 data" data-text="Kinesis Data Firehose buffer interval zero seconds buffering hints immediate delivery OpenSearch sub-second latency real-time alerts healthcare dashboard">
+    <div class="note-title">⚡ Firehose: Zero Buffer for Sub-Second</div>
+    <div class="sub">Real-time OpenSearch delivery</div>
+    <div class="flow">
+      <div class="flow-box red">60s buffer interval<br><span class="gy" style="font-size:11px">too slow for alerts</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Buffer = 0s<br><span class="gy" style="font-size:11px">'buffering hints'</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Reduce Firehose buffer interval to zero</b> via buffering hints → immediate delivery</p>
+  </div>
+
+  <!-- Q19 -->
+  <div class="note" data-q="Q19" data-tags="stephanemaarek pt2 genai mlconcepts" data-text="token embedding difference generative AI sequence characters single unit meaning vector numerical values condensed information transforming input">
+    <div class="note-title">🔤 Token vs Embedding</div>
+    <div class="sub">Generative AI fundamentals</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Token</div><div class="cmp-cell blue">Embedding</div>
+      <div class="cmp-cell blue-val">Sequence of characters interpreted as a <b>single unit of meaning</b> by a model</div>
+      <div class="cmp-cell red-val"><b>Vector of numerical values</b> — condensed representation obtained by transforming input</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Token = character sequence unit · Embedding = numerical vector representation</p>
+  </div>
+
+  <!-- Q20 -->
+  <div class="note" data-q="Q20" data-tags="stephanemaarek pt2 mlconcepts" data-text="XGBoost tree-based algorithm interpretability healthcare model feature importance accuracy acceptable performance balance interpretable">
+    <div class="note-title">🌲 XGBoost: Interpretability + Performance</div>
+    <div class="sub">Healthcare model — interpretability priority</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Interpretability</div><div class="cmp-cell blue">Performance</div>
+      <div class="cmp-cell blue-val">XGBoost offers <b>feature importance</b> scores — explainable decisions</div>
+      <div class="cmp-cell red-val">Also high accuracy — balances both requirements</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Tree-based algorithm (XGBoost)</b> — interpretability via feature importance + good accuracy</p>
+  </div>
+
+  <!-- Q21 -->
+  <div class="note" data-q="Q21" data-tags="stephanemaarek pt2 aiservices" data-text="Amazon Comprehend custom entity recognition key phrase extraction publishing company keywords documents minimal operational overhead">
+    <div class="note-title">📝 Comprehend: Entity + Key Phrase</div>
+    <div class="sub">Extract keywords from documents</div>
+    <div class="flow">
+      <div class="flow-box red">Document collection</div><span class="arrow">→</span>
+      <div class="flow-box blue">Comprehend<br><span class="gy" style="font-size:11px">entity recognition</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Keywords extracted<br><span class="gy" style="font-size:11px">+ key phrases</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon Comprehend</b> custom entity recognition + key phrase extraction</p>
+  </div>
+
+  <!-- Q22 -->
+  <div class="note" data-q="Q22" data-tags="stephanemaarek pt2 training mlconcepts" data-text="batch size 256 epochs 50 learning rate 0.01 reduce training time increase batch size decrease epochs performance compromise">
+    <div class="note-title">⚡ Reduce Training Time: Batch Size</div>
+    <div class="sub">Batch 256, epochs 50, LR 0.01</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Current</div><div class="cmp-cell blue">Optimized</div>
+      <div class="cmp-cell blue-val">Batch 256, Epochs 50 — too many update steps</div>
+      <div class="cmp-cell red-val"><b>Increase batch size</b> (fewer steps/epoch) + <b>decrease epochs</b></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Increase batch size + decrease epochs — reduce time without compromising performance</p>
+  </div>
+
+  <!-- Q23 -->
+  <div class="note" data-q="Q23" data-tags="stephanemaarek pt2 inference monitoring" data-text="auto-scaling SageMaker endpoint latency timeouts high traffic startup budget tight AWS Budgets alert monitor cost increases request load">
+    <div class="note-title">📈 Auto-Scaling + Budget Alert</div>
+    <div class="sub">Endpoint latency + cost management</div>
+    <div class="flow">
+      <div class="flow-box red">High traffic<br><span class="gy" style="font-size:11px">latency + timeouts</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Auto-scaling<br><span class="gy" style="font-size:11px">adjust instances</span></div><span class="arrow">+</span>
+      <div class="flow-box green">AWS Budgets<br><span class="gy" style="font-size:11px">cost alert</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Auto-scaling (capacity) + AWS Budgets alert (cost control)</p>
+  </div>
+
+  <!-- Q24 -->
+  <div class="note" data-q="Q24" data-tags="stephanemaarek pt2 deployment" data-text="CloudFormation AWS::SageMaker::Model resource ML model endpoint real-time inference model artifacts inference container configuration hosting">
+    <div class="note-title">🏗️ CloudFormation: SageMaker Model Resource</div>
+    <div class="sub">IaC for real-time inference endpoint</div>
+    <div class="flow">
+      <div class="flow-box red">CloudFormation template</div><span class="arrow">→</span>
+      <div class="flow-box blue"><code>AWS::SageMaker::Model</code></div><span class="arrow">→</span>
+      <div class="flow-box green">Hosting endpoint</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>AWS::SageMaker::Model</b> — specify artifacts + inference container configuration</p>
+  </div>
+
+  <!-- Q25 -->
+  <div class="note" data-q="Q25" data-tags="stephanemaarek pt2 data training" data-text="FSx for Lustre file system small image files Fast File mode large video files S3 low latency high throughput training media company tens millions images terabytes">
+    <div class="note-title">💾 FSx Lustre + Fast File Mode</div>
+    <div class="sub">Small images + large videos from S3</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Small image files</div><div class="cmp-cell blue">Large video files</div>
+      <div class="cmp-cell blue-val"><b>FSx for Lustre</b> — linked to S3, high-performance NFS</div>
+      <div class="cmp-cell red-val"><b>Fast File mode</b> — S3 folder with fast access for large files</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ FSx for Lustre (images) + Fast File mode (videos) — combine both strengths</p>
+  </div>
+
+  <!-- Q26 -->
+  <div class="note" data-q="Q26" data-tags="stephanemaarek pt2 mlconcepts" data-text="supervised learning examples neural network linear regression labeled data select two classification regression">
+    <div class="note-title">🎓 Supervised Learning Examples</div>
+    <div class="sub">Select two from list</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><span class="circle">Neural Network</span><br>learns from labeled training examples</div>
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><span class="circle">Linear Regression</span><br>predicts continuous output from labeled data</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Neural network + Linear regression (both supervised learning)</p>
+  </div>
+
+  <!-- Q27 -->
+  <div class="note" data-q="Q27" data-tags="stephanemaarek pt2 sagemaker" data-text="SageMaker Autopilot automatically analyze dataset generate candidate models evaluate customer churn prediction least development effort telecommunications">
+    <div class="note-title">🤖 Autopilot: AutoML for Churn</div>
+    <div class="sub">Least development effort</div>
+    <div class="flow">
+      <div class="flow-box red">Dataset</div><span class="arrow">→</span>
+      <div class="flow-box blue">SageMaker Autopilot<br><span class="gy" style="font-size:11px">auto-analyze + generate</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Best model<br><span class="gy" style="font-size:11px">evaluated</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Autopilot</b> — analyze, generate candidates, evaluate — least effort</p>
+  </div>
+
+  <!-- Q28 -->
+  <div class="note" data-q="Q28" data-tags="stephanemaarek pt2 deployment" data-text="SageMaker shadow testing live customer data new model evaluation without affecting production model compare predictions performance retail recommendation">
+    <div class="note-title">👤 Shadow Testing: Evaluate Live Data</div>
+    <div class="sub">No impact on production</div>
+    <div class="flow">
+      <div class="flow-box blue">Live traffic</div><span class="arrow">→</span>
+      <div class="flow-box red">Production model<br><span class="gy" style="font-size:11px">serves users</span></div>
+      <div class="flow-box blue" style="margin-left:4px">Shadow model<br><span class="gy" style="font-size:11px">receives copy</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker shadow testing</b> — route copy of live data, compare without serving users</p>
+  </div>
+
+  <!-- Q29 -->
+  <div class="note" data-q="Q29" data-tags="stephanemaarek pt2 inference sagemaker" data-text="SageMaker Inference Recommender rightsizing cost-effective instance type load tests performance cost endpoint configuration balance">
+    <div class="note-title">🎯 Inference Recommender: Rightsizing</div>
+    <div class="sub">Find best cost/performance instance</div>
+    <div class="flow">
+      <div class="flow-box red">Multiple instance types</div><span class="arrow">→</span>
+      <div class="flow-box blue">Inference Recommender<br><span class="gy" style="font-size:11px">load tests each</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Best balance<br><span class="gy" style="font-size:11px">cost + perf</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Inference Recommender</b> — load test + compare → optimal instance</p>
+  </div>
+
+  <!-- Q30 -->
+  <div class="note" data-q="Q30" data-tags="stephanemaarek pt2 data" data-text="Apache Parquet file format optimize data processing performance loading time SageMaker Canvas complex structures transactional records financial services">
+    <div class="note-title">📦 Parquet: Optimal for Canvas</div>
+    <div class="sub">Complex transactional data</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">CSV/JSON</div><div class="cmp-cell blue">Apache Parquet</div>
+      <div class="cmp-cell blue-val">Row-based, slow scan for complex queries</div>
+      <div class="cmp-cell red-val"><b>Columnar</b> — fast processing, minimal loading time for analytics</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Apache Parquet</b> — columnar format optimizes Canvas loading performance</p>
+  </div>
+
+  <!-- Q31 -->
+  <div class="note" data-q="Q31" data-tags="stephanemaarek pt2 mlconcepts sagemaker" data-text="performance baseline CLV customer lifetime value linear learner model customer age purchase frequency average order value basic model establish baseline SageMaker">
+    <div class="note-title">📏 Baseline Model for CLV</div>
+    <div class="sub">Start with simple linear learner</div>
+    <div class="flow">
+      <div class="flow-box red">Key features<br><span class="gy" style="font-size:11px">age, frequency, AOV</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Linear Learner<br><span class="gy" style="font-size:11px">basic model</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Performance baseline<br><span class="gy" style="font-size:11px">reference point</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Train <b>basic linear learner</b> with key features — establishes CLV baseline</p>
+  </div>
+
+  <!-- Q32 -->
+  <div class="note" data-q="Q32" data-tags="stephanemaarek pt2 data sagemaker" data-text="Data Wrangler filter transformation remove outliers dataset transformation action Parquet columns">
+    <div class="note-title">🔧 Data Wrangler: Remove Outliers</div>
+    <div class="sub">Which transformation to use</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Action</div><div class="cmp-cell blue">Transformation</div>
+      <div class="cmp-cell blue-val">Remove outliers from dataset</div>
+      <div class="cmp-cell red-val"><b>Filter</b> — selectively remove rows based on conditions</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Use <b>Filter</b> transformation in Data Wrangler to remove outliers</p>
+  </div>
+
+  <!-- Q33 -->
+  <div class="note" data-q="Q33" data-tags="stephanemaarek pt2 data" data-text="Kinesis Data Streams Apache Flink RANDOM_CUT_FOREST anomaly detection network performance metrics telecommunications real-time least operational overhead">
+    <div class="note-title">📡 Kinesis + Flink + RCF: Anomaly Detection</div>
+    <div class="sub">Real-time network metrics</div>
+    <div class="flow">
+      <div class="flow-box red">Kinesis Streams<br><span class="gy" style="font-size:11px">ingest metrics</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Apache Flink<br><span class="gy" style="font-size:11px">real-time processing</span></div><span class="arrow">→</span>
+      <div class="flow-box green">RCF algorithm<br><span class="gy" style="font-size:11px">detect anomalies</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Kinesis Streams → Flink → <b>RANDOM_CUT_FOREST</b> for anomaly detection</p>
+  </div>
+
+  <!-- Q34 -->
+  <div class="note" data-q="Q34" data-tags="stephanemaarek pt2 genai mlconcepts" data-text="fine-tuning RAG foundation model performance techniques fine-tuning changes weights FM RAG does not change weights retrieval augmented generation">
+    <div class="note-title">🔧 Fine-tuning vs RAG</div>
+    <div class="sub">FM improvement techniques</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Fine-tuning</div><div class="cmp-cell blue">RAG</div>
+      <div class="cmp-cell blue-val"><b>Changes the weights</b> of the FM — modifies model internals</div>
+      <div class="cmp-cell red-val"><b>Does NOT change weights</b> — retrieves external knowledge at inference</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Fine-tuning = modifies FM weights · RAG = external retrieval, no weight changes</p>
+  </div>
+
+  <!-- Q35 -->
+  <div class="note" data-q="Q35" data-tags="stephanemaarek pt2 mlconcepts training" data-text="catastrophic forgetting overfitting retraining early stopping transfer learning incremental L1 regularization feature selection recommendation model degrades over time">
+    <div class="note-title">🧠 Catastrophic Forgetting + Overfitting</div>
+    <div class="sub">Prevent both during retraining</div>
+    <div class="flow">
+      <div class="flow-box red">Early stopping<br><span class="gy" style="font-size:11px">prevent overfitting</span></div><span class="arrow">+</span>
+      <div class="flow-box blue">Transfer learning<br><span class="gy" style="font-size:11px">incremental new data</span></div><span class="arrow">+</span>
+      <div class="flow-box green">L1 regularization<br><span class="gy" style="font-size:11px">feature selection</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Early stopping + transfer learning (incremental) + L1 regularization</p>
+  </div>
+
+  <!-- Q36 -->
+  <div class="note" data-q="Q36" data-tags="stephanemaarek pt2 inference deployment" data-text="multi-model deployment single SageMaker endpoint different update frequencies multiple ML models same infrastructure minimize costs dynamically load serve">
+    <div class="note-title">🏠 Multi-Model Endpoint: Shared Infra</div>
+    <div class="sub">Multiple models, different update frequencies</div>
+    <div class="flow">
+      <div class="flow-box red">Model A (weekly)</div>
+      <div class="flow-box blue" style="margin:0 4px">Model B (daily)</div>
+      <div class="flow-box red">Model C (monthly)</div>
+    </div>
+    <div class="flow" style="margin-top:6px">
+      <div class="flow-box green">Single Multi-Model Endpoint<br><span class="gy" style="font-size:11px">dynamic load + serve</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Multi-model endpoint</b> — all models on one endpoint, no separate endpoints needed</p>
+  </div>
+
+  <!-- Q37 -->
+  <div class="note" data-q="Q37" data-tags="stephanemaarek pt2 mlconcepts" data-text="training set validation set test set correct statements validation sets optional test set generalize select two">
+    <div class="note-title">📊 Train / Val / Test Split Facts</div>
+    <div class="sub">Select two correct statements</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Validation sets are optional</b> — used for HPO, can use cross-validation instead</div>
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Test set</b> determines how well the model generalizes to unseen data</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Validation = optional · Test set = measures generalization</p>
+  </div>
+
+  <!-- Q38 -->
+  <div class="note" data-q="Q38" data-tags="stephanemaarek pt2 data sagemaker" data-text="SageMaker Data Wrangler import Parquet drop unnecessary correlated columns save transformed data 40 MB least effort financial services">
+    <div class="note-title">🔧 Data Wrangler: Drop Parquet Columns</div>
+    <div class="sub">40 MB Parquet with least effort</div>
+    <div class="flow">
+      <div class="flow-box red">40 MB Parquet<br><span class="gy" style="font-size:11px">correlated cols</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Data Wrangler<br><span class="gy" style="font-size:11px">import + drop</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Transformed data<br><span class="gy" style="font-size:11px">saved</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Data Wrangler</b> — import Parquet, drop columns, save — least effort</p>
+  </div>
+
+  <!-- Q39 -->
+  <div class="note" data-q="Q39" data-tags="stephanemaarek pt2 deployment" data-text="blue green deployment versioning rollback customer churn prediction new model version gradual traffic shift revert best practices deployment">
+    <div class="note-title">🔵🟢 Blue/Green: Deployment Best Practice</div>
+    <div class="sub">Versioning + rollback strategy</div>
+    <div class="flow">
+      <div class="flow-box blue">Blue<br><span class="gy" style="font-size:11px">current version</span></div><span class="arrow">→</span>
+      <div class="flow-box red">Traffic shift<br><span class="gy" style="font-size:11px">gradual → new</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Green<br><span class="gy" style="font-size:11px">new version</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Blue/green deployment</b> — parallel versions, gradual shift, rollback ready</p>
+  </div>
+
+  <!-- Q40 -->
+  <div class="note" data-q="Q40" data-tags="stephanemaarek pt2 deployment" data-text="AWS Lambda API Gateway serverless lightweight model creditworthiness minimal latency unpredictable traffic spikes serverless architecture auto-scale">
+    <div class="note-title">⚡ Lambda: Serverless Model Deployment</div>
+    <div class="sub">Lightweight model + unpredictable spikes</div>
+    <div class="flow">
+      <div class="flow-box blue">API Gateway</div><span class="arrow">→</span>
+      <div class="flow-box red">Lambda function<br><span class="gy" style="font-size:11px">model embedded</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Auto-scales<br><span class="gy" style="font-size:11px">real-time predictions</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Lambda + API Gateway</b> — auto-scales with traffic, zero infrastructure management</p>
+  </div>
+
+  <!-- Q41 -->
+  <div class="note" data-q="Q41" data-tags="stephanemaarek pt2 monitoring deployment" data-text="SageMaker Model Monitor data quality drift product recommendation changing customer preferences retrain new training data alert distribution changes select two">
+    <div class="note-title">🔄 Handle Recommendation Drift</div>
+    <div class="sub">Changing customer preferences (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Model Monitor</b><br>detect input data distribution changes → alert</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Retrain</b><br>on new preference data — keep model current</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Model Monitor (detect) + retrain with new data (fix) — select two</p>
+  </div>
+
+  <!-- Q42 -->
+  <div class="note" data-q="Q42" data-tags="stephanemaarek pt2 data" data-text="Kinesis Data Streams Kinesis Data Analytics query near-real-time EC2 reboot data in flight lost JSON on-premises 1MB/s scalable minimal data loss">
+    <div class="note-title">🌊 Kinesis: Near-Real-Time Querying</div>
+    <div class="sub">Durable streaming + analytics</div>
+    <div class="flow">
+      <div class="flow-box red">EC2 → reboot<br><span class="gy" style="font-size:11px">data loss risk</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Kinesis Data Streams<br><span class="gy" style="font-size:11px">durable buffer</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Kinesis Analytics<br><span class="gy" style="font-size:11px">query in near-RT</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Kinesis Data Streams + <b>Kinesis Data Analytics</b> — durable + queryable</p>
+  </div>
+
+  <!-- Q43 -->
+  <div class="note" data-q="Q43" data-tags="stephanemaarek pt2 mlconcepts" data-text="hybrid model weighted average collaborative filtering content-based deep learning personalized recommendations all customer segments ensemble combination">
+    <div class="note-title">🔀 Hybrid Recommendation Model</div>
+    <div class="sub">Combine three approaches</div>
+    <div class="flow">
+      <div class="flow-box blue">Collab Filtering</div><span class="arrow">+</span>
+      <div class="flow-box blue">Content-based</div><span class="arrow">+</span>
+      <div class="flow-box blue">Deep Learning</div><span class="arrow">→</span>
+      <div class="flow-box green">Weighted average<br><span class="gy" style="font-size:11px">by segment</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Hybrid weighted-average model</b> — weights based on performance per customer segment</p>
+  </div>
+
+  <!-- Q44 -->
+  <div class="note" data-q="Q44" data-tags="stephanemaarek pt2 mlconcepts data" data-text="stratified split imbalanced fraud dataset training validation test sets representative distribution fraudulent non-fraudulent three-way split select two">
+    <div class="note-title">📊 Imbalanced Dataset Splits</div>
+    <div class="sub">Effective splitting strategies (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Stratified split</b><br>representative fraud/non-fraud % in each set</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Three-way split</b><br>train / validation / test — proper evaluation</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Stratified split + three-way (train/val/test) split — select two</p>
+  </div>
+
+  <!-- Q45 -->
+  <div class="note" data-q="Q45" data-tags="stephanemaarek pt2 mlconcepts data" data-text="one-hot encoding categorical fabric type Cotton Polyester Silk neural network binary vectors preprocessing fashion retailer">
+    <div class="note-title">🔢 One-Hot Encoding: Categorical Data</div>
+    <div class="sub">Fabric type for neural network</div>
+    <div class="flow">
+      <div class="flow-box red">Cotton / Polyester / Silk<br><span class="gy" style="font-size:11px">nominal categories</span></div><span class="arrow">→</span>
+      <div class="flow-box green">One-hot encoding<br><span class="gy" style="font-size:11px">[1,0,0] [0,1,0] [0,0,1]</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>One-hot encoding</b> — converts nominal categories to binary vectors for NN</p>
+  </div>
+
+  <!-- Q46 -->
+  <div class="note" data-q="Q46" data-tags="stephanemaarek pt2 aiservices" data-text="Amazon Transcribe audio video text Amazon Translate German English Amazon Comprehend sentiment summarize feedback global e-commerce video audio text various languages">
+    <div class="note-title">🌍 Transcribe + Translate + Comprehend</div>
+    <div class="sub">Multilingual feedback pipeline</div>
+    <div class="flow">
+      <div class="flow-box red">Video/audio<br><span class="gy" style="font-size:11px">German</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Transcribe<br><span class="gy" style="font-size:11px">→ DE text</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Translate<br><span class="gy" style="font-size:11px">DE→EN</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Comprehend<br><span class="gy" style="font-size:11px">sentiment</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Transcribe → Translate → Comprehend — full multilingual sentiment pipeline</p>
+  </div>
+
+  <!-- Q47 -->
+  <div class="note" data-q="Q47" data-tags="stephanemaarek pt2 genai mlconcepts" data-text="generative model recreate new images animal ear shapes eye tail skin patterns variables training dataset generate novel">
+    <div class="note-title">🎨 Generative Model: New Image Creation</div>
+    <div class="sub">What generative models can do</div>
+    <p style="font-size:13px;margin:4px 0 8px">Model trained on animal images analyzing ear/eye/tail/skin features</p>
+    <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px">Generative models learn latent distributions → can <b>recreate new images</b> not in training data</div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Model can <b>recreate new animal images</b> not in original training dataset</p>
+  </div>
+
+  <!-- Q48 -->
+  <div class="note" data-q="Q48" data-tags="stephanemaarek pt2 sagemaker data" data-text="SageMaker Data Wrangler Canvas point-and-click visual interface no code business analysts prepare analyze data without writing code">
+    <div class="note-title">👆 Data Wrangler within Canvas</div>
+    <div class="sub">No-code data prep for analysts</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker Canvas<br><span class="gy" style="font-size:11px">no-code ML</span></div><span class="arrow">+</span>
+      <div class="flow-box green">Data Wrangler<br><span class="gy" style="font-size:11px">visual data prep</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Data Wrangler within SageMaker Canvas</b> — point-and-click, no code required</p>
+  </div>
+
+  <!-- Q49 -->
+  <div class="note" data-q="Q49" data-tags="stephanemaarek pt2 sagemaker monitoring" data-text="SageMaker Debugger built-in rules vanishing gradients GPU underutilization overfitting automatic reactions predefined thresholds robotics real-time least overhead">
+    <div class="note-title">🐛 Debugger: Auto-React to Training Issues</div>
+    <div class="sub">Built-in rules + automated reactions</div>
+    <div class="flow">
+      <div class="flow-box red">Training job<br><span class="gy" style="font-size:11px">vanishing grad / GPU util / overfit</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Debugger rules<br><span class="gy" style="font-size:11px">auto-react on threshold</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Debugger</b> with built-in rules — detects + reacts automatically</p>
+  </div>
+
+  <!-- Q50 -->
+  <div class="note" data-q="Q50" data-tags="stephanemaarek pt2 deployment" data-text="Amazon ECR container images EKS orchestrate containers CodePipeline CI/CD pipeline containerize ML model deployment scaling development testing production environments">
+    <div class="note-title">🐳 ECR + EKS + CodePipeline</div>
+    <div class="sub">Containerized ML deployment pipeline</div>
+    <div class="flow">
+      <div class="flow-box red">ECR<br><span class="gy" style="font-size:11px">store images</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">EKS<br><span class="gy" style="font-size:11px">orchestrate</span></div><span class="arrow">→</span>
+      <div class="flow-box green">CodePipeline<br><span class="gy" style="font-size:11px">automate CI/CD</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ ECR (store) + EKS (orchestrate) + CodePipeline (CI/CD) — complete container lifecycle</p>
+  </div>
+
+  <!-- Q51 -->
+  <div class="note" data-q="Q51" data-tags="stephanemaarek pt2 monitoring" data-text="resource tagging AWS Cost Explorer track allocate costs ML projects SageMaker instances S3 buckets Lambda functions project team environment filter cost reports">
+    <div class="note-title">🏷️ Resource Tagging + Cost Explorer</div>
+    <div class="sub">Track costs across ML projects</div>
+    <div class="flow">
+      <div class="flow-box blue">Tag all resources<br><span class="gy" style="font-size:11px">project / team / env</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Cost Explorer<br><span class="gy" style="font-size:11px">filter by tags</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Resource tagging + <b>AWS Cost Explorer</b> filtered by tags — detailed cost reports</p>
+  </div>
+
+  <!-- Q52 -->
+  <div class="note" data-q="Q52" data-tags="stephanemaarek pt2 inference deployment" data-text="SageMaker endpoints fraud detection real-time low latency ECS Amazon batch processing credit scoring Lambda event-triggered marketing model deployment target suitable">
+    <div class="note-title">🎯 Deployment Target by Model Type</div>
+    <div class="sub">Match model to service</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Model</div><div class="cmp-cell blue">Target</div>
+      <div class="cmp-cell blue-val">Fraud (real-time, low latency) → <b>SageMaker endpoints</b><br>Credit scoring (batch) → <b>Amazon ECS</b></div>
+      <div class="cmp-cell red-val">Marketing (event-triggered) → <b>AWS Lambda</b></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ SageMaker endpoint / ECS / Lambda — matched to use case</p>
+  </div>
+
+  <!-- Q53 -->
+  <div class="note" data-q="Q53" data-tags="stephanemaarek pt2 monitoring mlconcepts" data-text="data quality model performance monitoring patient readmission validation rules missing values outliers distribution changes accuracy F1 score output">
+    <div class="note-title">🔍 Data + Model Quality Monitoring</div>
+    <div class="sub">Two-layer monitoring approach</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Input monitoring</b><br>validation rules for missing values, outliers, distribution shifts</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Output monitoring</b><br>accuracy, F1 score — track model prediction quality</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Validate inputs + monitor output metrics</p>
+  </div>
+
+  <!-- Q54 -->
+  <div class="note" data-q="Q54" data-tags="stephanemaarek pt2 aiservices" data-text="Amazon Transcribe convert audio recordings text Amazon Comprehend analyze sentiment travel agency vacation package customer feedback recordings least time">
+    <div class="note-title">🎤 Transcribe + Comprehend: Audio Sentiment</div>
+    <div class="sub">Voice feedback → sentiment analysis</div>
+    <div class="flow">
+      <div class="flow-box red">Audio recordings</div><span class="arrow">→</span>
+      <div class="flow-box blue">Amazon Transcribe<br><span class="gy" style="font-size:11px">→ text</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Amazon Comprehend<br><span class="gy" style="font-size:11px">sentiment</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Transcribe (speech→text) → Comprehend (sentiment) — least effort pipeline</p>
+  </div>
+
+  <!-- Q55 -->
+  <div class="note" data-q="Q55" data-tags="stephanemaarek pt2 security monitoring" data-text="CloudTrail log API calls SageMaker CreateTrainingJob UpdateEndpoint CloudWatch Alarms notify security team unauthorized API calls re-training fraud detection">
+    <div class="note-title">🔐 CloudTrail + CloudWatch: API Audit</div>
+    <div class="sub">Log + alert on unauthorized SageMaker calls</div>
+    <div class="flow">
+      <div class="flow-box red">SageMaker API calls<br><span class="gy" style="font-size:11px">CreateTrainingJob etc.</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">CloudTrail logs</div><span class="arrow">→</span>
+      <div class="flow-box green">CloudWatch Alarm<br><span class="gy" style="font-size:11px">alert security team</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ CloudTrail (audit API) + CloudWatch Alarms (notify on unauthorized calls)</p>
+  </div>
+
+  <!-- Q56 -->
+  <div class="note" data-q="Q56" data-tags="stephanemaarek pt2 inference deployment" data-text="SageMaker auto-scaling endpoint CloudWatch metrics CloudWatch-based scaling policies fluctuating demand occasional peaks low activity minimal management pre-trained AI model">
+    <div class="note-title">📈 Auto-Scaling: Fluctuating Demand</div>
+    <div class="sub">Peaks + long low-activity periods</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker endpoint</div><span class="arrow">+</span>
+      <div class="flow-box green">CloudWatch-based auto-scaling<br><span class="gy" style="font-size:11px">adjust instances dynamically</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ SageMaker endpoint + <b>auto-scaling policies</b> on CloudWatch metrics</p>
+  </div>
+
+  <!-- Q57 -->
+  <div class="note" data-q="Q57" data-tags="stephanemaarek pt2 mlconcepts data" data-text="Feature Engineering selecting modifying creating features raw data improve performance machine learning models enhance model accuracy efficiency">
+    <div class="note-title">⚙️ What is Feature Engineering?</div>
+    <div class="sub">Definition + importance</div>
+    <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;margin:8px 0"><b>Feature Engineering</b> = selecting, modifying, or creating features from raw data to improve ML model performance</div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Selecting + modifying + creating features → significantly enhances accuracy and efficiency</p>
+  </div>
+
+  <!-- Q58 -->
+  <div class="note" data-q="Q58" data-tags="stephanemaarek pt2 monitoring" data-text="AWS X-Ray trace requests bottlenecks end-to-end latency CloudWatch Lambda Insights memory CPU usage invocation times serverless Lambda increased latency performance">
+    <div class="note-title">🔍 X-Ray + Lambda Insights: Latency Debug</div>
+    <div class="sub">Serverless Lambda troubleshooting</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>AWS X-Ray</b><br>trace requests, identify bottlenecks, end-to-end latency</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>CloudWatch Lambda Insights</b><br>memory, CPU, invocation times per function</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ X-Ray (traces) + Lambda Insights (resource metrics) — select two</p>
+  </div>
+
+  <!-- Q59 -->
+  <div class="note" data-q="Q59" data-tags="stephanemaarek pt2 training sagemaker" data-text="Hyperband hyperparameter tuning strategy minimize validation loss least computational effort deep learning SageMaker healthcare">
+    <div class="note-title">⚡ Hyperband HPO Strategy</div>
+    <div class="sub">Least computational effort</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Random Search</div><div class="cmp-cell blue">Hyperband</div>
+      <div class="cmp-cell blue-val">Tries all configurations for full epochs — wasteful</div>
+      <div class="cmp-cell red-val"><b>Early-stops</b> poor performers early, allocates resources to promising ones</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Hyperband</b> — minimize validation loss with least computational effort</p>
+  </div>
+
+  <!-- Q60 -->
+  <div class="note" data-q="Q60" data-tags="stephanemaarek pt2 deployment sagemaker" data-text="CloudFormation IaC SageMaker microservices endpoints S3 versioning maintainable scalable cost-effective ML infrastructure global logistics select three">
+    <div class="note-title">🏗️ Maintainable ML Infrastructure</div>
+    <div class="sub">Three strategies (select three)</div>
+    <div class="flow">
+      <div class="flow-box red">CloudFormation IaC<br><span class="gy" style="font-size:11px">replicate + scale</span></div><span class="arrow">+</span>
+      <div class="flow-box blue">SM microservices<br><span class="gy" style="font-size:11px">isolated endpoints</span></div><span class="arrow">+</span>
+      <div class="flow-box green">S3 versioning<br><span class="gy" style="font-size:11px">rollback artifacts</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ IaC + microservices endpoints + S3 versioning (select three)</p>
+  </div>
+
+  <!-- Q61 -->
+  <div class="note" data-q="Q61" data-tags="stephanemaarek pt2 inference monitoring" data-text="SageMaker Real-Time Inference switch from Asynchronous Inference fraud detection real-time predictions Model Monitor model quality deviations notifications">
+    <div class="note-title">🔄 Switch Async → Real-Time Inference</div>
+    <div class="sub">Fraud detection + quality monitoring</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Before</div><div class="cmp-cell blue">After</div>
+      <div class="cmp-cell blue-val">Asynchronous Inference — high latency, not suitable for real-time fraud</div>
+      <div class="cmp-cell red-val"><b>Real-Time Inference</b> + <b>Model Monitor</b> for quality deviations</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Real-Time Inference (low latency) + Model Monitor (quality alerts)</p>
+  </div>
+
+  <!-- Q62 -->
+  <div class="note" data-q="Q62" data-tags="stephanemaarek pt2 training" data-text="reserved instances real-time predictions high availability spot instances hyperparameter tuning tolerate failure interruptions weekly batch retraining select two instance types">
+    <div class="note-title">💰 Instance Strategy: RT vs HPO</div>
+    <div class="sub">Best use of instance types (select two)</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Real-time predictions</div><div class="cmp-cell blue">HPO tuning jobs</div>
+      <div class="cmp-cell blue-val"><b>Reserved instances</b> — high availability, predictable workload</div>
+      <div class="cmp-cell red-val"><b>Spot instances</b> — can tolerate interruptions, significant savings</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Reserved (RT inference) + Spot (HPO tuning) — select two</p>
+  </div>
+
+  <!-- Q63 -->
+  <div class="note" data-q="Q63" data-tags="stephanemaarek pt2 sagemaker training" data-text="SageMaker Script Mode TensorFlow Estimator API Python training script S3 upload built-in TensorFlow container recommendation model train successfully">
+    <div class="note-title">📜 Script Mode: TensorFlow Training</div>
+    <div class="sub">Use built-in TF container</div>
+    <div class="flow">
+      <div class="flow-box red">Python script<br><span class="gy" style="font-size:11px">TF Estimator API</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Upload to S3</div><span class="arrow">→</span>
+      <div class="flow-box green">Script Mode<br><span class="gy" style="font-size:11px">built-in TF container</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ TF Estimator API script + S3 + <b>Script Mode</b> with built-in TF container</p>
+  </div>
+
+  <!-- Q64 -->
+  <div class="note" data-q="Q64" data-tags="stephanemaarek pt2 data pipeline" data-text="AWS Glue data ingestion pipelines video metadata processing SageMaker Studio Classic ML model deployment pipelines predict audience behavior media analytics">
+    <div class="note-title">🔀 Glue + Studio Classic: Data + ML Pipelines</div>
+    <div class="sub">Separate concerns correctly</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Data ingestion</div><div class="cmp-cell blue">ML deployment</div>
+      <div class="cmp-cell blue-val"><b>AWS Glue</b> — scalable data processing + ingestion pipelines</div>
+      <div class="cmp-cell red-val"><b>SageMaker Studio Classic</b> — manages ML model deployment pipelines</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ AWS Glue (data ingestion) + SageMaker Studio Classic (ML deployment)</p>
+  </div>
+
+  <!-- Q65 -->
+  <div class="note" data-q="Q65" data-tags="stephanemaarek pt2 security" data-text="IAM policies resource-based conditions S3 bucket prefixes data scientist access assigned product category training data single S3 account fine-grained access control notebook">
+    <div class="note-title">🔑 IAM Fine-Grained S3 Access</div>
+    <div class="sub">Per-category data access control</div>
+    <div class="flow">
+      <div class="flow-box red">Data scientist role</div><span class="arrow">→</span>
+      <div class="flow-box blue">IAM policy<br><span class="gy" style="font-size:11px">resource conditions</span></div><span class="arrow">→</span>
+      <div class="flow-box green">S3 prefix<br><span class="gy" style="font-size:11px">assigned category only</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ IAM policies with resource conditions → S3 prefix per category → notebook instance roles</p>
+  </div>
+
+  <!-- ===== End Stephane Maarek PT-2 cards ===== -->
+
+  <!-- Q1 -->
+  <div class="note" data-q="Q1" data-tags="stephanemaarek pt3 sagemaker data" data-text="SageMaker Data Wrangler Feature Store ingest transform store engineered features most efficient preprocessing pipeline data science team">
+    <div class="note-title">🔄 Data Wrangler → Feature Store</div>
+    <div class="sub">Ingest → transform → store features</div>
+    <div class="flow">
+      <div class="flow-box red">Raw data<br><span class="gy" style="font-size:11px">large volumes</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Data Wrangler<br><span class="gy" style="font-size:11px">transform</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Feature Store<br><span class="gy" style="font-size:11px">store for training</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Data Wrangler</b> (ingest + transform) → <b>Feature Store</b> (store engineered features)</p>
+  </div>
+
+  <!-- Q2 -->
+  <div class="note" data-q="Q2" data-tags="stephanemaarek pt3 sagemaker deployment" data-text="SageMaker Model Registry share model Canvas colleague same SageMaker domain S3 permissions model artifacts binary classification external framework select two">
+    <div class="note-title">📤 Share Model to Canvas: Requirements</div>
+    <div class="sub">Two requirements (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Model Registry</b><br>must be registered in SageMaker Model Registry</div>
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>S3 permissions</b><br>Canvas user must have access to S3 bucket with artifacts</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Model Registry + S3 permissions for Canvas user (select two)</p>
+  </div>
+
+  <!-- Q3 -->
+  <div class="note" data-q="Q3" data-tags="stephanemaarek pt3 security sagemaker" data-text="IAM role SageMaker notebook instance s3:GetObject kms:Decrypt SSE-KMS encrypted genomic datasets S3 bucket decrypt best practices select two independent">
+    <div class="note-title">🔐 Notebook: S3 + KMS Decrypt Access</div>
+    <div class="sub">SSE-KMS encrypted data (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Option A:</b> IAM role with <code>s3:GetObject</code> + <code>kms:Decrypt</code> attached to notebook</div>
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Option B:</b> <code>s3:GetObject</code> in IAM + notebook role ARN in KMS key policy for <code>kms:Decrypt</code></div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Two valid paths: IAM role s3+kms or IAM s3 + KMS policy inclusion</p>
+  </div>
+
+  <!-- Q4 -->
+  <div class="note" data-q="Q4" data-tags="stephanemaarek pt3 monitoring sagemaker" data-text="CloudWatch Logs SageMaker endpoint latency error rates Alarms threshold notifications fraud detection real-time predictions high availability low latency troubleshoot">
+    <div class="note-title">📊 CloudWatch: Endpoint Monitoring</div>
+    <div class="sub">Logs + Alarms for latency/errors</div>
+    <div class="flow">
+      <div class="flow-box red">SageMaker endpoint<br><span class="gy" style="font-size:11px">latency + errors</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">CloudWatch Logs<br><span class="gy" style="font-size:11px">detailed logs</span></div><span class="arrow">→</span>
+      <div class="flow-box green">CW Alarms<br><span class="gy" style="font-size:11px">alert team</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ CloudWatch Logs (capture) + Alarms (threshold → notify) for endpoint monitoring</p>
+  </div>
+
+  <!-- Q5 -->
+  <div class="note" data-q="Q5" data-tags="stephanemaarek pt3 data sagemaker" data-text="SageMaker Data Wrangler import datasets merge unified data frame clean preprocess missing values duplicate records outliers transformation efficient preparation">
+    <div class="note-title">🔧 Data Wrangler: Merge + Clean</div>
+    <div class="sub">Multiple datasets → unified clean frame</div>
+    <div class="flow">
+      <div class="flow-box red">Multiple datasets<br><span class="gy" style="font-size:11px">missing/duplicates/outliers</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Data Wrangler<br><span class="gy" style="font-size:11px">import + merge</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Unified clean frame</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Data Wrangler</b> — import, merge, transform all in one tool</p>
+  </div>
+
+  <!-- Q6 -->
+  <div class="note" data-q="Q6" data-tags="stephanemaarek pt3 inference deployment" data-text="SageMaker Serverless Inference provisioned concurrency predictable 90-minute window daily demand forecasting low latency concurrent invocations minimal infrastructure maintenance">
+    <div class="note-title">⚡ Serverless + Provisioned Concurrency</div>
+    <div class="sub">Predictable daily window, managed infra</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Serverless Inference</div><div class="cmp-cell blue">+Provisioned Concurrency</div>
+      <div class="cmp-cell blue-val">Zero infra management, auto-scales, AWS manages everything</div>
+      <div class="cmp-cell red-val">Pre-warmed instances for the 90-min window — eliminates cold starts</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Serverless Inference + provisioned concurrency</b> — managed + warm during window</p>
+  </div>
+
+  <!-- Q7 -->
+  <div class="note" data-q="Q7" data-tags="stephanemaarek pt3 sagemaker pipeline" data-text="SageMaker Pipelines 6TB data automate entire workflow preprocessing transformations model training complex calculations biotechnology drug discovery CSV Parquet JSON scalable">
+    <div class="note-title">🧬 Pipelines: 6TB Complex Workflow</div>
+    <div class="sub">End-to-end automation for large-scale ML</div>
+    <div class="flow">
+      <div class="flow-box red">6TB S3 data<br><span class="gy" style="font-size:11px">CSV/Parquet/JSON</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">SageMaker Pipelines<br><span class="gy" style="font-size:11px">define + automate</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Train + scale</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Pipelines</b> — ML-specific orchestration, complex transforms, efficiency</p>
+  </div>
+
+  <!-- Q8 -->
+  <div class="note" data-q="Q8" data-tags="stephanemaarek pt3 data training" data-text="Amazon EMR SageMaker Studio distributed computing framework big data preprocessing transforming multiple sources scalable distributed processing">
+    <div class="note-title">⚡ EMR in SageMaker Studio</div>
+    <div class="sub">Distributed big data processing</div>
+    <div class="flow">
+      <div class="flow-box red">Big data<br><span class="gy" style="font-size:11px">multiple sources</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Amazon EMR<br><span class="gy" style="font-size:11px">in SM Studio</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon EMR in SageMaker Studio</b> — distributed computing for large-scale data prep</p>
+  </div>
+
+  <!-- Q9 -->
+  <div class="note" data-q="Q9" data-tags="stephanemaarek pt3 inference deployment" data-text="SageMaker Asynchronous Inference endpoint scaling policy Lambda function trigger 40MB images large payload product descriptions fluctuating demand minimize overhead">
+    <div class="note-title">📨 Async Inference: 40MB Images</div>
+    <div class="sub">Large payload + variable demand</div>
+    <div class="flow">
+      <div class="flow-box red">40MB image upload<br><span class="gy" style="font-size:11px">S3</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Lambda trigger<br><span class="gy" style="font-size:11px">inference request</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Async endpoint<br><span class="gy" style="font-size:11px">+ scaling policy</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Async Inference + scaling + Lambda trigger</b> — handles 40MB, adapts to demand</p>
+    <p style="font-size:11px;color:var(--pencil);margin:2px 0">⚠️ Real-time = 6MB max · Serverless = 4MB max · Batch = no image files</p>
+  </div>
+
+  <!-- Q10 -->
+  <div class="note" data-q="Q10" data-tags="stephanemaarek pt3 deployment inference" data-text="production variants weight 0.2 20% traffic new model SageMaker endpoint online validation minimal operational overhead CloudWatch invocations canary shadow testing">
+    <div class="note-title">⚖️ Production Variants: 20% Traffic Split</div>
+    <div class="sub">Online validation without full replacement</div>
+    <div class="flow">
+      <div class="flow-box blue">Existing variant<br><span class="gy" style="font-size:11px">weight 0.8 (80%)</span></div><span class="arrow">+</span>
+      <div class="flow-box green">New variant<br><span class="gy" style="font-size:11px">weight 0.2 (20%)</span></div>
+    </div>
+    <p style="font-size:12px;margin:6px 0 4px;color:var(--pencil)">⚠️ Weights are <b>relative</b> not absolute — use 0.2 vs 0.8, NOT 20 vs 80</p>
+    <p style="margin:2px 0 0;color:var(--green);font-size:13px">✓ <b>Production variants with weight 0.2</b> + CloudWatch to monitor invocations</p>
+  </div>
+
+  <!-- Q11 -->
+  <div class="note" data-q="Q11" data-tags="stephanemaarek pt3 monitoring" data-text="AWS Compute Optimizer EC2 ECS EBS workloads analyze specifications utilization metrics rightsizing recommendations inefficient resources healthcare containerized ML minimal development">
+    <div class="note-title">🔍 Compute Optimizer: Rightsizing</div>
+    <div class="sub">Find inefficient EC2/ECS resources</div>
+    <div class="flow">
+      <div class="flow-box red">EC2 + ECS + Lambda<br><span class="gy" style="font-size:11px">utilization data</span></div><span class="arrow">→</span>
+      <div class="flow-box green">AWS Compute Optimizer<br><span class="gy" style="font-size:11px">actionable recommendations</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>AWS Compute Optimizer</b> — analyzes specs + utilization, specific rightsizing advice</p>
+  </div>
+
+  <!-- Q12 -->
+  <div class="note" data-q="Q12" data-tags="stephanemaarek pt3 mlconcepts data" data-text="feature engineering structured data normalization handling missing values unstructured data tokenization vectorization key difference context machine learning">
+    <div class="note-title">⚙️ Feature Eng: Structured vs Unstructured</div>
+    <div class="sub">Different techniques per data type</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Structured data</div><div class="cmp-cell blue">Unstructured data</div>
+      <div class="cmp-cell blue-val"><b>Normalization</b> + handling missing values</div>
+      <div class="cmp-cell red-val"><b>Tokenization</b> + vectorization</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Structured → normalize/impute · Unstructured → tokenize/vectorize</p>
+  </div>
+
+  <!-- Q13 -->
+  <div class="note" data-q="Q13" data-tags="stephanemaarek pt3 mlconcepts" data-text="bias variance trade-off high bias underfitting high variance overfitting challenge balancing error model complexity incorrect assumptions">
+    <div class="note-title">⚖️ Bias-Variance Trade-Off</div>
+    <div class="sub">Complexity vs generalization</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">High Bias</div><div class="cmp-cell blue">High Variance</div>
+      <div class="cmp-cell blue-val"><b>Underfitting</b> — model too simple, incorrect assumptions</div>
+      <div class="cmp-cell red-val"><b>Overfitting</b> — model too complex, memorizes training data</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ High bias = underfitting · High variance = overfitting · Goal = balance both</p>
+  </div>
+
+  <!-- Q14 -->
+  <div class="note" data-q="Q14" data-tags="stephanemaarek pt3 mlconcepts" data-text="L1 regularization feature selection zero coefficients reduce overfitting simplify model housing prices high variance many features regression L2 lasso ridge">
+    <div class="note-title">📉 L1 Regularization: Feature Selection</div>
+    <div class="sub">Eliminate features via zero coefficients</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">L1 (Lasso)</div><div class="cmp-cell blue">L2 (Ridge)</div>
+      <div class="cmp-cell blue-val">Can shrink coefficients <b>to zero</b> → eliminates features</div>
+      <div class="cmp-cell red-val">Shrinks all coefficients but <b>never to zero</b> — no feature elimination</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>L1 regularization</b> — performs feature selection by zeroing less important features</p>
+  </div>
+
+  <!-- Q15 -->
+  <div class="note" data-q="Q15" data-tags="stephanemaarek pt3 aiservices genai" data-text="Amazon Q Business blocked phrase functionality filter responses outdated unavailable travel destinations customer support chatbot API responses prevent references">
+    <div class="note-title">🚫 Q Business: Blocked Phrases</div>
+    <div class="sub">Filter outdated content from responses</div>
+    <div class="flow">
+      <div class="flow-box red">Q Business query</div><span class="arrow">→</span>
+      <div class="flow-box blue">Blocked phrase filter<br><span class="gy" style="font-size:11px">remove outdated refs</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Clean response</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon Q Business blocked phrase functionality</b> — filter before returning results</p>
+  </div>
+
+  <!-- Q16 -->
+  <div class="note" data-q="Q16" data-tags="stephanemaarek pt3 inference deployment" data-text="SageMaker real-time inference auto-scaling endpoint delivery time prediction high availability low latency input 1KB 5MB unpredictable surges dynamic scaling">
+    <div class="note-title">🚀 Real-Time Inference + Auto-Scaling</div>
+    <div class="sub">High availability, low latency, surges</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Async Inference</div><div class="cmp-cell blue">Real-Time + Auto-Scale</div>
+      <div class="cmp-cell blue-val">Near real-time, not strict low-latency</div>
+      <div class="cmp-cell red-val"><b>Strict low latency + handles surges</b> via auto-scaling</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Real-time inference + auto-scaling endpoint</b> — manage bursts, high availability</p>
+  </div>
+
+  <!-- Q17 -->
+  <div class="note" data-q="Q17" data-tags="stephanemaarek pt3 mlconcepts training" data-text="deep learning model training large datasets adjust weights biases neural network gradient descent minimize error iterations multiple how does training work">
+    <div class="note-title">🧠 Deep Learning: How Training Works</div>
+    <div class="sub">Gradient descent + backpropagation</div>
+    <div class="flow">
+      <div class="flow-box red">Large dataset</div><span class="arrow">→</span>
+      <div class="flow-box blue">Forward pass<br><span class="gy" style="font-size:11px">compute error</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Backprop<br><span class="gy" style="font-size:11px">gradient descent</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Update weights</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Large datasets → adjust weights/biases via gradient descent through multiple iterations</p>
+  </div>
+
+  <!-- Q18 -->
+  <div class="note" data-q="Q18" data-tags="stephanemaarek pt3 training data" data-text="FSx for Lustre file system linked S3 bucket update training job configuration read data directly training performance millions files megabytes SageMaker quick enhance">
+    <div class="note-title">💾 FSx for Lustre: Fast Training I/O</div>
+    <div class="sub">Millions of files → high throughput</div>
+    <div class="flow">
+      <div class="flow-box red">S3 bucket<br><span class="gy" style="font-size:11px">millions of files</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">FSx for Lustre<br><span class="gy" style="font-size:11px">linked to S3</span></div><span class="arrow">→</span>
+      <div class="flow-box green">SageMaker training<br><span class="gy" style="font-size:11px">direct FS access</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>FSx for Lustre linked to S3</b> + update training job to read from FS directly</p>
+  </div>
+
+  <!-- Q19 -->
+  <div class="note" data-q="Q19" data-tags="stephanemaarek pt3 data" data-text="S3 partitioning year month day prefixes Athena query performance Glacier lifecycle policy 90 days archive media streaming logs weekly reports optimize cost efficiency">
+    <div class="note-title">📁 S3 Partitioning + Glacier Lifecycle</div>
+    <div class="sub">Athena query optimization + archival</div>
+    <div class="flow">
+      <div class="flow-box blue">S3 partition by<br><span class="gy" style="font-size:11px">year/month/day</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Athena CTAS<br><span class="gy" style="font-size:11px">partition pruning</span></div>
+    </div>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:6px;font-size:12px;margin-top:6px">S3 Lifecycle policy → transition to <b>Glacier</b> after 90 days</div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Date partitioning + daily prefixes + S3 Lifecycle → Glacier at 90 days</p>
+  </div>
+
+  <!-- Q20 -->
+  <div class="note" data-q="Q20" data-tags="stephanemaarek pt3 inference deployment" data-text="serverless inference endpoint MaxConcurrency 1 once daily evening sales forecast 3.5MB payload 60 seconds completes suitable deployment option retail">
+    <div class="note-title">⚡ Serverless: Once-Daily Forecast</div>
+    <div class="sub">MaxConcurrency=1, 3.5MB, 60s</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Requirement</div><div class="cmp-cell blue">Solution</div>
+      <div class="cmp-cell blue-val">Once/evening · 3.5MB payload · 60s · no persistent infra needed</div>
+      <div class="cmp-cell red-val"><b>Serverless Inference</b> + MaxConcurrency=1 — pay per use, no idle cost</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Serverless inference endpoint</b> with <code>MaxConcurrency=1</code></p>
+  </div>
+
+  <!-- Q21 -->
+  <div class="note" data-q="Q21" data-tags="stephanemaarek pt3 genai mlconcepts" data-text="generative models discriminative models distinction generate new data learned patterns classify data distinguishing classes primary difference generative AI">
+    <div class="note-title">🎨 Generative vs Discriminative Models</div>
+    <div class="sub">Primary distinction</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Generative</div><div class="cmp-cell blue">Discriminative</div>
+      <div class="cmp-cell blue-val">Learns data distribution → <b>generates new data</b> samples</div>
+      <div class="cmp-cell red-val">Learns decision boundaries → <b>classifies</b> by distinguishing classes</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Generative = create new data · Discriminative = classify existing data</p>
+  </div>
+
+  <!-- Q22 -->
+  <div class="note" data-q="Q22" data-tags="stephanemaarek pt3 mlconcepts data" data-text="feature selection hundreds features minimize model error rate most relevant features contribute significantly customer churn feature engineering process selection extraction creation transformation">
+    <div class="note-title">🎯 Feature Selection vs Other Processes</div>
+    <div class="sub">Identify most relevant features</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Process</div><div class="cmp-cell blue">What it does</div>
+      <div class="cmp-cell blue-val"><b>Feature Selection</b> — identify + keep only most relevant features for model</div>
+      <div class="cmp-cell red-val">Feature extraction = reduce dim (PCA) · Creation = new features · Transformation = fix/encode</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Feature selection</b> — focus on features that minimize error rate</p>
+  </div>
+
+  <!-- Q23 -->
+  <div class="note" data-q="Q23" data-tags="stephanemaarek pt3 sagemaker pipeline data" data-text="SageMaker Pipelines EMR callback step execution role policy invoke EMR job flow distributed transformations joins financial services fraud detection weekly select two">
+    <div class="note-title">🔗 Pipelines + EMR: Callback Step</div>
+    <div class="sub">Integrate distributed EMR into SM Pipelines</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Execution role policy</b><br>add policy to allow Pipelines role to invoke EMR job flow</div>
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Callback step</b><br>set up EMR job as callback step within Pipelines workflow</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Role policy + callback step (select two)</p>
+  </div>
+
+  <!-- Q24 -->
+  <div class="note" data-q="Q24" data-tags="stephanemaarek pt3 data sagemaker" data-text="Boto3 AWS SDK Python DynamoDB query SageMaker notebook directly efficient access performance minimize delays model development significant data DynamoDB">
+    <div class="note-title">🐍 Boto3: DynamoDB from Notebook</div>
+    <div class="sub">Efficient direct access to DynamoDB</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker notebook</div><span class="arrow">→</span>
+      <div class="flow-box green">Boto3 (AWS SDK Python)<br><span class="gy" style="font-size:11px">query DynamoDB directly</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Boto3</b> — most efficient direct DynamoDB access from notebook, minimal latency</p>
+    <p style="font-size:11px;color:var(--pencil);margin:2px 0">⚠️ Data Wrangler doesn't support DynamoDB as source</p>
+  </div>
+
+  <!-- Q25 -->
+  <div class="note" data-q="Q25" data-tags="stephanemaarek pt3 mlconcepts sagemaker" data-text="XGBoost built-in algorithm tabular binary classification customer churn thousands rows CSV Amazon S3 supervised learning K-Means BlazingText Linear Learner">
+    <div class="note-title">⚡ XGBoost: Tabular Binary Classification</div>
+    <div class="sub">Best SageMaker built-in for churn prediction</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Alternatives</div><div class="cmp-cell blue">Best Choice</div>
+      <div class="cmp-cell blue-val">K-Means (clustering) · BlazingText (NLP) · Linear Learner (less effective)</div>
+      <div class="cmp-cell red-val"><b>XGBoost</b> — handles tabular, binary classification, highly effective</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>XGBoost (eXtreme Gradient Boosting)</b> for tabular binary classification</p>
+  </div>
+
+  <!-- Q26 -->
+  <div class="note" data-q="Q26" data-tags="stephanemaarek pt3 monitoring" data-text="CloudWatch metrics Lambda function SageMaker fraud detection confidence score email notification select two CloudWatch alarm financial services">
+    <div class="note-title">📧 Lambda Metrics → CloudWatch → Email Alert</div>
+    <div class="sub">Confidence score drop notification</div>
+    <div class="flow">
+      <div class="flow-box blue">Lambda monitors<br><span class="gy" style="font-size:11px">confidence score</span></div><span class="arrow">→</span>
+      <div class="flow-box red">Log to CloudWatch</div><span class="arrow">→</span>
+      <div class="flow-box green">CW Alarm → email<br><span class="gy" style="font-size:11px">score &lt; 80%</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Log metrics to CloudWatch + CloudWatch alarm to send email (select two)</p>
+  </div>
+
+  <!-- Q27 -->
+  <div class="note" data-q="Q27" data-tags="stephanemaarek pt3 sagemaker monitoring" data-text="SageMaker Batch Transform asynchronous large historical datasets Model Monitor track data quality significant changes alerts e-commerce customer purchasing behavior notifications">
+    <div class="note-title">📦 Batch Transform + Model Monitor</div>
+    <div class="sub">Async large dataset + quality tracking</div>
+    <div class="flow">
+      <div class="flow-box red">Large historical dataset</div><span class="arrow">→</span>
+      <div class="flow-box blue">Batch Transform<br><span class="gy" style="font-size:11px">async predictions</span></div><span class="arrow">+</span>
+      <div class="flow-box green">Model Monitor<br><span class="gy" style="font-size:11px">quality + alerts</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Batch Transform</b> (async large data) + <b>Model Monitor</b> (quality + change alerts)</p>
+  </div>
+
+  <!-- Q28 -->
+  <div class="note" data-q="Q28" data-tags="stephanemaarek pt3 security data" data-text="VPC endpoint Amazon S3 primary account cross-account bucket policy secondary account Redshift ML S3 training data secure pipeline no public IPv4 addresses">
+    <div class="note-title">🔒 VPC Endpoint + Cross-Account S3</div>
+    <div class="sub">No public IPv4 for Redshift ML</div>
+    <div class="flow">
+      <div class="flow-box red">Redshift ML<br><span class="gy" style="font-size:11px">primary acct</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">VPC endpoint for S3<br><span class="gy" style="font-size:11px">private comms</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Cross-account bucket policy<br><span class="gy" style="font-size:11px">secondary acct</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ VPC endpoint (private S3 traffic) + cross-account bucket policy (grant access)</p>
+  </div>
+
+  <!-- Q29 -->
+  <div class="note" data-q="Q29" data-tags="stephanemaarek pt3 data sagemaker" data-text="Impute transformation SageMaker Data Wrangler missing values numeric column replace mean fill missing values preparation ML training dataset">
+    <div class="note-title">🔧 Data Wrangler: Impute Missing Values</div>
+    <div class="sub">Replace numeric missing values with mean</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Goal</div><div class="cmp-cell blue">Transformation</div>
+      <div class="cmp-cell blue-val">Replace missing numeric values with column mean</div>
+      <div class="cmp-cell red-val"><b>Impute</b> — fill missing values (Drop = remove rows; Scale = normalize; Encode = categories)</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Impute</b> transformation in Data Wrangler for missing numeric values</p>
+  </div>
+
+  <!-- Q30 -->
+  <div class="note" data-q="Q30" data-tags="stephanemaarek pt3 monitoring" data-text="SageMaker domain user profile tags AWS Budgets alert threshold compute costs ten developers automated alert system notifications SageMaker Studio">
+    <div class="note-title">💰 SageMaker Cost Budget Alert</div>
+    <div class="sub">Tag domain users + Budgets threshold</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker domain<br><span class="gy" style="font-size:11px">add tags to user profiles</span></div><span class="arrow">→</span>
+      <div class="flow-box green">AWS Budgets<br><span class="gy" style="font-size:11px">alert on threshold breach</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Domain-level tags + <b>AWS Budgets</b> — send alert when compute costs exceed threshold</p>
+  </div>
+
+  <!-- Q31 -->
+  <div class="note" data-q="Q31" data-tags="stephanemaarek pt3 genai" data-text="Amazon Bedrock temperature parameter lower top-K limit tokens consistent responses LLM chatbot return policies product details customer service different answers same questions">
+    <div class="note-title">🌡️ Bedrock: Reduce Temperature for Consistency</div>
+    <div class="sub">Same question → same answer</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Temperature ↑ / Top-K ↑</div><div class="cmp-cell blue">Temperature ↓ / Top-K ↓</div>
+      <div class="cmp-cell blue-val">More creative, random, variable responses</div>
+      <div class="cmp-cell red-val"><b>More deterministic</b> — consistent controlled responses</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Lower temperature + lower top-K → consistent, controlled Bedrock responses</p>
+  </div>
+
+  <!-- Q32 -->
+  <div class="note" data-q="Q32" data-tags="stephanemaarek pt3 security" data-text="Secrets Manager Lambda function custom API token rotation every 90 days generic tokens managed rotation only Aurora ECS RDS Redshift not generic tokens">
+    <div class="note-title">🔑 Secrets Manager + Lambda: Token Rotation</div>
+    <div class="sub">Custom rotation for generic API tokens</div>
+    <div class="flow">
+      <div class="flow-box blue">Secrets Manager<br><span class="gy" style="font-size:11px">store API tokens</span></div><span class="arrow">+</span>
+      <div class="flow-box green">Lambda function<br><span class="gy" style="font-size:11px">custom rotation logic</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Secrets Manager + Lambda rotation — Managed Rotation only works for Aurora/RDS/ECS/Redshift</p>
+  </div>
+
+  <!-- Q33 -->
+  <div class="note" data-q="Q33" data-tags="stephanemaarek pt3 security" data-text="NACL network ACL deny rule subnet SageMaker training job block specific IP address malicious traffic VPC public subnet legitimate traffic unaffected">
+    <div class="note-title">🛡️ NACL: Block Malicious IP</div>
+    <div class="sub">Subnet-level IP blocking</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Security Groups</div><div class="cmp-cell blue">NACL</div>
+      <div class="cmp-cell blue-val">Only support <b>allow</b> rules — cannot deny specific IPs</div>
+      <div class="cmp-cell red-val">Supports <b>explicit deny rules</b> — block specific IP at subnet level</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Network ACL (NACL)</b> for the subnet — add deny rule for specific IP address</p>
+  </div>
+
+  <!-- Q34 -->
+  <div class="note" data-q="Q34" data-tags="stephanemaarek pt3 monitoring inference" data-text="CPU memory utilization throughput predictions per second auto-scaling high availability real-time credit scoring loan applications scalability fault tolerance metrics">
+    <div class="note-title">📊 ML Infrastructure Monitoring Strategy</div>
+    <div class="sub">Real-time credit scoring system</div>
+    <div class="flow">
+      <div class="flow-box red">Monitor<br><span class="gy" style="font-size:11px">CPU + memory</span></div><span class="arrow">+</span>
+      <div class="flow-box blue">Track throughput<br><span class="gy" style="font-size:11px">predictions/sec</span></div><span class="arrow">+</span>
+      <div class="flow-box green">Auto-scaling<br><span class="gy" style="font-size:11px">high availability</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ CPU/memory monitoring + throughput tracking + auto-scaling for traffic spikes</p>
+  </div>
+
+  <!-- Q35 -->
+  <div class="note" data-q="Q35" data-tags="stephanemaarek pt3 training inference" data-text="p4d instances NVIDIA A100 GPU training ml.inf1 Inferentia low latency real-time inference deep learning genomic sequences biotechnology compute environment most suitable">
+    <div class="note-title">🚀 p4d GPUs (Train) + Inferentia (Infer)</div>
+    <div class="sub">Large-scale DL training + low-latency inference</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Training</div><div class="cmp-cell blue">Inference</div>
+      <div class="cmp-cell blue-val"><b>p4d instances</b> — NVIDIA A100 GPUs for large-scale deep learning</div>
+      <div class="cmp-cell red-val"><b>ml.inf1 (AWS Inferentia)</b> — optimized for low-latency inference</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ p4d (A100 GPUs) for training · ml.inf1 (Inferentia chips) for inference</p>
+  </div>
+
+  <!-- Q36 -->
+  <div class="note" data-q="Q36" data-tags="stephanemaarek pt3 mlconcepts sagemaker" data-text="F1 score AUC-ROC true positive rates demographic groups fairness bias loan approval model equal performance across age gender ethnicity evaluation metrics">
+    <div class="note-title">⚖️ Fairness: F1 + AUC-ROC + Equal TPR</div>
+    <div class="sub">Performance + bias assessment</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>F1 + AUC-ROC</b><br>measure model performance</div>
+      <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Equal TPR across demographics</b><br>ensures fairness across age/gender/ethnicity</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ F1 + AUC-ROC (performance) + equal true positive rates (fairness)</p>
+  </div>
+
+  <!-- Q37 -->
+  <div class="note" data-q="Q37" data-tags="stephanemaarek pt3 mlconcepts sagemaker" data-text="XGBoost max_depth parameter reduce overfitting training data noise high-risk low-risk patients disease classification performance issues new patient data">
+    <div class="note-title">🌲 XGBoost max_depth: Fix Overfitting</div>
+    <div class="sub">Noisy data causing overfitting</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">High max_depth</div><div class="cmp-cell blue">Lower max_depth</div>
+      <div class="cmp-cell blue-val">Deeper trees memorize noise — great train, poor test</div>
+      <div class="cmp-cell red-val"><b>Reduces tree complexity</b> — prevents fitting noise, better generalization</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Reduce max_depth</b> in XGBoost — prevents overfitting to noisy training data</p>
+  </div>
+
+  <!-- Q38 -->
+  <div class="note" data-q="Q38" data-tags="stephanemaarek pt3 monitoring inference" data-text="CloudWatch invocation latency model error rates CPU utilization Alarms auto-scaling trigger instance count fraud detection high volume real-time latency scaling">
+    <div class="note-title">📈 CloudWatch Alarms + Auto-Scaling</div>
+    <div class="sub">Resolve latency + scaling issues</div>
+    <div class="flow">
+      <div class="flow-box red">Monitor: latency<br><span class="gy" style="font-size:11px">error rates, CPU</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">CW Alarm<br><span class="gy" style="font-size:11px">threshold breached</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Auto-scale<br><span class="gy" style="font-size:11px">↑ instance count</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ CloudWatch metrics + Alarms trigger → auto-scaling handles traffic spikes</p>
+  </div>
+
+  <!-- Q39 -->
+  <div class="note" data-q="Q39" data-tags="stephanemaarek pt3 mlconcepts sagemaker" data-text="Factorization Machines recommendation system personalized product suggestions historical user interaction product views purchases ratings built-in SageMaker algorithm">
+    <div class="note-title">🔢 Factorization Machines: Product Recommendations</div>
+    <div class="sub">User-item interaction data</div>
+    <div class="flow">
+      <div class="flow-box red">Historical interactions<br><span class="gy" style="font-size:11px">views, purchases, ratings</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Factorization Machines<br><span class="gy" style="font-size:11px">sparse high-dim</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Factorization Machines</b> — handles sparse user-item matrices efficiently</p>
+  </div>
+
+  <!-- Q40 -->
+  <div class="note" data-q="Q40" data-tags="stephanemaarek pt3 aiservices" data-text="Amazon Kendra index S3 archived articles semantic search natural language queries document retrieval journalism global news agency efficient">
+    <div class="note-title">🔍 Amazon Kendra: Semantic Search</div>
+    <div class="sub">Natural language queries on S3 articles</div>
+    <div class="flow">
+      <div class="flow-box red">S3 archived articles</div><span class="arrow">→</span>
+      <div class="flow-box blue">Kendra index</div><span class="arrow">→</span>
+      <div class="flow-box green">Natural language<br><span class="gy" style="font-size:11px">semantic search</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon Kendra</b> — index S3, enable semantic search with NL queries efficiently</p>
+  </div>
+
+  <!-- Q41 -->
+  <div class="note" data-q="Q41" data-tags="stephanemaarek pt3 mlconcepts" data-text="K-Means KNN K-Nearest Neighbors algorithms machine learning differentiate unsupervised clustering supervised classification labeled examples proximity">
+    <div class="note-title">🔵 K-Means vs KNN</div>
+    <div class="sub">Clustering vs classification</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">K-Means</div><div class="cmp-cell blue">KNN</div>
+      <div class="cmp-cell blue-val"><b>Unsupervised</b> — groups data points into k clusters, no labels needed</div>
+      <div class="cmp-cell red-val"><b>Supervised</b> — classifies based on proximity to labeled training examples</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ K-Means = unsupervised clustering · KNN = supervised classification</p>
+  </div>
+
+  <!-- Q42 -->
+  <div class="note" data-q="Q42" data-tags="stephanemaarek pt3 security data" data-text="Amazon Macie automatically identify sensitive data S3 PII SSN financial transaction details Lambda remove sensitive data on-premises financial recommendations least operational overhead">
+    <div class="note-title">🔍 Macie + Lambda: PII Detection + Removal</div>
+    <div class="sub">Automated sensitive data handling</div>
+    <div class="flow">
+      <div class="flow-box blue">Amazon Macie<br><span class="gy" style="font-size:11px">scan S3 for PII</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Lambda function<br><span class="gy" style="font-size:11px">remove sensitive data</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon Macie</b> (auto PII detection) + Lambda (remove) — least overhead</p>
+  </div>
+
+  <!-- Q43 -->
+  <div class="note" data-q="Q43" data-tags="stephanemaarek pt3 mlconcepts sagemaker" data-text="PCA dimensionality reduction K-Means cluster analysis Random Cut Forest RCF anomaly detection SageMaker built-in algorithms financial services fraud customer groups">
+    <div class="note-title">📊 PCA + K-Means + RCF: Three Tasks</div>
+    <div class="sub">Match algorithm to use case</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Task</div><div class="cmp-cell blue">Algorithm</div>
+      <div class="cmp-cell blue-val">Dimensionality reduction → <b>PCA</b><br>Cluster analysis → <b>K-Means</b></div>
+      <div class="cmp-cell red-val">Anomaly detection → <b>Random Cut Forest (RCF)</b></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ PCA (dim reduction) + K-Means (clustering) + RCF (anomaly detection)</p>
+  </div>
+
+  <!-- Q44 -->
+  <div class="note" data-q="Q44" data-tags="stephanemaarek pt3 training data" data-text="FSx NetApp ONTAP mount volume SageMaker training instance 8TB object detection images same VPC NFS file system direct access most efficient">
+    <div class="note-title">💾 FSx NetApp ONTAP: Direct Mount</div>
+    <div class="sub">8TB training data in same VPC</div>
+    <div class="flow">
+      <div class="flow-box red">FSx NetApp ONTAP<br><span class="gy" style="font-size:11px">8TB, same VPC</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Mount as volume<br><span class="gy" style="font-size:11px">to SageMaker instance</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Mount FSx for NetApp ONTAP directly</b> as volume — no copying, same VPC access</p>
+  </div>
+
+  <!-- Q45 -->
+  <div class="note" data-q="Q45" data-tags="stephanemaarek pt3 training sagemaker" data-text="SageMaker Script Mode migrate existing PyTorch scripts proprietary medical datasets healthcare research organization least effort minimal changes existing scripts AWS">
+    <div class="note-title">📜 Script Mode: Migrate PyTorch Scripts</div>
+    <div class="sub">Least effort, minimal changes</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Custom BYOC</div><div class="cmp-cell blue">Script Mode</div>
+      <div class="cmp-cell blue-val">Build + maintain custom container — significant development effort</div>
+      <div class="cmp-cell red-val"><b>Import existing PyTorch scripts</b> directly — native PyTorch support, minimal changes</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Script Mode</b> — use existing PyTorch scripts without significant rewrites</p>
+  </div>
+
+  <!-- Q46 -->
+  <div class="note" data-q="Q46" data-tags="stephanemaarek pt3 training" data-text="distributed training same VPC subnet same Region Availability Zone network communication delays multiple GPU instances deep learning medical image slower training select two">
+    <div class="note-title">🌐 Distributed Training: Network Optimization</div>
+    <div class="sub">Minimize network delays (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Same VPC subnet</b><br>minimize inter-node network latency</div>
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Same Region + AZ</b><br>store training data near compute instances</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Same VPC subnet + same Region/AZ for data — select two</p>
+  </div>
+
+  <!-- Q47 -->
+  <div class="note" data-q="Q47" data-tags="stephanemaarek pt3 aiservices security" data-text="Amazon Rekognition face collection authorized personnel Lambda face match S3 upload DynamoDB audit hospital secure areas cameras limited images low overhead select two">
+    <div class="note-title">👁️ Rekognition: Face Collection + Match</div>
+    <div class="sub">Hospital access control (select two)</div>
+    <div class="flow">
+      <div class="flow-box blue">Rekognition<br><span class="gy" style="font-size:11px">face collection</span></div><span class="arrow">+</span>
+      <div class="flow-box red">Lambda trigger<br><span class="gy" style="font-size:11px">on S3 upload</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Face match<br><span class="gy" style="font-size:11px">→ DynamoDB audit</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Rekognition face collection + Lambda (face match on upload → DynamoDB)</p>
+  </div>
+
+  <!-- Q48 -->
+  <div class="note" data-q="Q48" data-tags="stephanemaarek pt3 deployment" data-text="AWS CDK infrastructure as code high-level programming language Amazon EKS Elastic Kubernetes Service containerized microservices orchestration scalability IaC DevOps">
+    <div class="note-title">🏗️ AWS CDK + EKS: IaC + Container Orchestration</div>
+    <div class="sub">Microservices with advanced orchestration</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">CloudFormation</div><div class="cmp-cell blue">AWS CDK + EKS</div>
+      <div class="cmp-cell blue-val">YAML/JSON templates — less flexible for complex setups</div>
+      <div class="cmp-cell red-val"><b>CDK</b> (high-level code) + <b>EKS</b> (advanced Kubernetes orchestration)</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>AWS CDK</b> (programmatic IaC) + <b>Amazon EKS</b> (container orchestration)</p>
+  </div>
+
+  <!-- Q49 -->
+  <div class="note" data-q="Q49" data-tags="stephanemaarek pt3 sagemaker genai" data-text="SageMaker Canvas JumpStart AutoPilot fine-tune LLM large language model medical document summarization low-code no-code LCNC minimal coding operational overhead select three">
+    <div class="note-title">🤖 LCNC LLM Fine-Tuning Options</div>
+    <div class="sub">Three SageMaker services (select three)</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><span class="circle">Canvas</span><br>no-code ML</div>
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><span class="circle blue">JumpStart</span><br>pre-built models</div>
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><span class="circle">AutoPilot</span><br>AutoML</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Canvas + JumpStart + AutoPilot — low/no-code fine-tuning options</p>
+  </div>
+
+  <!-- Q50 -->
+  <div class="note" data-q="Q50" data-tags="stephanemaarek pt3 data" data-text="export z-score normalization recipe AWS Glue DataBrew apply same recipe real-time sales data inference consistent predictions training normalization parameters reuse">
+    <div class="note-title">📋 DataBrew Recipe: Consistent Normalization</div>
+    <div class="sub">Reuse training normalization for inference</div>
+    <div class="flow">
+      <div class="flow-box blue">DataBrew recipe<br><span class="gy" style="font-size:11px">z-score from training</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Export + apply to<br><span class="gy" style="font-size:11px">real-time inference data</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Export DataBrew normalization recipe + apply same params to inference data</p>
+  </div>
+
+  <!-- Q51 -->
+  <div class="note" data-q="Q51" data-tags="stephanemaarek pt3 training inference" data-text="AWS Trainium high-performance cost-effective deep learning training AWS Inferentia inference DL generative AI applications AI hardware optimize migrated cloud">
+    <div class="note-title">🔧 Trainium vs Inferentia</div>
+    <div class="sub">Optimized AI hardware</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Training</div><div class="cmp-cell blue">Inference</div>
+      <div class="cmp-cell blue-val"><b>AWS Trainium</b> — purpose-built for high-performance DL training</div>
+      <div class="cmp-cell red-val"><b>AWS Inferentia</b> — optimized for DL and generative AI inference</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Trainium = training · Inferentia = inference (never swap these)</p>
+  </div>
+
+  <!-- Q52 -->
+  <div class="note" data-q="Q52" data-tags="stephanemaarek pt3 sagemaker pipeline" data-text="Amazon EventBridge S3 bucket event pattern S3 upload event SageMaker pipeline target rule trigger automated pipeline retrain new training data uploaded least operational effort">
+    <div class="note-title">🔔 EventBridge: S3 Upload → Pipeline Trigger</div>
+    <div class="sub">Auto-trigger pipeline on new data</div>
+    <div class="flow">
+      <div class="flow-box red">S3 upload event</div><span class="arrow">→</span>
+      <div class="flow-box blue">EventBridge rule<br><span class="gy" style="font-size:11px">event pattern match</span></div><span class="arrow">→</span>
+      <div class="flow-box green">SageMaker Pipeline<br><span class="gy" style="font-size:11px">as target</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon EventBridge</b> S3 event → rule → SageMaker pipeline target</p>
+    <p style="font-size:11px;color:var(--pencil);margin:2px 0">⚠️ S3 Event Notifications can't target SM Pipelines directly</p>
+  </div>
+
+  <!-- Q53 -->
+  <div class="note" data-q="Q53" data-tags="stephanemaarek pt3 security data sagemaker" data-text="Amazon Comprehend SageMaker Data Wrangler mask sensitive data fields PII social security numbers contact details tabular ordered features structure preserve patient readmission">
+    <div class="note-title">🔒 Comprehend + Data Wrangler: PII Masking</div>
+    <div class="sub">Mask PII, preserve data structure</div>
+    <div class="flow">
+      <div class="flow-box red">Tabular data<br><span class="gy" style="font-size:11px">SSN, contacts</span></div><span class="arrow">→</span>
+      <div class="flow-box blue">Comprehend<br><span class="gy" style="font-size:11px">identify PII</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Data Wrangler<br><span class="gy" style="font-size:11px">mask + transform</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Comprehend (detect PII) + Data Wrangler (mask + prepare) — preserves structure</p>
+  </div>
+
+  <!-- Q54 -->
+  <div class="note" data-q="Q54" data-tags="stephanemaarek pt3 sagemaker monitoring" data-text="SageMaker Clarify governance transparency fairness explainability track audit model decisions compliance credit scores regulatory transparency fairness security ML lifecycle">
+    <div class="note-title">⚖️ SageMaker Clarify: ML Governance</div>
+    <div class="sub">Transparency, fairness, explainability</div>
+    <div class="flow">
+      <div class="flow-box blue">SageMaker Clarify</div><span class="arrow">→</span>
+      <div class="flow-box green">Bias detection<br><span class="gy" style="font-size:11px">+ explainability</span></div><span class="arrow">+</span>
+      <div class="flow-box red">Governance<br><span class="gy" style="font-size:11px">audit + compliance</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>SageMaker Clarify</b> — best for ML governance, fairness, and explainability</p>
+  </div>
+
+  <!-- Q55 -->
+  <div class="note" data-q="Q55" data-tags="stephanemaarek pt3 sagemaker monitoring" data-text="SageMaker Clarify processing job bias explainability analyze model predictions factors influencing decisions stakeholders sentiment analysis endpoint deployed">
+    <div class="note-title">🔬 Clarify: Explain Model Predictions</div>
+    <div class="sub">Analyze bias + decision factors</div>
+    <div class="flow">
+      <div class="flow-box red">Deployed model<br><span class="gy" style="font-size:11px">endpoint</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Clarify processing job<br><span class="gy" style="font-size:11px">bias + explainability</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Configure Clarify processing job</b> — analyzes model for bias and explainability</p>
+  </div>
+
+  <!-- Q56 -->
+  <div class="note" data-q="Q56" data-tags="stephanemaarek pt3 genai sagemaker" data-text="Amazon Bedrock managed service deploying pre-trained foundation models third-party providers SageMaker JumpStart pre-built solutions notebooks algorithms both ML generative AI use cases differences">
+    <div class="note-title">🪨 Bedrock vs JumpStart</div>
+    <div class="sub">Key differences</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Amazon Bedrock</div><div class="cmp-cell blue">SageMaker JumpStart</div>
+      <div class="cmp-cell blue-val"><b>Managed service</b> for deploying pre-trained FMs from various providers (Anthropic, Cohere, etc.)</div>
+      <div class="cmp-cell red-val"><b>Pre-built solutions</b> — models, notebooks, algorithms for both ML and GenAI</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ Bedrock = managed FMs (3rd party) · JumpStart = pre-built solutions + broader ML scope</p>
+  </div>
+
+  <!-- Q57 -->
+  <div class="note" data-q="Q57" data-tags="stephanemaarek pt3 security data" data-text="Redshift dynamic data masking policies obfuscate sensitive columns PII analyst access permitted data no duplication no transformation separate dataset least implementation effort">
+    <div class="note-title">🎭 Redshift Dynamic Data Masking</div>
+    <div class="sub">Column-level PII protection</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Materialized view</div><div class="cmp-cell blue">Dynamic masking</div>
+      <div class="cmp-cell blue-val">Periodic refresh + extra storage — not dynamic, not least effort</div>
+      <div class="cmp-cell red-val"><b>Obfuscates columns dynamically</b> — no duplication, no transformation needed</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Redshift dynamic data masking</b> — column-level, no data duplication, least effort</p>
+  </div>
+
+  <!-- Q58 -->
+  <div class="note" data-q="Q58" data-tags="stephanemaarek pt3 data" data-text="Kinesis Data Firehose Lambda aggregation Managed Apache Flink Kinesis Data Streams clickstream data one-minute intervals page views time spent user session low latency minimal overhead select two">
+    <div class="note-title">🌊 Kinesis: Real-Time Clickstream Aggregation</div>
+    <div class="sub">1-minute aggregation (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Firehose + Lambda</b><br>deliver stream + Lambda aggregates, 1-min buffer → S3</div>
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Managed Apache Flink</b><br>process + aggregate Kinesis Streams in real time → S3</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Firehose+Lambda OR Managed Flink — two valid real-time aggregation approaches</p>
+  </div>
+
+  <!-- Q59 -->
+  <div class="note" data-q="Q59" data-tags="stephanemaarek pt3 mlconcepts" data-text="high recall rare disease false negative miss patient delay treatment severe consequences false positive unnecessary tests less costly model characteristic prioritize healthcare">
+    <div class="note-title">🩺 High Recall: Rare Disease Detection</div>
+    <div class="sub">FN is catastrophic, FP acceptable</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">High Precision</div><div class="cmp-cell blue">High Recall</div>
+      <div class="cmp-cell blue-val">Reduces FP (unnecessary tests) — but increases FN (missed patients)</div>
+      <div class="cmp-cell red-val"><b>Minimizes FN</b> — catches all sick patients, some FP acceptable</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Prioritize high recall</b> — missing a sick patient is far worse than unnecessary testing</p>
+  </div>
+
+  <!-- Q60 -->
+  <div class="note" data-q="Q60" data-tags="stephanemaarek pt3 inference deployment sagemaker" data-text="SageMaker Multi-Model Endpoint scikit-learn models single container single endpoint real-time inference low latency cost-effectively disease risk factors select two">
+    <div class="note-title">🏠 Multi-Model Endpoint + Real-Time</div>
+    <div class="sub">Multiple scikit-learn models (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Multi-Model Endpoint</b><br>host multiple models in one container, one endpoint</div>
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>Real-Time Inference</b><br>low-latency predictions + efficient traffic handling</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Multi-Model Endpoint + Real-Time Inference — select two</p>
+  </div>
+
+  <!-- Q61 -->
+  <div class="note" data-q="Q61" data-tags="stephanemaarek pt3 training sagemaker" data-text="SageMaker Debugger monitor training jobs non-converging conditions terminate early AWS Trainium energy efficiency reduce costs deep learning hardware sustainable fraud detection select two">
+    <div class="note-title">⚡ Debugger + Trainium: Energy-Efficient Training</div>
+    <div class="sub">Reduce energy + compute (select two)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>SageMaker Debugger</b><br>monitor + terminate non-converging jobs early</div>
+      <div style="background:rgba(46,125,50,0.07);border-radius:8px;padding:8px;font-size:13px;flex:1"><b>AWS Trainium instances</b><br>purpose-built DL chips, optimized energy efficiency</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:13px">✓ Debugger (early termination) + Trainium (efficient hardware) — select two</p>
+  </div>
+
+  <!-- Q62 -->
+  <div class="note" data-q="Q62" data-tags="stephanemaarek pt3 mlconcepts" data-text="logistic regression binary classification customer service forecast long-term support historical data supervised learning predict yes no outcome classification">
+    <div class="note-title">📊 Logistic Regression: Binary Classification</div>
+    <div class="sub">Predict long-term support need</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Alternatives</div><div class="cmp-cell blue">Best Choice</div>
+      <div class="cmp-cell blue-val">Linear regression = continuous output · Anomaly detection = outliers · PCA = dim reduction</div>
+      <div class="cmp-cell red-val"><b>Logistic regression</b> — binary classification (will/won't need long-term support)</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Logistic regression</b> — correct for supervised binary classification</p>
+  </div>
+
+  <!-- Q63 -->
+  <div class="note" data-q="Q63" data-tags="stephanemaarek pt3 monitoring sagemaker" data-text="SageMaker Model Monitor track performance real-time prediction accuracy model drift ensure high quality over time deployed production model most suitable service">
+    <div class="note-title">📊 Model Monitor: Production Quality</div>
+    <div class="sub">Track accuracy + drift over time</div>
+    <div class="flow">
+      <div class="flow-box blue">Deployed model</div><span class="arrow">→</span>
+      <div class="flow-box green">SageMaker Model Monitor<br><span class="gy" style="font-size:11px">accuracy + drift</span></div><span class="arrow">→</span>
+      <div class="flow-box red">Alert on issues</div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon SageMaker Model Monitor</b> — purpose-built for prediction quality + drift tracking</p>
+  </div>
+
+  <!-- Q64 -->
+  <div class="note" data-q="Q64" data-tags="stephanemaarek pt3 monitoring" data-text="Amazon QuickSight visual dashboard CloudWatch Logs S3 interactive charts graphs latency accuracy throughput resource utilization technical non-technical users centralized ML monitoring">
+    <div class="note-title">📊 QuickSight: Centralized ML Dashboard</div>
+    <div class="sub">Interactive for all stakeholders</div>
+    <div class="flow">
+      <div class="flow-box blue">CloudWatch Logs<br><span class="gy" style="font-size:11px">→ S3</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Amazon QuickSight<br><span class="gy" style="font-size:11px">interactive charts</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Amazon QuickSight</b> via CloudWatch Logs/S3 — user-friendly for technical + non-technical</p>
+  </div>
+
+  <!-- Q65 -->
+  <div class="note" data-q="Q65" data-tags="stephanemaarek pt3 security data" data-text="AWS Lake Formation tags permissions category-specific tags IAM roles Athena analysts fine-grained access control reduce operational complexity data lake media streaming sports movies documentaries">
+    <div class="note-title">🏷️ Lake Formation Tags: Fine-Grained Access</div>
+    <div class="sub">Category-specific data access via tags</div>
+    <div class="flow">
+      <div class="flow-box blue">Lake Formation<br><span class="gy" style="font-size:11px">define tag-based perms</span></div><span class="arrow">→</span>
+      <div class="flow-box red">Category tags<br><span class="gy" style="font-size:11px">sports/movies/docs</span></div><span class="arrow">→</span>
+      <div class="flow-box green">Analyst IAM roles<br><span class="gy" style="font-size:11px">access assigned category</span></div>
+    </div>
+    <p style="margin:6px 0 0;color:var(--green);font-size:13px">✓ <b>Lake Formation tag-based permissions</b> + associate tags with analyst IAM roles</p>
+  </div>
+
+  <!-- ===== End Stephane Maarek PT-3 cards ===== -->
+
   </div><!-- /notes-grid -->
 
   <footer class="footer">
@@ -8622,20 +10897,11 @@ html[data-theme="dark"] .diagram-meta-tag { color:#aaa; background:rgba(255,255,
 
 </div><!-- /container -->
 
-<!-- Diagram popup overlay -->
-<div id="diagramOverlay">
-  <div id="diagramBox">
-    <div id="diagramHeader">
-      <span id="diagramLabel"></span>
-      <span id="diagramMeta"></span>
-      <button id="diagramClose" onclick="closeDiagram()">✕</button>
-    </div>
-    <img id="diagramImg" src="" alt="Question diagram">
-    <div id="diagramPlaceholder" style="display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:60px 40px;color:#999;font-family:'Patrick Hand',cursive;font-size:18px;text-align:center;">
-      <div style="font-size:48px;">📋</div>
-      <div>Diagram yet to be added</div>
-      <div style="font-size:15px;color:#bbb;">Diagrams coming soon</div>
-    </div>
+<!-- Card zoom popup overlay -->
+<div id="cardOverlay">
+  <button id="cardZoomClose" onclick="closeCardZoom()">✕</button>
+  <div id="cardZoomBox">
+    <div id="cardZoomBody"></div>
   </div>
 </div>
 
@@ -8778,68 +11044,38 @@ document.addEventListener('DOMContentLoaded',function(){
     }
     // Save AFTER mutations so data-orig includes Q-num + badges
     n.setAttribute('data-orig',n.innerHTML);
-    // Attach diagram popup on click
-    if(n.getAttribute('data-q')){
-      n.addEventListener('click',function(e){
-        if(e.target.closest('.chip')||e.target.closest('button')) return;
-        openDiagram(n.getAttribute('data-q'),n.getAttribute('data-tags')||'');
-      });
-    }
+    // Attach card zoom on click for all cards
+    n.addEventListener('click',function(e){
+      if(e.target.closest('button')) return;
+      openCardZoom(n);
+    });
   });
 });
 
-var diagramPageMap={1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:54,11:11,12:56,13:57,14:14,15:15,16:16,17:17,18:62,19:9,20:20,21:21,22:22,23:12,24:24,25:13,26:26,27:27,28:28,29:29,30:30,31:31,32:32,33:33,34:34,35:21,36:22,37:23,38:38,39:25,40:26,41:41,42:42,43:58,44:59,45:42,46:32,47:47,48:48,49:60,50:31,51:44,52:45,53:65,54:46,55:50,56:51,57:47,58:48,59:49,60:52,61:53,62:61,63:24,64:43,65:10};
-function openDiagram(qLabel,tags){
-  var tagList=(tags||'').split(' ');
-  var isPT1=tagList.indexOf('pt1')!==-1;
-  var img=document.getElementById('diagramImg');
-  var ph=document.getElementById('diagramPlaceholder');
-  var num=parseInt(qLabel.replace(/\D/g,''),10);
-  var pad=String(num).padStart(3,'0');
-  if(!isPT1){
-    var ptTag=tagList.filter(function(t){return /^pt\d+$/.test(t);})[0]||'pt2';
-    var ptSrc='diagrams/'+ptTag+'-'+pad+'.png';
-    var testImg=new window.Image();
-    testImg.onload=function(){
-      img.src=ptSrc;
-      img.style.display='block';
-      ph.style.display='none';
-    };
-    testImg.onerror=function(){
-      img.style.display='none';
-      ph.style.display='flex';
-    };
-    testImg.src=ptSrc;
-  } else {
-    img.style.display='block';
-    ph.style.display='none';
-    var page=diagramPageMap[num]||num;
-    var padPT1=String(page).padStart(3,'0');
-    img.src='diagrams/q-'+padPT1+'.png';
-  }
-  document.getElementById('diagramLabel').textContent=qLabel;
-  var metaTags=(tags||'').split(' ').filter(function(t){return authorTagKeys.indexOf(t)!==-1;});
-  var metaEl=document.getElementById('diagramMeta');
-  metaEl.innerHTML='';
-  metaTags.forEach(function(t){
-    var s=document.createElement('span');
-    s.className='diagram-meta-tag';
-    s.textContent=tagLabels[t]||t;
-    metaEl.appendChild(s);
-  });
-  document.getElementById('diagramOverlay').classList.add('open');
+function openCardZoom(cardEl){
+  var body=document.getElementById('cardZoomBody');
+  var orig=cardEl.getAttribute('data-orig')||cardEl.innerHTML;
+  var wrapper=document.createElement('div');
+  wrapper.className='note';
+  // Copy data attributes for styling
+  var tags=cardEl.getAttribute('data-tags')||'';
+  if(tags) wrapper.setAttribute('data-tags',tags);
+  wrapper.innerHTML=orig;
+  body.innerHTML='';
+  body.appendChild(wrapper);
+  document.getElementById('cardOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function closeDiagram(){
-  document.getElementById('diagramOverlay').classList.remove('open');
-  document.getElementById('diagramImg').src='';
+function closeCardZoom(){
+  document.getElementById('cardOverlay').classList.remove('open');
+  document.getElementById('cardZoomBody').innerHTML='';
   document.body.style.overflow='';
 }
-document.getElementById('diagramOverlay').addEventListener('click',function(e){
-  if(e.target===this) closeDiagram();
+document.getElementById('cardOverlay').addEventListener('click',function(e){
+  if(e.target===this) closeCardZoom();
 });
 document.addEventListener('keydown',function(e){
-  if(e.key==='Escape') closeDiagram();
+  if(e.key==='Escape') closeCardZoom();
 });
 </script>
 </body>
