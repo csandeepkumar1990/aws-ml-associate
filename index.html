@@ -176,6 +176,7 @@ html[data-theme="dark"] mark.hl { background:rgba(251,191,36,0.35); color:inheri
       <button class="chip-tab" onclick="setAuthor('nikolaischuler',this)">Nikolai Schuler</button>
       <button class="chip-tab" onclick="setAuthor('stephanemaarek',this)">Stephane Maarek</button>
       <button class="chip-tab" onclick="setAuthor('marlonAnesi',this)">Marlon Anesi</button>
+      <button class="chip-tab" onclick="setAuthor('glossary',this)">📖 Glossary</button>
     </div>
 
     <!-- PT sub-rows -->
@@ -197,6 +198,18 @@ html[data-theme="dark"] mark.hl { background:rgba(251,191,36,0.35); color:inheri
       <button class="chip" onclick="setFilterAnd(['marlonAnesi','pt4'],this)">PT-4</button>
       <button class="chip" onclick="setFilterAnd(['marlonAnesi','pt5'],this)">PT-5</button>
       <button class="chip" onclick="setFilterAnd(['marlonAnesi','pt6'],this)">PT-6</button>
+    </div>
+    <div class="pt-row" id="pt-glossary">
+      <button class="chip" onclick="setFilterAnd(['glossary','mlconcepts'],this)">ML Concepts</button>
+      <button class="chip" onclick="setFilterAnd(['glossary','algorithms'],this)">Algorithms</button>
+      <button class="chip" onclick="setFilterAnd(['glossary','sagemaker'],this)">SageMaker</button>
+      <button class="chip" onclick="setFilterAnd(['glossary','genai'],this)">GenAI</button>
+      <button class="chip" onclick="setFilterAnd(['glossary','data'],this)">Data Eng</button>
+      <button class="chip" onclick="setFilterAnd(['glossary','deployment'],this)">Deployment</button>
+      <button class="chip" onclick="setFilterAnd(['glossary','security'],this)">Security</button>
+      <button class="chip" onclick="setFilterAnd(['glossary','aiservices'],this)">AI Services</button>
+      <button class="chip" onclick="setFilterAnd(['glossary','metrics'],this)">Metrics</button>
+      <button class="chip" onclick="setFilterAnd(['glossary','infrastructure'],this)">Infrastructure</button>
     </div>
 
     <!-- Topics -->
@@ -10889,6 +10902,1219 @@ html[data-theme="dark"] mark.hl { background:rgba(251,191,36,0.35); color:inheri
 
   <!-- ===== End Stephane Maarek PT-3 cards ===== -->
 
+  <!-- ===== Glossary ===== -->
+
+  <!-- ML Concepts -->
+  <div class="note" data-tags="glossary mlconcepts" data-text="l1 regularization lasso sparse weights feature selection penalty zero">
+    <div class="note-title"><span class="note-icon">📖</span> L1 Regularization (Lasso)</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Adds <span class="r">Σ|weights|</span> penalty to loss. Drives <span class="r">some weights to exactly zero</span> → sparse model. Best for <span class="b">feature selection</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 100-feature model → only 20 features survive with non-zero weights</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="l2 regularization ridge penalty shrink weights weight decay evenly">
+    <div class="note-title"><span class="note-icon">📖</span> L2 Regularization (Ridge)</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Adds <span class="r">Σweights²</span> penalty to loss. Shrinks all weights <span class="b">toward zero evenly</span> but never exactly zero. Penalizes large weights more.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Prevents any single feature from dominating — all features kept but dampened</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="elastic net l1 l2 combined regularization sparsity grouping alpha mixing">
+    <div class="note-title"><span class="note-icon">📖</span> Elastic Net</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Combines <span class="r">L1 + L2</span> penalties. Gets <span class="b">sparsity from L1</span> and <span class="b">weight shrinkage from L2</span>. Controlled by α mixing ratio.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Correlated features where you want some zeroing but not too aggressive</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="overfitting memorize training data high variance low bias poor generalization">
+    <div class="note-title"><span class="note-icon">📖</span> Overfitting</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Model <span class="r">memorizes training data</span>, fails to generalize. High <span class="b">variance</span>, low bias. Fix: regularization, dropout, more data, early stopping.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 99% train accuracy, 65% test accuracy — classic sign</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="underfitting too simple high bias low variance model capacity insufficient">
+    <div class="note-title"><span class="note-icon">📖</span> Underfitting</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Model <span class="r">too simple</span> to capture patterns. High <span class="b">bias</span>, low variance. Fix: more features, more complex model, fewer constraints.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Linear model on clearly non-linear data → high error on both train and test</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="bias variance tradeoff underfitting overfitting sweet spot generalization complexity">
+    <div class="note-title"><span class="note-icon">📖</span> Bias-Variance Tradeoff</div>
+    <div class="sub">ML Concepts</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">High Bias</div>
+      <div class="cmp-cell blue">High Variance</div>
+      <div class="cmp-cell blue-val">Underfitting<br><span class="gy" style="font-size:13px">too simple, wrong assumptions</span></div>
+      <div class="cmp-cell red-val">Overfitting<br><span class="gy" style="font-size:13px">too complex, memorizes noise</span></div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Sweet spot = right model complexity for good generalization</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="precision true positive false positive tp fp spam detection correct predictions">
+    <div class="note-title"><span class="note-icon">📖</span> Precision</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">TP / (TP + FP)</span> — of all predicted positives, how many are actually correct? High precision = <span class="b">few false alarms</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Spam filter — optimize precision to avoid flagging legitimate emails</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="recall sensitivity true positive false negative tp fn cancer detection coverage miss">
+    <div class="note-title"><span class="note-icon">📖</span> Recall (Sensitivity)</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">TP / (TP + FN)</span> — of all actual positives, how many did we catch? High recall = <span class="b">few misses</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Cancer screening — optimize recall; missing a real case is far worse than a false alarm</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="f1 score harmonic mean precision recall imbalanced class balanced metric">
+    <div class="note-title"><span class="note-icon">📖</span> F1 Score</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">2 × (Precision × Recall) / (Precision + Recall)</span> — harmonic mean. Use when <span class="b">class imbalance</span> makes accuracy misleading.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Fraud detection (0.1% positive) — 99.9% accuracy is meaningless; F1 is meaningful</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="auc roc area under curve receiver operating characteristic discrimination threshold">
+    <div class="note-title"><span class="note-icon">📖</span> AUC-ROC</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Area Under ROC Curve — model's ability to <span class="b">distinguish classes across all thresholds</span>. <span class="r">0.5</span> = random, <span class="g">1.0</span> = perfect.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: AUC=0.92 → model ranks a random positive above a random negative 92% of the time</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="rmse root mean squared error regression large errors penalized mse">
+    <div class="note-title"><span class="note-icon">📖</span> RMSE / MSE</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">√mean(ŷ−y)²</span> — regression metric. Squaring <span class="b">penalizes large errors more</span> than small ones. Sensitive to outliers.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: A $200k prediction error hurts 4× more than a $100k error (squared)</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="mae mean absolute error regression outlier robust equal penalty">
+    <div class="note-title"><span class="note-icon">📖</span> MAE (Mean Absolute Error)</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">mean|ŷ−y|</span> — regression metric. <span class="b">Treats all errors equally</span>. More robust to outliers than RMSE.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Delivery time prediction — occasional huge delays shouldn't skew the metric</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="gradient descent optimization minimize loss weight update backpropagation sgd adam rmsprop">
+    <div class="note-title"><span class="note-icon">📖</span> Gradient Descent</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Update weights: <span class="r">w = w − lr × ∂L/∂w</span>. Move in direction of <span class="b">negative gradient</span> to minimize loss. Variants: SGD, Adam, RMSProp.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Adam adapts learning rate per-parameter — most common choice in deep learning</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="learning rate step size hyperparameter diverge slow convergence scheduler warm up">
+    <div class="note-title"><span class="note-icon">📖</span> Learning Rate</div>
+    <div class="sub">ML Concepts</div>
+    <div class="flow">
+      <div class="flow-box red">Too High</div><span class="arrow">→</span>
+      <div class="flow-box ink">~0.001</div><span class="arrow">→</span>
+      <div class="flow-box blue">Too Low</div>
+    </div>
+    <p style="font-size:15px;line-height:1.4;margin:4px 0"><span class="r">Loss diverges / explodes</span> &nbsp;|&nbsp; <span class="b">Very slow convergence</span></p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Start at 0.001; use LR scheduler to decay; warm-up for large batch training</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="dropout regularization randomly deactivate neurons training prevent overfitting inference disabled">
+    <div class="note-title"><span class="note-icon">📖</span> Dropout</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Randomly <span class="r">zero out neurons</span> during training with probability p. Forces <span class="b">redundant representations</span>. <span class="gy">Disabled at inference time.</span></p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Dropout(0.5) = 50% of neurons zeroed each step; prevents co-adaptation</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="hyperparameter model parameter difference weights learned training set before configuration">
+    <div class="note-title"><span class="note-icon">📖</span> Hyperparameter vs Model Parameter</div>
+    <div class="sub">ML Concepts</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Hyperparameter</div>
+      <div class="cmp-cell blue">Model Parameter</div>
+      <div class="cmp-cell blue-val"><span class="b">Set before training</span><br>lr, depth, dropout rate, batch size</div>
+      <div class="cmp-cell red-val"><span class="r">Learned during training</span><br>weights, biases, embeddings</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: You set learning_rate=0.01; model learns weights=[−0.3, 0.7, ...]</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="data parallelism distributed training multiple gpus same model different data shards gradients aggregated">
+    <div class="note-title"><span class="note-icon">📖</span> Data Parallelism</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Same model</span> replicated to each GPU; each processes a <span class="b">different data shard</span>. Gradients aggregated (AllReduce) across all GPUs.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: ResNet on 4 GPUs — each handles 25% of the batch simultaneously</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="model parallelism large model split gpus layers pipeline tensor parallel">
+    <div class="note-title"><span class="note-icon">📖</span> Model Parallelism</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Model split across GPUs</span> — layers on different devices. Same batch flows through all GPUs in sequence. Needed when model exceeds single GPU memory.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 70B LLM → layers 1–24 on GPU-1, layers 25–48 on GPU-2</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="boosting sequential ensemble xgboost adaboost gradient boosting error correction weak learner">
+    <div class="note-title"><span class="note-icon">📖</span> Boosting</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Sequential ensemble</span> — each new model focuses on <span class="b">errors of prior models</span>. Combines weak learners → strong learner. Reduces bias.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: XGBoost, AdaBoost, LightGBM — dominant on tabular data competitions</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="bagging bootstrap aggregating random forest parallel ensemble variance reduction independent">
+    <div class="note-title"><span class="note-icon">📖</span> Bagging (Bootstrap Aggregating)</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Parallel ensemble</span> — train models on <span class="b">bootstrapped subsets</span>, average predictions. Reduces <span class="r">variance</span>. Models trained independently.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Random Forest = bagged decision trees with random feature subsets</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="transfer learning pretrained model fine tune reuse weights domain adaptation imagenet">
+    <div class="note-title"><span class="note-icon">📖</span> Transfer Learning</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Take model pre-trained on <span class="r">large dataset</span>, <span class="b">freeze early layers</span>, retrain final layers on your task. Needs far less data and compute.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: ResNet (ImageNet) → freeze backbone → fine-tune classifier for chest X-ray</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="smote synthetic minority oversampling technique class imbalance interpolate generate samples">
+    <div class="note-title"><span class="note-icon">📖</span> SMOTE</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Synthetic Minority Over-sampling Technique</span> — creates new minority class samples by <span class="b">interpolating between existing ones</span> (not just duplicating).</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Fraud (0.1% of data) → SMOTE generates synthetic fraud samples to balance training</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="confusion matrix tp tn fp fn true positive false positive classification evaluation table">
+    <div class="note-title"><span class="note-icon">📖</span> Confusion Matrix</div>
+    <div class="sub">ML Concepts</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Predicted +</div>
+      <div class="cmp-cell blue">Predicted −</div>
+      <div class="cmp-cell blue-val"><span class="g">TP</span> — correctly flagged<br><span class="r">FP</span> — false alarm</div>
+      <div class="cmp-cell red-val"><span class="r">FN</span> — missed positive<br><span class="g">TN</span> — correctly ignored</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: FN (missed fraud) is more costly than FP (false fraud alert) in most cases</p>
+  </div>
+
+  <!-- Algorithms -->
+  <div class="note" data-tags="glossary algorithms" data-text="xgboost gradient boosted trees tabular data missing values regularization classification regression ranking">
+    <div class="note-title"><span class="note-icon">📖</span> XGBoost</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Gradient-boosted decision trees</span>. Handles <span class="b">missing values natively</span>, built-in L1/L2 regularization. Fast and parallelizable.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Classification, regression, ranking — go-to for structured/tabular data</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="k-means clustering unsupervised centroid customer segmentation iterate converge">
+    <div class="note-title"><span class="note-icon">📖</span> K-Means Clustering</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Unsupervised — assigns each point to <span class="r">nearest centroid</span>, then updates centroids. Repeat until convergence. K is a <span class="b">hyperparameter</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Segment customers into K=5 groups by purchase behavior</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="knn k nearest neighbors classification lazy learner distance similarity inference slow">
+    <div class="note-title"><span class="note-icon">📖</span> KNN (K-Nearest Neighbors)</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Classify by finding <span class="r">K closest training points</span>. No training phase (<span class="b">lazy learner</span>). Slow at inference for large datasets; sensitive to scale.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: "Users similar to you also liked..." — recommendation via user similarity</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="random cut forest rcf anomaly detection unsupervised anomaly score iot fraud sagemaker">
+    <div class="note-title"><span class="note-icon">📖</span> Random Cut Forest (RCF)</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Unsupervised <span class="r">anomaly detection</span>. Assigns anomaly score per point — higher score = more anomalous. Works on streaming and batch.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: IoT sensor spike detection, fraud transactions, unusual network traffic</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="factorization machines sparse high dimensional feature interactions ctr click through recommendation">
+    <div class="note-title"><span class="note-icon">📖</span> Factorization Machines</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Handles <span class="r">sparse high-dimensional data</span> with implicit <span class="b">pairwise feature interactions</span>. Efficient where one-hot encoded vectors are huge.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Click-through rate prediction, collaborative filtering recommenders</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="linear learner logistic linear regression binary classification sagemaker fast scale">
+    <div class="note-title"><span class="note-icon">📖</span> Linear Learner</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">SageMaker built-in for <span class="r">linear/logistic regression at scale</span>. Trains multiple models in parallel and selects best. Supports L1/L2 regularization.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Binary classification or regression baseline before trying complex models</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="deepar probabilistic time series forecasting rnn demand uncertainty quantile sagemaker">
+    <div class="note-title"><span class="note-icon">📖</span> DeepAR</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">RNN-based <span class="r">probabilistic time series forecasting</span>. Trains on <span class="b">multiple related time series</span> simultaneously. Outputs quantile predictions (P10/P50/P90).</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Forecast demand for 1,000 SKUs with confidence intervals</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="blazingtext word2vec text classification nlp embeddings sentiment gpu optimized">
+    <div class="note-title"><span class="note-icon">📖</span> BlazingText</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Two modes: <span class="r">Word2Vec</span> (unsupervised word embeddings) and <span class="b">Text Classification</span> (supervised). GPU-accelerated, very fast.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Train word vectors on corpus; or classify news articles into categories</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="lda latent dirichlet allocation topic modeling unsupervised documents themes words mixture">
+    <div class="note-title"><span class="note-icon">📖</span> LDA (Latent Dirichlet Allocation)</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Unsupervised <span class="r">topic modeling</span>. Each document = <span class="b">mixture of topics</span>; each topic = mixture of words. Discovers hidden themes in text.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 10,000 news articles → LDA finds topics: politics, sports, finance, tech, health</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="seq2seq sequence to sequence encoder decoder translation summarization rnn">
+    <div class="note-title"><span class="note-icon">📖</span> Seq2Seq</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Encoder→Decoder</span> architecture. Maps variable-length input sequence to variable-length output. Uses attention mechanism for alignment.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Machine translation (EN→FR), text summarization, chatbots</p>
+  </div>
+
+  <!-- SageMaker -->
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker pipeline dag workflow mlops steps process train evaluate register deploy ci cd">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Pipelines</div>
+    <div class="sub">SageMaker</div>
+    <div class="flow">
+      <div class="flow-box red">Process</div><span class="arrow">→</span>
+      <div class="flow-box blue">Train</div><span class="arrow">→</span>
+      <div class="flow-box ink">Evaluate</div><span class="arrow">→</span>
+      <div class="flow-box green">Register</div>
+    </div>
+    <p style="font-size:15px;margin:4px 0">DAG of reusable steps. Integrates with <span class="b">Model Registry</span>. Supports CI/CD for ML.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: If accuracy &gt; 0.85 → auto-register to Model Registry → trigger deploy</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker clarify bias detection shap explainability pre post training feature importance fairness">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Clarify</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Detects <span class="r">bias pre &amp; post-training</span> and generates <span class="b">SHAP explainability reports</span>. Integrates with Model Monitor for continuous bias checks in production.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Detect if loan model approves men 20% more than women (pre-training bias metric)</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="model monitor data quality concept drift production monitoring schedule baseline statistics">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Model Monitor</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Continuously monitors <span class="r">production endpoints</span> for <span class="b">data quality, model quality, bias &amp; feature attribution drift</span>. Compares to baseline statistics.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Alert when age feature distribution in prod differs from training baseline</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="feature store online offline centralized features reuse real-time batch training sharing">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Feature Store</div>
+    <div class="sub">SageMaker</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Online Store</div>
+      <div class="cmp-cell blue">Offline Store</div>
+      <div class="cmp-cell blue-val"><span class="b">Low-latency</span> real-time lookups<br>for inference</div>
+      <div class="cmp-cell red-val"><span class="r">S3-backed</span> batch access<br>for training</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Feature "user_30d_spend" computed once, shared by fraud + recommendation teams</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="jumpstart one click pretrained models foundation models llama stable diffusion templates hub">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker JumpStart</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Hub of <span class="r">pre-trained models &amp; solution templates</span>. One-click deploy or fine-tune. Includes <span class="b">foundation models</span> (Llama, Stable Diffusion, etc.).</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Deploy Llama 3 to a SageMaker endpoint in minutes without any code</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="autopilot automl automatic model selection hyperparameter tuning no code low code transparent">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Autopilot</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">AutoML</span> — automatically explores algorithms &amp; hyperparameters, generates <span class="b">candidate notebooks</span>. Fully transparent — you can inspect every step.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Upload CSV with target column → Autopilot returns best model + accuracy report</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker debugger training tensors vanishing gradient exploding hooks rules stop">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Debugger</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Captures <span class="r">training tensors</span> (weights, gradients, activations) at intervals. Built-in <span class="b">rules</span> detect vanishing gradients, overfit, class imbalance — can auto-stop job.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Gradient norm drops below 1e-7 → Debugger rule fires → training job paused</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="warm pools keep instances warm reduce startup time repeated training jobs provisioning overhead">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Warm Pools</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Keep compute instances <span class="r">warm between jobs</span> for up to 60 min. Eliminates 3–5 min provisioning overhead for <span class="b">repeated training/HPO runs</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 50-job HPO run — warm pools cut total wall time by 30–40%</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="spot training managed spot ec2 checkpointing cost savings 90 percent interrupted resume">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Spot Training</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Use <span class="r">EC2 Spot instances</span> — up to <span class="b">90% cost reduction</span>. Must configure <span class="r">checkpointing</span> to S3 so training resumes after Spot interruption.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Long overnight run: Spot + checkpoint every 10 min → save 80% vs on-demand</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="script mode byoc bring own container docker custom training framework pytorch tensorflow">
+    <div class="note-title"><span class="note-icon">📖</span> Script Mode / BYOC</div>
+    <div class="sub">SageMaker</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Script Mode</div>
+      <div class="cmp-cell blue">BYOC</div>
+      <div class="cmp-cell blue-val"><span class="b">Your script</span> in SM-managed container<br>PyTorch / TF / sklearn</div>
+      <div class="cmp-cell red-val"><span class="r">Your Docker image</span><br>Any framework or runtime</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Script Mode → drop in train.py; BYOC → fully custom Dockerfile</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="serverless inference auto scale zero pay per call infrequent spiky cold start latency">
+    <div class="note-title"><span class="note-icon">📖</span> Serverless Inference</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Endpoint <span class="r">scales to zero</span> when idle — pay per call. Has <span class="b">cold start latency</span>. Max model 4 GB, max payload 6 MB.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Internal scoring tool used once per night — serverless vs always-on saves $$</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="async inference queue large payload s3 output video audio long running processing 1gb">
+    <div class="note-title"><span class="note-icon">📖</span> Async Inference</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Requests queued; results written to <span class="r">S3</span>. Supports payloads up to <span class="b">1 GB</span>. Endpoint auto-scales to zero when queue is empty.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Upload 500 MB video → get inference result in S3 when processing completes</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="multi model endpoint multiple models one endpoint cost sharing lazy loading s3 cache">
+    <div class="note-title"><span class="note-icon">📖</span> Multi-Model Endpoint</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Host <span class="r">many models</span> on a single endpoint. Models <span class="b">lazy-loaded from S3</span> on first call and cached in memory. Higher first-call latency.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 1,000 per-tenant models on 1 endpoint instead of 1,000 separate endpoints</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="inference recommender benchmark instance type latency cost right sizing endpoint load test">
+    <div class="note-title"><span class="note-icon">📖</span> Inference Recommender</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Benchmarks your model across <span class="r">multiple instance types</span>. Recommends optimal config based on your <span class="b">latency, throughput &amp; cost</span> requirements.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Recommender finds ml.g4dn.xlarge is 40% cheaper than ml.p3 for your workload</p>
+  </div>
+
+  <!-- GenAI -->
+  <div class="note" data-tags="glossary genai" data-text="rag retrieval augmented generation retrieve documents knowledge base llm grounding fresh data">
+    <div class="note-title"><span class="note-icon">📖</span> RAG (Retrieval-Augmented Generation)</div>
+    <div class="sub">GenAI</div>
+    <div class="flow">
+      <div class="flow-box red">Query</div><span class="arrow">→</span>
+      <div class="flow-box blue">Retrieve Docs</div><span class="arrow">→</span>
+      <div class="flow-box green">LLM Answer</div>
+    </div>
+    <p style="font-size:15px;margin:4px 0">No weight updates. <span class="b">Grounds LLM</span> in fresh/private data. Cheaper &amp; faster than fine-tuning.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Employee Q&amp;A bot retrieving answers from internal Confluence docs</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="fine tuning update model weights domain specific training supervised llm behavior style">
+    <div class="note-title"><span class="note-icon">📖</span> Fine-Tuning</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Update model weights</span> on domain-specific data. Changes behavior permanently. Better for <span class="b">tone, style, format</span> changes than for adding new knowledge.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Fine-tune base LLM on medical Q&amp;A pairs → clinical tone + domain accuracy</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="temperature llm randomness sampling deterministic creative output 0 1 token probability">
+    <div class="note-title"><span class="note-icon">📖</span> Temperature</div>
+    <div class="sub">GenAI</div>
+    <div class="flow">
+      <div class="flow-box red">T = 0</div><span class="arrow">→</span>
+      <div class="flow-box ink">T = 0.7</div><span class="arrow">→</span>
+      <div class="flow-box blue">T &gt; 1</div>
+    </div>
+    <p style="font-size:15px;margin:4px 0"><span class="r">Deterministic/greedy</span> &nbsp;|&nbsp; Balanced &nbsp;|&nbsp; <span class="b">Random/chaotic</span></p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Code generation → T=0; Creative brainstorming → T=0.9</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="top-k sampling token selection vocabulary limit static cutoff diverse output next token">
+    <div class="note-title"><span class="note-icon">📖</span> Top-K Sampling</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Sample next token only from <span class="r">top-K most probable tokens</span>. Static cutoff. <span class="b">K=1</span> = greedy (deterministic); higher K = more diverse.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: K=50 → model picks from 50 candidates each step regardless of their probabilities</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="top-p nucleus sampling cumulative probability dynamic cutoff diverse adaptive">
+    <div class="note-title"><span class="note-icon">📖</span> Top-P (Nucleus) Sampling</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Sample from the smallest set of tokens whose <span class="r">cumulative probability ≥ P</span>. <span class="b">Dynamic cutoff</span> — adapts to the distribution at each step.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: P=0.9 → uses 5 tokens when confident, 50+ when uncertain about next word</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="embedding dense vector representation semantic similarity cosine distance search rag">
+    <div class="note-title"><span class="note-icon">📖</span> Embedding</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Dense vector</span> of a text/image/entity. Similar items have <span class="b">similar vectors (small cosine distance)</span>. Foundation for semantic search and RAG retrieval.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: "king" − "man" + "woman" ≈ "queen" — classic Word2Vec vector arithmetic</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="token llm unit subword bpe context window input output 4 characters average">
+    <div class="note-title"><span class="note-icon">📖</span> Token</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Smallest unit of LLM input/output. <span class="r">≈ 4 characters</span> or ¾ of a word on average. <span class="b">Context window</span> = max tokens the model can process at once.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: "tokenization" → ["token","ization"] = 2 tokens; Claude 3.5: 200K token context</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="amazon bedrock managed llm api claude llama titan mistral foundation model serverless">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Bedrock</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Fully managed <span class="r">FM service</span>. Access Claude, Llama, Titan, Mistral via API. Supports <span class="b">fine-tuning, RAG (Knowledge Bases), Agents</span>. No GPU management.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Call Claude 3 via API — pay per token, no infrastructure, no model hosting</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="guardrails bedrock content filter pii redaction deny topic word block harmful safe">
+    <div class="note-title"><span class="note-icon">📖</span> Guardrails for Bedrock</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Apply <span class="r">content filters, PII redaction, topic denial &amp; word blocks</span> to both input prompts and model responses. Works across all Bedrock models.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Block competitor names, redact SSNs, filter violence — all in one guardrail config</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="amazon q business managed rag enterprise internal data sharepoint confluence s3 permissions">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Q Business</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Managed <span class="r">enterprise RAG app</span>. Connects to internal sources (S3, SharePoint, Confluence). Respects <span class="b">source document ACL permissions</span> per user.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: "What's our refund policy?" → Q Business retrieves from internal wiki automatically</p>
+  </div>
+
+  <!-- Data Engineering -->
+  <div class="note" data-tags="glossary data" data-text="kinesis data streams real-time ordered sharded replayable retention 7 days clickstream low latency">
+    <div class="note-title"><span class="note-icon">📖</span> Kinesis Data Streams</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Real-time</span> streaming. <span class="b">Ordered per shard</span>, replayable (24h default, 7d max). You manage shards and consumers. Latency ~70 ms.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Ingest game events → Lambda consumer → real-time leaderboard update</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="kinesis firehose delivery stream s3 redshift managed no consumer buffer compress transform lambda">
+    <div class="note-title"><span class="note-icon">📖</span> Kinesis Data Firehose</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Managed delivery</span> to S3/Redshift/OpenSearch. No consumer code needed. Can <span class="b">buffer, compress &amp; transform</span> via Lambda. Near real-time (60s buffer).</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: App logs → Firehose → S3 (Parquet, gzip) — zero consumer code</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="aws glue serverless etl crawlers spark jobs data catalog schema discovery transform s3 redshift">
+    <div class="note-title"><span class="note-icon">📖</span> AWS Glue</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Serverless <span class="r">ETL service</span>. <span class="b">Crawlers</span> auto-discover schema → populate Data Catalog. <span class="b">Glue Jobs</span> run Spark/Python transforms.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Crawl raw S3 CSV → Glue Job converts to Parquet → Athena queries via catalog</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="glue findmatches record deduplication ml transform entity resolution fuzzy matching labelled">
+    <div class="note-title"><span class="note-icon">📖</span> Glue FindMatches</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">ML-based deduplication</span> Glue transform. Finds matching records without exact key. Learns from <span class="b">labelled match/no-match examples</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Merge "John Smith, 123 Main" and "J. Smith, 123 Main St" as the same entity</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="parquet columnar storage format compression predicate pushdown athena efficient s3 snappy">
+    <div class="note-title"><span class="note-icon">📖</span> Apache Parquet</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Columnar storage format</span>. Efficient compression + <span class="b">predicate pushdown</span> (skip irrelevant row groups). Athena reads only queried columns → lower cost.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: SELECT age FROM 100 GB CSV → full scan; same in Parquet → reads only age column</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="athena serverless sql s3 pay per query scan ctas partition presto reduce cost">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Athena</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Serverless <span class="r">SQL on S3</span> — pay per data scanned. Use <span class="b">CTAS</span> to transform &amp; save query results as new tables. Reduce cost with Parquet + partitions.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: CTAS creates partitioned Parquet table from raw CSV → 10× cheaper future queries</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="lake formation data lake governance row column level security iam permissions cross-account centralized">
+    <div class="note-title"><span class="note-icon">📖</span> AWS Lake Formation</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Centralized <span class="r">data lake governance</span>. Fine-grained <span class="b">row &amp; column-level access control</span> on top of S3 + Glue Catalog. Simplifies cross-account sharing.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Analysts see all columns except SSN; contractors see only aggregated rows</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="macie pii sensitive data s3 ml discovery ssn credit card compliance security automated">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Macie</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">ML-powered service that <span class="r">discovers &amp; classifies PII/sensitive data</span> in S3. Identifies SSNs, credit cards, API keys, custom patterns.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Scan data lake → Macie alerts: "5,000 files contain exposed Social Security Numbers"</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="fsx lustre high performance parallel file system s3 backed training data throughput hpc">
+    <div class="note-title"><span class="note-icon">📖</span> FSx for Lustre</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">High-performance <span class="r">parallel file system</span> backed by S3. Sub-ms latency, hundreds GB/s throughput. Transparently caches S3 data locally for training.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: SageMaker training on 1 TB S3 dataset → mount FSx → 10× faster data loading</p>
+  </div>
+
+  <!-- Deployment & Security -->
+  <div class="note" data-tags="glossary deployment" data-text="blue green deployment zero downtime two environments traffic flip instant rollback switch">
+    <div class="note-title"><span class="note-icon">📖</span> Blue/Green Deployment</div>
+    <div class="sub">Deployment</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Run <span class="r">two identical environments</span> (Blue=live, Green=new). Switch all traffic at once. <span class="b">Instant rollback</span> by flipping back. Zero downtime.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Deploy model v2 to Green → validate → flip DNS → Green becomes new Blue</p>
+  </div>
+
+  <div class="note" data-tags="glossary deployment" data-text="canary deployment gradual traffic shift rolling percentage staged rollout risk reduction">
+    <div class="note-title"><span class="note-icon">📖</span> Canary Deployment</div>
+    <div class="sub">Deployment</div>
+    <div class="flow">
+      <div class="flow-box red">5%</div><span class="arrow">→</span>
+      <div class="flow-box ink">25%</div><span class="arrow">→</span>
+      <div class="flow-box blue">50%</div><span class="arrow">→</span>
+      <div class="flow-box green">100%</div>
+    </div>
+    <p style="font-size:15px;margin:4px 0">Gradually shift traffic to new model. Monitor metrics at each step. Roll back if error rate spikes.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: SageMaker endpoint variant weights: 95% v1 / 5% v2 → shift over hours</p>
+  </div>
+
+  <div class="note" data-tags="glossary deployment" data-text="ab testing shadow testing production variants model comparison experiment traffic split simultaneous">
+    <div class="note-title"><span class="note-icon">📖</span> A/B Testing (Production)</div>
+    <div class="sub">Deployment</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Route <span class="r">live traffic to multiple model variants</span> simultaneously. Compare real-world metrics. Shadow mode = new model gets requests but responses are discarded.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: SageMaker: 50% to model-v1, 50% to model-v2 → compare click-through rates</p>
+  </div>
+
+  <div class="note" data-tags="glossary deployment" data-text="data drift covariate shift input distribution production training mismatch feature change seasonal">
+    <div class="note-title"><span class="note-icon">📖</span> Data Drift (Covariate Shift)</div>
+    <div class="sub">Deployment</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Production <span class="r">input distribution P(X)</span> shifts from training distribution. The model itself may still be correct, but inputs look different.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Age feature: training avg=35, production avg=52 after 6 months → drift alert fires</p>
+  </div>
+
+  <div class="note" data-tags="glossary deployment" data-text="concept drift model drift label relationship change accuracy degrades staleness retraining needed">
+    <div class="note-title"><span class="note-icon">📖</span> Concept Drift</div>
+    <div class="sub">Deployment</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">The relationship <span class="r">P(Y|X) changes</span> over time. Same inputs now have different correct answers. Model accuracy degrades → <span class="b">requires retraining</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Fraud patterns evolve — transactions that were safe in 2023 now signal fraud in 2025</p>
+  </div>
+
+  <div class="note" data-tags="glossary security" data-text="iam role trust policy assume permissions sagemaker s3 access identity principal">
+    <div class="note-title"><span class="note-icon">📖</span> IAM Role + Trust Policy</div>
+    <div class="sub">Security</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Trust Policy</div>
+      <div class="cmp-cell blue">Permission Policy</div>
+      <div class="cmp-cell blue-val"><span class="b">Who can assume</span> this role<br><span class="gy" style="font-size:13px">sagemaker.amazonaws.com</span></div>
+      <div class="cmp-cell red-val"><span class="r">What the role can do</span><br><span class="gy" style="font-size:13px">s3:GetObject, ecr:Pull...</span></div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: SageMaker training job assumes role → role policy grants S3 read on training bucket</p>
+  </div>
+
+  <div class="note" data-tags="glossary security" data-text="vpc endpoint private connection aws service no internet no nat gateway interface gateway s3 dynamodb">
+    <div class="note-title"><span class="note-icon">📖</span> VPC Endpoint</div>
+    <div class="sub">Security</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Interface Endpoint</div>
+      <div class="cmp-cell blue">Gateway Endpoint</div>
+      <div class="cmp-cell blue-val"><span class="b">ENI in subnet</span><br>Most AWS services; costs $$</div>
+      <div class="cmp-cell red-val"><span class="r">Route table entry</span><br>S3 &amp; DynamoDB only; free</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: SageMaker in VPC → S3 Gateway Endpoint → no traffic via public internet</p>
+  </div>
+
+  <div class="note" data-tags="glossary security" data-text="nacl network acl security groups stateless stateful subnet instance vpc firewall rules inbound outbound">
+    <div class="note-title"><span class="note-icon">📖</span> NACL vs Security Groups</div>
+    <div class="sub">Security</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">NACL</div>
+      <div class="cmp-cell blue">Security Group</div>
+      <div class="cmp-cell blue-val"><span class="b">Subnet-level</span>, stateless<br>Need explicit inbound + outbound</div>
+      <div class="cmp-cell red-val"><span class="r">Instance-level</span>, stateful<br>Return traffic auto-allowed</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: NACL blocks port 80 inbound → must also add outbound ephemeral port rule</p>
+  </div>
+
+  <!-- === Glossary: Additional ML Concepts === -->
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="cross validation k-fold cv generalization model evaluation folds train test split">
+    <div class="note-title"><span class="note-icon">📖</span> Cross-Validation (K-Fold)</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Split data into <span class="r">K folds</span>. Train on K-1, validate on 1. Repeat K times, average results. Gives <span class="b">more reliable generalization estimate</span> than a single split.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: K=5 → 5 train/val splits → average validation accuracy = true model quality</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="batch normalization normalize activations layer faster training covariate shift internal">
+    <div class="note-title"><span class="note-icon">📖</span> Batch Normalization</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Normalizes activations of each layer to <span class="r">zero mean, unit variance</span> per mini-batch. Reduces <span class="b">internal covariate shift</span>, allows higher learning rates.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Without BN: need lr=0.0001; with BN: can use lr=0.01 and converge faster</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="early stopping training halt validation loss increase patience overfitting regularization">
+    <div class="note-title"><span class="note-icon">📖</span> Early Stopping</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Stop training when <span class="r">validation loss stops improving</span> for N epochs (patience). Prevents overfitting without explicit regularization. Restore best weights.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: patience=5 → stop if no val_loss improvement for 5 consecutive epochs</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="online learning incremental streaming real-time update model new data concept drift adaptation">
+    <div class="note-title"><span class="note-icon">📖</span> Online Learning (Incremental)</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Model <span class="r">updates continuously</span> as each new data point arrives. Adapts to <span class="b">concept drift</span> without full retraining. Opposite of batch learning.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Fraud model updates after every transaction — adapts to evolving fraud patterns</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="stacking ensemble meta-learner blending level 1 level 2 base models second layer">
+    <div class="note-title"><span class="note-icon">📖</span> Stacking (Ensemble)</div>
+    <div class="sub">ML Concepts</div>
+    <div class="flow">
+      <div class="flow-box red">Model A</div><span class="arrow">+</span>
+      <div class="flow-box blue">Model B</div><span class="arrow">→</span>
+      <div class="flow-box green">Meta-Learner</div>
+    </div>
+    <p style="font-size:15px;margin:4px 0">Base models' predictions become <span class="b">features for a meta-model</span>. Learns how to combine base models optimally.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: XGBoost + RF + LR predictions → Logistic Regression meta-model → final output</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="feature scaling normalization standardization min max z-score range 0 1 mean zero std 1">
+    <div class="note-title"><span class="note-icon">📖</span> Feature Scaling</div>
+    <div class="sub">ML Concepts</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Normalization</div>
+      <div class="cmp-cell blue">Standardization</div>
+      <div class="cmp-cell blue-val">Scale to <span class="b">[0, 1]</span><br>(x − min) / (max − min)</div>
+      <div class="cmp-cell red-val">Scale to <span class="r">mean=0, σ=1</span><br>(x − μ) / σ</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: KNN and SVM need scaling — age=30 vs income=100000 would dominate otherwise</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="data augmentation training images flip rotate crop noise synthesize more data overfit prevent">
+    <div class="note-title"><span class="note-icon">📖</span> Data Augmentation</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Artificially <span class="r">expand training data</span> by applying transforms (flip, rotate, crop, noise, color jitter). Improves <span class="b">generalization</span>, reduces overfitting.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 1000 cat images → augment → 10,000 variants; model sees diverse training examples</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="activation function relu sigmoid softmax nonlinearity neural network hidden layer output">
+    <div class="note-title"><span class="note-icon">📖</span> Activation Functions</div>
+    <div class="sub">ML Concepts</div>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;margin:6px 0;font-size:15px">
+      <span class="r">ReLU</span>: max(0,x) — hidden layers; fast, avoids vanishing gradient<br>
+      <span class="b">Sigmoid</span>: 1/(1+e⁻ˣ) → [0,1] — binary output layer<br>
+      <span class="g">Softmax</span>: exp(xᵢ)/Σexp(x) → probabilities summing to 1 — multiclass output
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Deep network: ReLU in hidden layers, Softmax on final layer for classification</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="pca principal component analysis dimensionality reduction variance explained eigenvectors">
+    <div class="note-title"><span class="note-icon">📖</span> PCA (Dimensionality Reduction)</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Projects data onto <span class="r">principal components</span> (directions of max variance). Reduces dimensions while <span class="b">preserving most information</span>. Unsupervised.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 1000-feature dataset → PCA keeps 50 components explaining 95% of variance</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="cnn convolutional neural network image recognition feature map pooling filters spatial">
+    <div class="note-title"><span class="note-icon">📖</span> CNN (Convolutional Neural Network)</div>
+    <div class="sub">ML Concepts</div>
+    <div class="flow">
+      <div class="flow-box red">Conv Layer</div><span class="arrow">→</span>
+      <div class="flow-box blue">Pooling</div><span class="arrow">→</span>
+      <div class="flow-box green">FC Layer</div>
+    </div>
+    <p style="font-size:15px;margin:4px 0">Learns <span class="b">spatial feature maps</span> via sliding filters. Translation invariant. Best for images.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: ResNet, VGG — image classification, object detection, medical imaging</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="rnn lstm recurrent neural network sequence time series memory hidden state vanishing gradient gru">
+    <div class="note-title"><span class="note-icon">📖</span> RNN / LSTM</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">RNN</span>: processes sequences with hidden state. Suffers vanishing gradients for long sequences. <span class="b">LSTM</span>: adds gates (forget/input/output) to preserve long-range dependencies.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: LSTM for stock price prediction, text generation, speech recognition</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="attention mechanism transformer query key value self-attention context weights sequence model">
+    <div class="note-title"><span class="note-icon">📖</span> Attention Mechanism</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Computes <span class="r">weighted sum of values</span> based on Query-Key similarity. Each token can <span class="b">attend to all other tokens</span> regardless of distance. Foundation of Transformers.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Translating "bank" → attention weights determine if it means river bank or financial bank</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="transformer architecture self-attention encoder decoder positional encoding bert gpt llm">
+    <div class="note-title"><span class="note-icon">📖</span> Transformer Architecture</div>
+    <div class="sub">ML Concepts</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Encoder-only</div>
+      <div class="cmp-cell blue">Decoder-only</div>
+      <div class="cmp-cell blue-val"><span class="b">BERT</span>: understanding tasks<br>classification, NER</div>
+      <div class="cmp-cell red-val"><span class="r">GPT</span>: generation tasks<br>text generation, chatbots</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Encoder+Decoder (T5, BART) → translation, summarization</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="bayesian optimization hpo hyperparameter tuning acquisition function surrogate model efficient">
+    <div class="note-title"><span class="note-icon">📖</span> Bayesian Optimization (HPO)</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Builds a <span class="r">surrogate model</span> of the objective function. Uses prior results to <span class="b">intelligently select next hyperparameters</span>. Far more efficient than grid search.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: SageMaker AMT default strategy — finds best lr/depth in 20 jobs vs 100 for grid search</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="hyperband hpo early stopping resource allocation bracket kill poor configs efficient">
+    <div class="note-title"><span class="note-icon">📖</span> Hyperband (HPO)</div>
+    <div class="sub">ML Concepts</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Allocates <span class="r">small resource budgets</span> to many configs, <span class="b">eliminates poor performers early</span>, promotes promising ones. Much faster than training all to completion.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 100 HPO trials — Hyperband kills 80 after 5 epochs, trains top 20 to 50 epochs</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts" data-text="grid search random search hyperparameter tuning exhaustive combinatorial comparison">
+    <div class="note-title"><span class="note-icon">📖</span> Grid Search vs Random Search</div>
+    <div class="sub">ML Concepts</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Grid Search</div>
+      <div class="cmp-cell blue">Random Search</div>
+      <div class="cmp-cell blue-val">Tries <span class="b">every combination</span><br>Exhaustive, expensive</div>
+      <div class="cmp-cell red-val">Samples <span class="r">randomly</span><br>Faster, often finds good configs</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Random search finds near-optimal in 60 trials vs 1000 for grid (Bergstra & Bengio 2012)</p>
+  </div>
+
+  <!-- === Glossary: Evaluation Metrics === -->
+
+  <div class="note" data-tags="glossary mlconcepts metrics" data-text="r squared coefficient determination regression goodness fit variance explained 1 perfect 0 baseline">
+    <div class="note-title"><span class="note-icon">📖</span> R² (Coefficient of Determination)</div>
+    <div class="sub">Evaluation Metrics</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Proportion of variance <span class="r">explained by the model</span>. <span class="g">R²=1</span>: perfect fit. <span class="r">R²=0</span>: no better than predicting the mean. Can be negative for bad models.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: R²=0.85 → model explains 85% of variance in house prices</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts metrics" data-text="specificity true negative rate tnr recall negative class tn fp select screening">
+    <div class="note-title"><span class="note-icon">📖</span> Specificity (True Negative Rate)</div>
+    <div class="sub">Evaluation Metrics</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">TN / (TN + FP)</span> — of all actual negatives, how many did we correctly reject? Complement of False Positive Rate.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Drug test: specificity=0.95 → 95% of non-users correctly test negative</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts metrics" data-text="log loss binary cross entropy classification probability output calibration penalize confident wrong">
+    <div class="note-title"><span class="note-icon">📖</span> Log Loss (Binary Cross-Entropy)</div>
+    <div class="sub">Evaluation Metrics</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">−(y·log(p) + (1−y)·log(1−p))</span>. Penalizes <span class="b">confident wrong predictions</span> heavily. Used for probability-output classifiers. Lower = better.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Predicting p=0.01 when true label=1 → huge loss; predicting p=0.49 → moderate loss</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts metrics" data-text="bleu score bilingual evaluation understudy machine translation nlp n-gram overlap reference">
+    <div class="note-title"><span class="note-icon">📖</span> BLEU Score</div>
+    <div class="sub">Evaluation Metrics</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Measures <span class="r">n-gram overlap</span> between generated text and reference translations. Range 0–1 (higher = better). Standard for <span class="b">machine translation quality</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: BLEU=0.6 on EN→FR test set → 60% n-gram overlap with human translations</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts metrics" data-text="rouge score recall oriented understudy gisting evaluation summarization overlap recall">
+    <div class="note-title"><span class="note-icon">📖</span> ROUGE Score</div>
+    <div class="sub">Evaluation Metrics</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Measures <span class="r">recall-oriented overlap</span> between generated and reference summaries. ROUGE-N = n-gram recall; <span class="b">ROUGE-L</span> = longest common subsequence.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Evaluate abstractive summarization: ROUGE-1=0.45, ROUGE-2=0.21, ROUGE-L=0.42</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts metrics" data-text="perplexity llm language model evaluation branching factor uncertainty next token prediction lower better">
+    <div class="note-title"><span class="note-icon">📖</span> Perplexity (LLM Metric)</div>
+    <div class="sub">Evaluation Metrics</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Measures how <span class="r">surprised the model is</span> by test text. 2^(cross-entropy loss). <span class="b">Lower = better</span>. Perplexity=10 → model is as uncertain as choosing among 10 equal options.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: GPT-4 perplexity on Penn Treebank ~10; GPT-2: ~35 — lower means better language modeling</p>
+  </div>
+
+  <div class="note" data-tags="glossary mlconcepts metrics" data-text="silhouette score clustering quality cohesion separation k-means evaluate good clusters">
+    <div class="note-title"><span class="note-icon">📖</span> Silhouette Score</div>
+    <div class="sub">Evaluation Metrics</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Measures clustering quality: <span class="r">(b−a) / max(a,b)</span> where a=intra-cluster distance, b=nearest-cluster distance. Range <span class="b">−1 to +1</span>. +1 = perfect clusters.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Compare K=3 vs K=5 K-Means runs — pick K with highest average silhouette score</p>
+  </div>
+
+  <!-- === Glossary: Additional SageMaker === -->
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker data wrangler data preparation gui feature engineering visualize transform no code">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Data Wrangler</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Visual <span class="r">data preparation tool</span> in Studio. Connect to S3/Redshift/Athena, apply 300+ transforms, visualize distributions, export to Pipeline or Feature Store.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Drag-drop to fill missing values, encode categoricals, then export as a Processing Job</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker experiments trackers compare runs hyperparameters metrics artifacts lineage trial">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Experiments & Trackers</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Automatically tracks <span class="r">parameters, metrics &amp; artifacts</span> per training run. Group related runs into an Experiment. Compare across runs in Studio.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 20 HPO trials → Experiments shows lr, accuracy, model artifact for each → pick best</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker model registry version approve deploy stage model package group ci cd governance">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Model Registry</div>
+    <div class="sub">SageMaker</div>
+    <div class="flow">
+      <div class="flow-box red">PendingManualApproval</div><span class="arrow">→</span>
+      <div class="flow-box blue">Approved</div><span class="arrow">→</span>
+      <div class="flow-box green">Deployed</div>
+    </div>
+    <p style="font-size:15px;margin:4px 0">Version, approve and deploy models. Integrates with Pipelines for automated CI/CD.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Pipeline registers model → human approves in Registry → triggers deployment Lambda</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker processing jobs preprocessing postprocessing sklearn spark s3 script large scale">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Processing Jobs</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Run data <span class="r">preprocessing / postprocessing / evaluation</span> scripts on managed compute. Supports sklearn, Spark, custom containers. Pulls from and writes to S3.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Run sklearn preprocessing script on 200 GB S3 dataset without managing servers</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="batch transform offline inference large dataset s3 input output no endpoint cost efficient">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Batch Transform</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Run <span class="r">offline inference</span> on large datasets stored in S3. No persistent endpoint. Input from S3 → transform → output to S3. <span class="b">Cost-efficient for bulk scoring</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Score 10M customer records overnight → results in S3 → no endpoint cost during day</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker neo compile optimize edge device mobile iot latency small footprint">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Neo</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Compiles ML models for <span class="r">specific hardware targets</span> (ARM, x86, NVIDIA, Inferentia). Optimizes for edge/IoT. <span class="b">Up to 2× speedup</span> with no accuracy loss.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Compile ResNet for Raspberry Pi → Neo optimizes for ARM → deploy to IoT fleet</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker ground truth labeling data annotation workforce human review active learning auto label">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Ground Truth</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Managed <span class="r">data labeling service</span>. Uses human annotators (Mechanical Turk, private team) + <span class="b">auto-labeling</span> (ML labels confident examples automatically).</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 100K images — Ground Truth auto-labels 70%, sends remaining 30% to human reviewers</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker profiler bottleneck cpu gpu utilization training performance system metrics step duration">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Profiler</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Captures <span class="r">system metrics</span> (CPU/GPU/memory/I/O) and <span class="b">framework-level profiling</span> (step duration, operator time). Identifies training bottlenecks.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Profiler reveals GPU utilization=40% → bottleneck is data loading, not compute</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker endpoint auto scaling application autoscaling target tracking scaling policy invocations">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Endpoint Auto-Scaling</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Uses <span class="r">Application Auto Scaling</span>. Define min/max instances + scaling policy (target tracking on <span class="b">InvocationsPerInstance</span> metric).</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Target 100 invocations/instance → traffic spikes → auto-scales from 2 to 10 instances</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker studio ide browser based notebooks experiments models pipelines integrated environment">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Studio</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Fully integrated <span class="r">web-based IDE</span> for ML. Single pane of glass for notebooks, experiments, pipelines, models, monitoring, Data Wrangler, and Feature Store.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Open Studio → data prep in Wrangler → train → track in Experiments → register in Registry</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="sagemaker canvas no code visual ml point click business analyst non-technical user autopilot">
+    <div class="note-title"><span class="note-icon">📖</span> SageMaker Canvas</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">No-code ML</span> for business users. Point-and-click UI: upload CSV, pick target column → Canvas runs AutoML, explains results. <span class="b">No coding required</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Business analyst builds churn prediction model without writing a single line of code</p>
+  </div>
+
+  <div class="note" data-tags="glossary sagemaker" data-text="pipe mode streaming s3 training data no download faster start large dataset epoch">
+    <div class="note-title"><span class="note-icon">📖</span> Pipe Mode (SageMaker Training)</div>
+    <div class="sub">SageMaker</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Streams data directly</span> from S3 into the training container via named pipe. No full download needed. <span class="b">Faster start time</span>, handles datasets larger than instance disk.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 500 GB training set — Pipe Mode starts in seconds vs File Mode waits for full download</p>
+  </div>
+
+  <!-- === Glossary: Additional Algorithms === -->
+
+  <div class="note" data-tags="glossary algorithms" data-text="ip insights anomaly detection ip address account user entity suspicious access network">
+    <div class="note-title"><span class="note-icon">📖</span> IP Insights (SageMaker)</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Learns <span class="r">normal IP–entity associations</span>. Flags unusual pairings (e.g. user logging in from a new country). Unsupervised anomaly detection.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: User "alice" always logs in from US; new login from Russia → high anomaly score</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="object2vec general purpose embeddings pairs sentence similarity recommendations classification">
+    <div class="note-title"><span class="note-icon">📖</span> Object2Vec (SageMaker)</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Learns <span class="r">dense embeddings for pairs</span> of objects (sentences, users, items). Encoder-based; flexible input types. Useful for similarity and recommendations.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Encode (user, movie) pairs → learn embedding space → recommend similar movies</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="neural topic model ntm unsupervised topic modeling neural variational inference documents themes">
+    <div class="note-title"><span class="note-icon">📖</span> Neural Topic Model (NTM)</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Neural network approach to <span class="r">unsupervised topic modeling</span>. Like LDA but uses variational autoencoder. More scalable; learns richer topic representations.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Discover latent topics in millions of customer reviews at scale</p>
+  </div>
+
+  <div class="note" data-tags="glossary algorithms" data-text="pca sagemaker built-in dimensionality reduction principal components sparse regular mode">
+    <div class="note-title"><span class="note-icon">📖</span> PCA (SageMaker Built-in)</div>
+    <div class="sub">Algorithms</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">SageMaker's distributed <span class="r">PCA implementation</span>. Two modes: <span class="b">Regular</span> (small/medium datasets) and <span class="b">Randomized</span> (large datasets). Outputs principal components for downstream tasks.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Reduce 500-feature genomics dataset to 30 principal components before classification</p>
+  </div>
+
+  <!-- === Glossary: Additional GenAI === -->
+
+  <div class="note" data-tags="glossary genai" data-text="lora low rank adaptation peft parameter efficient fine tuning adapters freeze weights small">
+    <div class="note-title"><span class="note-icon">📖</span> LoRA / PEFT</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Low-Rank Adaptation</span> — freeze base model weights, inject small trainable rank-decomposition matrices. Trains <span class="b">&lt;1% of parameters</span> vs full fine-tuning. PEFT = family of such methods.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Fine-tune 7B LLM on one GPU in hours instead of days via LoRA adapters</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="rlhf reinforcement learning human feedback reward model ppo alignment helpful harmless honest">
+    <div class="note-title"><span class="note-icon">📖</span> RLHF</div>
+    <div class="sub">GenAI</div>
+    <div class="flow">
+      <div class="flow-box red">SFT</div><span class="arrow">→</span>
+      <div class="flow-box blue">Reward Model</div><span class="arrow">→</span>
+      <div class="flow-box green">PPO Fine-tune</div>
+    </div>
+    <p style="font-size:15px;margin:4px 0"><span class="b">Human preferences</span> train a reward model → RL (PPO) optimizes LLM against it. Makes models helpful, harmless, honest.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: ChatGPT, Claude use RLHF to align with human values and reduce harmful outputs</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="prompt engineering zero shot few shot chain of thought instructions llm guide context">
+    <div class="note-title"><span class="note-icon">📖</span> Prompt Engineering</div>
+    <div class="sub">GenAI</div>
+    <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;margin:6px 0;font-size:15px;line-height:1.5">
+      <span class="b">Zero-shot</span>: no examples, just instruction<br>
+      <span class="r">Few-shot</span>: include 2–5 input/output examples<br>
+      <span class="g">Chain-of-Thought</span>: "think step by step" → better reasoning
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Few-shot with 3 sentiment examples → model classifies new reviews accurately</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="quantization model compression int8 fp16 fp32 reduce size inference faster smaller memory">
+    <div class="note-title"><span class="note-icon">📖</span> Quantization</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Reduce model weight precision: <span class="r">FP32 → FP16 → INT8</span>. Smaller model size + faster inference at minor accuracy cost. Post-training quantization needs no retraining.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: INT8 quantization → 4× smaller model, 2× faster inference, &lt;1% accuracy drop</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="knowledge distillation teacher student model compress small large transfer soft labels">
+    <div class="note-title"><span class="note-icon">📖</span> Knowledge Distillation</div>
+    <div class="sub">GenAI</div>
+    <div class="flow">
+      <div class="flow-box red">Teacher (Large)</div><span class="arrow">→</span>
+      <div class="flow-box green">Student (Small)</div>
+    </div>
+    <p style="font-size:15px;margin:4px 0">Student learns from teacher's <span class="b">soft probability outputs</span> (not just hard labels). Transfers knowledge into a smaller, faster model.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: DistilBERT = 40% smaller than BERT with 97% of its performance via distillation</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="bedrock agents autonomous multi-step tool use action groups api lambda orchestration agentic">
+    <div class="note-title"><span class="note-icon">📖</span> Bedrock Agents</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Orchestrate <span class="r">multi-step tasks</span> using LLMs + tools (Action Groups). Agent decides which API/Lambda to call, executes, and synthesizes final answer. No custom orchestration code.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: "Book a flight for Tuesday" → Agent calls search API, filter API, booking API autonomously</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="bedrock knowledge bases rag vector store managed retrieval opensearch pinecone chunking embedding automatic">
+    <div class="note-title"><span class="note-icon">📖</span> Bedrock Knowledge Bases</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Fully managed <span class="r">RAG pipeline</span>. Ingests documents from S3, chunks, embeds, stores in vector DB (OpenSearch/Pinecone). Retrieves relevant chunks at query time.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Point at S3 bucket of PDFs → Knowledge Base handles chunking + embedding + retrieval</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="vector database semantic search embeddings similarity cosine pinecone opensearch faiss pgvector">
+    <div class="note-title"><span class="note-icon">📖</span> Vector Database</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Stores and indexes <span class="r">high-dimensional embedding vectors</span>. Enables fast <span class="b">approximate nearest-neighbor (ANN) search</span>. Core infrastructure for RAG retrieval.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: OpenSearch k-NN plugin, Pinecone, pgvector — find top-5 semantically similar docs in ms</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="foundation model large pre-trained general purpose fine tune adapt downstream tasks scale">
+    <div class="note-title"><span class="note-icon">📖</span> Foundation Model</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Large model trained on <span class="r">broad data at scale</span>, adaptable to many downstream tasks. Can be fine-tuned or used via prompting. Examples: Claude, Llama, Titan, GPT.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: One foundation model → adapt for Q&amp;A, summarization, code gen, translation via prompting</p>
+  </div>
+
+  <div class="note" data-tags="glossary genai" data-text="bedrock provisioned throughput reserved capacity committed usage model units tokens per minute cost">
+    <div class="note-title"><span class="note-icon">📖</span> Bedrock Provisioned Throughput</div>
+    <div class="sub">GenAI</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Reserve <span class="r">dedicated model capacity</span> (Model Units) for guaranteed throughput. Required for <span class="b">fine-tuned model deployment</span>. Committed term = lower rate.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Production app needing consistent 1000 TPM → provision 2 model units vs on-demand throttling</p>
+  </div>
+
+  <!-- === Glossary: AI Services === -->
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon comprehend nlp entity sentiment key phrase language detection classification custom pii">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Comprehend</div>
+    <div class="sub">AI Services</div>
+    <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;margin:6px 0;font-size:15px;line-height:1.6">
+      <span class="b">Entities</span> — people, places, orgs<br>
+      <span class="b">Sentiment</span> — positive/negative/neutral/mixed<br>
+      <span class="b">Key Phrases</span> — important noun phrases<br>
+      <span class="b">Custom Classification/NER</span> — train on your labels
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Analyze customer support tickets → auto-tag sentiment + extract product names</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon rekognition computer vision image video labels faces text moderation object detection">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Rekognition</div>
+    <div class="sub">AI Services</div>
+    <div style="background:rgba(198,40,40,0.07);border-radius:8px;padding:8px;margin:6px 0;font-size:15px;line-height:1.6">
+      <span class="r">Object/Scene Labels</span> — "dog", "beach", "car"<br>
+      <span class="r">Face Analysis</span> — detect, compare, search faces<br>
+      <span class="r">Text in images</span> — OCR on natural scenes<br>
+      <span class="r">Content Moderation</span> — NSFW/unsafe content
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Media platform — auto-moderate user-uploaded images for inappropriate content</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon transcribe speech to text audio voice call center subtitles custom vocabulary medical">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Transcribe</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Automatic <span class="r">speech-to-text</span> service. Supports custom vocabulary, speaker diarization, PII redaction. <span class="b">Transcribe Medical</span> for clinical speech.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Transcribe call center recordings → feed text to Comprehend for sentiment analysis</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon textract document extraction tables forms key value pairs idp intelligent document processing">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Textract</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Extracts <span class="r">text, tables, forms &amp; key-value pairs</span> from scanned documents. Goes beyond OCR — understands document structure. IDP (intelligent document processing).</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Scan mortgage application PDF → Textract extracts all form fields as structured data</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon polly text to speech neural voice ssml real time streaming mp3 ogg speech synthesis">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Polly</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Converts <span class="r">text to lifelike speech</span>. Neural TTS voices, 60+ languages. Supports SSML for pronunciation control. Real-time streaming or batch MP3.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: E-learning platform — convert lesson text to audio using a natural-sounding neural voice</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon translate neural machine translation 75 languages real-time batch custom terminology">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Translate</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Neural <span class="r">machine translation</span> service. 75+ languages. Supports <span class="b">custom terminology</span> (brand names, technical terms) to preserve exact translations.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Translate product listings to 10 languages; custom terminology keeps brand name unchanged</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon kendra enterprise search intelligent nlp connectors sharepoint s3 confluence relevance">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Kendra</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">ML-powered <span class="r">enterprise intelligent search</span>. Understands natural language questions. Connects to S3, SharePoint, Confluence, Salesforce via connectors.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Employee asks "what's our parental leave policy?" → Kendra finds exact passage in HR docs</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon lookout metrics anomaly detection business kpis timeseries revenue sales clickthrough alert">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Lookout for Metrics</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Automatically detects <span class="r">anomalies in business KPIs</span> (revenue, click-through, inventory). No ML expertise needed. Connects to S3, Redshift, CloudWatch, Salesforce.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Sales drop 40% on Tuesday → Lookout detects anomaly, sends alert with root cause</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon lookout equipment predictive maintenance sensor data industrial iot failure detection vibration temperature">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Lookout for Equipment</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Detects <span class="r">abnormal equipment behavior</span> from sensor data (vibration, temperature, pressure). Learns normal patterns; alerts before failure occurs.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Factory pump vibration sensor → Lookout detects anomaly 2 weeks before bearing failure</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon lookout vision visual inspection defects manufacturing computer vision anomaly image quality">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Lookout for Vision</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Detects <span class="r">visual defects</span> in products using computer vision. Trains on good/defective images. Integrates with manufacturing line cameras.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: PCB inspection line — Lookout detects solder defects at 99.9% accuracy vs human 95%</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon personalize real-time recommendations collaborative filtering user items interactions recipes">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Personalize</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Real-time <span class="r">personalized recommendations</span>. Uses same tech as Amazon.com. Input: users, items, interaction history. Output: ranked recommendations via API.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: E-commerce → "Recommended for you" section — updates in real-time as user browses</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon forecast time series managed deepar xgboost automl weather demand inventory supply chain">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Forecast</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Managed <span class="r">time series forecasting</span> service. AutoML selects best algorithm (DeepAR+, ARIMA, ETS, XGBoost). Handles <span class="b">related time series &amp; metadata</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Supply chain demand forecast with weather, promotions, holidays as covariates</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon fraud detector online fraud ml rules risk score account takeover payment fraud">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Fraud Detector</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Managed <span class="r">online fraud detection</span>. Combines ML models + business rules. Uses Amazon's own fraud detection expertise. Real-time risk scores.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: New account registration → Fraud Detector returns risk score → block if score &gt; threshold</p>
+  </div>
+
+  <div class="note" data-tags="glossary aiservices" data-text="amazon a2i augmented ai human review workflow low confidence loop labeling sagemaker rekognition textract">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon A2I (Augmented AI)</div>
+    <div class="sub">AI Services</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Routes <span class="r">low-confidence ML predictions</span> to human reviewers for verification. Built-in integration with Rekognition, Textract. Custom workflows via SageMaker.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Textract extracts form data with 60% confidence → A2I sends to human to verify</p>
+  </div>
+
+  <!-- === Glossary: Additional Data Engineering === -->
+
+  <div class="note" data-tags="glossary data" data-text="s3 encryption sse-s3 sse-kms sse-c cse client server side aes-256 key management">
+    <div class="note-title"><span class="note-icon">📖</span> S3 Encryption Types</div>
+    <div class="sub">Data Engineering</div>
+    <div style="background:rgba(21,101,192,0.07);border-radius:8px;padding:8px;margin:6px 0;font-size:15px;line-height:1.7">
+      <span class="b">SSE-S3</span>: AWS manages keys (AES-256)<br>
+      <span class="r">SSE-KMS</span>: Customer controls keys via KMS + audit trail<br>
+      <span class="b">SSE-C</span>: You provide key per request<br>
+      <span class="r">CSE</span>: Encrypt before upload (client-side)
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Compliance requiring audit of who accessed key → use SSE-KMS (CloudTrail logs key usage)</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="amazon redshift data warehouse sql columnar storage ml spectrum petabyte analytics olap">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon Redshift</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Managed <span class="r">columnar data warehouse</span>. Petabyte-scale SQL analytics. <span class="b">Redshift Spectrum</span> queries S3 directly. <span class="b">Redshift ML</span> trains models using SageMaker Autopilot from SQL.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: CREATE MODEL in Redshift SQL → trains via Autopilot → PREDICT() in SQL queries</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="kinesis data analytics sql flink real-time stream processing sliding window tumbling aggregation">
+    <div class="note-title"><span class="note-icon">📖</span> Kinesis Data Analytics</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Run <span class="r">real-time SQL or Apache Flink</span> on Kinesis streams. Process, aggregate, and transform streaming data with <span class="b">tumbling/sliding windows</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: 60-second tumbling window → count fraud alerts per minute → alert if &gt; threshold</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="amazon emr apache spark hadoop mapreduce big data processing distributed cluster ec2">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon EMR / Apache Spark</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Managed <span class="r">big data processing</span> cluster. Run Apache Spark, Hive, Presto on EC2. Spark = in-memory distributed processing; <span class="b">100× faster than MapReduce</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Process 10 TB raw clickstream logs with PySpark → output features to S3 for training</p>
+  </div>
+
+  <div class="note" data-tags="glossary data" data-text="cloudwatch metrics logs alarms dashboards monitoring aws resources performance operational">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon CloudWatch</div>
+    <div class="sub">Data Engineering</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">AWS <span class="r">observability service</span> — collects metrics, logs, traces. Set <span class="b">alarms</span> on thresholds (e.g. CPU &gt; 80%), view dashboards, trigger Auto Scaling.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: SageMaker endpoint InvocationsPerInstance &gt; 100 → CloudWatch alarm → trigger scale-out</p>
+  </div>
+
+  <!-- === Glossary: Infrastructure === -->
+
+  <div class="note" data-tags="glossary infrastructure" data-text="cloudformation iac infrastructure as code yaml json stack template provision resources deploy">
+    <div class="note-title"><span class="note-icon">📖</span> AWS CloudFormation</div>
+    <div class="sub">Infrastructure</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px"><span class="r">Infrastructure as Code</span> — define AWS resources in YAML/JSON templates. Provision stacks repeatably. Supports <span class="b">drift detection, change sets, rollback</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Define SageMaker endpoint + IAM role + S3 bucket in one template → deploy to any region</p>
+  </div>
+
+  <div class="note" data-tags="glossary infrastructure" data-text="aws trainium inferentia custom chip accelerator training inference neuron sdk cost ml hardware">
+    <div class="note-title"><span class="note-icon">📖</span> AWS Trainium &amp; Inferentia</div>
+    <div class="sub">Infrastructure</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">Trainium (trn1)</div>
+      <div class="cmp-cell blue">Inferentia (inf2)</div>
+      <div class="cmp-cell blue-val">Optimized for <span class="b">model training</span><br>up to 50% lower cost vs GPU</div>
+      <div class="cmp-cell red-val">Optimized for <span class="r">inference</span><br>high throughput, low latency</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Train LLM on trn1 instances → deploy on inf2 for 30% lower inference cost vs GPU</p>
+  </div>
+
+  <div class="note" data-tags="glossary infrastructure" data-text="sns sqs simple notification service queue pub sub fan out decoupling async messaging routing">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon SNS + SQS</div>
+    <div class="sub">Infrastructure</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">SNS (Pub/Sub)</div>
+      <div class="cmp-cell blue">SQS (Queue)</div>
+      <div class="cmp-cell blue-val"><span class="b">Fan-out</span> to many subscribers<br>push-based, no persistence</div>
+      <div class="cmp-cell red-val"><span class="r">Decouple</span> producers/consumers<br>pull-based, durable, retry</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Prediction done → SNS notifies → SQS queues follow-up jobs for multiple consumers</p>
+  </div>
+
+  <div class="note" data-tags="glossary infrastructure" data-text="eventbridge event bus rules serverless event-driven architecture trigger lambda workflow schedule">
+    <div class="note-title"><span class="note-icon">📖</span> Amazon EventBridge</div>
+    <div class="sub">Infrastructure</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Serverless <span class="r">event bus</span>. Route events from AWS services, SaaS, custom apps to Lambda, Step Functions, etc. via <span class="b">rules with event patterns</span>.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: S3 upload event → EventBridge rule → trigger SageMaker Pipeline for retraining</p>
+  </div>
+
+  <div class="note" data-tags="glossary infrastructure" data-text="kms key management service encryption cmk data key envelope encryption audit cloudtrail">
+    <div class="note-title"><span class="note-icon">📖</span> AWS KMS (Key Management Service)</div>
+    <div class="sub">Infrastructure</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Managed <span class="r">encryption key service</span>. Create/rotate/audit Customer Master Keys (CMKs). Used by S3, SageMaker, EBS for <span class="b">envelope encryption</span>. All usage logged in CloudTrail.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: SageMaker training job encrypts output model with KMS CMK → audit who decrypted it</p>
+  </div>
+
+  <div class="note" data-tags="glossary infrastructure" data-text="step functions workflow orchestration state machine lambda ecs parallel choice retry error catch">
+    <div class="note-title"><span class="note-icon">📖</span> AWS Step Functions</div>
+    <div class="sub">Infrastructure</div>
+    <p style="font-size:17px;line-height:1.5;margin:8px 0 4px">Serverless <span class="r">workflow orchestration</span> via state machines. Chain Lambda, ECS, SageMaker etc. with branching, parallel, retry, and error-catch states.</p>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: ML pipeline: validate data → train → if accuracy &lt; 0.8 retry, else deploy endpoint</p>
+  </div>
+
+  <div class="note" data-tags="glossary infrastructure" data-text="aws config compliance rules configuration change audit drift resource inventory governance">
+    <div class="note-title"><span class="note-icon">📖</span> AWS Config vs CloudWatch</div>
+    <div class="sub">Infrastructure</div>
+    <div class="cmp-grid">
+      <div class="cmp-cell red">AWS Config</div>
+      <div class="cmp-cell blue">CloudWatch</div>
+      <div class="cmp-cell blue-val"><span class="b">Configuration compliance</span><br>"Was encryption ever disabled?"</div>
+      <div class="cmp-cell red-val"><span class="r">Operational metrics</span><br>"Is CPU &gt; 80% right now?"</div>
+    </div>
+    <p style="margin:4px 0 0;color:var(--green);font-size:14px">Ex: Config rule: "S3 buckets must have SSE enabled" → flags non-compliant buckets</p>
+  </div>
+
+  <!-- ===== End Glossary ===== -->
+
   </div><!-- /notes-grid -->
 
   <footer class="footer">
@@ -10993,14 +12219,29 @@ function clearSearch(){
 var tagLabels={
   'nikolaischuler':'Nikolai Schuler','marlonAnesi':'Marlon Anesi',
   'abhisheksingh':'Abhishek Singh','stephanemaarek':'Stephane Maarek',
+  'glossary':'Glossary',
   'pt1':'PT-1','pt2':'PT-2','pt3':'PT-3','pt4':'PT-4','pt5':'PT-5','pt6':'PT-6',
   'sagemaker':'SageMaker','mlconcepts':'ML Concepts','data':'Data Eng',
   'deployment':'Deployment','security':'Security','monitoring':'Monitoring',
   'aiservices':'AI Services','genai':'GenAI','pipeline':'Pipeline',
-  'training':'Training','inference':'Inference'
+  'training':'Training','inference':'Inference','algorithms':'Algorithms',
+  'metrics':'Metrics','infrastructure':'Infrastructure'
 };
-var authorTagKeys=['nikolaischuler','marlonAnesi','abhisheksingh','stephanemaarek','pt1','pt2','pt3','pt4','pt5','pt6'];
+var authorTagKeys=['nikolaischuler','marlonAnesi','abhisheksingh','stephanemaarek','glossary','pt1','pt2','pt3','pt4','pt5','pt6'];
 document.addEventListener('DOMContentLoaded',function(){
+  // Number glossary cards before data-orig is saved
+  var gNum=0;
+  document.querySelectorAll('.note').forEach(function(n){
+    if((n.getAttribute('data-tags')||'').indexOf('glossary')===-1) return;
+    gNum++;
+    var title=n.querySelector('.note-title');
+    if(!title) return;
+    var badge=document.createElement('span');
+    badge.style.cssText='font-size:13px;font-family:monospace;font-weight:400;color:var(--pencil);margin-right:5px;flex-shrink:0;';
+    badge.textContent=gNum+'.';
+    title.insertBefore(badge,title.firstChild);
+  });
+
   var cardNum=0;
   document.querySelectorAll('.note').forEach(function(n){
     cardNum++;
@@ -11022,8 +12263,9 @@ document.addEventListener('DOMContentLoaded',function(){
       qSpan.textContent=n.getAttribute('data-q');
       n.appendChild(qSpan);
     }
-    // Fallback: sequential number
-    if(!hasQNum){
+    // Fallback: sequential number (skip glossary cards — they have their own numbering)
+    var isGlossary=(n.getAttribute('data-tags')||'').indexOf('glossary')!==-1;
+    if(!hasQNum&&!isGlossary){
       var numSpan=document.createElement('span');
       numSpan.className='q-num';
       numSpan.textContent=cardNum;
